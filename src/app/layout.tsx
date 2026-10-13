@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tulyrotools.vercel.app"),
   title: "Tulyro",
   description: "Browser-only tools with no signup and no watermark.",
+  verification: {
+    google: "tJrMNOm9hTGetu1cicfDoSof6pWc3QL-1deNputt3_g",
+  },
   icons: {
     icon: "/favicon.svg",
   },

@@ -8,7 +8,7 @@ const display = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap", variabl
 const mono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--font-mono", weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://tulyrotools.vercel.app"),
   title: "Tulyro",
   description: "Browser-only tools with no signup and no watermark.",
   icons: {

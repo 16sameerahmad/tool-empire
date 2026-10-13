@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ToolDefinition } from "./tools";
 
-export const siteUrl = "https://example.com";
+export const siteUrl = "https://tulyrotools.vercel.app";
 
 /**
  * Date the site content was last substantively updated (YYYY-MM-DD).

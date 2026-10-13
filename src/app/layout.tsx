@@ -9,24 +9,30 @@ const mono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://example.com"),
-  title: "Tool Empire",
+  title: "Tulyro",
   description: "Browser-only tools with no signup and no watermark.",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "Tool Empire",
+    title: "Tulyro",
     description: "Browser-only tools with no signup and no watermark.",
-    siteName: "Tool Empire",
+    siteName: "Tulyro",
     type: "website",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Tool Empire — Free browser-only tools. No signup. No watermark.",
+        alt: "Tulyro — Free browser-only tools. No signup. No watermark.",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tulyro",
+    description: "Browser-only tools with no signup and no watermark.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: isProductionDeployment,

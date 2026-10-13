@@ -8,8 +8,13 @@ import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
 import { ToolCard } from "@/components/ToolCard";
 import { getTool } from "@/lib/tools";
+import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Free Browser Tools | Tool Empire", description: "Free browser-only calculators, text tools, developer tools, and generators with no signup or watermark." };
+export const metadata: Metadata = {
+  title: "Free Browser Tools | Tulyro",
+  description: "Free browser-only calculators, text tools, developer tools, and generators with no signup or watermark.",
+  alternates: { canonical: `${siteUrl}/` },
+};
 
 const TRENDING = [
   { id: "age-calculator", label: "Age Calculator" },
@@ -74,7 +79,7 @@ const MOBILE_CATEGORIES = [
 function TrendingRow() {
   return (
     <div className="flex flex-wrap items-center gap-2 pt-1">
-      <span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary-fixed-dim">Trending:</span>
+      <span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary-fixed-dim">Quick links:</span>
       {TRENDING.map((entry) => (
         <Link key={entry.id} href={getTool(entry.id).href} className="rounded-md bg-white/10 px-2.5 py-1 font-label-sm text-label-sm text-tertiary-fixed transition-colors hover:bg-white/20">
           {entry.label}
@@ -85,8 +90,10 @@ function TrendingRow() {
 }
 
 export default function HomePage() {
+  const webSiteJsonLd = createWebSiteJsonLd();
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }} />
       <Header />
       <a href="#browse" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-20 focus:rounded-lg focus:bg-primary-container focus:px-4 focus:py-3 focus:text-white">
         Skip to tools
@@ -111,7 +118,7 @@ export default function HomePage() {
                   <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">work for you.</span>
                 </h1>
                 <p className="max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed">
-                  From precision financial calculators to high-speed text utilities and developer encoders — Tool Empire delivers 11 free utilities that run entirely in your browser.
+                  From precision financial calculators to high-speed text utilities and developer encoders — Tulyro delivers 11 free utilities that run entirely in your browser.
                 </p>
                 <HomeSearch variantId="desktop" />
                 <TrendingRow />
@@ -144,7 +151,7 @@ export default function HomePage() {
         </section>
 
         {/* Trust strip (desktop) */}
-        <section className="hidden w-full bg-surface-container-low py-8 shadow-sm lg:block" aria-label="Why Tool Empire">
+        <section className="hidden w-full bg-surface-container-low py-8 shadow-sm lg:block" aria-label="Why Tulyro">
           <div className="mx-auto max-w-shell px-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {TRUST.map((item) => (
@@ -183,7 +190,7 @@ export default function HomePage() {
                 <p className="inline-flex items-center gap-1.5 rounded-md bg-primary-fixed px-3 py-1 font-label-sm text-label-sm uppercase tracking-wide text-on-primary-fixed">
                   Engineered For Precision
                 </p>
-                <h2 className="mt-3 font-display font-headline-lg text-headline-lg text-on-surface">Most Popular Tools</h2>
+                <h2 className="mt-3 font-display font-headline-lg text-headline-lg text-on-surface">Featured Tools</h2>
                 <p className="mt-1 font-body-md text-body-md text-on-surface-variant">Frequently used calculators, string analyzers, and developer utilities.</p>
               </div>
               <Link href="/tools/" className="group inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary transition-all hover:text-primary-container">
@@ -204,7 +211,7 @@ export default function HomePage() {
           <div className="mb-4 flex items-center justify-between">
             <h2 className="flex items-center gap-1.5 font-display font-headline-sm text-headline-sm text-on-surface">
               <Icon name="flame" className="h-5 w-5 text-primary-container" />
-              Popular Utilities
+              Featured Utilities
             </h2>
             <Link href="/tools/" className="flex items-center gap-0.5 font-label-md text-label-md font-semibold text-primary">
               View all (11)
@@ -303,9 +310,9 @@ export default function HomePage() {
                     <Icon name="security" className="h-4 w-4" />
                     ENGINEERING BLUEPRINT
                   </p>
-                  <h2 className="font-display font-headline-lg text-headline-lg text-white">Why engineers and analysts rely on Tool Empire</h2>
+                  <h2 className="font-display font-headline-lg text-headline-lg text-white">Why engineers and analysts rely on Tulyro</h2>
                   <p className="font-body-md text-body-md text-tertiary-fixed">
-                    Unlike ordinary web portals that pipe sensitive calculations through remote servers, Tool Empire runs 100% in your browser — nothing you type is sent to a server.
+                    Unlike ordinary web portals that pipe sensitive calculations through remote servers, Tulyro runs 100% in your browser — nothing you type is sent to a server.
                   </p>
                   <div className="flex flex-wrap gap-4 pt-2">
                     <Link href="/privacy/" className="rounded-lg bg-primary-container px-5 py-2.5 font-label-md text-label-md text-white shadow-button-glow transition-colors hover:bg-primary">

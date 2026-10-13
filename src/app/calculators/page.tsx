@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
 import { HubPage } from "@/components/HubPage";
-export const metadata: Metadata = { title: "Calculators | Tool Empire", description: "Free browser-only calculators for age, loans, BMI, and grades." };
+import { siteUrl } from "@/lib/seo";
+export const metadata: Metadata = { title: "Calculators | Tulyro", description: "Free browser-only calculators: age, EMI, mortgage, BMI and CGPA tools. Every calculation runs in your browser — no signup, no watermark. Try one now — free.", alternates: { canonical: `${siteUrl}/calculators/` } };
 export default function CalculatorsPage() { return <HubPage cluster="Calculators" />; }

@@ -1,0 +1,28 @@
+# Tulyro
+
+> Free browser-only tools. No signup. No watermark. Nothing you enter is sent to a server.
+> Every tool runs entirely in the visitor's browser. Results are informational estimates, not
+> professional advice. Site URL is a placeholder until the real domain is published.
+
+## Tools
+
+- [Age Calculator](/calculators/age-calculator/): Calculate exact age in years, months and days from a date of birth. See total days lived and the next birthday.
+- [EMI Calculator](/calculators/emi-calculator/): Estimate a monthly EMI, total interest and total payment for an Indian loan in rupees.
+- [Mortgage Calculator](/calculators/mortgage-calculator/): Estimate a US mortgage payment with total interest and total payment in dollars.
+- [BMI Calculator](/calculators/bmi-calculator/): Check adult BMI from height and weight in metric or imperial units, with screening categories explained.
+- [CGPA to Percentage](/calculators/cgpa-to-percentage/): Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate.
+- [Word Counter](/text/word-counter/): Count words, characters, sentences and reading time as you type.
+- [Text to Speech](/text/text-to-speech/): Listen to text read aloud with voices already in the browser. No audio download.
+- [Fancy Text Generator](/text/fancy-text-generator/): Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more.
+- [Base64 Encoder/Decoder](/dev/base64-encoder-decoder/): Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in the browser.
+- [Invoice Generator](/tools/invoice-generator/): Create a simple invoice in the browser and print or save it as PDF. No watermark.
+- [Fake Text Generator](/fun/fake-text-generator/): Make a generic chat mockup for sketches, presentations and entertainment. Export PNG.
+
+## Pages
+
+- [All Tools](/tools/): Full directory of every live tool.
+- [Calculators](/calculators/): Age, EMI, mortgage, BMI and CGPA calculators.
+- [Text Tools](/text/): Word counter, text to speech and fancy text generator.
+- [About](/about/): What Tulyro is and how it is built.
+- [Privacy Policy](/privacy/): How browser-only tools, analytics and text-to-speech are handled.
+- [Terms](/terms/): Terms for using the free browser-only tools.

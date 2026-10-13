@@ -3,20 +3,35 @@ import type { ToolDefinition } from "./tools";
 
 export const siteUrl = "https://example.com";
 
+const ogImage = {
+  url: `${siteUrl}/og-image.png`,
+  width: 1200,
+  height: 630,
+  alt: "Tulyro — Free browser-only tools. No signup. No watermark.",
+};
+
 export function createToolMetadata(tool: ToolDefinition): Metadata {
-  const description = `${tool.description} Free, browser-only, with no signup or watermark.`;
+  const title = tool.seoTitle ?? `${tool.title} | Tulyro`;
+  const description = tool.seoDescription ?? `${tool.description} Free, browser-only, with no signup or watermark.`;
   const metadata: Metadata = {
-    title: `${tool.title} | Tool Empire`,
+    title,
     description,
     alternates: {
       canonical: `${siteUrl}${tool.href}`,
     },
     openGraph: {
-      title: `${tool.title} | Tool Empire`,
+      title,
       description,
       url: `${siteUrl}${tool.href}`,
-      siteName: "Tool Empire",
+      siteName: "Tulyro",
       type: "website",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`${siteUrl}/og-image.png`],
     },
   };
 
@@ -54,6 +69,20 @@ export function createBreadcrumbJsonLd(tool: ToolDefinition) {
   };
 }
 
+/** BreadcrumbList for hub / directory / legal pages (visual breadcrumb must match). */
+export function createSimpleBreadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path}`,
+    })),
+  };
+}
+
 export function createFaqJsonLd(faq: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -63,5 +92,53 @@ export function createFaqJsonLd(faq: { question: string; answer: string }[]) {
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
+  };
+}
+
+/** HowTo JSON-LD. Steps must match the visible "How to use" list exactly. */
+export function createHowToJsonLd(tool: ToolDefinition, steps: string[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `How to use the ${tool.title}`,
+    step: steps.map((text) => ({ "@type": "HowToStep", text })),
+  };
+}
+
+/** SoftwareApplication JSON-LD. Free tool, no price, no invented ratings or counts. */
+export function createSoftwareApplicationJsonLd(tool: ToolDefinition) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.title,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    url: `${siteUrl}${tool.href}`,
+    description: tool.seoDescription ?? tool.description,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+}
+
+/** WebSite + Organization entity info for the homepage. No invented contact details. */
+export function createWebSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "Tulyro",
+        url: siteUrl,
+        description: "Free browser-only tools. No signup. No watermark. Nothing you enter is sent to a server.",
+        publisher: { "@id": `${siteUrl}/#organization` },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Tulyro",
+        url: siteUrl,
+        logo: `${siteUrl}/logo.svg`,
+        description: "Free browser-only tools. No signup. No watermark.",
+      },
+    ],
   };
 }

@@ -1,6 +1,6 @@
-# Tool Empire
+# Tulyro
 
-Static Next.js scaffold for Tool Empire, a browser-only multi-tool website.
+Static Next.js scaffold for Tulyro, a browser-only multi-tool website.
 
 Project context, requirements, architecture, design, rules, tasks, and memory live in [`docs/`](./docs/).
 

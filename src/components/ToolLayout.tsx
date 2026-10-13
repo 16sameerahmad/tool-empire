@@ -30,9 +30,10 @@ type ToolLayoutProps = {
   howTo: string[];
   content: string[];
   faq: FAQItem[];
+  sources?: { label: string; href: string }[];
 };
 
-export function ToolLayout({ tool, children, intro, howTo, content, faq }: ToolLayoutProps) {
+export function ToolLayout({ tool, children, intro, howTo, content, faq, sources }: ToolLayoutProps) {
   const relatedTools = tool.related.map((id) => getTool(id)).filter((related) => related.live);
   return (
     <>
@@ -109,6 +110,23 @@ export function ToolLayout({ tool, children, intro, howTo, content, faq }: ToolL
           <div className="mt-12 max-w-[900px]">
             <FAQ items={faq} />
           </div>
+
+          {sources && sources.length > 0 ? (
+            <section className="mt-12 max-w-[720px]" aria-labelledby="sources-heading">
+              <h2 id="sources-heading" className="font-display font-headline-md text-headline-md text-on-surface">
+                Sources
+              </h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5">
+                {sources.map((source) => (
+                  <li key={source.href} className="font-body-md text-body-md text-on-surface-variant">
+                    <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-primary underline">
+                      {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="mt-12" aria-labelledby="related-heading">
             <div className="flex items-center justify-between">

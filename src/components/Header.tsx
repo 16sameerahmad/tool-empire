@@ -24,10 +24,10 @@ function LogoMark() {
 
 export function Logo({ dark = true }: { dark?: boolean }) {
   return (
-    <Link href="/" aria-label="Tool Empire home" className="flex items-center gap-2.5 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container">
+    <Link href="/" aria-label="Tulyro home" className="flex items-center gap-2.5 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container">
       <LogoMark />
-      <span className={`font-display text-headline-sm tracking-tight ${dark ? "text-white" : "text-on-surface"}`}>
-        Tool <span className="font-extrabold text-accent-violet">Empire</span>
+      <span className={`font-display text-headline-sm font-extrabold tracking-tight ${dark ? "text-white" : "text-on-surface"}`}>
+        Tulyro
       </span>
     </Link>
   );

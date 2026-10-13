@@ -90,7 +90,7 @@ export function Footer() {
           </nav>
         </div>
         <div className="flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-4 font-body-sm text-body-sm text-tertiary-fixed sm:flex-row">
-          <p>© {year} Tool Empire. Fast, Private, Client-Side Utilities.</p>
+          <p>© {year} Tulyro. Fast, Private, Client-Side Utilities.</p>
           <p className="flex items-center gap-1 font-code-data text-code-data text-primary-fixed">
             <Icon name="verified_user" className="h-[14px] w-[14px]" />
             100% In-Browser Execution

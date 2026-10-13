@@ -5,6 +5,8 @@ export type ToolContent = {
   howTo: string[];
   content: string[];
   faq: FAQItem[];
+  /** Verified external sources cited by the page content (label + URL). */
+  sources?: { label: string; href: string }[];
 };
 
 const faq = (items: FAQItem[]): FAQItem[] => items;
@@ -21,7 +23,7 @@ export const content: Record<string, ToolContent> = {
       "For a reliable comparison, write down the as-of date before entering a birthday and make sure the device date is correct. The calculator describes elapsed calendar time, so it is useful for planning a celebration, checking an application draft, or explaining the difference between a birthday and a total-day count. It intentionally avoids pretending that every month has the same number of days. When a result looks surprising, check the day before and after the birthday, especially around February and the end of a month. The explanation below the result states the assumptions so another person can reproduce the calculation.",
     ],
     faq: faq([
-      { question: "How is exact age calculated?", answer: "The calculator compares local calendar dates and reports completed years, months, and days." },
+      { question: "How is exact age calculated?", answer: "The calculator compares your date of birth with today's local calendar date and reports completed years, then remaining months, then remaining days. It advances month by month instead of dividing by 365.25, so months of different lengths and leap years are handled correctly. The result also shows total days lived." },
       { question: "Does it use my device's local date?", answer: "Yes. Date calculations use the local date on your device rather than UTC." },
       { question: "How is a 29 February birthday handled?", answer: "In a non-leap year, the birthday is treated as 1 March." },
       { question: "Can I enter a future date?", answer: "No. A future date shows an inline validation message." },
@@ -39,7 +41,7 @@ export const content: Record<string, ToolContent> = {
       "Try comparing two rates while leaving the amount and tenure unchanged to see how interest changes the total. A longer tenure can lower the monthly payment while increasing the total interest, so a single monthly figure does not describe the full cost. The calculation does not know your income, credit profile, lender policy, or eligibility. Use it to prepare questions and rough scenarios, then check the official schedule and disclosures supplied by the lender. Because the form is local, you can explore scenarios without an account or a saved history.",
     ],
     faq: faq([
-      { question: "What does EMI mean?", answer: "EMI means equated monthly instalment, the regular payment on a fixed-payment loan." },
+      { question: "What does EMI mean?", answer: "EMI means equated monthly instalment: the fixed amount you pay every month until a reducing-balance loan is repaid. Each payment covers that month's interest plus part of the principal, so the interest portion shrinks over time while the EMI itself stays the same for a fixed-rate loan." },
       { question: "What happens at zero interest?", answer: "The calculator divides the principal by the number of months and shows zero interest." },
       { question: "Are fees included?", answer: "No. The result covers principal and interest only." },
       { question: "Can I enter tenure in years?", answer: "Yes. Choose years and the calculator converts the value to months." },
@@ -59,7 +61,7 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "Does this include property taxes?", answer: "No. It estimates principal and interest only." },
-      { question: "Why is the payment an estimate?", answer: "Lenders can apply different fees, rounding, and repayment details." },
+      { question: "Why is the payment an estimate?", answer: "The payment is an estimate because it covers principal and interest only, using the amount, rate and term you entered. A lender's figure can differ through property tax, insurance, mortgage insurance, fees, closing costs, rounding, payment dates or an adjustable rate. Always confirm the full monthly cost with the lender before applying." },
       { question: "Can I use a 30-year term?", answer: "Yes. Enter 30 with years selected, which converts to 360 months." },
       { question: "Does this page use EMI terminology?", answer: "No. It is the US mortgage page with dollar formatting and mortgage language." },
       { question: "Is my information saved?", answer: "No. Inputs remain in browser memory and clear on refresh." },
@@ -70,19 +72,20 @@ export const content: Record<string, ToolContent> = {
     howTo: ["Choose Metric or Imperial units.", "Enter height and weight.", "Read the BMI value and screening category."],
     content: [
       "Body mass index, or BMI, is a screening measure based on height and weight. This calculator supports metric centimetres and kilograms as well as imperial feet, inches, and pounds. It converts imperial values using exact unit factors, calculates weight in kilograms divided by height in metres squared, and displays the result to one decimal place. The category is based on that displayed value so boundary results are easy to understand.",
-      "For adults, the screening ranges used here are under 18.5 for Underweight, 18.5 through 24.9 for Normal, 25.0 through 29.9 for Overweight, and 30.0 or above for Obese. These categories are commonly used adult ranges, but BMI cannot distinguish muscle, bone, fat distribution, age, pregnancy, or many health conditions. It is not a diagnosis. Children and teenagers need age- and sex-specific charts, so this page is intended for adults aged 18 and over.",
+      "For adults, the screening ranges used here are under 18.5 for Underweight, 18.5 through 24.9 for Normal, 25.0 through 29.9 for Overweight, and 30.0 or above for Obese. These cutoffs match the WHO's adult definitions: overweight is a BMI of 25 or more, and obesity is a BMI of 30 or more. These categories are commonly used adult ranges, but BMI cannot distinguish muscle, bone, fat distribution, age, pregnancy, or many health conditions. It is not a diagnosis. Children and teenagers need age- and sex-specific charts, so this page is intended for adults aged 18 and over.",
       "Switching between Metric and Imperial clears the input fields so a value from one unit system is never silently interpreted as another. Height is checked against a practical range of 50 to 250 centimetres after conversion, and weight is checked from 10 to 500 kilograms. Empty fields show a placeholder instead of an error. Values outside the range receive an inline message that explains which field needs attention.",
       "Use the result as a prompt for a broader conversation with a qualified health professional, especially if you have a medical condition or a rapid change in weight. The calculator makes no diagnosis and stores nothing. It performs the conversion locally in your browser and does not send height or weight to a server. A clear, labelled form and keyboard-friendly unit control make it usable on mobile screens as well as desktop displays.",
       "For consistent results, measure height without shoes and use the same unit system for the entire entry. Rounding is applied to the displayed BMI before the category is selected, which makes the boundary behavior visible. A value of 24.95, for example, is displayed to one decimal place and classified from that displayed number. This is a deliberate presentation rule, not a claim about clinical precision. If you need a health assessment, share the underlying measurements and your context with a qualified professional rather than relying on a single screening number.",
       "BMI can be useful for a population-level screening conversation, but a single number does not describe fitness, nutrition, or health on its own. Record the units beside any value you share, because a pound and a kilogram are not interchangeable. The page keeps the conversion factors visible in its implementation and gives an error rather than producing a misleading result for an impossible height or weight.",
     ],
     faq: faq([
-      { question: "What is BMI?", answer: "BMI is a screening number based on weight and height." },
+      { question: "What is BMI?", answer: "BMI, or body mass index, is a screening number calculated from weight and height: weight in kilograms divided by height in metres squared. It gives a rough weight category for adults — underweight, normal, overweight or obese — but it cannot distinguish muscle from fat, so it is not a diagnosis." },
       { question: "Can I use feet and pounds?", answer: "Yes. Choose Imperial and enter feet, inches, and pounds." },
       { question: "Is BMI a diagnosis?", answer: "No. BMI is a screening measure for adults, not a diagnosis." },
       { question: "Why did switching units clear my values?", answer: "Clearing prevents values from being misread under a different unit system." },
       { question: "Are children covered?", answer: "No. This calculator is intended for adults aged 18 and over." },
     ]),
+    sources: [{ label: "WHO — Obesity and overweight (adult BMI ≥ 25 overweight, ≥ 30 obesity)", href: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" }],
   },
   "cgpa-to-percentage": {
     intro: "Convert a 10-point CGPA to an estimated percentage using ×9.5.",
@@ -96,7 +99,7 @@ export const content: Record<string, ToolContent> = {
       "The page intentionally keeps the calculation small and visible: there are no hidden grade bands, subject weights, or extra adjustments. If your institution supplies a different multiplier, use that official source and do not assume this result is interchangeable. The displayed two decimal places describe the conversion output, not additional precision in the underlying academic record.",
     ],
     faq: faq([
-      { question: "What formula is used?", answer: "Percentage equals CGPA multiplied by 9.5." },
+      { question: "What formula is used?", answer: "Percentage equals CGPA multiplied by 9.5, the commonly published CBSE convention for a 10-point scale. For example, a CGPA of 8.0 becomes 76.00 percent. The result is an estimate, because institutions may publish their own conversion rule — always confirm the rule your institution requires." },
       { question: "Is the 9.5 multiplier universal?", answer: "No. Institutions differ, so confirm the rule required by your institution." },
       { question: "What range is accepted?", answer: "The calculator accepts a CGPA from 0 through 10." },
       { question: "Does it include GPA conversion?", answer: "No. US GPA mode is not shipped until its formula and source are decided." },
@@ -115,7 +118,7 @@ export const content: Record<string, ToolContent> = {
       "The clear action is intentionally separate from the editor so it is easy to reset after copying a draft. Counts update as text changes and are not submitted with a form. If you are comparing revisions, keep both drafts in your own editor and use this page as a temporary measuring surface rather than an archive.",
     ],
     faq: faq([
-      { question: "How are words counted?", answer: "Words are whitespace-separated tokens, with repeated whitespace ignored." },
+      { question: "How are words counted?", answer: "Words are whitespace-separated tokens: any run of spaces, tabs or line breaks counts as a single separator, so repeated whitespace never creates extra words. Punctuation attached to a word stays part of that word, and an empty editor counts as zero words. Other editors may count hyphenated terms differently." },
       { question: "Does an emoji count as one character?", answer: "The counter uses grapheme clusters where available, so an emoji counts as one user-perceived character." },
       { question: "Is sentence counting exact?", answer: "No. Sentence count is an approximate punctuation-based count." },
       { question: "What reading speed is used?", answer: "The estimate assumes 200 words per minute." },
@@ -134,7 +137,7 @@ export const content: Record<string, ToolContent> = {
       "If a long sentence sounds unnatural, add punctuation or split it into shorter sentences before playing it again. Chunking protects against browser cut-offs but does not rewrite the words or correct pronunciation. Playback is tied to the current page, so closing or refreshing the tab ends the session and removes the text from this tool's React state.",
     ],
     faq: faq([
-      { question: "Where does speech run?", answer: "Speech uses the browser's built-in speechSynthesis API." },
+      { question: "Where does speech run?", answer: "Speech runs through your browser's built-in speechSynthesis API, using voices installed on your device or supplied by your browser. Our code sends no audio anywhere, but some browser voices are provided online and may send text to the browser vendor's servers — avoid sensitive text when you are unsure how a voice is provided." },
       { question: "Can I download the audio?", answer: "No. Audio download is outside the v1 scope." },
       { question: "Why does it say Loading voices?", answer: "Browsers provide voices asynchronously through the voiceschanged event." },
       { question: "Are online voices private?", answer: "Some browser voices may send text to the browser vendor's servers." },
@@ -153,7 +156,7 @@ export const content: Record<string, ToolContent> = {
       "The available styles are presented as separate rows so you can compare them before copying. A row that looks attractive in one browser may use a fallback glyph elsewhere. Use the copy feedback as confirmation that the clipboard operation completed, and use the fallback selection instructions when browser permissions prevent direct clipboard access.",
     ],
     faq: faq([
-      { question: "Is this a real font?", answer: "No. The generator uses Unicode characters that may look like styled text." },
+      { question: "Is this a real font?", answer: "No. The generator replaces ordinary Latin letters with characters from Unicode's Mathematical Alphanumeric Symbols and related blocks, so the result is styled text rather than a font. It works anywhere Unicode text is accepted, but display depends on the device's font support and screen readers may read it poorly." },
       { question: "Why did punctuation stay unchanged?", answer: "Only characters with a style mapping change; unsupported characters pass through." },
       { question: "Will every device display the result?", answer: "No. Display depends on the device's Unicode font support." },
       { question: "Can screen readers read it normally?", answer: "Styled Unicode may be read poorly, so use ordinary text for accessible content." },
@@ -172,7 +175,7 @@ export const content: Record<string, ToolContent> = {
       "Encoding changes the size and appearance of text but does not make it smaller in the usual case. If an API expects JSON, a header, or a binary payload, follow that API's exact documentation instead of copying assumptions from another Base64 tool. The plain-language errors are designed to distinguish malformed input from bytes that cannot be read as UTF-8.",
     ],
     faq: faq([
-      { question: "Does Base64 encrypt text?", answer: "No. Base64 is reversible encoding, not encryption." },
+      { question: "Does Base64 encrypt text?", answer: "No. Base64 is a reversible encoding that represents bytes with letters, digits, plus, slash and padding — anyone who receives the output can decode it instantly. It hides nothing, so never use it to protect passwords, tokens, personal data or confidential messages. Use real encryption for anything secret." },
       { question: "Does Unicode work?", answer: "Yes. Encoding uses UTF-8, so non-Latin text and emoji are supported." },
       { question: "Can I decode without padding?", answer: "Yes. Missing padding is accepted when the remaining input is valid." },
       { question: "Can it encode a file?", answer: "No. This v1 tool accepts text only." },
@@ -192,7 +195,7 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "Can I add multiple items?", answer: "Yes. Add up to 50 line-item rows; empty rows are ignored." },
-      { question: "How is tax rounded?", answer: "Tax uses integer minor units and is rounded half up to the nearest cent or paise." },
+      { question: "How is tax rounded?", answer: "Tax is calculated in integer minor units — paise or cents — to avoid floating-point errors. Each line amount is quantity times unit price rounded half up, the subtotal sums the lines, and tax is the subtotal times the percentage, rounded half up to the nearest paise or cent. The total is subtotal plus tax." },
       { question: "Can I save as a PDF?", answer: "Yes. Use the browser print dialog and choose its Save as PDF option." },
       { question: "Is there a watermark?", answer: "No. The printed invoice has no site watermark or branding." },
       { question: "Is the form saved?", answer: "No. Refreshing clears the form, so print or save it before leaving." },
@@ -214,7 +217,7 @@ export const content: Record<string, ToolContent> = {
       { question: "How many messages can I add?", answer: "The preview supports up to 30 messages." },
       { question: "Can I export an image?", answer: "Yes. Export downloads a PNG named fake-chat.png when messages exist." },
       { question: "Does it add a watermark?", answer: "No. The exported chat contains no watermark." },
-      { question: "What is it for?", answer: "Use it for mockups, humour, entertainment, and design exploration." },
+      { question: "What is it for?", answer: "Use it for mockups, humour, entertainment and design exploration — for example, a chat wireframe, a presentation example or a joke screenshot. It is a generic browser-only mockup, not a real messaging app, so label fictional conversations clearly and never present one as evidence of a real exchange." },
     ]),
   },
 };

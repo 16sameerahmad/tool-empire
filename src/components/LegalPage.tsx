@@ -2,11 +2,17 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Icon } from "@/components/icons";
+import { createSimpleBreadcrumbJsonLd } from "@/lib/seo";
 
-export function LegalPage({ title, children }: { title: string; children: React.ReactNode }) {
+export function LegalPage({ title, path, children }: { title: string; path: string; children: React.ReactNode }) {
+  const breadcrumbJsonLd = createSimpleBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: title, path },
+  ]);
   return (
     <>
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <main className="w-full bg-background">
         <section className="w-full bg-midnight px-6 py-10 text-white shadow-md">
           <div className="mx-auto max-w-shell">

@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Icon } from "@/components/icons";
+
+export const metadata: Metadata = {
+  title: "Page not found | Tulyro",
+  // Single robots directive for the 404 page. Next.js merges robots metadata
+  // across segments, so the layout's index,follow tag would otherwise render
+  // alongside the framework's 404 noindex tag (conflicting directives).
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

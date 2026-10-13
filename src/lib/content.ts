@@ -28,6 +28,7 @@ export const content: Record<string, ToolContent> = {
       { question: "How is a 29 February birthday handled?", answer: "In a non-leap year, the birthday is treated as 1 March." },
       { question: "Can I enter a future date?", answer: "No. A future date shows an inline validation message." },
       { question: "Is my date stored?", answer: "No. The value stays in browser memory and refreshing clears it." },
+      { question: "How do I calculate my age from my date of birth?", answer: "Subtract your birth year from the current year, then subtract one more year if your birthday has not happened yet this year. The remaining months and days are counted from your most recent birthday to today. This page does the same arithmetic for you and also shows total days lived and the next birthday." },
     ]),
   },
   "emi-calculator": {
@@ -46,6 +47,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Are fees included?", answer: "No. The result covers principal and interest only." },
       { question: "Can I enter tenure in years?", answer: "Yes. Choose years and the calculator converts the value to months." },
       { question: "Is the result financial advice?", answer: "No. It is an informational estimate and a lender's figure may differ." },
+      { question: "How is EMI calculated?", answer: "EMI uses the reducing-balance formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the number of monthly payments. Each payment covers that month's interest plus part of the principal. This page applies the formula for you and also shows total interest and total payment." },
     ]),
   },
   "mortgage-calculator": {
@@ -65,6 +67,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I use a 30-year term?", answer: "Yes. Enter 30 with years selected, which converts to 360 months." },
       { question: "Does this page use EMI terminology?", answer: "No. It is the US mortgage page with dollar formatting and mortgage language." },
       { question: "Is my information saved?", answer: "No. Inputs remain in browser memory and clear on refresh." },
+      { question: "How is a monthly mortgage payment calculated?", answer: "A fixed-rate mortgage payment uses the same reducing-balance formula as an EMI: monthly payment = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan amount, r is the monthly interest rate, and n is the number of monthly payments. This page estimates principal and interest only — property tax, insurance, and fees are not included." },
     ]),
   },
   "bmi-calculator": {
@@ -84,6 +87,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Is BMI a diagnosis?", answer: "No. BMI is a screening measure for adults, not a diagnosis." },
       { question: "Why did switching units clear my values?", answer: "Clearing prevents values from being misread under a different unit system." },
       { question: "Are children covered?", answer: "No. This calculator is intended for adults aged 18 and over." },
+      { question: "Is BMI accurate?", answer: "BMI is a useful screening number, but it is not a precise measure of health on its own. It cannot tell muscle from fat, so a muscular person can score as overweight, and it says nothing about where fat is carried. Treat the result as a starting point for a conversation with a health professional, not a diagnosis." },
     ]),
     sources: [{ label: "WHO — Obesity and overweight (adult BMI ≥ 25 overweight, ≥ 30 obesity)", href: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" }],
   },
@@ -104,6 +108,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What range is accepted?", answer: "The calculator accepts a CGPA from 0 through 10." },
       { question: "Does it include GPA conversion?", answer: "No. US GPA mode is not shipped until its formula and source are decided." },
       { question: "How many decimals are shown?", answer: "The percentage is displayed to two decimal places." },
+      { question: "Is multiplying by 9.5 always correct?", answer: "No. Multiplying by 9.5 is the commonly published CBSE convention for a 10-point CGPA, and this page labels its result an estimate for that reason. Other institutions publish their own conversion rules or tables. Always check the rule your university, employer, or application requires before submitting a converted percentage." },
     ]),
   },
   "word-counter": {
@@ -123,6 +128,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Is sentence counting exact?", answer: "No. Sentence count is an approximate punctuation-based count." },
       { question: "What reading speed is used?", answer: "The estimate assumes 200 words per minute." },
       { question: "Can I clear the draft?", answer: "Yes. Clear removes the current text and resets all counts." },
+      { question: "How many words are in one page?", answer: "As a rough guide, one typed page holds about 500 words single-spaced or about 250 words double-spaced, using a 12-point font and 1-inch margins. Font, margins, headings, and paragraph breaks all move the real number. When a limit matters, trust the word count rather than the page count." },
     ]),
   },
   "text-to-speech": {
@@ -142,6 +148,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Why does it say Loading voices?", answer: "Browsers provide voices asynchronously through the voiceschanged event." },
       { question: "Are online voices private?", answer: "Some browser voices may send text to the browser vendor's servers." },
       { question: "What is the text limit?", answer: "The text area accepts up to 10,000 characters." },
+      { question: "How do I make my computer read text aloud?", answer: "Paste your text into the box on this page, pick a voice and speed, then press Play. Your browser's built-in voices read the text aloud — nothing needs installing and no audio file is created. If no voices appear, the page explains that your browser does not support text to speech." },
     ]),
   },
   "fancy-text-generator": {
@@ -161,6 +168,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Will every device display the result?", answer: "No. Display depends on the device's Unicode font support." },
       { question: "Can screen readers read it normally?", answer: "Styled Unicode may be read poorly, so use ordinary text for accessible content." },
       { question: "What if copying is blocked?", answer: "Select the output and press Ctrl+C on Windows or Cmd+C on Mac." },
+      { question: "How do I make fancy text for Instagram?", answer: "Type your text here, pick one of the style rows, and copy it. Then open Instagram, go to Edit Profile, and paste the styled text into your bio. The styles are Unicode characters rather than a font, so they paste anywhere plain text is accepted — but keep important details in ordinary text, since styled characters can read poorly in screen readers." },
     ]),
   },
   "base64-encoder-decoder": {
@@ -180,6 +188,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I decode without padding?", answer: "Yes. Missing padding is accepted when the remaining input is valid." },
       { question: "Can it encode a file?", answer: "No. This v1 tool accepts text only." },
       { question: "What happens with invalid UTF-8?", answer: "The decoder reports that the decoded data is not valid UTF-8 text." },
+      { question: "What is Base64 used for?", answer: "Base64 carries binary data through systems that only handle text. Common uses include email attachments (MIME), embedding small images in HTML or CSS as data URLs, sending binary payloads inside JSON APIs, and HTTP Basic Authentication headers. It changes the format of data — it does not encrypt or compress it." },
     ]),
   },
   "invoice-generator": {
@@ -199,6 +208,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I save as a PDF?", answer: "Yes. Use the browser print dialog and choose its Save as PDF option." },
       { question: "Is there a watermark?", answer: "No. The printed invoice has no site watermark or branding." },
       { question: "Is the form saved?", answer: "No. Refreshing clears the form, so print or save it before leaving." },
+      { question: "What should an invoice include?", answer: "A complete invoice usually lists the word 'Invoice', the seller's and buyer's details, a unique invoice number, the issue date, itemised lines with quantity and unit price, subtotal, tax, and total, plus payment terms or a due date. This generator covers those core fields, including an optional due date and a notes field for payment terms. Check your local tax rules for extras your jurisdiction requires, such as a tax identification number." },
     ]),
   },
   "fake-text-generator": {
@@ -218,6 +228,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I export an image?", answer: "Yes. Export downloads a PNG named fake-chat.png when messages exist." },
       { question: "Does it add a watermark?", answer: "No. The exported chat contains no watermark." },
       { question: "What is it for?", answer: "Use it for mockups, humour, entertainment and design exploration — for example, a chat wireframe, a presentation example or a joke screenshot. It is a generic browser-only mockup, not a real messaging app, so label fictional conversations clearly and never present one as evidence of a real exchange." },
+      { question: "Is it legal to make a fake text message?", answer: "Making a chat mockup for jokes, presentations, wireframes, education, or entertainment is generally fine. It crosses the line when a mockup is presented as a real conversation — to deceive someone, defraud, impersonate, harass, or serve as fake evidence. Label fictional conversations clearly and never pass one off as real. This is general information, not legal advice." },
     ]),
   },
 };

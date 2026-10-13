@@ -135,9 +135,9 @@ export default function HomePage() {
                 <span className="flex h-2 w-2 rounded-full bg-primary-container animate-pulse" aria-hidden="true" />
                 Free • Fast • No Signup
               </p>
-              <h1 className="font-display font-display-hero-mobile tracking-tight text-white">
+              <div className="font-display font-display-hero-mobile tracking-tight text-white">
                 Powerful Online Tools for <span className="text-tertiary-fixed">Everyday Needs</span>
-              </h1>
+              </div>
               <p className="font-body-md text-body-md leading-relaxed text-tertiary-fixed">
                 From smart precision calculators to text utilities, developer formatters, and instant everyday solvers.
               </p>

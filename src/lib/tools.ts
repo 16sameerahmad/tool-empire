@@ -41,7 +41,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["emi", "loan", "interest", "monthly payment"],
     related: ["mortgage-calculator", "age-calculator"],
     live: true,
-    seoTitle: "EMI Calculator — Monthly Loan EMI in ₹ | Tulyro",
+    seoTitle: "EMI Calculator — Monthly Loan EMI in ₹, India | Tulyro",
     seoDescription:
       "Estimate your monthly EMI, total interest and total payment for an Indian loan. Enter amount, rate and tenure. Try it free in your browser — no signup.",
   },

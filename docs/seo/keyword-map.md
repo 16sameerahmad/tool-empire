@@ -9,7 +9,7 @@ primary keyword. Volumes are Semrush-modeled **estimates** (see competitor-resea
 | Target URL | Primary keyword | Secondary / long-tail terms | Title (≤60 chars) | H1 |
 |---|---|---|---|---|
 | /calculators/age-calculator/ | age calculator | how old am i, age in days, exact age, birthday calculator, how old am i if born in [year] | Age Calculator — Exact Age in Years, Months & Days | Age Calculator |
-| /calculators/emi-calculator/ | emi calculator | emi calculator india, loan emi, emi kaise calculate kare (Hindi query — page is English; no Hindi content claimed) | EMI Calculator — Monthly Loan EMI in ₹ | EMI Calculator |
+| /calculators/emi-calculator/ | emi calculator | emi calculator india, loan emi, emi kaise calculate kare (Hindi query — page is English; no Hindi content claimed) | EMI Calculator — Monthly Loan EMI in ₹, India | EMI Calculator |
 | /calculators/mortgage-calculator/ | mortgage calculator | mortgage payment calculator, home loan calculator, monthly mortgage payment | Mortgage Calculator — Monthly Home Loan Payment | Mortgage Calculator |
 | /calculators/bmi-calculator/ | bmi calculator | bmi calculator kg, bmi chart, body mass index calculator, bmi calculator feet pounds | BMI Calculator — Body Mass Index, Metric & Imperial | BMI Calculator |
 | /calculators/cgpa-to-percentage/ | cgpa to percentage | cgpa to percentage calculator, cgpa to percentage cbse, 8 cgpa in percentage | CGPA to Percentage Calculator (×9.5, CBSE) | CGPA to Percentage |

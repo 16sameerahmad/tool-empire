@@ -3,6 +3,14 @@ import type { ToolDefinition } from "./tools";
 
 export const siteUrl = "https://example.com";
 
+/**
+ * Date the site content was last substantively updated (YYYY-MM-DD).
+ * Bump ONLY when tool-page copy, FAQs, or site copy actually change.
+ * Never auto-generate per build — a dateModified that moves on every
+ * deploy without a content change is dishonest.
+ */
+export const contentUpdated = "2026-10-13";
+
 const ogImage = {
   url: `${siteUrl}/og-image.png`,
   width: 1200,
@@ -115,6 +123,7 @@ export function createSoftwareApplicationJsonLd(tool: ToolDefinition) {
     operatingSystem: "Any",
     url: `${siteUrl}${tool.href}`,
     description: tool.seoDescription ?? tool.description,
+    dateModified: contentUpdated,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 }
@@ -129,6 +138,7 @@ export function createWebSiteJsonLd() {
         name: "Tulyro",
         url: siteUrl,
         description: "Free browser-only tools. No signup. No watermark. Nothing you enter is sent to a server.",
+        dateModified: contentUpdated,
         publisher: { "@id": `${siteUrl}/#organization` },
       },
       {

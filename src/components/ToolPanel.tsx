@@ -205,7 +205,7 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed">Computed {mortgage ? "Payment" : "EMI"}</span>
                   <span className="flex items-center gap-1 font-code-data text-xs text-tertiary-fixed-dim">
-                    <span className="h-2 w-2 rounded-full bg-green-400" aria-hidden="true" />
+                    <span className="h-2 w-2 rounded-full bg-primary-container" aria-hidden="true" />
                     Live Synced
                   </span>
                 </div>

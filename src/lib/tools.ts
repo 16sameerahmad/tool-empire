@@ -57,7 +57,7 @@ export const tools: ToolDefinition[] = [
     live: true,
     seoTitle: "Mortgage Calculator — Monthly Home Loan Payment | Tulyro",
     seoDescription:
-      "Estimate a US mortgage payment with total interest and total payment. Enter loan amount, rate and term, then compare scenarios. Free, browser-only — no signup.",
+      "Estimate a US mortgage payment with total interest and total payment. Enter loan amount, rate and term to compare scenarios. Free, browser-only.",
   },
   {
     id: "bmi-calculator",
@@ -71,7 +71,7 @@ export const tools: ToolDefinition[] = [
     live: true,
     seoTitle: "BMI Calculator — Body Mass Index, Metric & Imperial | Tulyro",
     seoDescription:
-      "Check adult BMI from height and weight in metric or imperial units, with screening categories explained. Uses WHO adult cutoffs. Free, browser-only — no signup.",
+      "Check adult BMI from height and weight in metric or imperial units, with screening categories explained. Uses WHO adult cutoffs. Free, browser-only.",
   },
   {
     id: "cgpa-to-percentage",
@@ -85,7 +85,7 @@ export const tools: ToolDefinition[] = [
     live: true,
     seoTitle: "CGPA to Percentage Calculator (×9.5, CBSE) | Tulyro",
     seoDescription:
-      "Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate — confirm your institution's rule. Free, no signup.",
+      "Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate — confirm your institution's rule. Free.",
   },
   {
     id: "word-counter",
@@ -127,7 +127,7 @@ export const tools: ToolDefinition[] = [
     live: true,
     seoTitle: "Fancy Text Generator — Stylish Unicode Text | Tulyro",
     seoDescription:
-      "Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more. Paste into bios, posts and messages. Free, browser-only — no signup.",
+      "Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more. Paste into bios, posts and messages. Free, browser-only.",
   },
   {
     id: "base64-encoder-decoder",
@@ -141,7 +141,7 @@ export const tools: ToolDefinition[] = [
     live: true,
     seoTitle: "Base64 Encoder / Decoder — Encode & Decode Text | Tulyro",
     seoDescription:
-      "Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in your browser. Handles emoji and non-Latin scripts. Free, private — no signup. Try it now.",
+      "Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in your browser. Handles emoji and non-Latin scripts. Free, private. Try it now.",
   },
   {
     id: "invoice-generator",

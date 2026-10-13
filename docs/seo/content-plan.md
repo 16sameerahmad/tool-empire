@@ -1,6 +1,6 @@
-# Tulyro — Content Plan (PLAN ONLY — no pages built)
+# Tulyro — Content Plan (BATCH 1 BUILT 2026-10-14; rest still PLANNED)
 
-Date: 2026-10-13. Status: PLANNED. Nothing in this file is published.
+Date: 2026-10-13. Updated: 2026-10-14 — guides A1, A2, A3 + comparison B1 are BUILT and live under /guides/. Nothing else in this file is published.
 
 ## Rules (binding)
 
@@ -20,7 +20,7 @@ Date: 2026-10-13. Status: PLANNED. Nothing in this file is published.
 
 ## A. Feature / use-case guides (proposed `/guides/`)
 
-### 1. How to calculate EMI by hand
+### 1. How to calculate EMI by hand — ✅ BUILT 2026-10-14 → /guides/how-to-calculate-emi/ (711 body words + FAQ)
 - Target keyword: "how to calculate emi" — volume **unknown** (not in keyword-map.md /
   xlsx; do not invent). Related: keyword-map.md primary "emi calculator".
 - Intent: informational (user wants the method, not just the number).
@@ -31,7 +31,7 @@ Date: 2026-10-13. Status: PLANNED. Nothing in this file is published.
   included; "estimate, not a lender quote" disclaimer.
 - Internal links: EMI Calculator, Mortgage Calculator.
 
-### 2. How to calculate your age in days
+### 2. How to calculate your age in days — ✅ BUILT 2026-10-14 → /guides/how-to-calculate-age-in-days/ (678 body words + FAQ)
 - Target keyword: "how to calculate age in days" — volume **unknown**. Related:
   xlsx "how old am i" 60,500/mo (Semrush-modeled estimate, retr. 2026-10-13).
 - Intent: informational.
@@ -40,7 +40,7 @@ Date: 2026-10-13. Status: PLANNED. Nothing in this file is published.
   (verified test value from docs TASKS.md); why dividing by 365.25 is wrong.
 - Internal links: Age Calculator.
 
-### 3. CGPA to percentage: the CBSE ×9.5 rule, explained
+### 3. CGPA to percentage: the CBSE ×9.5 rule, explained — ✅ BUILT 2026-10-14 → /guides/cgpa-to-percentage-cbse-9-5-rule/ (601 body words + FAQ)
 - Target keyword: "cgpa to percentage" — keyword-map.md primary.
 - Intent: informational (user wants to know if the conversion is trustworthy).
 - Outline: the formula; worked example 8.0 → 76.00% (labeled **estimated**);
@@ -99,7 +99,7 @@ Date: 2026-10-13. Status: PLANNED. Nothing in this file is published.
 
 ## B. Comparison pages (proposed `/guides/` — honest comparisons only)
 
-### 1. EMI calculator vs mortgage calculator: which one to use
+### 1. EMI calculator vs mortgage calculator: which one to use — ✅ BUILT 2026-10-14 → /guides/emi-vs-mortgage-calculator/ (611 body words + FAQ + comparison table)
 - Target keyword: "emi vs mortgage calculator" — volume **unknown**.
 - Intent: comparison (user is unsure which page fits).
 - Outline: same reducing-balance formula underneath; EMI page = India / ₹ / Indian

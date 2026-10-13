@@ -9,7 +9,7 @@ export const siteUrl = "https://tulyrotools.vercel.app";
  * Never auto-generate per build — a dateModified that moves on every
  * deploy without a content change is dishonest.
  */
-export const contentUpdated = "2026-10-13";
+export const contentUpdated = "2026-10-14";
 
 const ogImage = {
   url: `${siteUrl}/og-image.png`,
@@ -125,6 +125,20 @@ export function createSoftwareApplicationJsonLd(tool: ToolDefinition) {
     description: tool.seoDescription ?? tool.description,
     dateModified: contentUpdated,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+}
+
+/** Article JSON-LD for guide pages. Author is the Tulyro organization — no invented person. */
+export function createArticleJsonLd(article: { headline: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.headline,
+    description: article.description,
+    url: `${siteUrl}${article.path}`,
+    dateModified: contentUpdated,
+    author: { "@type": "Organization", name: "Tulyro", url: siteUrl },
+    publisher: { "@type": "Organization", name: "Tulyro", url: siteUrl, logo: `${siteUrl}/logo.svg` },
   };
 }
 

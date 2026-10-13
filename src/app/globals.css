@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #faf8ff;
+  color: #131b2e;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+::selection {
+  background: #e2dfff;
+  color: #131b2e;
+}
+
+:focus-visible {
+  outline: 2px solid #635bff;
+  outline-offset: 2px;
+}
+
+/* Stitch input focus: crisp violet outline + soft ring. */
+.stitch-input:focus {
+  border-color: #635bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.15);
+}
+
+/* Hero grid pattern (Stitch desktop homepage). */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Smooth micro-interactions for interactive elements (150ms, ease-out). */
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+/* Native scrollbars are kept (accessibility) even though Stitch CSS hides them. */
+
+@media (max-width: 767px) {
+  /* Room for the fixed mobile bottom-dock nav so it never covers the footer. */
+  body {
+    padding-bottom: 64px;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

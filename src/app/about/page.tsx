@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { LegalPage } from "@/components/LegalPage";
+export const metadata: Metadata = { title: "About | Tool Empire", description: "About Tool Empire's free browser-only tools." };
+export default function AboutPage() { return <LegalPage title="About"><p>Tool Empire is a free collection of practical browser-only tools. The project focuses on clear forms, quick results, useful explanations, and no signup or watermark.</p><p>Tools run on the visitor&apos;s device. This keeps simple calculations and text transformations fast and means our code does not receive the values entered into a tool. The site includes calculators, writing helpers, developer utilities, and small generators.</p><p>Tool Empire is being built cluster by cluster. New tools and content are checked for correctness, accessibility, mobile usability, and search metadata before production release.</p></LegalPage>; }

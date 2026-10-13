@@ -13,7 +13,7 @@ export function ToolPage({ toolId }: { toolId: string }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }} />
-      <ToolLayout tool={tool} intro={page.intro} howTo={page.howTo} content={page.content} faq={page.faq} sources={page.sources}>
+      <ToolLayout tool={tool} intro={page.intro} definition={page.definition} howTo={page.howTo} content={page.content} faq={page.faq} sources={page.sources}>
         <ToolPanel kind={toolId} />
       </ToolLayout>
     </>

@@ -27,13 +27,14 @@ type ToolLayoutProps = {
   tool: ToolDefinition;
   children: ReactNode;
   intro: string;
+  definition: string;
   howTo: string[];
   content: string[];
   faq: FAQItem[];
   sources?: { label: string; href: string }[];
 };
 
-export function ToolLayout({ tool, children, intro, howTo, content, faq, sources }: ToolLayoutProps) {
+export function ToolLayout({ tool, children, intro, definition, howTo, content, faq, sources }: ToolLayoutProps) {
   const relatedTools = tool.related.map((id) => getTool(id)).filter((related) => related.live);
   return (
     <>
@@ -80,6 +81,13 @@ export function ToolLayout({ tool, children, intro, howTo, content, faq, sources
         <div className="mx-auto w-full max-w-shell px-6 py-10">
           <section id="tool" aria-label={`${tool.title} tool`} className="scroll-mt-32">
             {children}
+          </section>
+
+          <section className="mt-12 max-w-[720px]" aria-labelledby="definition-heading">
+            <h2 id="definition-heading" className="font-display font-headline-md text-headline-md text-on-surface">
+              What is {tool.title}?
+            </h2>
+            <p className="mt-4 font-body-md text-body-md leading-[1.6] text-on-surface-variant">{definition}</p>
           </section>
 
           <section className="mt-12 max-w-[720px]" aria-labelledby="how-to-heading">

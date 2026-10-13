@@ -1,6 +1,8 @@
 export type FAQItem = { question: string; answer: string };
 
 export type ToolContent = {
+  /** One quotable 1-2 sentence definition, plain facts, no marketing fluff. */
+  definition: string;
   intro: string;
   howTo: string[];
   content: string[];
@@ -13,6 +15,7 @@ const faq = (items: FAQItem[]): FAQItem[] => items;
 
 export const content: Record<string, ToolContent> = {
   "age-calculator": {
+    definition: "An age calculator finds the exact time between a date of birth and a chosen date, expressed as completed years, remaining months, and remaining days.",
     intro: "Find an exact calendar age from a date of birth without creating an account.",
     howTo: ["Choose a date of birth.", "Read the exact age and days lived.", "Check the next birthday countdown."],
     content: [
@@ -32,6 +35,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "emi-calculator": {
+    definition: "An EMI is a fixed monthly payment that repays a loan over a set tenure, with each payment covering that month's interest plus part of the principal.",
     intro: "Estimate an Indian loan's monthly EMI, total interest, and total payment.",
     howTo: ["Enter the loan amount and annual rate.", "Choose years or months and enter the tenure.", "Review the estimate formatted in rupees."],
     content: [
@@ -47,10 +51,11 @@ export const content: Record<string, ToolContent> = {
       { question: "Are fees included?", answer: "No. The result covers principal and interest only." },
       { question: "Can I enter tenure in years?", answer: "Yes. Choose years and the calculator converts the value to months." },
       { question: "Is the result financial advice?", answer: "No. It is an informational estimate and a lender's figure may differ." },
-      { question: "How is EMI calculated?", answer: "EMI uses the reducing-balance formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the number of monthly payments. Each payment covers that month's interest plus part of the principal. This page applies the formula for you and also shows total interest and total payment." },
+      { question: "How is EMI calculated?", answer: "EMI uses the reducing-balance formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the number of monthly payments. Each payment covers that month's interest plus part of the principal." },
     ]),
   },
   "mortgage-calculator": {
+    definition: "A mortgage payment is the fixed monthly amount of principal and interest that repays a home loan in full over its term.",
     intro: "Estimate a US mortgage payment, total interest, and total payment in dollars.",
     howTo: ["Enter the loan amount and annual interest rate.", "Enter the loan term in years or months.", "Review the dollar estimate and interest total."],
     content: [
@@ -61,6 +66,7 @@ export const content: Record<string, ToolContent> = {
       "Use the calculator for a first-pass comparison between a shorter and longer term, or between two interest-rate assumptions. The monthly principal-and-interest number is only one part of home affordability. Include the other costs supplied by your lender and consider whether the payment remains comfortable if circumstances change. A saved screenshot or printed result should be labelled as an estimate because it does not become an offer or a rate lock. The browser-only design lets you test scenarios privately before discussing them with a lender or housing professional.",
       "You can repeat a scenario with a different term to understand the trade-off between cash flow and total cost. Keep the currency and grouping in mind when comparing this page with a lender's statement, and do not mix a monthly rate with an annual rate. The input labels describe the assumptions used by the formula so a second calculation can be checked consistently.",
     ],
+    sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
     faq: faq([
       { question: "Does this include property taxes?", answer: "No. It estimates principal and interest only." },
       { question: "Why is the payment an estimate?", answer: "The payment is an estimate because it covers principal and interest only, using the amount, rate and term you entered. A lender's figure can differ through property tax, insurance, mortgage insurance, fees, closing costs, rounding, payment dates or an adjustable rate. Always confirm the full monthly cost with the lender before applying." },
@@ -71,6 +77,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "bmi-calculator": {
+    definition: "Body mass index (BMI) is a screening number calculated as weight in kilograms divided by height in metres squared.",
     intro: "Calculate adult BMI from metric or imperial height and weight inputs.",
     howTo: ["Choose Metric or Imperial units.", "Enter height and weight.", "Read the BMI value and screening category."],
     content: [
@@ -92,6 +99,7 @@ export const content: Record<string, ToolContent> = {
     sources: [{ label: "WHO — Obesity and overweight (adult BMI ≥ 25 overweight, ≥ 30 obesity)", href: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" }],
   },
   "cgpa-to-percentage": {
+    definition: "CGPA to percentage conversion estimates a percentage from a 10-point Cumulative Grade Point Average, commonly by multiplying the CGPA by 9.5 under the CBSE convention.",
     intro: "Convert a 10-point CGPA to an estimated percentage using ×9.5.",
     howTo: ["Enter a CGPA from 0 to 10.", "Review the multiplier shown on the page.", "Use the displayed percentage as an estimate."],
     content: [
@@ -112,6 +120,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "word-counter": {
+    definition: "A word counter measures a piece of text by counting its words, characters, sentences, and estimated reading time.",
     intro: "See live word, character, sentence, and reading-time counts as you type.",
     howTo: ["Type or paste text into the editor.", "Review the live statistics.", "Use Clear to reset all counts."],
     content: [
@@ -132,6 +141,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "text-to-speech": {
+    definition: "Text to speech converts written text into spoken audio using voices provided by the reader's own browser.",
     intro: "Listen to text with speech voices provided by your browser, with no audio download.",
     howTo: ["Enter up to 10,000 characters.", "Choose a voice and speed.", "Play, pause, resume, or stop speech."],
     content: [
@@ -142,6 +152,7 @@ export const content: Record<string, ToolContent> = {
       "Speech controls are deliberately explicit so audio never starts unexpectedly. A paused utterance can resume, while Stop cancels the queue and returns control to the visitor. If a browser changes its voice list after the page loads, the selector updates with the newly available choices. The best voice depends on the device language settings, installed voices, and browser implementation. For accessibility or proofreading, listen to a short sample first and adjust the speed before starting a long passage. The visible character limit keeps the interaction manageable on mobile devices.",
       "If a long sentence sounds unnatural, add punctuation or split it into shorter sentences before playing it again. Chunking protects against browser cut-offs but does not rewrite the words or correct pronunciation. Playback is tied to the current page, so closing or refreshing the tab ends the session and removes the text from this tool's React state.",
     ],
+    sources: [{ label: "MDN — SpeechSynthesis (Web Speech API)", href: "https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis" }],
     faq: faq([
       { question: "Where does speech run?", answer: "Speech runs through your browser's built-in speechSynthesis API, using voices installed on your device or supplied by your browser. Our code sends no audio anywhere, but some browser voices are provided online and may send text to the browser vendor's servers — avoid sensitive text when you are unsure how a voice is provided." },
       { question: "Can I download the audio?", answer: "No. Audio download is outside the v1 scope." },
@@ -152,6 +163,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "fancy-text-generator": {
+    definition: "A fancy text generator replaces ordinary Latin letters with visually styled Unicode characters that can be copied and pasted.",
     intro: "Generate copyable Unicode styles while keeping punctuation, accents, and emoji intact.",
     howTo: ["Enter text in the input.", "Choose a style row to review the output.", "Copy the style you want to use."],
     content: [
@@ -162,6 +174,7 @@ export const content: Record<string, ToolContent> = {
       "Unicode styling is best treated as a visual experiment. Some platforms normalise, filter, or replace unusual characters, and search tools may not match the styled version of a word. Keep an ordinary-text version of anything important before copying a decorative version. The output can be pasted into a message, profile, or design mockup, but the receiving service decides whether it accepts the characters. Because the transformation is deterministic, entering the same text and style again produces the same output without a network connection or a remote font service.",
       "The available styles are presented as separate rows so you can compare them before copying. A row that looks attractive in one browser may use a fallback glyph elsewhere. Use the copy feedback as confirmation that the clipboard operation completed, and use the fallback selection instructions when browser permissions prevent direct clipboard access.",
     ],
+    sources: [{ label: "The Unicode Standard — Mathematical Alphanumeric Symbols (U+1D400–U+1D7FF)", href: "https://www.unicode.org/charts/PDF/Unicode-18.0/U180-1D400.pdf" }],
     faq: faq([
       { question: "Is this a real font?", answer: "No. The generator replaces ordinary Latin letters with characters from Unicode's Mathematical Alphanumeric Symbols and related blocks, so the result is styled text rather than a font. It works anywhere Unicode text is accepted, but display depends on the device's font support and screen readers may read it poorly." },
       { question: "Why did punctuation stay unchanged?", answer: "Only characters with a style mapping change; unsupported characters pass through." },
@@ -172,6 +185,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "base64-encoder-decoder": {
+    definition: "Base64 is a reversible encoding that represents binary data using letters, digits, plus, slash, and padding. It is not encryption.",
     intro: "Encode UTF-8 text to Base64 or decode valid Base64 back into text locally.",
     howTo: ["Choose Encode or Decode.", "Enter text in the input area.", "Copy the output if you need it elsewhere."],
     content: [
@@ -182,6 +196,7 @@ export const content: Record<string, ToolContent> = {
       "When moving Base64 between systems, preserve the output exactly and check whether the receiving system expects padding, line breaks, or a URL-safe alphabet. This page accepts normal Base64 whitespace and missing padding for convenience, but it intentionally does not transform the URL-safe variant. A successful decode only means the bytes form valid UTF-8 text; it does not prove that the text belongs to the expected application. Treat tokens and credentials as secrets even when they look like ordinary Base64, and clear the page when you finish experimenting.",
       "Encoding changes the size and appearance of text but does not make it smaller in the usual case. If an API expects JSON, a header, or a binary payload, follow that API's exact documentation instead of copying assumptions from another Base64 tool. The plain-language errors are designed to distinguish malformed input from bytes that cannot be read as UTF-8.",
     ],
+    sources: [{ label: "IETF RFC 4648 — The Base16, Base32, and Base64 Data Encodings", href: "https://datatracker.ietf.org/doc/rfc4648/" }],
     faq: faq([
       { question: "Does Base64 encrypt text?", answer: "No. Base64 is a reversible encoding that represents bytes with letters, digits, plus, slash and padding — anyone who receives the output can decode it instantly. It hides nothing, so never use it to protect passwords, tokens, personal data or confidential messages. Use real encryption for anything secret." },
       { question: "Does Unicode work?", answer: "Yes. Encoding uses UTF-8, so non-Latin text and emoji are supported." },
@@ -192,6 +207,7 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "invoice-generator": {
+    definition: "An invoice is a document a seller gives a buyer that lists goods or services, quantities, prices, tax, and the total amount owed.",
     intro: "Build a simple invoice in your browser and print it without a watermark.",
     howTo: ["Fill in the sender, recipient, and invoice details.", "Add line items and an optional tax rate.", "Print or save the browser print dialog as PDF."],
     content: [
@@ -208,10 +224,11 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I save as a PDF?", answer: "Yes. Use the browser print dialog and choose its Save as PDF option." },
       { question: "Is there a watermark?", answer: "No. The printed invoice has no site watermark or branding." },
       { question: "Is the form saved?", answer: "No. Refreshing clears the form, so print or save it before leaving." },
-      { question: "What should an invoice include?", answer: "A complete invoice usually lists the word 'Invoice', the seller's and buyer's details, a unique invoice number, the issue date, itemised lines with quantity and unit price, subtotal, tax, and total, plus payment terms or a due date. This generator covers those core fields, including an optional due date and a notes field for payment terms. Check your local tax rules for extras your jurisdiction requires, such as a tax identification number." },
+      { question: "What should an invoice include?", answer: "A complete invoice usually lists the word 'Invoice', the seller's and buyer's details, a unique invoice number, the issue date, itemised lines with quantity and unit price, subtotal, tax, and total, plus payment terms or a due date. This generator covers those core fields. Check your local tax rules for extras your jurisdiction requires, such as a tax identification number." },
     ]),
   },
   "fake-text-generator": {
+    definition: "A fake text generator creates a fictional chat mockup for sketches, presentations, and entertainment. It is not connected to any messaging app.",
     intro: "Create a generic chat mockup for presentations, jokes, wireframes, and entertainment.",
     howTo: ["Enter a contact name and add messages.", "Choose Sent or Received for each message.", "Review the preview and export a PNG."],
     content: [

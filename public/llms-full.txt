@@ -1,0 +1,151 @@
+# Tulyro — Full Tool Reference (llms-full.txt)
+
+> Tulyro is a collection of free browser-only tools. No signup. No watermark. Nothing you enter
+> is sent to a server — every calculation, conversion, and export happens in the visitor's
+> browser. Results are informational estimates, not professional advice. This file is the
+> machine-readable companion to https://tulyrotools.vercel.app/llms.txt
+
+## Entity facts
+
+- Name: Tulyro
+- Website: https://tulyrotools.vercel.app/
+- Contact: Tulyrotools@gmail.com
+- Model: free browser-only tools; no accounts, no backend, no database, no watermark, no popups.
+- Technology: static site. No cookies are set by the tools themselves. Text to speech uses voices
+  provided by the visitor's own browser.
+- What Tulyro does not do: it does not store input, does not require accounts, does not add
+  watermarks, and does not present invented statistics, reviews, or ratings.
+
+## Tools
+
+### Age Calculator — https://tulyrotools.vercel.app/calculators/age-calculator/
+
+An age calculator finds the exact time between a date of birth and a chosen date, expressed as
+completed years, remaining months, and remaining days. Inputs: a date of birth (1 January 1900
+through today; future dates are rejected with a plain-language message). Outputs: exact age in
+years/months/days, total calendar days lived, and the next birthday with a countdown. Method:
+the calculator advances the birth date month by month on the local calendar instead of dividing
+by 365.25, so months of different lengths and leap years are handled correctly. A 29 February
+birthday is treated as 1 March in a non-leap year.
+
+### EMI Calculator — https://tulyrotools.vercel.app/calculators/emi-calculator/
+
+An EMI is a fixed monthly payment that repays a loan over a set tenure, with each payment
+covering that month's interest plus part of the principal. This page is written for Indian
+readers and formats results in rupees with Indian digit grouping. Inputs: loan amount, annual
+interest rate, and tenure in years or months. Outputs: monthly EMI, total payment, and total
+interest. Formula (reducing balance): EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the
+loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the number of
+monthly payments. At zero interest the result is principal ÷ n. The result is an estimate, not
+a lender quote: fees, insurance, taxes, and changing rates are not included.
+
+### Mortgage Calculator — https://tulyrotools.vercel.app/calculators/mortgage-calculator/
+
+A mortgage payment is the fixed monthly amount of principal and interest that repays a home
+loan in full over its term. This page is written for US readers and formats results in dollars
+with US digit grouping. Inputs: loan amount, annual interest rate, and term in years or months.
+Outputs: estimated monthly payment, total payment, and total interest. It uses the same
+reducing-balance formula as the EMI Calculator; only the currency, grouping, and wording
+differ. The estimate covers principal and interest only — property tax, homeowners insurance,
+private mortgage insurance, closing costs, and adjustable-rate changes are not included.
+
+### BMI Calculator — https://tulyrotools.vercel.app/calculators/bmi-calculator/
+
+Body mass index (BMI) is a screening number calculated as weight in kilograms divided by
+height in metres squared. Inputs: height and weight in metric (kg, cm) or imperial (lb,
+feet/inches) units. Outputs: BMI value and screening category. BMI is a screening tool, not a
+diagnosis; it does not distinguish muscle from fat, and it does not replace medical advice.
+The page cites the World Health Organization's adult BMI categories (see Sources).
+
+### CGPA to Percentage — https://tulyrotools.vercel.app/calculators/cgpa-to-percentage/
+
+CGPA to percentage conversion estimates a percentage from a 10-point Cumulative Grade Point
+Average, commonly by multiplying the CGPA by 9.5 under the CBSE convention. Inputs: a CGPA
+on the 10-point scale. Output: an estimated percentage. The result is labelled an estimate on
+the page because no single conversion rule applies everywhere: many universities publish their
+own formula, and the ×9.5 rule is a CBSE school-board convention. Always confirm against the
+formula printed on your own marksheet or issued by your board or university.
+
+### Word Counter — https://tulyrotools.vercel.app/text/word-counter/
+
+A word counter measures a piece of text by counting its words, characters, sentences, and
+estimated reading time. Inputs: any pasted or typed text; counting updates as you type.
+Outputs: word count, character count, sentence count, and estimated reading time. Everything
+stays in the browser — text is never uploaded.
+
+### Text to Speech — https://tulyrotools.vercel.app/text/text-to-speech/
+
+Text to speech converts written text into spoken audio using voices provided by the reader's
+own browser. Inputs: typed or pasted text, plus a voice, rate, and pitch chosen from the voices
+the browser makes available. Output: spoken audio played in the browser. There is no audio
+download and no server processing: the tool uses the browser's built-in speech synthesis
+(Web Speech API). Available voices depend on the visitor's browser and operating system, so
+the same text can sound different on different devices.
+
+### Fancy Text Generator — https://tulyrotools.vercel.app/text/fancy-text-generator/
+
+A fancy text generator replaces ordinary Latin letters with visually styled Unicode characters
+that can be copied and pasted. Inputs: plain text. Outputs: the same text rendered in 10
+Unicode styles (bold, italic, script, monospace, and more), each with a copy button. The
+styling is not a font: the characters themselves change to styled Unicode code points, mostly
+from the Mathematical Alphanumeric Symbols block (U+1D400–U+1D7FF) in the Unicode Standard.
+Because the characters change, styled text may not match plain-text search, and screen readers
+may announce code-point names rather than the visual style.
+
+### Base64 Encoder/Decoder — https://tulyrotools.vercel.app/dev/base64-encoder-decoder/
+
+Base64 is a reversible encoding that represents binary data using letters, digits, plus,
+slash, and padding. It is not encryption. Inputs: UTF-8 text to encode, or a Base64 string to
+decode. Outputs: the encoded or decoded text, with a copy button. The encoding follows
+IETF RFC 4648. Because Base64 is trivially reversible, it must never be used to hide
+passwords, tokens, or other secrets.
+
+### Invoice Generator — https://tulyrotools.vercel.app/tools/invoice-generator/
+
+An invoice is a document a seller gives a buyer that lists goods or services, quantities,
+prices, tax, and the total amount owed. Inputs: seller and buyer details, invoice number and
+dates, item lines with quantity and unit price, tax, and notes. Currency: Indian rupee (INR)
+or US dollar (USD), with digit grouping that follows the chosen currency. Outputs: a clean
+invoice with subtotal, tax, and total, printable or savable as PDF from the browser. No
+watermark is added. The page does not check tax rules — confirm what your jurisdiction
+requires, such as a tax identification number.
+
+### Fake Text Generator — https://tulyrotools.vercel.app/fun/fake-text-generator/
+
+A fake text generator creates a fictional chat mockup for sketches, presentations, and
+entertainment. It is not connected to any messaging app. Inputs: fictional sender and receiver
+names and made-up messages. Outputs: a chat-style mockup that can be exported as a PNG image.
+The tool is for clearly fictional content; it must not be used to fabricate conversations and
+present them as real.
+
+## Guides
+
+- How to Calculate EMI by Hand — https://tulyrotools.vercel.app/guides/how-to-calculate-emi/
+  Worked reducing-balance EMI examples with verified numbers.
+- How to Calculate Your Age in Days — https://tulyrotools.vercel.app/guides/how-to-calculate-age-in-days/
+  Verified day counts, leap-year handling, and why dividing by 365.25 gives the wrong answer.
+- CGPA to Percentage: The CBSE ×9.5 Rule, Explained — https://tulyrotools.vercel.app/guides/cgpa-to-percentage-cbse-9-5-rule/
+  What the ×9.5 rule means, where it applies, and where it does not.
+- EMI Calculator vs Mortgage Calculator: Which One to Use — https://tulyrotools.vercel.app/guides/emi-vs-mortgage-calculator/
+  Same formula, different currency, formatting, and context — how to pick.
+- All Guides — https://tulyrotools.vercel.app/guides/
+
+## Sources cited on tool pages
+
+- WHO — Obesity and overweight (adult BMI categories): https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight
+- IETF RFC 4648 — The Base16, Base32, and Base64 Data Encodings: https://datatracker.ietf.org/doc/rfc4648/
+- MDN — SpeechSynthesis (Web Speech API): https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
+- The Unicode Standard — Mathematical Alphanumeric Symbols (U+1D400–U+1D7FF): https://www.unicode.org/charts/PDF/Unicode-18.0/U180-1D400.pdf
+- US Consumer Financial Protection Bureau — How does paying down a mortgage work?: https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/
+
+Tools without a Sources section have none because no genuine authoritative source applies to
+them; sources are never invented.
+
+## Pages
+
+- All Tools: https://tulyrotools.vercel.app/tools/
+- Calculators: https://tulyrotools.vercel.app/calculators/
+- Text Tools: https://tulyrotools.vercel.app/text/
+- About: https://tulyrotools.vercel.app/about/
+- Privacy Policy: https://tulyrotools.vercel.app/privacy/
+- Terms: https://tulyrotools.vercel.app/terms/

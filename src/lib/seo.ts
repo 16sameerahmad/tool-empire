@@ -161,6 +161,7 @@ export function createWebSiteJsonLd() {
         name: "Tulyro",
         url: siteUrl,
         logo: `${siteUrl}/logo.svg`,
+        email: "Tulyrotools@gmail.com",
         description: "Free browser-only tools. No signup. No watermark.",
       },
     ],

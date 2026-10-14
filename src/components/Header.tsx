@@ -25,8 +25,10 @@ function LogoMark() {
           </linearGradient>
         </defs>
         <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#tulyro-hdr)" />
-        <rect x="18" y="17" width="28" height="8.5" rx="4.25" fill="#FFFFFF" />
-        <polygon points="32,25 23.5,41 30,41 28,54 40.5,37 33.5,37" fill="#FFFFFF" stroke="#FFFFFF" strokeWidth="2.5" strokeLinejoin="round" />
+        <rect x="15" y="17" width="34" height="10" rx="5" fill="#FFFFFF" />
+        <rect x="27" y="27" width="10" height="23" rx="5" fill="#FFFFFF" />
+        <circle cx="32" cy="27" r="9" fill="#FFFFFF" />
+        <circle cx="32" cy="27" r="3.6" fill="#5B54F0" />
       </svg>
     </span>
   );

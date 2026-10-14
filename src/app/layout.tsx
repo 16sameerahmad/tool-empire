@@ -15,7 +15,11 @@ export const metadata: Metadata = {
     google: "tJrMNOm9hTGetu1cicfDoSof6pWc3QL-1deNputt3_g",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Tulyro",

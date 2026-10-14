@@ -16,8 +16,18 @@ const NAV = [
 
 function LogoMark() {
   return (
-    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary-container text-on-primary-container shadow-[0_0_16px_rgba(99,91,255,0.4)]">
-      <Icon name="construction" className="h-[22px] w-[22px]" />
+    <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg shadow-[0_0_16px_rgba(99,91,255,0.4)]" aria-hidden="true">
+      <svg viewBox="0 0 64 64" className="h-9 w-9">
+        <defs>
+          <linearGradient id="tulyro-hdr" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#7C74FF" />
+            <stop offset="1" stopColor="#4F46E5" />
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#tulyro-hdr)" />
+        <rect x="18" y="17" width="28" height="8.5" rx="4.25" fill="#FFFFFF" />
+        <polygon points="32,25 23.5,41 30,41 28,54 40.5,37 33.5,37" fill="#FFFFFF" stroke="#FFFFFF" strokeWidth="2.5" strokeLinejoin="round" />
+      </svg>
     </span>
   );
 }

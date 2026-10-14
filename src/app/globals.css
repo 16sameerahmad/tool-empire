@@ -47,6 +47,25 @@ body {
   background-size: 44px 44px;
 }
 
+/* Slow ambient drift for hero glow blobs — subtle, never distracting. */
+@keyframes hero-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -18px, 0) scale(1.06); }
+  100% { transform: translate3d(-16px, 14px, 0) scale(0.97); }
+}
+.hero-drift {
+  animation: hero-drift 14s ease-in-out infinite alternate;
+}
+.hero-drift-slow {
+  animation: hero-drift 20s ease-in-out infinite alternate-reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift,
+  .hero-drift-slow {
+    animation: none;
+  }
+}
+
 /* Smooth micro-interactions for interactive elements (150ms, ease-out). */
 a,
 button,

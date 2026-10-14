@@ -38,7 +38,7 @@ const CATEGORIES = [
   { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", hover: "group-hover:bg-secondary group-hover:text-on-secondary" },
   { label: "Developer", href: "/dev/", count: "1 tool", icon: "terminal", hover: "group-hover:bg-tertiary group-hover:text-on-tertiary" },
   { label: "Productivity & Fun", href: "/fun/", count: "1 tool", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
-  { label: "All Directory", href: "/tools/", count: "11 utilities", icon: "apps", hover: "group-hover:bg-surface-tint group-hover:text-on-primary" },
+  { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", hover: "group-hover:bg-surface-tint group-hover:text-on-primary" },
 ];
 const TRUST = [
   { title: "11 Free Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
@@ -60,20 +60,20 @@ const MOBILE_STATS = [
   { value: "Local", label: "Runs in Browser", icon: "wifi_off" },
 ];
 const MOBILE_POPULAR = [
-  { id: "age-calculator", label: "Age Calculator", badge: "Precision" },
-  { id: "emi-calculator", label: "EMI Loan Calculator", badge: "Finance" },
-  { id: "word-counter", label: "Word & Character Counter", badge: "" },
-  { id: "bmi-calculator", label: "BMI Health Gauge", badge: "" },
-  { id: "cgpa-to-percentage", label: "CGPA to Percentage", badge: "Academic" },
-  { id: "text-to-speech", label: "Text to Speech Synthesizer", badge: "" },
-  { id: "base64-encoder-decoder", label: "Base64 Encoder & Decoder", badge: "Dev" },
+  { id: "age-calculator", label: "Age Calculator", badge: "Precision", tint: "bg-primary-fixed text-primary-container" },
+  { id: "emi-calculator", label: "EMI Loan Calculator", badge: "Finance", tint: "bg-secondary-fixed text-secondary" },
+  { id: "word-counter", label: "Word & Character Counter", badge: "", tint: "bg-tertiary-fixed text-tertiary" },
+  { id: "bmi-calculator", label: "BMI Health Gauge", badge: "", tint: "bg-primary-fixed text-primary-container" },
+  { id: "cgpa-to-percentage", label: "CGPA to Percentage", badge: "Academic", tint: "bg-secondary-fixed text-secondary" },
+  { id: "text-to-speech", label: "Text to Speech Synthesizer", badge: "", tint: "bg-tertiary-fixed text-tertiary" },
+  { id: "base64-encoder-decoder", label: "Base64 Encoder & Decoder", badge: "Dev", tint: "bg-primary-fixed text-primary-container" },
 ];
 const MOBILE_CATEGORIES = [
-  { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate" },
-  { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", count: "3 tools", icon: "article" },
-  { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", count: "1 tool", icon: "terminal" },
-  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", count: "1 tool", icon: "smile" },
-  { label: "All Directory", sub: "Every utility in one place", href: "/tools/", count: "11 utilities", icon: "apps" },
+  { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", count: "3 tools", icon: "article", tint: "bg-secondary-fixed text-secondary" },
+  { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", count: "1 tool", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
+  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", count: "1 tool", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
+  { label: "All Tools", sub: "Every utility in one place", href: "/tools/", count: "11 utilities", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
 ];
 
 function TrendingRow() {
@@ -102,8 +102,8 @@ export default function HomePage() {
         {/* Hero — Stitch midnight command zone */}
         <section className="relative w-full overflow-hidden bg-midnight pb-20 pt-12 text-on-primary shadow-2xl">
           <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
-          <div className="pointer-events-none absolute -left-20 -top-32 h-96 w-96 rounded-full bg-primary-container opacity-40 blur-[128px]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -right-24 top-1/2 h-[32rem] w-[32rem] rounded-full bg-secondary-container opacity-40 blur-[140px]" aria-hidden="true" />
+          <div className="hero-drift pointer-events-none absolute -left-20 -top-32 h-96 w-96 rounded-full bg-primary-container opacity-40 blur-[128px]" aria-hidden="true" />
+          <div className="hero-drift-slow pointer-events-none absolute -right-24 top-1/2 h-[32rem] w-[32rem] rounded-full bg-secondary-container opacity-40 blur-[140px]" aria-hidden="true" />
           {/* Desktop hero (Stitch desktop homepage) */}
           <div className="relative z-10 mx-auto hidden max-w-shell px-6 lg:block">
             <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
@@ -118,7 +118,7 @@ export default function HomePage() {
                   <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">work for you.</span>
                 </h1>
                 <p className="max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed">
-                  From precision financial calculators to high-speed text utilities and developer encoders — Tulyro delivers 11 free utilities that run entirely in your browser.
+                  EMI, age, BMI, word counts, Base64 and more — 11 free utilities that run entirely in your browser. No signup, no tracking, no waiting.
                 </p>
                 <HomeSearch variantId="desktop" />
                 <TrendingRow />
@@ -136,10 +136,13 @@ export default function HomePage() {
                 Free • Fast • No Signup
               </p>
               <div className="font-display font-display-hero-mobile tracking-tight text-white">
-                Powerful Online Tools for <span className="text-tertiary-fixed">Everyday Needs</span>
+                Everyday tools that{" "}
+                <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">
+                  just work.
+                </span>
               </div>
               <p className="font-body-md text-body-md leading-relaxed text-tertiary-fixed">
-                From smart precision calculators to text utilities, developer formatters, and instant everyday solvers.
+                Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
               </p>
               <HomeSearch variantId="mobile" />
               <TrendingRow />
@@ -223,7 +226,7 @@ export default function HomePage() {
               const tool = getTool(entry.id);
               return (
                 <Link key={entry.id} href={tool.href} className="flex items-center gap-3 rounded-xl bg-surface-container-lowest p-3 shadow-sm">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary-fixed text-primary-container">
+                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${entry.tint}`}>
                     <Icon name={entry.id === "bmi-calculator" ? "monitor_weight" : entry.id === "text-to-speech" ? "record_voice_over" : entry.id === "base64-encoder-decoder" ? "code" : entry.id === "cgpa-to-percentage" ? "percent" : entry.id === "word-counter" ? "description" : entry.id === "emi-calculator" ? "account_balance" : "calendar_month"} className="h-5 w-5" />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -285,7 +288,7 @@ export default function HomePage() {
           <div className="space-y-2">
             {MOBILE_CATEGORIES.map((category) => (
               <Link key={category.label} href={category.href} className="flex items-center gap-3 rounded-xl bg-surface-container-lowest p-3 shadow-sm">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary-fixed text-primary-container">
+                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${category.tint}`}>
                   <Icon name={category.icon} className="h-5 w-5" />
                 </span>
                 <span className="min-w-0 flex-1">

@@ -9,6 +9,8 @@ export type ToolContent = {
   faq: FAQItem[];
   /** Verified external sources cited by the page content (label + URL). */
   sources?: { label: string; href: string }[];
+  /** Internal guides a visitor would naturally want next after using this tool. */
+  guides?: { label: string; href: string }[];
 };
 
 const faq = (items: FAQItem[]): FAQItem[] => items;
@@ -25,6 +27,7 @@ export const content: Record<string, ToolContent> = {
       "The result is informational and should not be used as legal proof of age. Official processes may use documents, local rules, or a different definition of an age threshold. For school, work, insurance, or travel paperwork, follow the organisation's stated method. The calculator accepts dates from 1 January 1900 through today. Future dates and dates before that minimum receive a plain-language message instead of a blank result. The method is deterministic in the underlying logic, which also makes it straightforward to check against a known as-of date.",
       "For a reliable comparison, write down the as-of date before entering a birthday and make sure the device date is correct. The calculator describes elapsed calendar time, so it is useful for planning a celebration, checking an application draft, or explaining the difference between a birthday and a total-day count. It intentionally avoids pretending that every month has the same number of days. When a result looks surprising, check the day before and after the birthday, especially around February and the end of a month. The explanation below the result states the assumptions so another person can reproduce the calculation.",
     ],
+    guides: [{ label: "How to Calculate Age in Days", href: "/guides/how-to-calculate-age-in-days/" }],
     faq: faq([
       { question: "How is exact age calculated?", answer: "The calculator compares your date of birth with today's local calendar date and reports completed years, then remaining months, then remaining days. It advances month by month instead of dividing by 365.25, so months of different lengths and leap years are handled correctly. The result also shows total days lived." },
       { question: "Does it use my device's local date?", answer: "Yes. Date calculations use the local date on your device rather than UTC." },
@@ -45,6 +48,7 @@ export const content: Record<string, ToolContent> = {
       "All checks happen in the browser. The amount must be greater than zero and no more than 1,000,000,000,000. The rate can be from 0 to 100 percent with up to two decimal places, and tenure must be a whole number from one to 600 months. Invalid or incomplete input keeps the result area in its placeholder state. No loan details are stored, and a refresh clears the form. For a US-oriented page with dollar formatting and mortgage language, use the linked Mortgage Calculator.",
       "Try comparing two rates while leaving the amount and tenure unchanged to see how interest changes the total. A longer tenure can lower the monthly payment while increasing the total interest, so a single monthly figure does not describe the full cost. The calculation does not know your income, credit profile, lender policy, or eligibility. Use it to prepare questions and rough scenarios, then check the official schedule and disclosures supplied by the lender. Because the form is local, you can explore scenarios without an account or a saved history.",
     ],
+    guides: [{ label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" }],
     faq: faq([
       { question: "What does EMI mean?", answer: "EMI means equated monthly instalment: the fixed amount you pay every month until a reducing-balance loan is repaid. Each payment covers that month's interest plus part of the principal, so the interest portion shrinks over time while the EMI itself stays the same for a fixed-rate loan." },
       { question: "What happens at zero interest?", answer: "The calculator divides the principal by the number of months and shows zero interest." },

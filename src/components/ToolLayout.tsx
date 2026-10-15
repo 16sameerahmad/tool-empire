@@ -32,9 +32,10 @@ type ToolLayoutProps = {
   content: string[];
   faq: FAQItem[];
   sources?: { label: string; href: string }[];
+  guides?: { label: string; href: string }[];
 };
 
-export function ToolLayout({ tool, children, intro, definition, howTo, content, faq, sources }: ToolLayoutProps) {
+export function ToolLayout({ tool, children, intro, definition, howTo, content, faq, sources, guides }: ToolLayoutProps) {
   const relatedTools = tool.related.map((id) => getTool(id)).filter((related) => related.live);
   return (
     <>
@@ -129,6 +130,23 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
                   <li key={source.href} className="font-body-md text-body-md text-on-surface-variant">
                     <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-primary underline">
                       {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {guides && guides.length > 0 ? (
+            <section className="mt-12 max-w-[720px]" aria-labelledby="guides-heading">
+              <h2 id="guides-heading" className="font-display font-headline-md text-headline-md text-on-surface">
+                Related guides
+              </h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5">
+                {guides.map((guide) => (
+                  <li key={guide.href} className="font-body-md text-body-md text-on-surface-variant">
+                    <a href={guide.href} className="text-primary underline">
+                      {guide.label}
                     </a>
                   </li>
                 ))}

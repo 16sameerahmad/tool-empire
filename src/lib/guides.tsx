@@ -644,6 +644,466 @@ export const guides: Guide[] = [
     related: ["emi-calculator", "mortgage-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
   },
+  {
+    slug: "how-to-choose-emi-calculator",
+    title: "How to Choose an EMI Calculator",
+    seoTitle: "Which EMI Calculator Is Best? 5 Checks Before You Trust One | Tulyro",
+    seoDescription:
+      "Every EMI calculator runs the same formula. What differs: total interest display, amortization view, prepayment, currency. Five checks that separate honest tools from traps.",
+    href: "/guides/how-to-choose-emi-calculator/",
+    intro: [
+      <>
+        Here is the uncomfortable truth first: every EMI calculator on the internet runs the same
+        formula. EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1). There is no secret
+        maths. So when people ask which EMI calculator is best, the answer is never about the
+        formula. It is about everything around it: what the tool shows you, what it hides, and
+        whether it helps you compare loans honestly.
+      </>,
+    ],
+    cta: { label: "Try the EMI Calculator", href: "/calculators/emi-calculator/" },
+    sections: [
+      {
+        heading: "Check 1: Does it show total interest?",
+        body: [
+          <>
+            The monthly EMI is the least important number on the page. The number that decides whether
+            a loan is cheap or expensive is total interest paid over the whole tenure. A ₹5,00,000 loan
+            at 10% for 24 months costs ₹53,739.12 in interest. If a calculator shows you the EMI but
+            hides that figure, or buries it three scrolls down, it is not helping you compare loans.
+            It is helping you feel good about a monthly number.
+          </>,
+          <>
+            Any calculator worth using puts total interest next to the EMI, on the same screen, without
+            you asking.
+          </>,
+        ],
+      },
+      {
+        heading: "Check 2: Does it show an amortization schedule?",
+        body: [
+          <>
+            An amortization schedule is the month-by-month split of each payment into principal and
+            interest. It is where you learn the thing banks never advertise: your early payments are
+            mostly interest. On that ₹5,00,000 loan, the first EMI of ₹23,072.46 contains about
+            ₹4,166.67 of interest and only ₹18,905.79 of principal. By the final payment, those
+            proportions have flipped.
+          </>,
+          <>
+            A calculator without this view is a black box. A calculator with it teaches you how loans
+            actually work. Guess which one I would trust.
+          </>,
+        ],
+      },
+      {
+        heading: "Check 3: Can it handle prepayment?",
+        body: [
+          <>
+            Real loans get prepaid. Bonuses arrive, salaries rise, and people throw lump sums at their
+            debt. An honest calculator lets you test that: what happens if I pay ₹50,000 extra in month
+            12? How many months do I save, and how much interest disappears?
+          </>,
+          <>
+            Tools that cannot model prepayment are toys. The prepayment question is where the biggest
+            savings hide, and a calculator that cannot answer it is not finished.
+          </>,
+        ],
+      },
+      {
+        heading: "Check 4: Currency and language that match your loan",
+        body: [
+          <>
+            This sounds trivial until you have seen someone compare a ₹ EMI with a $ mortgage payment
+            and conclude one loan is cheaper. An Indian loan deserves ₹, Indian digit grouping, and
+            words like tenure and principal. A US mortgage deserves $ and US grouping. I wrote a whole
+            guide about this mix-up:{" "}
+            <Link href="/guides/emi-vs-mortgage-calculator/" className="text-primary underline">
+              EMI Calculator vs Mortgage Calculator
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        heading: "Check 5: Does it say what it leaves out?",
+        body: [
+          <>
+            No EMI calculator includes processing fees, insurance, GST on charges, or floating-rate
+            changes. That is fine. What is not fine is pretending the number on screen is the final
+            word. An honest tool says, somewhere visible, that its result is pure loan maths and not a
+            lender quote. If a calculator never mentions its limits, assume it has more of them.
+          </>,
+        ],
+      },
+      {
+        heading: "Red flags",
+        body: [
+          <>
+            Walk away from any calculator that quotes a flat rate as if it were an EMI. Flat-rate
+            interest is charged on the full original principal for the whole tenure, which makes the
+            loan look cheaper than it is. Real EMI uses a reducing balance. I explain the difference
+            in{" "}
+            <Link href="/guides/how-to-calculate-emi/" className="text-primary underline">
+              How to Calculate EMI by Hand
+            </Link>
+            .
+          </>,
+          <>
+            Other red flags: no total interest anywhere, pop-ups pushing &ldquo;instant
+            approval&rdquo; before you have even typed a number, and results that change when you
+            refresh the page. A calculator whose maths is not stable is not a calculator.
+          </>,
+        ],
+      },
+      {
+        heading: "The 30-second verification",
+        body: [
+          <>
+            You do not need my opinion. Take any calculator, run ₹1,00,000 at 12% for 12 months, and
+            check it against the hand calculation: ₹8,884.88 a month. If it matches, the maths is
+            right, and you can judge everything else by the five checks above. If it does not match,
+            close the tab.
+          </>,
+          <>
+            Run the check on our{" "}
+            <Link href="/calculators/emi-calculator/" className="text-primary underline">
+              EMI Calculator
+            </Link>
+            . It passes. Then judge it on the other five checks like you would any other tool. That is
+            the honest way to use this guide, including against us.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which EMI calculator is the best?",
+        answer:
+          "There is no single best one. Every calculator runs the same reducing-balance formula. Judge them by the five checks on this page: total interest shown, amortization schedule, prepayment support, matching currency, and honest limits.",
+      },
+      {
+        question: "Are online EMI calculators accurate?",
+        answer:
+          "The pure maths is accurate on any honest calculator. What they exclude — processing fees, insurance, GST on charges, floating rates — is where lender figures differ. Treat results as estimates, not quotes.",
+      },
+      {
+        question: "Why do two calculators give different EMIs for the same loan?",
+        answer:
+          "Usually rounding, different handling of the monthly rate (annual ÷ 12 vs a daily equivalent), or one of them quietly using flat-rate maths. Verify with the hand formula: ₹1,00,000 at 12% for 12 months is ₹8,884.88.",
+      },
+      {
+        question: "Should I trust my bank's EMI calculator?",
+        answer:
+          "For the maths, yes. For the comparison, remember the bank's calculator exists to sell the bank's loan. It will not volunteer that a shorter tenure saves you tens of thousands in interest.",
+      },
+      {
+        question: "Is it safe to use a free EMI calculator?",
+        answer:
+          "Yes, if it runs in your browser without asking for personal details. Never enter your PAN, account number, or OTP into a calculator. Ours asks for nothing and stores nothing.",
+      },
+    ],
+    related: ["emi-calculator", "mortgage-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "calculate-age-in-excel",
+    title: "Calculate Age in Excel: 3 Formulas That Work",
+    seoTitle: "Calculate Age in Excel — DATEDIF, YEARFRAC & Quick Method | Tulyro",
+    seoDescription:
+      "DATEDIF gives exact years, months and days: =DATEDIF(A2,TODAY(),\"Y\"). YEARFRAC gives decimals. Plus the 30-second rough method and the errors everyone hits.",
+    href: "/guides/calculate-age-in-excel/",
+    intro: [
+      <>
+        Put the date of birth in A2. Then pick your formula. =DATEDIF(A2,TODAY(),&quot;Y&quot;) gives
+        exact years. =YEARFRAC(A2,TODAY(),1) gives a decimal like 36.33. And =INT((TODAY()-A2)/365.25)
+        gives a rough answer in five seconds. The rest of this guide is worked examples and the three
+        errors everyone hits the first time.
+      </>,
+    ],
+    cta: { label: "Try the Age Calculator", href: "/calculators/age-calculator/" },
+    sections: [
+      {
+        heading: "Formula 1: DATEDIF — the exact one",
+        body: [
+          <>
+            DATEDIF is Excel&apos;s worst-kept secret. It does not appear in the function list, but it
+            has worked in every modern Excel and in Google Sheets for years. It counts complete units
+            between two dates:
+          </>,
+          <>
+            =DATEDIF(A2,TODAY(),&quot;Y&quot;) gives full years. =DATEDIF(A2,TODAY(),&quot;YM&quot;)
+            gives leftover months after those years. =DATEDIF(A2,TODAY(),&quot;MD&quot;) gives leftover
+            days after those months. Three calls, one exact age.
+          </>,
+          <>
+            Worked example. A2 holds 15 June 1990, and today is 15 October 2026.
+            =DATEDIF(A2,TODAY(),&quot;Y&quot;) returns 36. =DATEDIF(A2,TODAY(),&quot;YM&quot;) returns
+            4. =DATEDIF(A2,TODAY(),&quot;MD&quot;) returns 0. Thirty-six years, four months, zero days.
+            Exact, leap days handled, no drama.
+          </>,
+        ],
+      },
+      {
+        heading: "Formula 2: YEARFRAC — the decimal one",
+        body: [
+          <>
+            =YEARFRAC(A2,TODAY(),1) returns the age as a decimal number of years. For the same dates it
+            gives about 36.33. The third argument, 1, tells Excel to count actual days, which keeps
+            leap years honest.
+          </>,
+          <>
+            Use this when you need a fraction, not a birthday-style answer: pro-rata calculations,
+            precise tenure math, anything where &quot;36 years and 4 months&quot; is not granular
+            enough. For anything a human will read, DATEDIF&apos;s years-months-days reads better.
+          </>,
+        ],
+      },
+      {
+        heading: "Formula 3: the 30-second rough one",
+        body: [
+          <>
+            =INT((TODAY()-A2)/365.25). Subtract the dates to get days, divide by the average year
+            length, chop the decimal. For our example it gives 36. Fast, memorable, and wrong near
+            birthdays: the average smears leap days across years that never had them, so it can land a
+            day off right when accuracy matters most.
+          </>,
+          <>
+            Fine for trivia. Not fine for forms, payroll, or anything official. I explain why the
+            average fails in{" "}
+            <Link href="/guides/how-to-calculate-age-in-days/" className="text-primary underline">
+              How to Calculate Your Age in Days
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        heading: "Combine them: one cell, full answer",
+        body: [
+          <>
+            String the three DATEDIF calls together and one cell reads like a person:
+          </>,
+          <>
+            =DATEDIF(A2,TODAY(),&quot;Y&quot;)&amp;&quot; years, &quot;&amp;DATEDIF(A2,TODAY(),&quot;YM&quot;)&amp;&quot;
+            months, &quot;&amp;DATEDIF(A2,TODAY(),&quot;MD&quot;)&amp;&quot; days&quot;
+          </>,
+          <>
+            For 15 June 1990 that cell shows &ldquo;36 years, 4 months, 0 days&rdquo;. Copy it down a
+            column of birth dates and you have an age list in seconds.
+          </>,
+        ],
+      },
+      {
+        heading: "Three errors everyone hits",
+        body: [
+          <>
+            #NUM! means the start date is after the end date. Usually the &quot;date of birth&quot;
+            cell holds a future date, or the arguments are backwards. DATEDIF(A2,TODAY(),...) needs
+            the birth date first.
+          </>,
+          <>
+            The second error is dates stored as text. If A2 looks like a date but formulas ignore it,
+            Excel is seeing text, not a date. Select the column, use Text to Columns, and finish as a
+            date. Or wrap it: =DATEDIF(DATEVALUE(A2),TODAY(),&quot;Y&quot;).
+          </>,
+          <>
+            The third is the American-versus-rest-of-world date order. 06/07/1990 is June 7 in the US
+            and July 6 almost everywhere else. If ages come out a month off, check how Excel parsed the
+            date, not the formula.
+          </>,
+        ],
+      },
+      {
+        heading: "As of a specific date, not today",
+        body: [
+          <>
+            Replace TODAY() with the date you care about. =DATEDIF(A2,&quot;2026-01-01&quot;,&quot;Y&quot;)
+            gives the age on 1 January 2026. Put that target date in its own cell, say B2, and write
+            =DATEDIF(A2,B2,&quot;Y&quot;). Now changing B2 recalculates every age in the sheet. This is
+            how HR sheets answer &ldquo;how old was everyone on the policy start date&rdquo; without
+            touching a single formula.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why doesn't DATEDIF appear in Excel's function list?",
+        answer:
+          "Microsoft never documented it, but it works in all modern Excel versions and Google Sheets. Type it manually; autocomplete may not suggest it.",
+      },
+      {
+        question: "Which formula is the most accurate?",
+        answer:
+          "DATEDIF with Y, YM and MD units. It counts real calendar units including leap days. YEARFRAC is precise as a decimal but less readable. The /365.25 shortcut can drift by a day near birthdays.",
+      },
+      {
+        question: "How do I calculate age as of a past date?",
+        answer:
+          "Replace TODAY() with that date: =DATEDIF(A2,\"2026-01-01\",\"Y\"). Better, put the target date in a cell like B2 and use =DATEDIF(A2,B2,\"Y\").",
+      },
+      {
+        question: "Why do I get a #NUM! error?",
+        answer:
+          "The start date is after the end date. Check that the birth date comes first and is not in the future, and that Excel parsed it as a real date, not text.",
+      },
+      {
+        question: "Do these formulas work in Google Sheets?",
+        answer:
+          "Yes. DATEDIF, YEARFRAC and TODAY() all work in Google Sheets exactly as shown here.",
+      },
+    ],
+    related: ["age-calculator", "bmi-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "is-bmi-accurate",
+    title: "Is BMI Accurate? What the Number Can't Tell You",
+    seoTitle: "Is BMI Accurate? Limitations & What Doctors Use Instead | Tulyro",
+    seoDescription:
+      "BMI is a screening tool, not a diagnosis. It misreads athletes, older adults, and muscular builds. What it gets right, where it fails, and what doctors check instead.",
+    href: "/guides/is-bmi-accurate/",
+    intro: [
+      <>
+        BMI is weight in kilograms divided by height in metres squared. One division, one number, and
+        an entire industry of arguments. Here is the honest version: BMI is a decent screening tool
+        and a bad diagnosis. It is right often enough to be useful and wrong often enough that no
+        doctor should use it alone. This guide shows where it fails, with numbers, and what gets
+        checked instead.
+      </>,
+    ],
+    cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
+    sections: [
+      {
+        heading: "What the number means",
+        body: [
+          <>
+            BMI = weight (kg) ÷ height (m)². A person who weighs 70 kg at 1.75 m: 1.75² = 3.0625, and
+            70 ÷ 3.0625 = 22.9. The standard bands, from the World Health Organization: below 18.5 is
+            underweight, 18.5 to 24.9 is the normal range, 25 to 29.9 is overweight, 30 and above is
+            obesity. So 22.9 sits comfortably in the normal band.
+          </>,
+          <>
+            Those bands were drawn from population data, which matters more than it sounds. They
+            describe where risk rises across large groups, not where your personal danger starts. Keep
+            that distinction. It explains nearly every argument about BMI.
+          </>,
+        ],
+      },
+      {
+        heading: "What BMI gets right",
+        body: [
+          <>
+            It is cheap, instant, and needs nothing but a scale and a tape measure. Across populations,
+            higher BMI tracks with higher risk of the diseases everyone worries about. As a first
+            filter, a way to flag who deserves a closer look, it does its job. Public health runs on
+            tools like this because the perfect measurement, applied to nobody, helps nobody.
+          </>,
+        ],
+      },
+      {
+        heading: "Where it fails: muscle",
+        body: [
+          <>
+            BMI cannot see the difference between a kilogram of muscle and a kilogram of fat. Take an
+            athlete: 90 kg at 1.80 m. 1.80² = 3.24, and 90 ÷ 3.24 = 27.8. The bands call that
+            overweight, bordering on obesity. Look at the person and the label is absurd. This is the
+            most common way BMI is &ldquo;wrong&rdquo;, and it is not a rare edge case. Anyone who
+            lifts seriously, plays a power sport, or does physical labour can land here.
+          </>,
+          <>
+            The reverse happens too. Someone with little muscle and a soft middle can sit at 23, inside
+            the normal band, while carrying the exact belly fat the bands are supposed to warn about.
+            The number said fine. The mirror disagrees. Researchers call this normal-weight obesity,
+            and it is the quiet failure mode nobody posts about.
+          </>,
+        ],
+      },
+      {
+        heading: "Where it fails: age and build",
+        body: [
+          <>
+            Muscle melts with age. Two people can share a BMI of 26 while one is a fit 30-year-old and
+            the other is a 70-year-old who has lost a third of their muscle. Same number, very
+            different bodies, very different risk. BMI has no age dial.
+          </>,
+          <>
+            Build matters across populations as well. Research, including World Health Organization
+            consultations on Asian populations, has suggested that health risks can rise at lower BMI
+            values for some groups, with lower trigger points discussed than the standard 25 and 30.
+            One global formula was never going to fit every body. Treat the bands as a starting point
+            calibrated on averages, not a personal verdict.
+          </>,
+        ],
+      },
+      {
+        heading: "What doctors actually check",
+        body: [
+          <>
+            When a doctor looks past BMI, the next measurement is usually the waist. Belly fat is the
+            risky kind, and a tape measure finds it directly. A widely used rule of thumb: keep your
+            waist under half your height. At 175 cm tall, that means a waist under 87.5 cm. It is not
+            official WHO gospel, but many clinicians use it because it catches the normal-weight
+            obesity case that BMI misses.
+          </>,
+          <>
+            After that come the measurements BMI was always a proxy for: blood pressure, blood sugar,
+            cholesterol and triglycerides, and sometimes a body-fat percentage via calipers or a scan.
+            Notice what happened. The single number became five numbers. That is the real answer to
+            &ldquo;is BMI accurate&rdquo;: it was never supposed to be the whole checkup.
+          </>,
+        ],
+      },
+      {
+        heading: "So should you ignore your BMI?",
+        body: [
+          <>
+            No. Use it as a flag, not a verdict. If your BMI is 22.9, the flag is down; carry on. If it
+            is 31, the flag is up; the correct response is a checkup, not an argument with the
+            formula. And if you are the athlete at 27.8 who trains five days a week, you already know
+            the number is misreading you. The failure mode to actually worry about is the quiet one:
+            a &ldquo;normal&rdquo; BMI with a growing waistline.
+          </>,
+          <>
+            Run your own numbers on our{" "}
+            <Link href="/calculators/bmi-calculator/" className="text-primary underline">
+              BMI Calculator
+            </Link>
+            , then read the result the way this guide suggests: as the start of a question, not the
+            end of one.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can a BMI calculator be wrong?",
+        answer:
+          "It can mislead. BMI cannot distinguish muscle from fat, so athletes and muscular builds score too high, and older adults losing muscle can score normal while carrying risky belly fat. It is a screening flag, not a diagnosis.",
+      },
+      {
+        question: "Why do athletes have high BMI?",
+        answer:
+          "Muscle is dense. A 90 kg athlete at 1.80 m has a BMI of 27.8, labelled overweight, despite low body fat. The formula sees weight, not composition.",
+      },
+      {
+        question: "What is a good BMI?",
+        answer:
+          "The WHO normal band is 18.5 to 24.9. But pair it with a waist check: keep your waist under half your height. A normal BMI with a large waist still deserves attention.",
+      },
+      {
+        question: "What should I use instead of BMI?",
+        answer:
+          "Waist circumference and waist-to-height ratio catch what BMI misses. For a full picture, doctors add blood pressure, blood sugar, and cholesterol. No single number replaces that set.",
+      },
+      {
+        question: "Do doctors still use BMI?",
+        answer:
+          "Yes, as a first screen. It is fast and cheap. A good doctor treats an out-of-range BMI as a reason to investigate, never as the final word.",
+      },
+    ],
+    related: ["bmi-calculator", "age-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -9,12 +9,12 @@ import { createSimpleBreadcrumbJsonLd, siteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Guides — How Things Work, With Real Numbers | Tulyro",
   description:
-    "Plain-language guides with worked examples: EMI by hand, age in days, the CGPA ×9.5 rule, and EMI vs mortgage. Every number verified against the matching tool.",
+    "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
   alternates: { canonical: `${siteUrl}/guides/` },
   openGraph: {
     title: "Guides — How Things Work, With Real Numbers | Tulyro",
     description:
-      "Plain-language guides with worked examples: EMI by hand, age in days, the CGPA ×9.5 rule, and EMI vs mortgage. Every number verified against the matching tool.",
+      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
     url: `${siteUrl}/guides/`,
     siteName: "Tulyro",
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Guides — How Things Work, With Real Numbers | Tulyro",
     description:
-      "Plain-language guides with worked examples: EMI by hand, age in days, the CGPA ×9.5 rule, and EMI vs mortgage. Every number verified against the matching tool.",
+      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
     images: [`${siteUrl}/og-image.png`],
   },
 };

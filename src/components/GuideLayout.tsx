@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 import { Icon } from "@/components/icons";
 import { ToolCard } from "@/components/ToolCard";
 import { getTool } from "@/lib/tools";
-import { createArticleJsonLd, createSimpleBreadcrumbJsonLd } from "@/lib/seo";
+import { createArticleJsonLd, createFaqJsonLd, createSimpleBreadcrumbJsonLd } from "@/lib/seo";
 import type { Guide } from "@/lib/guides";
 
 /** Shared layout for /guides/* pages. Mirrors ToolLayout styling; content comes from guides.tsx. */
@@ -20,11 +20,13 @@ export function GuideLayout({ guide }: { guide: Guide }) {
     { name: "Guides", path: "/guides/" },
     { name: guide.title, path: guide.href },
   ]);
+  const faqJsonLd = createFaqJsonLd(guide.faq);
   const relatedTools = guide.related.map((id) => getTool(id)).filter((tool) => tool.live);
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Header />
       <a
         href="#guide"

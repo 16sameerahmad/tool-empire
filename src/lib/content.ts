@@ -105,6 +105,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Why did switching units clear my values?", answer: "Clearing prevents values from being misread under a different unit system." },
       { question: "Are children covered?", answer: "No. This calculator is intended for adults aged 18 and over." },
       { question: "Is BMI accurate?", answer: "BMI is a useful screening number, but it is not a precise measure of health on its own. It cannot tell muscle from fat, so a muscular person can score as overweight, and it says nothing about where fat is carried. Treat the result as a starting point for a conversation with a health professional, not a diagnosis." },
+      { question: "How does a BMI calculator work?", answer: "It divides your weight in kilograms by your height in metres squared. For example, 70 kg at 1.75 m gives 70 ÷ (1.75 × 1.75) = 22.9. If you enter imperial units, it first converts pounds to kilograms and feet and inches to metres using exact conversion factors, then applies the same formula." },
     ]),
     sources: [{ label: "WHO — Obesity and overweight (adult BMI ≥ 25 overweight, ≥ 30 obesity)", href: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" }],
     guides: [{ label: "Is BMI Accurate? What the Number Can't Tell You", href: "/guides/is-bmi-accurate/" }],

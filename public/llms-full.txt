@@ -128,6 +128,12 @@ present them as real.
   What the ×9.5 rule means, where it applies, and where it does not.
 - EMI Calculator vs Mortgage Calculator: Which One to Use — https://tulyrotools.vercel.app/guides/emi-vs-mortgage-calculator/
   Same formula, different currency, formatting, and context — how to pick.
+- How to Choose an EMI Calculator — https://tulyrotools.vercel.app/guides/how-to-choose-emi-calculator/
+  Five checks that separate honest EMI calculators from traps: total interest, amortization, prepayment, currency, disclosed limits.
+- Calculate Age in Excel — https://tulyrotools.vercel.app/guides/calculate-age-in-excel/
+  DATEDIF, YEARFRAC and the quick method for exact ages in spreadsheets, with the three errors everyone hits.
+- Is BMI Accurate? What the Number Can't Tell You — https://tulyrotools.vercel.app/guides/is-bmi-accurate/
+  Where BMI fails (muscle, age, build), what it gets right, and what doctors check instead.
 - All Guides — https://tulyrotools.vercel.app/guides/
 
 ## Sources cited on tool pages

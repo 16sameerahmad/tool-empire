@@ -6,7 +6,7 @@ Date: 2026-10-15 | For the profile-backlinks groundwork plan.
 - Tagline: Free browser-only tools. No signup. No watermark.
 - Website: https://tulyrotools.vercel.app
 - Contact: Tulyrotools@gmail.com
-- What it is: 11 free tools — calculators (EMI, age, BMI), text tools (word counter, case converter), developer tools (Base64, JSON formatter), generators (password, QR).
+- What it is: 11 free tools — 5 calculators (age, EMI, mortgage, BMI, CGPA), 3 text tools (word counter, text-to-speech, fancy text), a Base64 encoder, an invoice generator, and a fake text generator.
 
 ## Short bio (≤160 chars, for X / Pinterest / Reddit / etc.)
 Free calculators, text tools & dev utilities that run 100% in your browser. No signup, no watermark. Just tools that work.

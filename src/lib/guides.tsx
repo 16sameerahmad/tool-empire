@@ -137,7 +137,12 @@ export const guides: Guide[] = [
             <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
               Mortgage Calculator
             </Link>{" "}
-            if the loan is a US-dollar home loan instead.
+            if the loan is a US-dollar home loan instead. And if you are still deciding which
+            calculator to trust in the first place, read{" "}
+            <Link href="/guides/how-to-choose-emi-calculator/" className="text-primary underline">
+              How to Choose an EMI Calculator
+            </Link>
+            .
           </>,
         ],
       },
@@ -287,7 +292,11 @@ export const guides: Guide[] = [
             There is one more everyday use: streaks. People tracking a habit, a fitness run, or days
             since an event usually want the exact count, not an average. A streak of 100 days means 100
             real days. The same counting discipline applies: real calendar, real leap days, no
-            shortcuts.
+            shortcuts. And if your ages live in a spreadsheet rather than on paper,{" "}
+            <Link href="/guides/calculate-age-in-excel/" className="text-primary underline">
+              Calculate Age in Excel
+            </Link>{" "}
+            shows the three formulas that do this counting for you.
           </>,
         ],
       },

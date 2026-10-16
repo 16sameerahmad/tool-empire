@@ -10,7 +10,7 @@ const NAV = [
   { label: "Calculators", href: "/calculators/" },
   { label: "Text Tools", href: "/text/" },
   { label: "Developer Tools", href: "/dev/" },
-  { label: "Productivity & Fun", href: "/fun/" },
+  { label: "Fun Tools", href: "/fun/" },
   { label: "All Tools", href: "/tools/" },
 ];
 

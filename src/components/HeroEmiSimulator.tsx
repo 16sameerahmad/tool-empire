@@ -5,11 +5,11 @@ import Link from "next/link";
 import { emi } from "@/tools/emi/logic";
 import { Icon } from "@/components/icons";
 
-const usd0 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const inr0 = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
-/** Stitch "live-calculator.sim" hero card, wired to the real emi() logic in USD. */
+/** Stitch "live-calculator.sim" hero card, wired to the real emi() logic, demoed in INR. */
 export function HeroEmiSimulator() {
-  const [principal, setPrincipal] = useState(25000);
+  const [principal, setPrincipal] = useState(500000);
   const [rate, setRate] = useState(7.5);
   const [years, setYears] = useState(5);
   const result = emi(principal, rate, years * 12);
@@ -36,14 +36,14 @@ export function HeroEmiSimulator() {
             <label htmlFor="hero-principal" className="font-label-md text-label-md text-tertiary-fixed">
               Principal Amount
             </label>
-            <span className="font-code-data text-code-data font-semibold text-white">{usd0.format(principal)}</span>
+            <span className="font-code-data text-code-data font-semibold text-white">{inr0.format(principal)}</span>
           </div>
           <input
             id="hero-principal"
             type="range"
-            min={1000}
-            max={1000000}
-            step={1000}
+            min={10000}
+            max={10000000}
+            step={10000}
             value={principal}
             onChange={(event) => setPrincipal(Number(event.target.value))}
             className="h-2 w-full cursor-pointer accent-primary-container"
@@ -92,12 +92,12 @@ export function HeroEmiSimulator() {
           <div>
             <span className="block font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Monthly Installment</span>
             <span className="font-display font-result-metric text-result-metric font-extrabold text-primary">
-              {monthly !== null ? usd0.format(monthly) : "—"}
+              {monthly !== null ? inr0.format(monthly) : "—"}
             </span>
           </div>
           <div className="text-right">
             <span className="block font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Total Interest</span>
-            <span className="font-code-data text-code-data font-semibold text-on-surface">{interest !== null ? usd0.format(interest) : "—"}</span>
+            <span className="font-code-data text-code-data font-semibold text-on-surface">{interest !== null ? inr0.format(interest) : "—"}</span>
           </div>
         </div>
         <div className="flex items-center justify-between pt-1 font-body-sm text-body-sm text-tertiary-fixed-dim">
@@ -105,7 +105,7 @@ export function HeroEmiSimulator() {
             <Icon name="verified" className="h-[14px] w-[14px] text-primary-fixed" />
             Computed locally in your browser
           </span>
-          <Link href="/calculators/mortgage-calculator/" className="flex items-center text-primary-fixed hover:underline">
+          <Link href="/calculators/emi-calculator/" className="flex items-center text-primary-fixed hover:underline">
             Open Full Tool →
           </Link>
         </div>

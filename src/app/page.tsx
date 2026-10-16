@@ -36,8 +36,8 @@ const POPULAR = [
 const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
   { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", hover: "group-hover:bg-secondary group-hover:text-on-secondary" },
-  { label: "Developer", href: "/dev/", count: "1 tool", icon: "terminal", hover: "group-hover:bg-tertiary group-hover:text-on-tertiary" },
-  { label: "Productivity & Fun", href: "/fun/", count: "1 tool", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
+  { label: "Developer Tools", href: "/dev/", count: "1 tool", icon: "terminal", hover: "group-hover:bg-tertiary group-hover:text-on-tertiary" },
+  { label: "Fun Tools", href: "/fun/", count: "1 tool", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
   { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", hover: "group-hover:bg-surface-tint group-hover:text-on-primary" },
 ];
 const TRUST = [
@@ -54,19 +54,19 @@ const BLUEPRINT = [
 ];
 /* Mobile-home (Stitch mobile skeleton) content — real tools, real counts, short labels. */
 const MOBILE_STATS = [
-  { value: "11", label: "Total Tools", icon: "apps" },
-  { value: "100%", label: "Free Forever", icon: "verified" },
-  { value: "Zero", label: "No Signup", icon: "lock_open" },
-  { value: "Local", label: "Runs in Browser", icon: "wifi_off" },
+  { value: "11", label: "Free Utilities", icon: "apps" },
+  { value: "100%", label: "Client-Side", icon: "verified" },
+  { value: "No", label: "Signup", icon: "lock_open" },
+  { value: "Instant", label: "In-Browser Compute", icon: "wifi_off" },
 ];
 const MOBILE_POPULAR = [
-  { id: "age-calculator", label: "Age Calculator", badge: "Precision", tint: "bg-primary-fixed text-primary-container" },
-  { id: "emi-calculator", label: "EMI Loan Calculator", badge: "Finance", tint: "bg-secondary-fixed text-secondary" },
-  { id: "word-counter", label: "Word & Character Counter", badge: "", tint: "bg-tertiary-fixed text-tertiary" },
-  { id: "bmi-calculator", label: "BMI Health Gauge", badge: "", tint: "bg-primary-fixed text-primary-container" },
+  { id: "age-calculator", label: "Age Calculator", badge: "Calculator", tint: "bg-primary-fixed text-primary-container" },
+  { id: "emi-calculator", label: "EMI Calculator", badge: "Finance", tint: "bg-secondary-fixed text-secondary" },
+  { id: "word-counter", label: "Word Counter", badge: "Text Utility", tint: "bg-tertiary-fixed text-tertiary" },
+  { id: "bmi-calculator", label: "BMI Calculator", badge: "Calculator", tint: "bg-primary-fixed text-primary-container" },
   { id: "cgpa-to-percentage", label: "CGPA to Percentage", badge: "Academic", tint: "bg-secondary-fixed text-secondary" },
-  { id: "text-to-speech", label: "Text to Speech Synthesizer", badge: "", tint: "bg-tertiary-fixed text-tertiary" },
-  { id: "base64-encoder-decoder", label: "Base64 Encoder & Decoder", badge: "Dev", tint: "bg-primary-fixed text-primary-container" },
+  { id: "text-to-speech", label: "Text to Speech", badge: "Media & Fun", tint: "bg-tertiary-fixed text-tertiary" },
+  { id: "base64-encoder-decoder", label: "Base64 Encoder & Decoder", badge: "Developer", tint: "bg-primary-fixed text-primary-container" },
 ];
 const MOBILE_CATEGORIES = [
   { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
@@ -110,7 +110,7 @@ export default function HomePage() {
               <div className="flex flex-col space-y-6 lg:col-span-7">
                 <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-label-sm text-label-sm text-tertiary-fixed shadow-inner">
                   <span className="flex h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
-                  Client-Side Engine • Zero Server Tracking • Computed in Your Browser
+                  11 free tools • No signup • Private by design
                 </p>
                 <h1 className="font-display font-display-hero leading-[1.08] tracking-tight text-white">
                   Free tools that
@@ -133,7 +133,7 @@ export default function HomePage() {
             <div className="flex flex-col gap-4">
               <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-label-sm text-label-sm text-tertiary-fixed">
                 <span className="flex h-2 w-2 rounded-full bg-primary-container animate-pulse" aria-hidden="true" />
-                Free • Fast • No Signup
+                11 free tools • No signup • Private by design
               </p>
               <div className="font-display font-display-hero-mobile tracking-tight text-white">
                 Everyday tools that{" "}

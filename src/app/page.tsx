@@ -182,6 +182,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          {/* Blend the midnight hero into the light content below — no hard edge. */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-surface-container-low" />
         </section>
 
         {/* Trust strip (desktop) */}

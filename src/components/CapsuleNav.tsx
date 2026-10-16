@@ -107,6 +107,8 @@ export function CapsuleNav() {
     const pill = nav.querySelector<HTMLElement>(".vs-capsule-nav-pill");
     const ul = nav.querySelector<HTMLUListElement>(".vs-capsule-nav-track > .vs-capsule-nav-list");
     if (!bar || !track || !ghost || !shade || !pill || !ul) return;
+    // The frosted action cluster lives in the same .site-header row — hide it with the bar.
+    const cluster = nav.closest(".site-header")?.querySelector<HTMLElement>(".site-header-cluster") ?? null;
     pill.inert = true;
     const links = [...ul.querySelectorAll<HTMLAnchorElement>(".vs-capsule-nav-link")];
     if (!links.length) return;
@@ -159,6 +161,10 @@ export function CapsuleNav() {
         const hp = clamp(hy.x / D, -0.2, 1);
         bar.style.transform = `translate3d(0,${(-hy.x).toFixed(2)}px,0) scale(${(1 - 0.07 * cp.x - 0.05 * Math.max(0, hp)).toFixed(4)})`;
         bar.style.opacity = (1 - 0.45 * Math.max(0, hp)).toFixed(3);
+        if (cluster) {
+          cluster.style.transform = `translate3d(0,${(-hy.x).toFixed(2)}px,0)`;
+          cluster.style.opacity = (1 - 0.45 * Math.max(0, hp)).toFixed(3);
+        }
         nav.style.setProperty("--c", cp.x.toFixed(3));
         return moving;
       },

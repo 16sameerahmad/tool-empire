@@ -8,7 +8,9 @@ const linkClass = "rounded font-body-sm text-body-sm text-tertiary-fixed-dim tra
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="w-full border-t border-white/5 bg-midnight pb-space-lg pt-space-xl text-white">
+    <footer className="relative w-full border-t border-white/5 bg-midnight pb-space-lg pt-space-xl text-white">
+      {/* Blend the light content above into the midnight footer — no hard edge. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface to-transparent" />
       <div className="mx-auto max-w-shell px-6">
         <div className="mb-space-xl grid grid-cols-1 gap-space-lg md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-3 lg:col-span-2">

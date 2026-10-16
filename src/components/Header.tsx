@@ -17,39 +17,45 @@ function scrollToSiteSearch() {
   }
 }
 
-const iconBtn =
-  "grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-midnight/60 text-white backdrop-blur-xl transition-colors hover:bg-midnight/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container";
-
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      {/* Primary navigation: floating frosted capsule (logo + category links). */}
-      <CapsuleNav />
-
-      {/* Top-right floating cluster: search, Suggest Tool, menu. */}
-      <div className="fixed right-3 top-3.5 z-50 flex items-center gap-2">
-        <button type="button" onClick={scrollToSiteSearch} aria-label="Search tools" className={iconBtn}>
-          <Icon name="search" className="h-[18px] w-[18px]" />
-        </button>
-        <Link
-          href="/contact/"
-          className="hidden h-10 items-center rounded-full border border-white/10 bg-midnight/60 px-4 font-label-md text-label-md text-white backdrop-blur-xl transition-colors hover:bg-midnight/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container sm:inline-flex"
-        >
-          Suggest Tool
-        </Link>
-        <button
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((value) => !value)}
-          className={`${iconBtn} xl:hidden`}
-          aria-label="Toggle navigation menu"
-        >
-          <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
-        </button>
-      </div>
+      {/* Floating header system: capsule nav + matching frosted cluster in one row — never overlapping. */}
+      <header className="site-header">
+        <div className="site-header-inner">
+          <div className="site-header-navwrap">
+            <CapsuleNav />
+          </div>
+          <div className="site-header-cluster" role="group" aria-label="Quick actions">
+            <button
+              type="button"
+              onClick={scrollToSiteSearch}
+              aria-label="Search tools"
+              className="cluster-btn inline-flex items-center justify-center"
+            >
+              <Icon name="search" className="h-[18px] w-[18px]" />
+            </button>
+            <Link
+              href="/contact/"
+              className="cluster-btn hidden items-center justify-center sm:inline-flex"
+            >
+              Suggest Tool
+            </Link>
+            <button
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              onClick={() => setMenuOpen((value) => !value)}
+              className="cluster-btn inline-flex items-center justify-center xl:hidden"
+              aria-label="Toggle navigation menu"
+            >
+              <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
 
       {menuOpen ? (
         <nav
@@ -82,8 +88,8 @@ export function Header() {
         </nav>
       ) : null}
 
-      {/* Spacer matching the floating capsule. */}
-      <div className="h-[76px]" aria-hidden="true" />
+      {/* Spacer matching the floating header system. */}
+      <div className="h-[68px] lg:h-[76px]" aria-hidden="true" />
 
       {/* Mobile bottom-dock nav (DESIGN.md: midnight, 5 tabs). */}
       <nav aria-label="Mobile bottom navigation" className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-midnight md:hidden">

@@ -250,6 +250,49 @@ summary {
 }
 
 /* ============ Capsule Nav (vividsites "capsule-nav", ported to Tulyro tokens; pure CSS+JS, zero deps) ============ */
+/* ---- Floating header system: capsule nav + matching frosted cluster, one row ---- */
+.site-header {
+  --vs-capsule-nav-top: 14px;                 /* distance from the top edge */
+  --vs-capsule-nav-size: 1rem;
+  position: fixed; inset-inline: 0; top: var(--vs-capsule-nav-top); z-index: 50;
+  display: flex; justify-content: center; pointer-events: none;
+  padding-inline: 12px;
+}
+.site-header-inner {
+  display: flex; align-items: flex-start; justify-content: center; gap: 8px;
+  width: 100%; max-width: 1120px; pointer-events: none;
+}
+.site-header-inner > * { pointer-events: auto; }
+.site-header-navwrap { display: flex; justify-content: center; min-width: 0; flex: 1 1 auto; }
+/* Frosted action cluster — identical frost recipe to .vs-capsule-nav-bar. */
+.site-header-cluster {
+  flex-shrink: 0; display: flex; align-items: center; gap: .125em; padding: .3125em; border-radius: 999px;
+  font-size: var(--vs-capsule-nav-size);
+  background: rgba(7, 20, 47, .55);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  box-shadow:
+    inset 0 0 0 .5px rgba(255,255,255,.16),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 1px rgba(0,0,0,.14),
+    0 1px 2px rgba(3,6,16,.22),
+    0 .75em 2em -.75em rgba(3,6,16,.5),
+    0 2em 4em -2em rgba(3,6,16,.45);
+  will-change: transform;
+}
+.site-header-cluster .cluster-btn {
+  height: 2.75em; min-width: 2.75em; padding-inline: .8em; border-radius: 999px;
+  color: rgba(236, 240, 248, .85);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1em; font-weight: 500; letter-spacing: -.012em; white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 150ms cubic-bezier(.2,0,0,1), color 150ms cubic-bezier(.2,0,0,1);
+}
+.site-header-cluster .cluster-btn:hover { background: rgba(236,240,248,.12); color: #fff; }
+.site-header-cluster .cluster-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(7,20,47,.9), 0 0 0 3.5px #9cc0ff;
+}
 .vs-capsule-nav {
   --vs-capsule-nav-size: 1rem;
   --vs-capsule-nav-font: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -265,8 +308,9 @@ summary {
   --vs-capsule-nav-top: 14px;                   /* distance from the top edge */
 
   --c: 0;                                       /* compact progress, written by the script */
-  position: fixed; left: 0; right: 0; top: var(--vs-capsule-nav-top); z-index: 40;
+  position: relative;                           /* fixed positioning lives on .site-header now */
   display: flex; justify-content: center; pointer-events: none;
+  min-width: 0; flex: 0 1 auto;
   font-size: var(--vs-capsule-nav-size); font-family: var(--vs-capsule-nav-font);
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
@@ -324,10 +368,14 @@ summary {
 }
 .vs-capsule-nav-pill .vs-capsule-nav-list { position: absolute; left: 0; top: 0; }
 .vs-capsule-nav-pill .vs-capsule-nav-link { color: var(--vs-capsule-nav-accent-ink); transition: none; }
-@media (max-width: 639px) {
-  /* Mobile: hug the left, leave room for the top-right cluster; scroll if the links overflow. */
-  .vs-capsule-nav { justify-content: flex-start; padding-left: 12px; --vs-capsule-nav-top: 10px; --vs-capsule-nav-size: .8125rem; }
-  .vs-capsule-nav-bar { max-width: calc(100vw - 84px); overflow-x: auto; scrollbar-width: none; }
+@media (max-width: 1023px) {
+  /* Tablet + mobile: nav hugs the left, links scroll inside the bar; the
+     flex row guarantees the cluster never overlaps. */
+  .site-header { --vs-capsule-nav-top: 10px; --vs-capsule-nav-size: .8125rem; }
+  .site-header-inner { justify-content: flex-start; }
+  .site-header-navwrap { justify-content: flex-start; }
+  .vs-capsule-nav { justify-content: flex-start; }
+  .vs-capsule-nav-bar { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
   .vs-capsule-nav-bar::-webkit-scrollbar { display: none; }
   .vs-capsule-nav-brand, .vs-capsule-nav-track { flex-shrink: 0; }
   .vs-capsule-nav-track { width: max-content; }
@@ -340,4 +388,6 @@ summary {
 }
 @media (prefers-reduced-motion: reduce) {
   .vs-capsule-nav-link { transition: none; }
+  .site-header-cluster { will-change: auto; }
+  .site-header-cluster .cluster-btn { transition: none; }
 }

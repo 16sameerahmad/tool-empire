@@ -13,8 +13,9 @@ export function AgeWorkspace() {
   const today = new Date();
   const todayValue = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   const [dob, setDob] = useState("");
+  const [asOf, setAsOf] = useState(todayValue);
   const [copied, setCopied] = useState(false);
-  const result = useMemo(() => ageCalc(dob, todayValue), [dob, todayValue]);
+  const result = useMemo(() => ageCalc(dob, asOf || todayValue), [dob, asOf, todayValue]);
   const error = result && "error" in result ? result.error : null;
   const valid = result && !("error" in result) ? result : null;
 
@@ -79,17 +80,25 @@ export function AgeWorkspace() {
               </p>
             ) : null}
           </div>
-          <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-3 py-2.5">
-            <span className="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant">
-              <Icon name="schedule" className="h-4 w-4 text-primary" />
+          <div>
+            <label htmlFor="asof" className={labelClass}>
               Calculate Age As Of
-            </span>
-            <span className="font-code-data text-code-data text-on-surface">Today</span>
+            </label>
+            <input
+              id="asof"
+              type="date"
+              value={asOf}
+              onChange={(event) => setAsOf(event.target.value)}
+              className={inputClass}
+            />
+            <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
+              Defaults to today. Pick a future date to see a future age.
+            </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={() => setDob("")}
+              onClick={() => { setDob(""); setAsOf(todayValue); }}
               className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 font-label-md text-label-md text-on-surface hover:bg-surface-container-low"
             >
               <Icon name="restart_alt" className="h-4 w-4" />

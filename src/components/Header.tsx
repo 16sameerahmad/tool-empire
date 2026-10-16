@@ -22,62 +22,34 @@ export function Header() {
 
   return (
     <>
-      {/* Floating header system: capsule nav + matching frosted cluster in one row — never overlapping.
-          On mobile the cluster hides and search/hamburger live inside the single unified capsule. */}
+      {/* Floating header: ONE single centered capsule — logo + links + search +
+          hamburger all inside the same frosted pill, on every viewport. */}
       <header className="site-header">
         <div className="site-header-inner">
-          <div className="site-header-navwrap">
-            <CapsuleNav
-              actions={
-                <>
-                  <button
-                    type="button"
-                    onClick={scrollToSiteSearch}
-                    aria-label="Search tools"
-                    className="vs-capsule-nav-action-btn btn-icon"
-                  >
-                    <Icon name="search" className="h-[18px] w-[18px]" />
-                  </button>
-                  <button
-                    type="button"
-                    aria-expanded={menuOpen}
-                    aria-controls="mobile-navigation"
-                    onClick={() => setMenuOpen((value) => !value)}
-                    className="vs-capsule-nav-action-btn btn-icon"
-                    aria-label="Toggle navigation menu"
-                  >
-                    <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
-                  </button>
-                </>
-              }
-            />
-          </div>
-          <div className="site-header-cluster" role="group" aria-label="Quick actions">
-            <button
-              type="button"
-              onClick={scrollToSiteSearch}
-              aria-label="Search tools"
-              className="cluster-btn btn-icon inline-flex items-center justify-center"
-            >
-              <Icon name="search" className="h-[18px] w-[18px]" />
-            </button>
-            <Link
-              href="/contact/"
-              className="cluster-btn btn-chip hidden items-center justify-center sm:inline-flex"
-            >
-              Suggest Tool
-            </Link>
-            <button
-              type="button"
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-              onClick={() => setMenuOpen((value) => !value)}
-              className="cluster-btn btn-icon inline-flex items-center justify-center xl:hidden"
-              aria-label="Toggle navigation menu"
-            >
-              <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
-            </button>
-          </div>
+          <CapsuleNav
+            actions={
+              <>
+                <button
+                  type="button"
+                  onClick={scrollToSiteSearch}
+                  aria-label="Search tools"
+                  className="vs-capsule-nav-action-btn btn-icon"
+                >
+                  <Icon name="search" className="h-[18px] w-[18px]" />
+                </button>
+                <button
+                  type="button"
+                  aria-expanded={menuOpen}
+                  aria-controls="mobile-navigation"
+                  onClick={() => setMenuOpen((value) => !value)}
+                  className="vs-capsule-nav-action-btn btn-icon"
+                  aria-label="Toggle navigation menu"
+                >
+                  <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
+                </button>
+              </>
+            }
+          />
         </div>
       </header>
 
@@ -85,7 +57,7 @@ export function Header() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile"
-          className="fixed inset-x-4 top-[68px] z-50 rounded-2xl border border-white/10 bg-midnight/90 p-2 shadow-2xl backdrop-blur-xl xl:hidden"
+          className="fixed inset-x-4 top-[68px] z-50 rounded-2xl border border-white/10 bg-midnight/90 p-2 shadow-2xl backdrop-blur-xl"
         >
           <ul className="space-y-1">
             {NAV.map((item) => (

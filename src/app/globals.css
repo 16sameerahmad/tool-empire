@@ -313,40 +313,10 @@ summary {
   padding-inline: 12px;
 }
 .site-header-inner {
-  display: flex; align-items: flex-start; justify-content: center; gap: 8px;
+  display: flex; align-items: flex-start; justify-content: center;
   width: 100%; max-width: 1120px; pointer-events: none;
 }
 .site-header-inner > * { pointer-events: auto; }
-.site-header-navwrap { display: flex; justify-content: center; min-width: 0; flex: 1 1 auto; }
-/* Frosted action cluster — identical frost recipe to .vs-capsule-nav-bar. */
-.site-header-cluster {
-  flex-shrink: 0; display: flex; align-items: center; gap: .125em; padding: .3125em; border-radius: 999px;
-  font-size: var(--vs-capsule-nav-size);
-  background: rgba(7, 20, 47, .55);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  backdrop-filter: blur(20px) saturate(1.8);
-  box-shadow:
-    inset 0 0 0 .5px rgba(255,255,255,.16),
-    inset 0 1px 0 rgba(255,255,255,.12),
-    inset 0 -1px 1px rgba(0,0,0,.14),
-    0 1px 2px rgba(3,6,16,.22),
-    0 .75em 2em -.75em rgba(3,6,16,.5),
-    0 2em 4em -2em rgba(3,6,16,.45);
-  will-change: transform;
-}
-.site-header-cluster .cluster-btn {
-  height: 2.75em; min-width: 2.75em; padding-inline: .8em; border-radius: 999px;
-  color: rgba(236, 240, 248, .85);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  font-size: 1em; font-weight: 500; letter-spacing: -.012em; white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 150ms cubic-bezier(.2,0,0,1), color 150ms cubic-bezier(.2,0,0,1);
-}
-.site-header-cluster .cluster-btn:hover { background: rgba(236,240,248,.12); color: #fff; }
-.site-header-cluster .cluster-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(7,20,47,.9), 0 0 0 3.5px #9cc0ff;
-}
 .vs-capsule-nav {
   --vs-capsule-nav-size: 1rem;
   --vs-capsule-nav-font: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -364,13 +334,14 @@ summary {
   --c: 0;                                       /* compact progress, written by the script */
   position: relative;                           /* fixed positioning lives on .site-header now */
   display: flex; justify-content: center; pointer-events: none;
-  min-width: 0; flex: 0 1 auto;
+  width: 100%; min-width: 0;
   font-size: var(--vs-capsule-nav-size); font-family: var(--vs-capsule-nav-font);
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 .vs-capsule-nav, .vs-capsule-nav * { box-sizing: border-box; }
 .vs-capsule-nav-bar {
   position: relative; display: flex; align-items: center; pointer-events: auto; padding: .3125em; border-radius: 999px;
+  max-width: 100%; min-width: 0;
   background: rgba(var(--vs-capsule-nav-surface), var(--vs-capsule-nav-frost));
   -webkit-backdrop-filter: blur(var(--vs-capsule-nav-blur)) saturate(1.8);
   backdrop-filter: blur(var(--vs-capsule-nav-blur)) saturate(1.8);
@@ -398,7 +369,14 @@ summary {
   outline: none;
   box-shadow: 0 0 0 2px rgba(var(--vs-capsule-nav-surface), .9), 0 0 0 3.5px var(--vs-capsule-nav-focus);
 }
-.vs-capsule-nav-track { position: relative; z-index: 1; display: flex; }
+/* Scrollable zone for the links: the track inside is max-content so the spring
+ * pill (absolutely positioned in the track) scrolls together with the links. */
+.vs-capsule-nav-scrollzone {
+  flex: 1 1 auto; min-width: 0; display: flex; align-items: center;
+  overflow-x: auto; scrollbar-width: none;
+}
+.vs-capsule-nav-scrollzone::-webkit-scrollbar { display: none; }
+.vs-capsule-nav-track { position: relative; z-index: 1; display: flex; flex-shrink: 0; width: max-content; }
 .vs-capsule-nav-list { display: flex; gap: .125em; margin: 0; padding: 0; list-style: none; }
 .vs-capsule-nav-list > li { display: block; margin: 0; }
 .vs-capsule-nav-link {
@@ -422,9 +400,12 @@ summary {
 }
 .vs-capsule-nav-pill .vs-capsule-nav-list { position: absolute; left: 0; top: 0; }
 .vs-capsule-nav-pill .vs-capsule-nav-link { color: var(--vs-capsule-nav-accent-ink); transition: none; }
-/* In-bar action buttons (search / hamburger): desktop uses the separate cluster,
- * so these stay hidden; mobile shows them inside the single unified capsule. */
-.vs-capsule-nav-actions { display: none; }
+/* In-bar action buttons (search / hamburger): flex items at the capsule's right
+ * end on ALL viewports — no absolute overlay, so overlap is impossible. */
+.vs-capsule-nav-actions {
+  display: flex; align-items: center; gap: 2px; flex-shrink: 0;
+  padding-left: .25em;
+}
 .vs-capsule-nav-action-btn {
   display: grid; place-items: center; flex-shrink: 0;
   width: 2.5em; height: 2.5em; border-radius: 999px;
@@ -437,33 +418,10 @@ summary {
   box-shadow: 0 0 0 2px rgba(7, 20, 47, .9), 0 0 0 3.5px var(--vs-capsule-nav-focus);
 }
 @media (max-width: 1023px) {
-  /* Mobile/tablet: ONE unified capsule — logo + scrollable links + action buttons
-   * in a single pill. The separate cluster is hidden; actions overlay the bar's
-   * right edge (absolute, so the spring pill math is untouched) while links
-   * scroll beneath their frosted cap. */
+  /* Mobile/tablet: the single capsule spans the width — logo + scrollable
+   * links + action buttons in one pill, all as flex items (no overlay). */
   .site-header { --vs-capsule-nav-top: 10px; --vs-capsule-nav-size: .8125rem; }
-  .site-header-inner { justify-content: flex-start; }
-  .site-header-navwrap { justify-content: flex-start; }
-  .site-header-cluster { display: none; }
-  .vs-capsule-nav { justify-content: flex-start; width: 100%; }
-  .vs-capsule-nav-bar { width: 100%; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
-  .vs-capsule-nav-bar::-webkit-scrollbar { display: none; }
-  .vs-capsule-nav-brand, .vs-capsule-nav-track { flex-shrink: 0; }
-  .vs-capsule-nav-track { width: max-content; padding-right: 92px; }
-  .vs-capsule-nav-actions {
-    display: flex; align-items: center; gap: 2px;
-    position: absolute; right: .3125em; top: 50%; transform: translateY(-50%); z-index: 2;
-    padding: 2px; border-radius: 999px;
-    background: rgba(7, 20, 47, .82);
-    -webkit-backdrop-filter: blur(16px) saturate(1.6);
-    backdrop-filter: blur(16px) saturate(1.6);
-    box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .14);
-  }
-  .vs-capsule-nav-actions::before {
-    content: ""; position: absolute; left: -22px; top: 0; bottom: 0; width: 22px;
-    background: linear-gradient(to right, transparent, rgba(7, 20, 47, .82));
-    pointer-events: none;
-  }
+  .vs-capsule-nav-bar { width: 100%; }
   .vs-capsule-nav-link { padding-inline: .9em; }
 }
 @media (forced-colors: active) {
@@ -473,6 +431,4 @@ summary {
 }
 @media (prefers-reduced-motion: reduce) {
   .vs-capsule-nav-link { transition: none; }
-  .site-header-cluster { will-change: auto; }
-  .site-header-cluster .cluster-btn { transition: none; }
 }

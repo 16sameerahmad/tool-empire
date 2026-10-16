@@ -28,9 +28,9 @@ type Spring = { x: number; v: number; g: number; k: number; c: number; e: number
  * via a clipped ink copy. Hides on scroll down, returns on first scroll up, compacts past
  * `data-compact-at`. All motion is GPU-friendly (transform / clip-path / opacity).
  *
- * `actions` (optional): trailing action buttons rendered inside the bar. Shown only
- * on mobile/tablet as part of the single unified capsule (desktop uses the separate
- * header cluster). Positioned absolute via CSS so the spring pill math is untouched.
+ * `actions` (optional): trailing action buttons rendered as flex items at the
+ * capsule's right end on all viewports (inside the same frosted pill — never
+ * an overlay, so overlap with the links is impossible).
  */
 export function CapsuleNav({ actions }: { actions?: ReactNode }) {
   const pathname = usePathname();
@@ -111,8 +111,6 @@ export function CapsuleNav({ actions }: { actions?: ReactNode }) {
     const pill = nav.querySelector<HTMLElement>(".vs-capsule-nav-pill");
     const ul = nav.querySelector<HTMLUListElement>(".vs-capsule-nav-track > .vs-capsule-nav-list");
     if (!bar || !track || !ghost || !shade || !pill || !ul) return;
-    // The frosted action cluster lives in the same .site-header row — hide it with the bar.
-    const cluster = nav.closest(".site-header")?.querySelector<HTMLElement>(".site-header-cluster") ?? null;
     pill.inert = true;
     const links = [...ul.querySelectorAll<HTMLAnchorElement>(".vs-capsule-nav-link")];
     if (!links.length) return;
@@ -165,10 +163,6 @@ export function CapsuleNav({ actions }: { actions?: ReactNode }) {
         const hp = clamp(hy.x / D, -0.2, 1);
         bar.style.transform = `translate3d(0,${(-hy.x).toFixed(2)}px,0) scale(${(1 - 0.07 * cp.x - 0.05 * Math.max(0, hp)).toFixed(4)})`;
         bar.style.opacity = (1 - 0.45 * Math.max(0, hp)).toFixed(3);
-        if (cluster) {
-          cluster.style.transform = `translate3d(0,${(-hy.x).toFixed(2)}px,0)`;
-          cluster.style.opacity = (1 - 0.45 * Math.max(0, hp)).toFixed(3);
-        }
         nav.style.setProperty("--c", cp.x.toFixed(3));
         return moving;
       },
@@ -360,32 +354,34 @@ export function CapsuleNav({ actions }: { actions?: ReactNode }) {
         <Link href="/" className="vs-capsule-nav-brand" aria-label="Tulyro home">
           <LogoMark className="h-7 w-7" />
         </Link>
-        <div className="vs-capsule-nav-track">
-          <span className="vs-capsule-nav-ghost" aria-hidden="true" />
-          <span className="vs-capsule-nav-shade" aria-hidden="true" />
-          <ul className="vs-capsule-nav-list">
-            {NAV.map((item, i) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="vs-capsule-nav-link"
-                  aria-current={i === activeIndex ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <span className="vs-capsule-nav-pill" aria-hidden="true" inert>
-            {/* Ink copy: same labels in pill ink, clipped by the sliding pill. */}
-            <ul className="vs-capsule-nav-list" aria-hidden="true">
-              {NAV.map((item) => (
+        <div className="vs-capsule-nav-scrollzone">
+          <div className="vs-capsule-nav-track">
+            <span className="vs-capsule-nav-ghost" aria-hidden="true" />
+            <span className="vs-capsule-nav-shade" aria-hidden="true" />
+            <ul className="vs-capsule-nav-list">
+              {NAV.map((item, i) => (
                 <li key={item.href}>
-                  <span className="vs-capsule-nav-link">{item.label}</span>
+                  <Link
+                    href={item.href}
+                    className="vs-capsule-nav-link"
+                    aria-current={i === activeIndex ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
-          </span>
+            <span className="vs-capsule-nav-pill" aria-hidden="true" inert>
+              {/* Ink copy: same labels in pill ink, clipped by the sliding pill. */}
+              <ul className="vs-capsule-nav-list" aria-hidden="true">
+                {NAV.map((item) => (
+                  <li key={item.href}>
+                    <span className="vs-capsule-nav-link">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </span>
+          </div>
         </div>
         {actions ? <div className="vs-capsule-nav-actions">{actions}</div> : null}
       </div>

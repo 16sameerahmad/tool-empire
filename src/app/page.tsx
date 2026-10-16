@@ -6,6 +6,7 @@ import { HeroEmiSimulator } from "@/components/HeroEmiSimulator";
 import { HomeSearch } from "@/components/HomeSearch";
 import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
+import { Parallax, Reveal, CountUp } from "@/components/motion";
 import { ToolCard } from "@/components/ToolCard";
 import { getTool } from "@/lib/tools";
 import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
@@ -101,26 +102,30 @@ export default function HomePage() {
       <main className="w-full bg-background">
         {/* Hero — Stitch midnight command zone */}
         <section className="relative w-full overflow-hidden bg-midnight pb-20 pt-12 text-on-primary shadow-2xl">
-          <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
-          <div className="hero-drift pointer-events-none absolute -left-20 -top-32 h-96 w-96 rounded-full bg-primary-container opacity-40 blur-[128px]" aria-hidden="true" />
-          <div className="hero-drift-slow pointer-events-none absolute -right-24 top-1/2 h-[32rem] w-[32rem] rounded-full bg-secondary-container opacity-40 blur-[140px]" aria-hidden="true" />
+          <Parallax speed={0.1} className="pointer-events-none absolute inset-0">
+            <div className="hero-grid absolute inset-0 opacity-40" aria-hidden="true" />
+          </Parallax>
+          <Parallax speed={0.18} className="pointer-events-none absolute inset-0">
+            <div className="hero-drift absolute -left-20 -top-32 h-96 w-96 rounded-full bg-primary-container opacity-40 blur-[128px]" aria-hidden="true" />
+            <div className="hero-drift-slow absolute -right-24 top-1/2 h-[32rem] w-[32rem] rounded-full bg-secondary-container opacity-40 blur-[140px]" aria-hidden="true" />
+          </Parallax>
           {/* Desktop hero (Stitch desktop homepage) */}
           <div className="relative z-10 mx-auto hidden max-w-shell px-6 lg:block">
             <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
               <div className="flex flex-col space-y-6 lg:col-span-7">
-                <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-label-sm text-label-sm text-tertiary-fixed shadow-inner">
+                <p className="hero-enter inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-label-sm text-label-sm text-tertiary-fixed shadow-inner" style={{ ["--enter-delay" as string]: "0ms" }}>
                   <span className="flex h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
                   11 free tools • No signup • Private by design
                 </p>
-                <h1 className="font-display font-display-hero leading-[1.08] tracking-tight text-white">
+                <h1 className="hero-enter font-display font-display-hero leading-[1.08] tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                   Precision tools for
                   <br className="hidden sm:inline" />{" "}
                   <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">everyday numbers.</span>
                 </h1>
-                <p className="max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed">
+                <p className="hero-enter max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
                   EMI, age, BMI, word counts, Base64 and 6 more — 11 free utilities running entirely in your browser. No signup, no tracking, no waiting.
                 </p>
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="hero-enter flex flex-wrap items-center gap-3" style={{ ["--enter-delay" as string]: "270ms" }}>
                   <Link href="#browse" className="group inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
                     Browse all 11 tools
                     <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
@@ -129,10 +134,14 @@ export default function HomePage() {
                     Why Tulyro?
                   </Link>
                 </div>
-                <HomeSearch variantId="desktop" />
-                <TrendingRow />
+                <div className="hero-enter" style={{ ["--enter-delay" as string]: "360ms" }}>
+                  <HomeSearch variantId="desktop" />
+                </div>
+                <div className="hero-enter" style={{ ["--enter-delay" as string]: "450ms" }}>
+                  <TrendingRow />
+                </div>
               </div>
-              <div className="flex justify-center lg:col-span-5">
+              <div className="hero-enter-scale flex justify-center lg:col-span-5" style={{ ["--enter-delay" as string]: "320ms" }}>
                 <HeroEmiSimulator />
               </div>
             </div>
@@ -140,20 +149,20 @@ export default function HomePage() {
           {/* Mobile hero (Stitch mobile homepage) */}
           <div className="relative z-10 mx-auto max-w-shell px-4 lg:hidden">
             <div className="flex flex-col gap-4">
-              <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-label-sm text-label-sm text-tertiary-fixed">
+              <p className="hero-enter inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-label-sm text-label-sm text-tertiary-fixed" style={{ ["--enter-delay" as string]: "0ms" }}>
                 <span className="flex h-2 w-2 rounded-full bg-primary-container animate-pulse" aria-hidden="true" />
                 11 free tools • No signup • Private by design
               </p>
-              <div className="font-display font-display-hero-mobile tracking-tight text-white">
+              <div className="hero-enter font-display font-display-hero-mobile tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                 Precision tools for{" "}
                 <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">
                   everyday numbers.
                 </span>
               </div>
-              <p className="font-body-md text-body-md leading-relaxed text-tertiary-fixed">
+              <p className="hero-enter font-body-md text-body-md leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
                 Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
               </p>
-              <div className="flex flex-wrap items-center gap-2.5">
+              <div className="hero-enter flex flex-wrap items-center gap-2.5" style={{ ["--enter-delay" as string]: "270ms" }}>
                 <Link href="#browse-mobile" className="group inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
                   Browse all 11 tools
                   <Icon name="arrow_forward" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -162,9 +171,13 @@ export default function HomePage() {
                   Why Tulyro?
                 </Link>
               </div>
-              <HomeSearch variantId="mobile" />
-              <TrendingRow />
-              <div className="mt-2">
+              <div className="hero-enter" style={{ ["--enter-delay" as string]: "360ms" }}>
+                <HomeSearch variantId="mobile" />
+              </div>
+              <div className="hero-enter" style={{ ["--enter-delay" as string]: "450ms" }}>
+                <TrendingRow />
+              </div>
+              <div className="hero-enter-scale mt-2" style={{ ["--enter-delay" as string]: "400ms" }}>
                 <MobileAgeSnapshot />
               </div>
             </div>
@@ -175,16 +188,20 @@ export default function HomePage() {
         <section className="hidden w-full bg-surface-container-low py-8 shadow-sm lg:block" aria-label="Why Tulyro">
           <div className="mx-auto max-w-shell px-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {TRUST.map((item) => (
-                <div key={item.title} className="flex items-center gap-4 rounded-xl bg-surface-container-lowest p-4 shadow-sm transition-shadow hover:shadow-md">
+              {TRUST.map((item, i) => (
+                <Reveal key={item.title} delay={i * 90}>
+                <div className="flex items-center gap-4 rounded-xl bg-surface-container-lowest p-4 shadow-sm transition-shadow hover:shadow-md">
                   <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-lg ${item.tint}`}>
                     <Icon name={item.icon} className="h-[26px] w-[26px]" />
                   </span>
                   <span>
-                    <span className="block font-display font-headline-sm text-headline-sm font-bold text-on-surface">{item.title}</span>
+                    <span className="block font-display font-headline-sm text-headline-sm font-bold text-on-surface">{
+                      item.title === "11 Free Utilities" ? <><CountUp to={11} /> Free Utilities</> : item.title
+                    }</span>
                     <span className="block font-body-sm text-body-sm text-on-surface-variant">{item.sub}</span>
                   </span>
                 </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -206,6 +223,7 @@ export default function HomePage() {
         {/* Most Popular Tools (desktop) */}
         <section id="browse" className="hidden w-full scroll-mt-32 bg-surface py-16 lg:block">
           <div className="mx-auto max-w-shell px-6">
+            <Reveal>
             <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
                 <p className="inline-flex items-center gap-1.5 rounded-md bg-primary-fixed px-3 py-1 font-label-sm text-label-sm uppercase tracking-wide text-on-primary-fixed">
@@ -219,9 +237,12 @@ export default function HomePage() {
                 <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
+            </Reveal>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {POPULAR.map((entry) => (
-                <ToolCard key={entry.id} tool={getTool(entry.id)} badge={entry.badge} />
+              {POPULAR.map((entry, i) => (
+                <Reveal key={entry.id} delay={(i % 4) * 80}>
+                  <ToolCard tool={getTool(entry.id)} badge={entry.badge} />
+                </Reveal>
               ))}
             </div>
           </div>

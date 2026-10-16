@@ -7,6 +7,7 @@ import { Icon } from "@/components/icons";
 import { ToolCard } from "@/components/ToolCard";
 import { getTool, type ToolDefinition } from "@/lib/tools";
 import type { FAQItem } from "@/lib/content";
+import { Reveal } from "@/components/motion";
 
 /** Honest per-tool hero pills (Stitch-style, no fabricated version numbers). */
 const HERO_PILLS: Record<string, string> = {
@@ -69,42 +70,49 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden="true" />
           <div className="pointer-events-none absolute -bottom-32 right-1/3 h-80 w-80 rounded-full bg-secondary-container/15 blur-2xl" aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-shell">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed shadow-sm">
+            <p className="hero-enter inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed shadow-sm" style={{ ["--enter-delay" as string]: "0ms" }}>
               <span className="h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
               {HERO_PILLS[tool.id] ?? "Client-Side Only"}
             </p>
-            <h1 className="mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg">{tool.title}</h1>
-            <p className="mt-2 max-w-2xl font-body-lg text-body-lg text-tertiary-fixed-dim">{intro}</p>
+            <h1 className="hero-enter mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg" style={{ ["--enter-delay" as string]: "90ms" }}>{tool.title}</h1>
+            <p className="hero-enter mt-2 max-w-2xl font-body-lg text-body-lg text-tertiary-fixed-dim" style={{ ["--enter-delay" as string]: "180ms" }}>{intro}</p>
           </div>
         </section>
 
         {/* Workspace (per-tool panels render their own Stitch cards) */}
         <div className="mx-auto w-full max-w-shell px-6 py-10">
-          <section id="tool" aria-label={`${tool.title} tool`} className="scroll-mt-32">
+          <section id="tool" aria-label={`${tool.title} tool`} className="scroll-mt-32 hero-enter-scale" style={{ ["--enter-delay" as string]: "260ms" }}>
             {children}
           </section>
 
+          <Reveal>
           <section className="mt-12 max-w-[720px]" aria-labelledby="definition-heading">
             <h2 id="definition-heading" className="font-display font-headline-md text-headline-md text-on-surface">
               What is {tool.title}?
             </h2>
             <p className="mt-4 font-body-md text-body-md leading-[1.6] text-on-surface-variant">{definition}</p>
           </section>
+          </Reveal>
 
+          <Reveal>
           <section className="mt-12 max-w-[720px]" aria-labelledby="how-to-heading">
             <h2 id="how-to-heading" className="font-display font-headline-md text-headline-md text-on-surface">
               How to use
             </h2>
             <ol className="mt-4 grid gap-3 md:grid-cols-3">
               {howTo.map((step, index) => (
-                <li key={step} className="rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 shadow-card">
+                <Reveal key={step} delay={index * 90}>
+                <li className="rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 shadow-card">
                   <span className="font-display font-semibold text-primary">{index + 1}. </span>
                   <span className="font-body-md text-body-md text-on-surface">{step}</span>
                 </li>
+                </Reveal>
               ))}
             </ol>
           </section>
+          </Reveal>
 
+          <Reveal>
           <section className="mt-12 max-w-[720px]" aria-labelledby="about-tool-heading">
             <h2 id="about-tool-heading" className="font-display font-headline-md text-headline-md text-on-surface">
               About {tool.title}
@@ -115,10 +123,13 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
               </p>
             ))}
           </section>
+          </Reveal>
 
+          <Reveal>
           <div className="mt-12 max-w-[900px]">
             <FAQ items={faq} />
           </div>
+          </Reveal>
 
           {sources && sources.length > 0 ? (
             <section className="mt-12 max-w-[720px]" aria-labelledby="sources-heading">
@@ -154,6 +165,7 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
             </section>
           ) : null}
 
+          <Reveal>
           <section className="mt-12" aria-labelledby="related-heading">
             <div className="flex items-center justify-between">
               <h2 id="related-heading" className="font-display font-headline-md text-headline-md text-on-surface">
@@ -165,11 +177,14 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
               </a>
             </div>
             <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {relatedTools.map((related) => (
-                <ToolCard key={related.id} tool={related} />
+              {relatedTools.map((related, i) => (
+                <Reveal key={related.id} delay={(i % 3) * 80}>
+                  <ToolCard tool={related} />
+                </Reveal>
               ))}
             </div>
           </section>
+          </Reveal>
         </div>
       </main>
       <Footer />

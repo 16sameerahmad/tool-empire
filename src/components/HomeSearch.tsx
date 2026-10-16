@@ -5,12 +5,26 @@ import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icons";
 import { tools } from "@/lib/tools";
 
-/** Stitch hero search command bar: white card, violet Find Tool button, live suggestions. */
+/** Example queries cycled by the typewriter placeholder (Jitter-style). */
+const TYPEWRITER_EXAMPLES = ["EMI Calculator", "Age Calculator", "Word Counter", "BMI Calculator", "Base64"];
+
+/**
+ * Jitter "Animated Search Bar" adaptation for Tulyro.
+ * - Entrance (mount only, pure CSS): 80px circle -> full pill via clip-path
+ *   (0.7s natural ease, no layout shift, no content distortion); icon pops
+ *   in with scale + fade (0.4s ease-out, slight overlap).
+ * - Typewriter placeholder cycles example queries at 50ms/letter when the
+ *   input is empty and blurred; stops on focus/type, resumes on blur+clear.
+ * - All existing behavior preserved: live suggestions, keyboard nav,
+ *   clear button, Find Tool submit, "/" shortcut, ARIA combobox.
+ */
 export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [highlight, setHighlight] = useState(-1);
   const [open, setOpen] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [typed, setTyped] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const matches = useMemo(() => {
@@ -35,6 +49,42 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
+
+  // Typewriter placeholder: 50ms/letter, linear. Runs only when the input is
+  // empty and blurred; halts the moment the user focuses or types.
+  useEffect(() => {
+    if (focused || query) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let example = 0;
+    let chars = 0;
+    let deleting = false;
+    let timer = 0;
+    const tick = () => {
+      const word = TYPEWRITER_EXAMPLES[example % TYPEWRITER_EXAMPLES.length];
+      if (!deleting) {
+        chars += 1;
+        setTyped(word.slice(0, chars));
+        if (chars >= word.length) {
+          deleting = true;
+          timer = window.setTimeout(tick, 1400);
+          return;
+        }
+        timer = window.setTimeout(tick, 50);
+      } else {
+        chars -= 1;
+        setTyped(word.slice(0, chars));
+        if (chars <= 0) {
+          deleting = false;
+          example += 1;
+          timer = window.setTimeout(tick, 350);
+          return;
+        }
+        timer = window.setTimeout(tick, 22);
+      }
+    };
+    timer = window.setTimeout(tick, 900);
+    return () => window.clearTimeout(timer);
+  }, [focused, query]);
 
   const goTo = (index: number) => {
     const target = matches[index];
@@ -64,6 +114,7 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
   const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
       setOpen(false);
+      setFocused(false);
     }
   };
 
@@ -71,13 +122,15 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
     <div id={variantId === "desktop" ? "search" : undefined} onBlur={onBlur} className="relative mt-4 w-full max-w-2xl scroll-mt-32 text-left">
       <form
         role="search"
-        className="relative flex items-center rounded-xl bg-surface-container-lowest p-1.5 shadow-2xl transition-all focus-within:shadow-[0_0_24px_rgba(99,91,255,0.4)]"
+        className="search-enter relative flex items-center rounded-full bg-surface-container-lowest p-1.5 shadow-2xl transition-shadow focus-within:shadow-[0_0_24px_rgba(99,91,255,0.4)]"
         onSubmit={(event) => {
           event.preventDefault();
           if (matches.length) router.push(matches[highlight >= 0 ? highlight : 0].href);
         }}
       >
-        <Icon name="search" className="ml-3 h-[22px] w-[22px] shrink-0 text-outline" />
+        <span className="search-icon-enter ml-3 grid h-[22px] w-[22px] shrink-0 place-items-center" aria-hidden="true">
+          <Icon name="search" className="h-[22px] w-[22px] text-outline" />
+        </span>
         <label htmlFor={`home-search-${variantId}`} className="sr-only">
           Search tools
         </label>
@@ -91,9 +144,13 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
             setHighlight(-1);
             setOpen(true);
           }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => {
+            setOpen(true);
+            setFocused(true);
+            setTyped("");
+          }}
           onKeyDown={onKeyDown}
-          placeholder="Search 11 tools (e.g., EMI Calculator, Age Calculator)"
+          placeholder={typed ? `Try "${typed}"` : "Search 11 tools…"}
           role="combobox"
           aria-expanded={open && query.trim().length > 0}
           aria-controls={`home-search-suggestions-${variantId}`}
@@ -121,14 +178,19 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
         ) : null}
         <button
           type="submit"
-          className="btn-press btn-sheen flex shrink-0 items-center gap-1.5 rounded-lg bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
+          className="btn-press btn-sheen flex shrink-0 items-center gap-1.5 rounded-full bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
         >
           Find Tool
           <Icon name="arrow_forward" className="h-4 w-4" />
         </button>
       </form>
       {open && query.trim().length > 0 ? (
-        <div id={`home-search-suggestions-${variantId}`} role="listbox" className="absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-lg">
+        <div
+          id={`home-search-suggestions-${variantId}`}
+          role="listbox"
+          className="absolute left-0 right-0 top-full z-50 mt-2 isolate overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-lg"
+          style={{ backgroundColor: "#FFFFFF" }}
+        >
           {matches.length ? (
             matches.map((tool, index) => (
               <button

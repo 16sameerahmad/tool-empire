@@ -173,10 +173,33 @@ summary {
   animation: pop-in 150ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* Jitter-style search entrance: 80px circle -> full pill via clip-path.
+ * Symmetric reveal from center; no layout shift, no content distortion.
+ * Runs once on mount (pure CSS). Delayed to land with the hero entrance. */
+@keyframes search-expand {
+  from { clip-path: inset(0 44% 0 44% round 999px); }
+  to { clip-path: inset(0 0 0 0 round 999px); }
+}
+.search-enter {
+  animation: search-expand 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.35s;
+}
+/* Search icon pop: scale + fade, slightly overlapping the bar expansion. */
+@keyframes search-icon-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+.search-icon-enter {
+  animation: search-icon-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.5s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-sheen::after,
   .suggest-item,
-  .pop-in {
+  .pop-in,
+  .search-enter,
+  .search-icon-enter {
     animation: none;
     transition: none;
   }

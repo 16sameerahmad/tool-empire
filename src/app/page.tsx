@@ -134,7 +134,7 @@ export default function HomePage() {
                     Why Tulyro?
                   </Link>
                 </div>
-                <div className="hero-enter" style={{ ["--enter-delay" as string]: "360ms" }}>
+                <div className="hero-enter relative z-10" style={{ ["--enter-delay" as string]: "360ms" }}>
                   <HomeSearch variantId="desktop" />
                 </div>
                 <div className="hero-enter" style={{ ["--enter-delay" as string]: "450ms" }}>
@@ -171,7 +171,7 @@ export default function HomePage() {
                   Why Tulyro?
                 </Link>
               </div>
-              <div className="hero-enter" style={{ ["--enter-delay" as string]: "360ms" }}>
+              <div className="hero-enter relative z-10" style={{ ["--enter-delay" as string]: "360ms" }}>
                 <HomeSearch variantId="mobile" />
               </div>
               <div className="hero-enter" style={{ ["--enter-delay" as string]: "450ms" }}>

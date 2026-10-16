@@ -7,8 +7,8 @@ import { HomeSearch } from "@/components/HomeSearch";
 import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
 import { Parallax, Reveal, CountUp } from "@/components/motion";
-import { ToolCard } from "@/components/ToolCard";
-import { getTool } from "@/lib/tools";
+import { GlassToolCard } from "@/components/GlassToolCard";
+import { getTool, tools } from "@/lib/tools";
 import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -23,16 +23,6 @@ const TRENDING = [
   { id: "word-counter", label: "Word Counter" },
   { id: "base64-encoder-decoder", label: "Base64" },
   { id: "fancy-text-generator", label: "Fancy Text" },
-];
-const POPULAR = [
-  { id: "age-calculator", badge: "Calculator" },
-  { id: "emi-calculator", badge: "Finance" },
-  { id: "word-counter", badge: "Text Utility" },
-  { id: "mortgage-calculator", badge: "Finance" },
-  { id: "base64-encoder-decoder", badge: "Developer" },
-  { id: "fancy-text-generator", badge: "Text Utility" },
-  { id: "cgpa-to-percentage", badge: "Academic" },
-  { id: "text-to-speech", badge: "Media & Fun" },
 ];
 const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
@@ -59,15 +49,6 @@ const MOBILE_STATS = [
   { value: "100%", label: "Client-Side", icon: "verified" },
   { value: "No", label: "Signup", icon: "lock_open" },
   { value: "Instant", label: "In-Browser Compute", icon: "wifi_off" },
-];
-const MOBILE_POPULAR = [
-  { id: "age-calculator", label: "Age Calculator", badge: "Calculator", tint: "bg-primary-fixed text-primary-container" },
-  { id: "emi-calculator", label: "EMI Calculator", badge: "Finance", tint: "bg-secondary-fixed text-secondary" },
-  { id: "word-counter", label: "Word Counter", badge: "Text Utility", tint: "bg-tertiary-fixed text-tertiary" },
-  { id: "bmi-calculator", label: "BMI Calculator", badge: "Calculator", tint: "bg-primary-fixed text-primary-container" },
-  { id: "cgpa-to-percentage", label: "CGPA to Percentage", badge: "Academic", tint: "bg-secondary-fixed text-secondary" },
-  { id: "text-to-speech", label: "Text to Speech", badge: "Media & Fun", tint: "bg-tertiary-fixed text-tertiary" },
-  { id: "base64-encoder-decoder", label: "Base64 Encoder & Decoder", badge: "Developer", tint: "bg-primary-fixed text-primary-container" },
 ];
 const MOBILE_CATEGORIES = [
   { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
@@ -222,65 +203,28 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Most Popular Tools (desktop) */}
-        <section id="browse" className="hidden w-full scroll-mt-32 bg-surface py-16 lg:block">
-          <div className="mx-auto max-w-shell px-6">
+        {/* Featured Utilities — glassmorphism tool cards (all viewports) */}
+        <section id="browse" className="w-full scroll-mt-32 bg-[linear-gradient(180deg,#f1efff_0%,#faf9ff_55%,#ffffff_100%)] px-4 py-10 sm:px-6 lg:py-16" aria-label="Featured utilities">
+          <div className="mx-auto max-w-shell">
             <Reveal>
-            <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-              <div>
-                <p className="inline-flex items-center gap-1.5 rounded-md bg-primary-fixed px-3 py-1 font-label-sm text-label-sm uppercase tracking-wide text-on-primary-fixed">
-                  Engineered For Precision
-                </p>
-                <h2 className="mt-3 font-display font-headline-lg text-headline-lg text-on-surface">Featured Tools</h2>
-                <p className="mt-1 font-body-md text-body-md text-on-surface-variant">Frequently used calculators, string analyzers, and developer utilities.</p>
+              <div className="mb-6 flex items-center justify-between lg:mb-10">
+                <h2 className="flex items-center gap-1.5 font-display text-xl font-bold text-on-surface lg:text-headline-lg">
+                  <Icon name="flame" className="h-5 w-5 text-primary-container" />
+                  Featured Utilities
+                </h2>
+                <Link href="/tools/" className="group flex items-center gap-0.5 font-label-md text-label-md font-semibold text-primary">
+                  View all (11)
+                  <Icon name="chevron_right" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
-              <Link href="/tools/" className="group inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary transition-all hover:text-primary-container">
-                View all 11 tools
-                <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
             </Reveal>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {POPULAR.map((entry, i) => (
-                <Reveal key={entry.id} delay={(i % 4) * 80}>
-                  <ToolCard tool={getTool(entry.id)} badge={entry.badge} />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+              {tools.map((tool, i) => (
+                <Reveal key={tool.id} delay={(i % 4) * 70}>
+                  <GlassToolCard tool={tool} />
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Popular Utilities list (mobile) */}
-        <section id="browse-mobile" className="w-full scroll-mt-32 bg-surface px-4 py-8 lg:hidden" aria-label="Popular utilities">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="flex items-center gap-1.5 font-display font-headline-sm text-headline-sm text-on-surface">
-              <Icon name="flame" className="h-5 w-5 text-primary-container" />
-              Featured Utilities
-            </h2>
-            <Link href="/tools/" className="flex items-center gap-0.5 font-label-md text-label-md font-semibold text-primary">
-              View all (11)
-              <Icon name="chevron_right" className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="space-y-2">
-            {MOBILE_POPULAR.map((entry) => {
-              const tool = getTool(entry.id);
-              return (
-                <Link key={entry.id} href={tool.href} className="flex items-center gap-3 rounded-xl bg-surface-container-lowest p-3 shadow-sm">
-                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${entry.tint}`}>
-                    <Icon name={entry.id === "bmi-calculator" ? "monitor_weight" : entry.id === "text-to-speech" ? "record_voice_over" : entry.id === "base64-encoder-decoder" ? "code" : entry.id === "cgpa-to-percentage" ? "percent" : entry.id === "word-counter" ? "description" : entry.id === "emi-calculator" ? "account_balance" : "calendar_month"} className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center gap-2 font-display text-sm font-semibold text-on-surface">
-                      {entry.label}
-                      {entry.badge ? <span className="rounded bg-surface-container-high px-1.5 py-0.5 font-label-sm text-[10px] text-on-surface-variant">{entry.badge}</span> : null}
-                    </span>
-                    <span className="block truncate font-body-sm text-body-sm text-on-surface-variant">{tool.description}</span>
-                  </span>
-                  <Icon name="arrow_forward" className="h-4 w-4 shrink-0 text-outline-variant" />
-                </Link>
-              );
-            })}
           </div>
         </section>
 

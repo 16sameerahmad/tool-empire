@@ -3,7 +3,7 @@ import { Icon } from "@/components/icons";
 import type { ToolDefinition } from "@/lib/tools";
 
 /** Material-Symbols glyph per tool, matching the Stitch screens. */
-const TOOL_ICONS: Record<string, string> = {
+export const TOOL_ICONS: Record<string, string> = {
   "age-calculator": "calendar_month",
   "emi-calculator": "account_balance",
   "mortgage-calculator": "home",

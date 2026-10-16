@@ -245,7 +245,14 @@ summary {
   .suggest-item,
   .pop-in,
   .search-enter,
-  .search-icon-enter {
+  .search-icon-enter,
+  .glass-card,
+  .glass-card::before,
+  .glass-tile,
+  .glass-tile svg,
+  .glass-title,
+  .glass-launch,
+  .glass-arrow {
     animation: none;
     transition: none;
   }
@@ -254,7 +261,11 @@ summary {
   .btn-icon:hover,
   .btn-icon:active,
   .btn-chip:hover,
-  .btn-chip:active {
+  .btn-chip:active,
+  .glass-card:hover,
+  .glass-card.is-tapped,
+  .glass-card:focus-visible,
+  .glass-card:active {
     transform: none;
   }
   .btn-glow:hover,
@@ -264,6 +275,231 @@ summary {
   .progress-ring-arc {
     transition: none;
   }
+}
+
+/* ---- Glassmorphism tool cards (Featured Utilities) ----
+   Port of the Stitch "realistic glass icons + interactive border hover"
+   edition. Frosted glass card; on hover (desktop), tap (mobile),
+   focus-visible or active the chromatic gradient border reveals,
+   the card lifts, and the 3D icon tile fills with its theme gradient. */
+.glass-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.55) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 24px -6px rgba(99, 91, 255, 0.05),
+    0 2px 6px -1px rgba(14, 25, 59, 0.03);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1), background 250ms ease, border-color 250ms ease;
+}
+/* Chromatic gradient border, revealed on interaction (mask-composite ring). */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: var(--glass-grad);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.99);
+  transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+.glass-card:hover,
+.glass-card.is-tapped,
+.glass-card:focus-visible,
+.glass-card:active {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.78) 100%);
+  transform: translateY(-5px);
+  border-color: transparent;
+  box-shadow:
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+    0 20px 40px -10px var(--glass-glow-1),
+    0 6px 18px -2px var(--glass-glow-2);
+}
+.glass-card:hover::before,
+.glass-card.is-tapped::before,
+.glass-card:focus-visible::before,
+.glass-card:active::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Per-theme tokens: gradient border, glow, tile, badge, accents. */
+.glass-theme-calculator {
+  --glass-grad: linear-gradient(135deg, #635bff 0%, #a855f7 50%, #38bdf8 100%);
+  --glass-glow-1: rgba(99, 91, 255, 0.35);
+  --glass-glow-2: rgba(168, 85, 247, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(238, 242, 255, 0.85) 45%, rgba(224, 231, 255, 0.75) 100%);
+  --tile-fg: #5548e8;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #766eff 0%, #5244ea 60%, #3c30d6 100%);
+  --tile-shadow: rgba(99, 91, 255, 0.45);
+  --accent: #635bff;
+  --badge-bg: rgba(238, 242, 255, 0.9);
+  --badge-fg: #5548e8;
+}
+.glass-theme-finance {
+  --glass-grad: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #34d399 100%);
+  --glass-glow-1: rgba(16, 185, 129, 0.35);
+  --glass-glow-2: rgba(6, 182, 212, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(236, 253, 245, 0.85) 45%, rgba(209, 250, 229, 0.75) 100%);
+  --tile-fg: #059669;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #10b981 0%, #059669 60%, #047857 100%);
+  --tile-shadow: rgba(16, 185, 129, 0.45);
+  --accent: #059669;
+  --badge-bg: rgba(236, 253, 245, 0.9);
+  --badge-fg: #047857;
+}
+.glass-theme-text {
+  --glass-grad: linear-gradient(135deg, #00d2ff 0%, #3b82f6 50%, #6366f1 100%);
+  --glass-glow-1: rgba(0, 210, 255, 0.35);
+  --glass-glow-2: rgba(59, 130, 246, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(239, 246, 255, 0.85) 45%, rgba(219, 234, 254, 0.75) 100%);
+  --tile-fg: #2563eb;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #38bdf8 0%, #2563eb 60%, #1d4ed8 100%);
+  --tile-shadow: rgba(37, 99, 235, 0.45);
+  --accent: #2563eb;
+  --badge-bg: rgba(239, 246, 255, 0.9);
+  --badge-fg: #1d4ed8;
+}
+.glass-theme-developer {
+  --glass-grad: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #fb923c 100%);
+  --glass-glow-1: rgba(245, 158, 11, 0.35);
+  --glass-glow-2: rgba(239, 68, 68, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(254, 243, 199, 0.85) 45%, rgba(253, 230, 138, 0.75) 100%);
+  --tile-fg: #d97706;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #f59e0b 0%, #ea580c 60%, #c2410c 100%);
+  --tile-shadow: rgba(245, 158, 11, 0.45);
+  --accent: #ea580c;
+  --badge-bg: rgba(254, 243, 199, 0.9);
+  --badge-fg: #b45309;
+}
+.glass-theme-academic {
+  --glass-grad: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #c084fc 100%);
+  --glass-glow-1: rgba(139, 92, 246, 0.35);
+  --glass-glow-2: rgba(236, 72, 153, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(245, 243, 255, 0.85) 45%, rgba(237, 233, 254, 0.75) 100%);
+  --tile-fg: #7c3aed;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #a855f7 0%, #7c3aed 60%, #6d28d9 100%);
+  --tile-shadow: rgba(124, 58, 237, 0.45);
+  --accent: #7c3aed;
+  --badge-bg: rgba(245, 243, 255, 0.9);
+  --badge-fg: #6d28d9;
+}
+.glass-theme-media {
+  --glass-grad: linear-gradient(135deg, #f43f5e 0%, #fb923c 50%, #fda4af 100%);
+  --glass-glow-1: rgba(244, 63, 94, 0.35);
+  --glass-glow-2: rgba(251, 146, 60, 0.22);
+  --tile-bg: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 241, 242, 0.85) 45%, rgba(254, 205, 211, 0.75) 100%);
+  --tile-fg: #e11d48;
+  --tile-bg-hover: radial-gradient(circle at 30% 20%, #fb7185 0%, #e11d48 60%, #be123c 100%);
+  --tile-shadow: rgba(225, 29, 72, 0.45);
+  --accent: #e11d48;
+  --badge-bg: rgba(255, 241, 242, 0.9);
+  --badge-fg: #be123c;
+}
+
+/* Hyper-realistic 3D frosted glass icon tile. */
+.glass-tile {
+  position: relative;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-top-color: #ffffff;
+  background: var(--tile-bg);
+  color: var(--tile-fg);
+  box-shadow:
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2.5px 4px 0 rgba(0, 0, 0, 0.08),
+    0 8px 18px -4px rgba(14, 25, 59, 0.08),
+    0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background 250ms ease, color 250ms ease, box-shadow 250ms ease;
+}
+/* Specular glass reflection overlay. */
+.glass-tile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 1rem 1rem 1.5rem 1.5rem;
+  pointer-events: none;
+}
+.glass-tile svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), filter 200ms ease;
+  position: relative;
+  z-index: 1;
+}
+.glass-card:hover .glass-tile,
+.glass-card.is-tapped .glass-tile,
+.glass-card:focus-visible .glass-tile,
+.glass-card:active .glass-tile {
+  transform: translateY(-2px) scale(1.04);
+  background: var(--tile-bg-hover);
+  color: #ffffff;
+  box-shadow:
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.25),
+    0 10px 22px -4px var(--tile-shadow);
+}
+.glass-card:hover .glass-tile svg,
+.glass-card.is-tapped .glass-tile svg,
+.glass-card:focus-visible .glass-tile svg,
+.glass-card:active .glass-tile svg {
+  transform: scale(1.1) translateY(-1px);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16));
+}
+
+/* Category badge, title, launch row — theme-accented on interaction. */
+.glass-badge {
+  background: var(--badge-bg);
+  color: var(--badge-fg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 2px rgba(14, 25, 59, 0.05);
+}
+.glass-title,
+.glass-launch {
+  transition: color 200ms ease;
+}
+.glass-card:hover .glass-title,
+.glass-card.is-tapped .glass-title,
+.glass-card:focus-visible .glass-title,
+.glass-card:active .glass-title {
+  color: var(--accent);
+}
+.glass-card:hover .glass-launch,
+.glass-card.is-tapped .glass-launch,
+.glass-card:focus-visible .glass-launch,
+.glass-card:active .glass-launch {
+  color: var(--accent);
+}
+.glass-arrow {
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  color: #64748b;
+}
+.glass-card:hover .glass-arrow,
+.glass-card.is-tapped .glass-arrow,
+.glass-card:focus-visible .glass-arrow,
+.glass-card:active .glass-arrow {
+  background: var(--accent);
+  border-color: transparent;
+  color: #ffffff;
+  transform: translateX(2px);
 }
 
 /* Native scrollbars are kept (accessibility) even though Stitch CSS hides them. */

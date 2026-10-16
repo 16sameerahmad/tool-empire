@@ -53,7 +53,7 @@ export function Footer() {
               </li>
               <li>
                 <Link className={linkClass} href="/fun/">
-                  Productivity &amp; Fun
+                  Fun Tools
                 </Link>
               </li>
               <li>

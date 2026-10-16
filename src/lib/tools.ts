@@ -1,4 +1,4 @@
-export type Cluster = "Calculators" | "Text" | "Dev" | "Tools" | "Fun";
+export type Cluster = "Calculators" | "Text" | "Dev" | "Fun";
 
 export type ToolDefinition = {
   id: string;
@@ -146,7 +146,7 @@ export const tools: ToolDefinition[] = [
   {
     id: "invoice-generator",
     title: "Invoice Generator",
-    cluster: "Tools",
+    cluster: "Fun",
     href: "/tools/invoice-generator/",
     locale: "en",
     description: "Create a simple invoice and print it without a watermark.",
@@ -173,7 +173,7 @@ export const tools: ToolDefinition[] = [
   },
 ];
 
-export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Tools", "Fun"];
+export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun"];
 
 export function getTool(id: string): ToolDefinition {
   const tool = tools.find((entry) => entry.id === id);

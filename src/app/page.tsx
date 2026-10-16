@@ -37,7 +37,7 @@ const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
   { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", hover: "group-hover:bg-secondary group-hover:text-on-secondary" },
   { label: "Developer Tools", href: "/dev/", count: "1 tool", icon: "terminal", hover: "group-hover:bg-tertiary group-hover:text-on-tertiary" },
-  { label: "Fun Tools", href: "/fun/", count: "1 tool", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
+  { label: "Fun Tools", href: "/fun/", count: "2 tools", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
   { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", hover: "group-hover:bg-surface-tint group-hover:text-on-primary" },
 ];
 const TRUST = [
@@ -72,7 +72,7 @@ const MOBILE_CATEGORIES = [
   { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
   { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", count: "3 tools", icon: "article", tint: "bg-secondary-fixed text-secondary" },
   { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", count: "1 tool", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
-  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", count: "1 tool", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
+  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", count: "2 tools", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
   { label: "All Tools", sub: "Every utility in one place", href: "/tools/", count: "11 utilities", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
 ];
 

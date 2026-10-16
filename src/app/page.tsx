@@ -11,8 +11,8 @@ import { getTool } from "@/lib/tools";
 import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Free Browser Tools | Tulyro",
-  description: "Free browser-only calculators, text tools, developer tools, and generators with no signup or watermark.",
+  title: "Tulyro | Free Online Tools & Calculators",
+  description: "Tulyro offers free browser-only calculators, text tools, and developer utilities. No signup, no watermark — everything runs on your device.",
   alternates: { canonical: `${siteUrl}/` },
 };
 

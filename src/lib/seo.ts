@@ -150,6 +150,7 @@ export function createWebSiteJsonLd() {
       {
         "@type": "WebSite",
         name: "Tulyro",
+        alternateName: "Tulyro Tools",
         url: siteUrl,
         description: "Free browser-only tools. No signup. No watermark. Nothing you enter is sent to a server.",
         dateModified: contentUpdated,
@@ -159,6 +160,7 @@ export function createWebSiteJsonLd() {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
         name: "Tulyro",
+        alternateName: "Tulyro Tools",
         url: siteUrl,
         logo: `${siteUrl}/logo.svg`,
         email: "Tulyrotools@gmail.com",

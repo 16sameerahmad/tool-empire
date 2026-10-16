@@ -113,6 +113,82 @@ summary {
   to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 
+/* ---- UI micro-animation kit (Tulyro motion system additions) ---- */
+
+/* Continue-button interaction: press depth on CTAs (transform-only, GPU-friendly). */
+.btn-press {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, background-color 150ms ease-out;
+}
+.btn-press:hover {
+  transform: translateY(-1px);
+}
+.btn-press:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn-press:disabled {
+  transform: none;
+}
+
+/* Sheen sweep for primary CTAs — subtle light pass on hover. */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 450ms ease-out;
+  pointer-events: none;
+}
+.btn-sheen:hover::after {
+  transform: translateX(120%);
+}
+
+/* Progress ring: smooth arc sweep on value change. */
+.progress-ring-arc {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Search suggestions: staggered rise entrance. */
+@keyframes suggest-rise {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.suggest-item {
+  animation: suggest-rise 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--suggest-index, 0) * 25ms);
+}
+
+/* Clear button: soft pop when it appears. */
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+.pop-in {
+  animation: pop-in 150ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-sheen::after,
+  .suggest-item,
+  .pop-in {
+    animation: none;
+    transition: none;
+  }
+  .btn-press:hover,
+  .btn-press:active {
+    transform: none;
+  }
+  .progress-ring-arc {
+    transition: none;
+  }
+}
+
 /* Native scrollbars are kept (accessibility) even though Stitch CSS hides them. */
 
 @media (max-width: 767px) {

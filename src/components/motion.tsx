@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Icon } from "@/components/icons";
 
 /** Scroll-reveal wrapper: fades/slides in once when entering the viewport. */
 export function Reveal({
@@ -156,5 +157,92 @@ export function Parallax({
     <div ref={ref} className={className} aria-hidden="true">
       {children}
     </div>
+  );
+}
+
+/** Minimal circular SVG progress ring for tool processing/loading states.
+ *  `progress` is 0–1. Animates via stroke-dashoffset (opacity-safe, GPU-friendly).
+ *  Under prefers-reduced-motion the value jumps without animation. */
+export function ProgressRing({
+  progress,
+  size = 20,
+  stroke = 2.5,
+  label,
+  className = "",
+}: {
+  progress: number;
+  size?: number;
+  stroke?: number;
+  label?: string;
+  className?: string;
+}) {
+  const clamped = Math.min(1, Math.max(0, progress));
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+
+  return (
+    <span
+      role="progressbar"
+      aria-valuenow={Math.round(clamped * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={label ?? "Loading"}
+      className={`inline-grid shrink-0 place-items-center ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90" aria-hidden="true">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.2"
+          strokeWidth={stroke}
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference * (1 - clamped)}
+          className="progress-ring-arc"
+        />
+      </svg>
+    </span>
+  );
+}
+
+/** Smoothly morphing SVG icon for tool-state toggles (e.g. copy → copied check).
+ *  Cross-fades + scales between two named icons — zero layout shift.
+ *  Size via className (e.g. "h-4 w-4"). */
+export function MorphIcon({
+  from,
+  to,
+  morphed,
+  className = "",
+}: {
+  from: string;
+  to: string;
+  morphed: boolean;
+  className?: string;
+}) {
+  const layer = (hidden: boolean) =>
+    `col-start-1 row-start-1 h-full w-full transition-all duration-150 ease-out motion-reduce:transition-none ${
+      hidden ? "scale-[0.6] opacity-0" : "scale-100 opacity-100"
+    }`;
+  return (
+    <span className={`relative inline-grid shrink-0 place-items-center ${className}`} aria-hidden="true">
+      <span className={layer(morphed)}>
+        <Icon name={from} className="h-full w-full" />
+      </span>
+      <span className={layer(!morphed)}>
+        <Icon name={to} className="h-full w-full" />
+      </span>
+    </span>
   );
 }

@@ -105,9 +105,23 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
           <kbd className="rounded bg-surface-container-high px-2 py-1 font-code-data text-xs text-on-surface-variant shadow-sm">⌘</kbd>
           <kbd className="rounded bg-surface-container-high px-2 py-1 font-code-data text-xs text-on-surface-variant shadow-sm">K</kbd>
         </span>
+        {query.length > 0 ? (
+          <button
+            type="button"
+            aria-label="Clear search"
+            onClick={() => {
+              setQuery("");
+              setHighlight(-1);
+              inputRef.current?.focus();
+            }}
+            className="pop-in mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-outline transition-colors hover:bg-surface-container-high hover:text-on-surface"
+          >
+            <Icon name="close" className="h-4 w-4" />
+          </button>
+        ) : null}
         <button
           type="submit"
-          className="flex shrink-0 items-center gap-1.5 rounded-lg bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
+          className="btn-press btn-sheen flex shrink-0 items-center gap-1.5 rounded-lg bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
         >
           Find Tool
           <Icon name="arrow_forward" className="h-4 w-4" />
@@ -125,7 +139,8 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
                 aria-selected={highlight === index}
                 onMouseEnter={() => setHighlight(index)}
                 onClick={() => goTo(index)}
-                className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-container ${
+                style={{ ["--suggest-index" as string]: Math.min(index, 7) }}
+                className={`suggest-item flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm transition-colors duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-container ${
                   highlight === index ? "bg-primary-fixed" : ""
                 }`}
               >

@@ -13,6 +13,7 @@ import { wordStats } from "@/tools/word-counter/logic";
 import { canAddMessage, type FakeMessage, validateMessage } from "@/tools/fake-text/logic";
 import { AgeWorkspace } from "@/components/AgeWorkspace";
 import { Icon } from "@/components/icons";
+import { MorphIcon } from "@/components/motion";
 
 const inputClass = "stitch-input mt-1 min-h-11 w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-3 text-base text-on-surface";
 const labelClass = "block font-label-md text-label-md text-on-surface-variant";
@@ -273,8 +274,8 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
                     <span className="mt-0.5 block font-code-data text-base font-bold text-secondary-fixed">{valid ? format.format(valid.totalPayment) : `${symbol} 0`}</span>
                   </div>
                 </div>
-                <button type="button" onClick={copySummary} disabled={!valid} className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-white/10">
-                  <Icon name="content_copy" className="h-4 w-4" />
+                <button type="button" onClick={copySummary} disabled={!valid} className="btn-press btn-sheen flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-white/10">
+                  <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
                   {copied ? "Summary copied!" : "Copy Summary"}
                 </button>
               </div>
@@ -477,7 +478,7 @@ function BmiPanel() {
                   </p>
                 ) : null}
                 <button type="button" onClick={copySummary} className={`${secondaryButtonClass} mt-4 w-full`}>
-                  <Icon name="content_copy" className="h-4 w-4" />
+                  <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
                   {copied ? "Copied!" : "Copy Summary"}
                 </button>
               </>
@@ -585,7 +586,7 @@ function CgpaPanel() {
             </p>
             <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">Estimated percentage. Institutions differ; check your own rule.</p>
             <button type="button" onClick={copyResult} className={`${secondaryButtonClass} mt-4 w-full`}>
-              <Icon name="content_copy" className="h-4 w-4" />
+              <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
               {copied ? "Copied!" : "Copy Result"}
             </button>
           </>
@@ -645,7 +646,7 @@ function WordPanel() {
               Paste
             </button>
             <button type="button" onClick={copy} disabled={!text} className={secondaryButtonClass}>
-              <Icon name="content_copy" className="h-4 w-4" />
+              <MorphIcon from="content_copy" to="check" morphed={notice === "Copied to clipboard."} className="h-4 w-4" />
               Copy
             </button>
             <button type="button" onClick={() => setText("")} className={secondaryButtonClass}>
@@ -875,7 +876,7 @@ function FancyPanel() {
                 <span className="w-32 shrink-0 font-label-md text-label-md text-on-surface">{style}</span>
                 <span className="min-w-0 flex-1 break-words font-body-md text-body-md text-on-surface">{output}</span>
                 <button type="button" className={secondaryButtonClass} onClick={() => copy(output, style)} disabled={!text}>
-                  <Icon name="content_copy" className="h-4 w-4" />
+                  <MorphIcon from="content_copy" to="check" morphed={copied === style} className="h-4 w-4" />
                   {copied === style ? "Copied" : "Copy"}
                 </button>
               </div>
@@ -967,7 +968,7 @@ function Base64Panel() {
           <>
             <p className="mt-4 break-words font-mono text-sm leading-relaxed text-on-surface">{output || "Output appears here"}</p>
             <button type="button" className={`${secondaryButtonClass} mt-4`} disabled={!output} onClick={copyOutput}>
-              <Icon name="content_copy" className="h-4 w-4" />
+              <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
               {copied ? "Copied" : "Copy Base64"}
             </button>
             {copyFailed ? <p className="mt-2 font-body-sm text-body-sm text-error">Could not copy. Select the text and press Ctrl+C (Cmd+C on Mac).</p> : null}

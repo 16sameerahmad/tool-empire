@@ -7,7 +7,7 @@ import { HomeSearch } from "@/components/HomeSearch";
 import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
 import { Parallax, Reveal, CountUp } from "@/components/motion";
-import { GlassToolCard } from "@/components/GlassToolCard";
+import { GlassToolCard, GlassCategoryRow } from "@/components/GlassToolCard";
 import { getTool, tools } from "@/lib/tools";
 import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
 
@@ -25,11 +25,11 @@ const TRENDING = [
   { id: "fancy-text-generator", label: "Fancy Text" },
 ];
 const CATEGORIES = [
-  { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
-  { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", hover: "group-hover:bg-secondary group-hover:text-on-secondary" },
-  { label: "Developer Tools", href: "/dev/", count: "1 tool", icon: "terminal", hover: "group-hover:bg-tertiary group-hover:text-on-tertiary" },
-  { label: "Fun Tools", href: "/fun/", count: "2 tools", icon: "auto_awesome", hover: "group-hover:bg-primary-container group-hover:text-on-primary-container" },
-  { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", hover: "group-hover:bg-surface-tint group-hover:text-on-primary" },
+  { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", theme: "calculator" },
+  { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", theme: "text" },
+  { label: "Developer Tools", href: "/dev/", count: "1 tool", icon: "terminal", theme: "developer" },
+  { label: "Fun Tools", href: "/fun/", count: "2 tools", icon: "auto_awesome", theme: "media" },
+  { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", theme: "calculator" },
 ];
 const TRUST = [
   { title: "11 Free Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
@@ -246,12 +246,12 @@ export default function HomePage() {
                 <Link
                   key={category.label}
                   href={category.href}
-                  className="group flex flex-col items-center rounded-xl bg-surface-container-lowest p-6 text-center shadow-sm transition-all hover:shadow-lg"
+                  className={`glass-card glass-theme-${category.theme} group flex flex-col items-center rounded-2xl p-6 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container`}
                 >
-                  <span className={`grid h-14 w-14 place-items-center rounded-2xl bg-primary-fixed text-primary transition-colors ${category.hover}`}>
+                  <span className="glass-tile" aria-hidden="true">
                     <Icon name={category.icon} className="h-7 w-7" />
                   </span>
-                  <span className="mt-3 font-display font-headline-sm text-headline-sm font-semibold text-on-surface transition-colors group-hover:text-primary">
+                  <span className="glass-title mt-3 font-display font-headline-sm text-headline-sm font-semibold text-on-surface">
                     {category.label}
                   </span>
                   <span className="mt-1 font-body-sm text-body-sm text-on-surface-variant">{category.count}</span>
@@ -272,17 +272,7 @@ export default function HomePage() {
           </div>
           <div className="space-y-2">
             {MOBILE_CATEGORIES.map((category) => (
-              <Link key={category.label} href={category.href} className="flex items-center gap-3 rounded-xl bg-surface-container-lowest p-3 shadow-sm">
-                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${category.tint}`}>
-                  <Icon name={category.icon} className="h-5 w-5" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-display text-sm font-semibold text-on-surface">{category.label}</span>
-                  <span className="block truncate font-body-sm text-body-sm text-on-surface-variant">{category.sub}</span>
-                </span>
-                <span className="shrink-0 font-label-sm text-label-sm text-on-surface-variant">{category.count}</span>
-                <Icon name="chevron_right" className="h-4 w-4 shrink-0 text-outline-variant" />
-              </Link>
+              <GlassCategoryRow key={category.label} category={category} />
             ))}
           </div>
         </section>

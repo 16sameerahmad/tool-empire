@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { GlassToolCard } from "@/components/GlassToolCard";
 import { Icon } from "@/components/icons";
 import type { ToolDefinition } from "@/lib/tools";
 
@@ -46,25 +46,8 @@ export function ToolIcon({ id, className }: { id: string; className?: string }) 
 }
 
 export function ToolCard({ tool, badge }: { tool: ToolDefinition; badge?: string }) {
-  return (
-    <Link
-      href={tool.href}
-      className="group flex flex-col justify-between rounded-xl bg-surface-container-lowest p-5 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-[rgba(99,91,255,0.35)] hover:shadow-card-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container"
-    >
-      <span>
-        <span className="mb-4 flex items-center justify-between">
-          <ToolIcon id={tool.id} />
-          <span className="rounded bg-surface-container-high px-2 py-0.5 font-label-sm text-[11px] text-on-surface-variant">{badge ?? clusterBadge(tool.cluster)}</span>
-        </span>
-        <span className="block font-display font-headline-sm text-headline-sm text-on-surface transition-colors group-hover:text-primary">{tool.title}</span>
-        <span className="mt-2 block font-body-sm text-body-sm leading-[1.5] text-on-surface-variant [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
-          {tool.description}
-        </span>
-      </span>
-      <span className="mt-4 flex items-center justify-between border-t border-surface-container pt-4 font-label-sm text-label-sm text-primary">
-        Launch Tool
-        <Icon name="arrow_forward" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-      </span>
-    </Link>
-  );
+  // Unified with the glassmorphism system: every tool card site-wide
+  // (category hubs, /tools/ directory, related-tools rails) gets the
+  // glass + gradient-border glow treatment.
+  return <GlassToolCard tool={tool} badge={badge} />;
 }

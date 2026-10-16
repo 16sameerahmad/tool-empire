@@ -25,8 +25,8 @@ const BADGE_THEME: Record<string, string> = {
   "Media & Fun": "media",
 };
 
-export function GlassToolCard({ tool }: { tool: ToolDefinition }) {
-  const badge = clusterBadge(tool.cluster);
+export function GlassToolCard({ tool, badge: badgeOverride }: { tool: ToolDefinition; badge?: string }) {
+  const badge = badgeOverride ?? clusterBadge(tool.cluster);
   const theme = BADGE_THEME[badge] ?? "calculator";
   const [tapped, setTapped] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -74,6 +74,69 @@ export function GlassToolCard({ tool }: { tool: ToolDefinition }) {
           <Icon name="arrow_forward" className="h-3.5 w-3.5" />
         </span>
       </span>
+    </Link>
+  );
+}
+
+/** Category label → glass theme key (for Explore Categories rows). */
+const CATEGORY_THEME: Record<string, string> = {
+  Calculators: "calculator",
+  "Text Tools": "text",
+  "Developer Tools": "developer",
+  "Fun Tools": "media",
+  "All Tools": "calculator",
+};
+
+export interface CategoryRow {
+  label: string;
+  sub: string;
+  href: string;
+  count: string;
+  icon: string;
+  tint: string;
+}
+
+/**
+ * Glassmorphism category row — the Explore Categories row layout, unchanged
+ * in size/structure, with the glass + gradient-border glow interaction.
+ * Tap (mobile) triggers the same delight as hover (desktop).
+ */
+export function GlassCategoryRow({ category }: { category: CategoryRow }) {
+  const theme = CATEGORY_THEME[category.label] ?? "calculator";
+  const [tapped, setTapped] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const onTouchStart = () => {
+    if (timer.current) clearTimeout(timer.current);
+    setTapped(true);
+  };
+  const clearTap = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setTapped(false), 500);
+  };
+  useEffect(() => {
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, []);
+
+  return (
+    <Link
+      href={category.href}
+      onTouchStart={onTouchStart}
+      onTouchEnd={clearTap}
+      onTouchCancel={clearTap}
+      className={`glass-row glass-theme-${theme}${tapped ? " is-tapped" : ""} flex items-center gap-3 rounded-xl p-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container`}
+    >
+      <span className={`glass-row-icon grid h-10 w-10 shrink-0 place-items-center rounded-lg ${category.tint}`}>
+        <Icon name={category.icon} className="h-5 w-5" />
+      </span>
+      <span className="relative z-[1] min-w-0 flex-1">
+        <span className="glass-row-title block font-display text-sm font-semibold text-on-surface">{category.label}</span>
+        <span className="block truncate font-body-sm text-body-sm text-on-surface-variant">{category.sub}</span>
+      </span>
+      <span className="relative z-[1] shrink-0 font-label-sm text-label-sm text-on-surface-variant">{category.count}</span>
+      <Icon name="chevron_right" className="glass-row-chevron relative z-[1] h-4 w-4 shrink-0 text-outline-variant" />
     </Link>
   );
 }

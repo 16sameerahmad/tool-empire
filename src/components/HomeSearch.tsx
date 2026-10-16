@@ -171,14 +171,14 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
               setHighlight(-1);
               inputRef.current?.focus();
             }}
-            className="pop-in mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-outline transition-colors hover:bg-surface-container-high hover:text-on-surface"
+            className="pop-in btn-icon mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-outline transition-colors hover:bg-surface-container-high hover:text-on-surface"
           >
             <Icon name="close" className="h-4 w-4" />
           </button>
         ) : null}
         <button
           type="submit"
-          className="btn-press btn-sheen flex shrink-0 items-center gap-1.5 rounded-full bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
+          className="btn-press btn-sheen btn-glow flex shrink-0 items-center gap-1.5 rounded-full bg-primary-container px-5 py-3 font-label-md text-label-md text-on-primary shadow-button-glow transition-all hover:bg-primary"
         >
           Find Tool
           <Icon name="arrow_forward" className="h-4 w-4" />

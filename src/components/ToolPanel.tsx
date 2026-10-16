@@ -18,9 +18,9 @@ import { MorphIcon } from "@/components/motion";
 const inputClass = "stitch-input mt-1 min-h-11 w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-3 text-base text-on-surface";
 const labelClass = "block font-label-md text-label-md text-on-surface-variant";
 const buttonClass =
-  "inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-primary-container px-4 font-label-md text-label-md text-white shadow-button-glow transition-colors hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container disabled:cursor-not-allowed disabled:bg-outline-variant disabled:text-on-surface-variant disabled:shadow-none";
+  "btn-press btn-sheen btn-glow inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-primary-container px-4 font-label-md text-label-md text-white shadow-button-glow transition-colors hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container disabled:cursor-not-allowed disabled:bg-outline-variant disabled:text-on-surface-variant disabled:shadow-none";
 const secondaryButtonClass =
-  "inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 font-label-md text-label-md text-on-surface hover:bg-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container disabled:cursor-not-allowed disabled:text-outline";
+  "btn-press inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 font-label-md text-label-md text-on-surface hover:bg-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container disabled:cursor-not-allowed disabled:text-outline";
 const numberFormat = (locale: string, currency?: string) =>
   new Intl.NumberFormat(locale, currency ? { style: "currency", currency, minimumFractionDigits: 2 } : { maximumFractionDigits: 2 });
 
@@ -34,7 +34,7 @@ function Segmented({ value, options, onChange, ariaLabel }: { value: string; opt
           role="radio"
           aria-checked={value === option}
           onClick={() => onChange(option)}
-          className={`min-h-10 rounded-lg px-3 font-label-md text-label-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container ${
+          className={`btn-chip min-h-10 rounded-lg px-3 font-label-md text-label-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container ${
             value === option ? "bg-primary-container text-white shadow-sm" : "text-on-surface-variant hover:text-on-surface"
           }`}
         >
@@ -129,7 +129,7 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
                   key={preset}
                   type="button"
                   onClick={() => setAmount(String(preset))}
-                  className={`rounded px-2.5 py-1 font-code-data text-xs transition-colors ${
+                  className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${
                     amountNum === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"
                   }`}
                 >
@@ -274,7 +274,7 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
                     <span className="mt-0.5 block font-code-data text-base font-bold text-secondary-fixed">{valid ? format.format(valid.totalPayment) : `${symbol} 0`}</span>
                   </div>
                 </div>
-                <button type="button" onClick={copySummary} disabled={!valid} className="btn-press btn-sheen flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-white/10">
+                <button type="button" onClick={copySummary} disabled={!valid} className="btn-press btn-sheen btn-glow flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-white/10">
                   <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
                   {copied ? "Summary copied!" : "Copy Summary"}
                 </button>
@@ -417,7 +417,7 @@ function BmiPanel() {
                       key={preset}
                       type="button"
                       onClick={() => setWeight(String(preset))}
-                      className={`rounded px-2.5 py-1 font-code-data text-xs transition-colors ${Number(weight) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
+                      className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${Number(weight) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
                     >
                       {preset} kg
                     </button>
@@ -557,7 +557,7 @@ function CgpaPanel() {
                 key={preset}
                 type="button"
                 onClick={() => setValue(preset.toFixed(2))}
-                className={`rounded px-2.5 py-1 font-code-data text-xs transition-colors ${Number(value) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
+                className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${Number(value) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
               >
                 {preset.toFixed(2)}
               </button>

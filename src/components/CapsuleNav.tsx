@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { LogoMark } from "@/components/Brand";
 
 /** Primary site sections — the capsule's links. */
@@ -27,8 +27,12 @@ type Spring = { x: number; v: number; g: number; k: number; c: number; e: number
  * stiffer, trailing edge softer) so it stretches with velocity; labels re-ink under the pill
  * via a clipped ink copy. Hides on scroll down, returns on first scroll up, compacts past
  * `data-compact-at`. All motion is GPU-friendly (transform / clip-path / opacity).
+ *
+ * `actions` (optional): trailing action buttons rendered inside the bar. Shown only
+ * on mobile/tablet as part of the single unified capsule (desktop uses the separate
+ * header cluster). Positioned absolute via CSS so the spring pill math is untouched.
  */
-export function CapsuleNav() {
+export function CapsuleNav({ actions }: { actions?: ReactNode }) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
   const activeIndex = NAV.findIndex((item) => isActive(pathname, item.href));
@@ -383,6 +387,7 @@ export function CapsuleNav() {
             </ul>
           </span>
         </div>
+        {actions ? <div className="vs-capsule-nav-actions">{actions}</div> : null}
       </div>
     </nav>
   );

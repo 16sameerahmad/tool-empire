@@ -63,7 +63,7 @@ export function MobileAgeSnapshot() {
               </p>
               <p className="font-body-sm text-body-sm text-on-surface-variant">{valid.daysLived.toLocaleString()} days lived</p>
             </div>
-            <button type="button" onClick={copy} className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-outline-variant px-2.5 py-1.5 font-label-sm text-label-sm text-on-surface hover:bg-surface-container-low">
+            <button type="button" onClick={copy} className="btn-press inline-flex shrink-0 items-center gap-1 rounded-lg border border-outline-variant px-2.5 py-1.5 font-label-sm text-label-sm text-on-surface hover:bg-surface-container-low">
               <Icon name="content_copy" className="h-3.5 w-3.5" />
               {copied ? "Copied" : "Copy"}
             </button>

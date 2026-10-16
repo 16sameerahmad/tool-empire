@@ -154,6 +154,47 @@ summary {
   transition: stroke-dashoffset 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ---- Button animation tiers (Jitter-inspired, extends btn-press/btn-sheen) ---- */
+
+/* TIER 1 — Primary CTAs: glow pulse on hover ("Interactive Button: Glow" inspired).
+ * Pairs with .btn-press + .btn-sheen for the full treatment.
+ * NOTE: keeps the full transition list so it composes with .btn-press (later in
+ * the cascade wins on `transition`, so this must not drop transform). */
+.btn-glow {
+  transition: transform 150ms ease-out, box-shadow 200ms ease-out, background-color 150ms ease-out;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 28px rgba(99, 91, 255, 0.5), 0 6px 20px rgba(99, 91, 255, 0.28);
+}
+.btn-glow:active {
+  box-shadow: 0 0 14px rgba(99, 91, 255, 0.35);
+}
+.btn-glow:disabled {
+  box-shadow: none;
+}
+
+/* TIER 2 — Icon buttons: springy scale pop on hover, press-in on tap. */
+.btn-icon {
+  transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 150ms ease-out, color 150ms ease-out;
+}
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+.btn-icon:active {
+  transform: scale(0.9);
+}
+
+/* TIER 3 — Chips / preset pills: subtle lift + press. */
+.btn-chip {
+  transition: transform 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out;
+}
+.btn-chip:hover {
+  transform: translateY(-1px);
+}
+.btn-chip:active {
+  transform: scale(0.95);
+}
+
 /* Search suggestions: staggered rise entrance. */
 @keyframes suggest-rise {
   from { opacity: 0; transform: translate3d(0, 6px, 0); }
@@ -170,7 +211,9 @@ summary {
   to { opacity: 1; transform: scale(1); }
 }
 .pop-in {
-  animation: pop-in 150ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  /* `backwards` (not `both`): after the entrance ends the element returns to
+   * natural styles, so it composes with hover utilities like .btn-icon. */
+  animation: pop-in 150ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 }
 
 /* Jitter-style search entrance: 80px circle -> full pill via clip-path.
@@ -196,6 +239,9 @@ summary {
 
 @media (prefers-reduced-motion: reduce) {
   .btn-sheen::after,
+  .btn-glow,
+  .btn-icon,
+  .btn-chip,
   .suggest-item,
   .pop-in,
   .search-enter,
@@ -204,8 +250,16 @@ summary {
     transition: none;
   }
   .btn-press:hover,
-  .btn-press:active {
+  .btn-press:active,
+  .btn-icon:hover,
+  .btn-icon:active,
+  .btn-chip:hover,
+  .btn-chip:active {
     transform: none;
+  }
+  .btn-glow:hover,
+  .btn-glow:active {
+    box-shadow: none;
   }
   .progress-ring-arc {
     transition: none;
@@ -368,17 +422,48 @@ summary {
 }
 .vs-capsule-nav-pill .vs-capsule-nav-list { position: absolute; left: 0; top: 0; }
 .vs-capsule-nav-pill .vs-capsule-nav-link { color: var(--vs-capsule-nav-accent-ink); transition: none; }
+/* In-bar action buttons (search / hamburger): desktop uses the separate cluster,
+ * so these stay hidden; mobile shows them inside the single unified capsule. */
+.vs-capsule-nav-actions { display: none; }
+.vs-capsule-nav-action-btn {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 2.5em; height: 2.5em; border-radius: 999px;
+  color: rgba(236, 240, 248, .9);
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-capsule-nav-action-btn:hover { background: rgba(236, 240, 248, .12); color: #fff; }
+.vs-capsule-nav-action-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(7, 20, 47, .9), 0 0 0 3.5px var(--vs-capsule-nav-focus);
+}
 @media (max-width: 1023px) {
-  /* Tablet + mobile: nav hugs the left, links scroll inside the bar; the
-     flex row guarantees the cluster never overlaps. */
+  /* Mobile/tablet: ONE unified capsule — logo + scrollable links + action buttons
+   * in a single pill. The separate cluster is hidden; actions overlay the bar's
+   * right edge (absolute, so the spring pill math is untouched) while links
+   * scroll beneath their frosted cap. */
   .site-header { --vs-capsule-nav-top: 10px; --vs-capsule-nav-size: .8125rem; }
   .site-header-inner { justify-content: flex-start; }
   .site-header-navwrap { justify-content: flex-start; }
-  .vs-capsule-nav { justify-content: flex-start; }
-  .vs-capsule-nav-bar { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .site-header-cluster { display: none; }
+  .vs-capsule-nav { justify-content: flex-start; width: 100%; }
+  .vs-capsule-nav-bar { width: 100%; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
   .vs-capsule-nav-bar::-webkit-scrollbar { display: none; }
   .vs-capsule-nav-brand, .vs-capsule-nav-track { flex-shrink: 0; }
-  .vs-capsule-nav-track { width: max-content; }
+  .vs-capsule-nav-track { width: max-content; padding-right: 92px; }
+  .vs-capsule-nav-actions {
+    display: flex; align-items: center; gap: 2px;
+    position: absolute; right: .3125em; top: 50%; transform: translateY(-50%); z-index: 2;
+    padding: 2px; border-radius: 999px;
+    background: rgba(7, 20, 47, .82);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    backdrop-filter: blur(16px) saturate(1.6);
+    box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .14);
+  }
+  .vs-capsule-nav-actions::before {
+    content: ""; position: absolute; left: -22px; top: 0; bottom: 0; width: 22px;
+    background: linear-gradient(to right, transparent, rgba(7, 20, 47, .82));
+    pointer-events: none;
+  }
   .vs-capsule-nav-link { padding-inline: .9em; }
 }
 @media (forced-colors: active) {

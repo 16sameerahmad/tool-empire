@@ -22,24 +22,48 @@ export function Header() {
 
   return (
     <>
-      {/* Floating header system: capsule nav + matching frosted cluster in one row — never overlapping. */}
+      {/* Floating header system: capsule nav + matching frosted cluster in one row — never overlapping.
+          On mobile the cluster hides and search/hamburger live inside the single unified capsule. */}
       <header className="site-header">
         <div className="site-header-inner">
           <div className="site-header-navwrap">
-            <CapsuleNav />
+            <CapsuleNav
+              actions={
+                <>
+                  <button
+                    type="button"
+                    onClick={scrollToSiteSearch}
+                    aria-label="Search tools"
+                    className="vs-capsule-nav-action-btn btn-icon"
+                  >
+                    <Icon name="search" className="h-[18px] w-[18px]" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-expanded={menuOpen}
+                    aria-controls="mobile-navigation"
+                    onClick={() => setMenuOpen((value) => !value)}
+                    className="vs-capsule-nav-action-btn btn-icon"
+                    aria-label="Toggle navigation menu"
+                  >
+                    <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
+                  </button>
+                </>
+              }
+            />
           </div>
           <div className="site-header-cluster" role="group" aria-label="Quick actions">
             <button
               type="button"
               onClick={scrollToSiteSearch}
               aria-label="Search tools"
-              className="cluster-btn inline-flex items-center justify-center"
+              className="cluster-btn btn-icon inline-flex items-center justify-center"
             >
               <Icon name="search" className="h-[18px] w-[18px]" />
             </button>
             <Link
               href="/contact/"
-              className="cluster-btn hidden items-center justify-center sm:inline-flex"
+              className="cluster-btn btn-chip hidden items-center justify-center sm:inline-flex"
             >
               Suggest Tool
             </Link>
@@ -48,7 +72,7 @@ export function Header() {
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
               onClick={() => setMenuOpen((value) => !value)}
-              className="cluster-btn inline-flex items-center justify-center xl:hidden"
+              className="cluster-btn btn-icon inline-flex items-center justify-center xl:hidden"
               aria-label="Toggle navigation menu"
             >
               <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
@@ -100,7 +124,7 @@ export function Header() {
             { label: "Tools", href: "/tools/", icon: "apps" },
           ].map((item) => (
             <li key={item.label}>
-              <Link href={item.href} className="flex flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white">
+              <Link href={item.href} className="btn-icon flex flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white">
                 <Icon name={item.icon} className="h-5 w-5" />
                 {item.label}
               </Link>
@@ -110,7 +134,7 @@ export function Header() {
             <button
               type="button"
               onClick={scrollToSiteSearch}
-              className="flex w-full flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white"
+              className="btn-icon flex w-full flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white"
             >
               <Icon name="search" className="h-5 w-5" />
               Search
@@ -124,7 +148,7 @@ export function Header() {
                 setMenuOpen((value) => !value);
                 window.scrollTo({ top: 0 });
               }}
-              className="flex w-full flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white"
+              className="btn-icon flex w-full flex-col items-center gap-0.5 py-2 text-[10px] font-semibold text-tertiary-fixed-dim hover:text-white"
             >
               <Icon name="menu" className="h-5 w-5" />
               Menu

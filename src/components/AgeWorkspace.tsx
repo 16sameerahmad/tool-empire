@@ -99,7 +99,7 @@ export function AgeWorkspace() {
             <button
               type="button"
               onClick={() => { setDob(""); setAsOf(todayValue); }}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 font-label-md text-label-md text-on-surface hover:bg-surface-container-low"
+              className="btn-press inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 font-label-md text-label-md text-on-surface hover:bg-surface-container-low"
             >
               <Icon name="restart_alt" className="h-4 w-4" />
               Clear
@@ -119,7 +119,7 @@ export function AgeWorkspace() {
             <button
               type="button"
               onClick={copySummary}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 font-label-md text-label-md text-white hover:bg-white/20"
+              className="btn-press inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 font-label-md text-label-md text-white hover:bg-white/20"
             >
               <Icon name="content_copy" className="h-4 w-4" />
               {copied ? "Copied!" : "Copy Summary"}

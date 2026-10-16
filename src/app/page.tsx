@@ -82,7 +82,7 @@ function TrendingRow() {
     <div className="flex flex-wrap items-center gap-2 pt-1">
       <span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary-fixed-dim">Quick links:</span>
       {TRENDING.map((entry) => (
-        <Link key={entry.id} href={getTool(entry.id).href} className="rounded-md bg-white/10 px-2.5 py-1 font-label-sm text-label-sm text-tertiary-fixed transition-colors hover:bg-white/20">
+        <Link key={entry.id} href={getTool(entry.id).href} className="btn-chip rounded-md bg-white/10 px-2.5 py-1 font-label-sm text-label-sm text-tertiary-fixed transition-colors hover:bg-white/20">
           {entry.label}
         </Link>
       ))}
@@ -126,11 +126,11 @@ export default function HomePage() {
                   EMI, age, BMI, word counts, Base64 and 6 more — 11 free utilities running entirely in your browser. No signup, no tracking, no waiting.
                 </p>
                 <div className="hero-enter flex flex-wrap items-center gap-3" style={{ ["--enter-delay" as string]: "270ms" }}>
-                  <Link href="#browse" className="group inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
+                  <Link href="#browse" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
                     Browse all 11 tools
                     <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
                   </Link>
-                  <Link href="#why-tulyro" className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
+                  <Link href="#why-tulyro" className="btn-press inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
                     Why Tulyro?
                   </Link>
                 </div>
@@ -163,11 +163,11 @@ export default function HomePage() {
                 Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
               </p>
               <div className="hero-enter flex flex-wrap items-center gap-2.5" style={{ ["--enter-delay" as string]: "270ms" }}>
-                <Link href="#browse-mobile" className="group inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
+                <Link href="#browse-mobile" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
                   Browse all 11 tools
                   <Icon name="arrow_forward" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-                <Link href="#why-tulyro-mobile" className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 px-5 py-2.5 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
+                <Link href="#why-tulyro-mobile" className="btn-press inline-flex items-center gap-1.5 rounded-xl border border-white/20 px-5 py-2.5 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
                   Why Tulyro?
                 </Link>
               </div>

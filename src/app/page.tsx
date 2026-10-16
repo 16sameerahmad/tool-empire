@@ -113,13 +113,22 @@ export default function HomePage() {
                   11 free tools • No signup • Private by design
                 </p>
                 <h1 className="font-display font-display-hero leading-[1.08] tracking-tight text-white">
-                  Free tools that
+                  Precision tools for
                   <br className="hidden sm:inline" />{" "}
-                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">work for you.</span>
+                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">everyday numbers.</span>
                 </h1>
                 <p className="max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed">
-                  EMI, age, BMI, word counts, Base64 and more — 11 free utilities that run entirely in your browser. No signup, no tracking, no waiting.
+                  EMI, age, BMI, word counts, Base64 and 6 more — 11 free utilities running entirely in your browser. No signup, no tracking, no waiting.
                 </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link href="#browse" className="group inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
+                    Browse all 11 tools
+                    <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
+                  </Link>
+                  <Link href="#why-tulyro" className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
+                    Why Tulyro?
+                  </Link>
+                </div>
                 <HomeSearch variantId="desktop" />
                 <TrendingRow />
               </div>
@@ -136,14 +145,23 @@ export default function HomePage() {
                 11 free tools • No signup • Private by design
               </p>
               <div className="font-display font-display-hero-mobile tracking-tight text-white">
-                Everyday tools that{" "}
+                Precision tools for{" "}
                 <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">
-                  just work.
+                  everyday numbers.
                 </span>
               </div>
               <p className="font-body-md text-body-md leading-relaxed text-tertiary-fixed">
                 Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
               </p>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Link href="#browse-mobile" className="group inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
+                  Browse all 11 tools
+                  <Icon name="arrow_forward" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link href="#why-tulyro-mobile" className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 px-5 py-2.5 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
+                  Why Tulyro?
+                </Link>
+              </div>
               <HomeSearch variantId="mobile" />
               <TrendingRow />
               <div className="mt-2">
@@ -210,7 +228,7 @@ export default function HomePage() {
         </section>
 
         {/* Popular Utilities list (mobile) */}
-        <section className="w-full bg-surface px-4 py-8 lg:hidden" aria-label="Popular utilities">
+        <section id="browse-mobile" className="w-full scroll-mt-32 bg-surface px-4 py-8 lg:hidden" aria-label="Popular utilities">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="flex items-center gap-1.5 font-display font-headline-sm text-headline-sm text-on-surface">
               <Icon name="flame" className="h-5 w-5 text-primary-container" />
@@ -303,7 +321,7 @@ export default function HomePage() {
         </section>
 
         {/* Blueprint / Why section (desktop) */}
-        <section className="hidden w-full bg-surface py-16 lg:block">
+        <section id="why-tulyro" className="hidden w-full scroll-mt-32 bg-surface py-16 lg:block">
           <div className="mx-auto max-w-shell px-6">
             <div className="relative overflow-hidden rounded-2xl bg-midnight p-8 text-on-primary shadow-2xl lg:p-12">
               <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-primary-container/20 blur-[100px]" aria-hidden="true" />
@@ -338,7 +356,7 @@ export default function HomePage() {
         </section>
 
         {/* Privacy First Engine card (mobile) */}
-        <section className="w-full bg-surface px-4 pb-8 lg:hidden" aria-label="Privacy">
+        <section id="why-tulyro-mobile" className="w-full scroll-mt-32 bg-surface px-4 pb-8 lg:hidden" aria-label="Privacy">
           <div className="rounded-2xl bg-midnight p-5 text-white shadow-card">
             <p className="flex items-center gap-2 font-display font-headline-sm text-headline-sm">
               <Icon name="security" className="h-5 w-5 text-primary-fixed" />

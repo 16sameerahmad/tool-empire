@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
-import { Logo } from "@/components/Header";
+import { Logo } from "@/components/Brand";
 import { getToolsByCluster } from "@/lib/tools";
 
 const linkClass = "rounded font-body-sm text-body-sm text-tertiary-fixed-dim transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container";

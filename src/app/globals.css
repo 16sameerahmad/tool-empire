@@ -248,3 +248,96 @@ summary {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============ Capsule Nav (vividsites "capsule-nav", ported to Tulyro tokens; pure CSS+JS, zero deps) ============ */
+.vs-capsule-nav {
+  --vs-capsule-nav-size: 1rem;
+  --vs-capsule-nav-font: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --vs-capsule-nav-accent: #635bff;             /* Tulyro primary = the active pill */
+  --vs-capsule-nav-accent-ink: #ffffff;         /* label colour on the pill */
+  --vs-capsule-nav-blur: 20px;                  /* backdrop blur (the frost) */
+  --vs-capsule-nav-frost: .55;                  /* surface opacity, 0 - 1 */
+  --vs-capsule-nav-surface: 7, 20, 47;          /* midnight rgb */
+  --vs-capsule-nav-ink: 236, 240, 248;          /* rgb of the labels */
+  --vs-capsule-nav-line: rgba(255,255,255,.16); /* the 0.5px hairline */
+  --vs-capsule-nav-hi: rgba(255,255,255,.12);   /* inner top highlight */
+  --vs-capsule-nav-focus: #9cc0ff;
+  --vs-capsule-nav-top: 14px;                   /* distance from the top edge */
+
+  --c: 0;                                       /* compact progress, written by the script */
+  position: fixed; left: 0; right: 0; top: var(--vs-capsule-nav-top); z-index: 40;
+  display: flex; justify-content: center; pointer-events: none;
+  font-size: var(--vs-capsule-nav-size); font-family: var(--vs-capsule-nav-font);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+.vs-capsule-nav, .vs-capsule-nav * { box-sizing: border-box; }
+.vs-capsule-nav-bar {
+  position: relative; display: flex; align-items: center; pointer-events: auto; padding: .3125em; border-radius: 999px;
+  background: rgba(var(--vs-capsule-nav-surface), var(--vs-capsule-nav-frost));
+  -webkit-backdrop-filter: blur(var(--vs-capsule-nav-blur)) saturate(1.8);
+  backdrop-filter: blur(var(--vs-capsule-nav-blur)) saturate(1.8);
+  box-shadow:
+    inset 0 0 0 .5px var(--vs-capsule-nav-line),
+    inset 0 1px 0 var(--vs-capsule-nav-hi),
+    inset 0 -1px 1px rgba(0,0,0,.14),
+    0 1px 2px rgba(3,6,16,.22),
+    0 .75em 2em -.75em rgba(3,6,16,.5),
+    0 2em 4em -2em rgba(3,6,16,.45);
+  transform-origin: 50% 0; will-change: transform;
+}
+/* sheen + the extra frost when compact */
+.vs-capsule-nav-bar::before, .vs-capsule-nav-bar::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+}
+.vs-capsule-nav-bar::before { background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,0) 55%); }
+.vs-capsule-nav-bar::after { background: rgba(var(--vs-capsule-nav-surface), .28); opacity: var(--c); }
+.vs-capsule-nav-brand {
+  position: relative; z-index: 1; display: grid; place-items: center; flex-shrink: 0;
+  padding: .25em .125em .25em .5em; border-radius: 999px;
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-capsule-nav-brand:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--vs-capsule-nav-surface), .9), 0 0 0 3.5px var(--vs-capsule-nav-focus);
+}
+.vs-capsule-nav-track { position: relative; z-index: 1; display: flex; }
+.vs-capsule-nav-list { display: flex; gap: .125em; margin: 0; padding: 0; list-style: none; }
+.vs-capsule-nav-list > li { display: block; margin: 0; }
+.vs-capsule-nav-link {
+  position: relative; display: block; padding: .8125em 1.25em .875em; border-radius: 999px;
+  font: 500 1em/1 var(--vs-capsule-nav-font); letter-spacing: -.012em; white-space: nowrap;
+  color: rgba(var(--vs-capsule-nav-ink), .66); text-decoration: none; outline: none;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+  transition: color 150ms cubic-bezier(.2,0,0,1);
+}
+.vs-capsule-nav-link:hover, .vs-capsule-nav-link.is-hot { color: rgba(var(--vs-capsule-nav-ink), 1); }
+.vs-capsule-nav-link:focus-visible { box-shadow: 0 0 0 2px rgba(var(--vs-capsule-nav-surface), .9), 0 0 0 3.5px var(--vs-capsule-nav-focus); }
+/* hover ghost, the pill and its shadow: shaped by clip-path / transform from the script */
+.vs-capsule-nav-ghost, .vs-capsule-nav-pill { position: absolute; inset: 0; pointer-events: none; clip-path: inset(0 100% 0 0 round 999px); }
+.vs-capsule-nav-ghost { background: rgba(var(--vs-capsule-nav-ink), .1); opacity: 0; }
+.vs-capsule-nav-shade {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 100px; border-radius: 999px; pointer-events: none;
+  transform-origin: 0 50%; box-shadow: 0 .25em .75em -.125em rgba(3,6,16,.4), 0 1px 2px rgba(3,6,16,.25);
+}
+.vs-capsule-nav-pill {
+  background: linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,0) 58%), var(--vs-capsule-nav-accent);
+}
+.vs-capsule-nav-pill .vs-capsule-nav-list { position: absolute; left: 0; top: 0; }
+.vs-capsule-nav-pill .vs-capsule-nav-link { color: var(--vs-capsule-nav-accent-ink); transition: none; }
+@media (max-width: 639px) {
+  /* Mobile: hug the left, leave room for the top-right cluster; scroll if the links overflow. */
+  .vs-capsule-nav { justify-content: flex-start; padding-left: 12px; --vs-capsule-nav-top: 10px; --vs-capsule-nav-size: .8125rem; }
+  .vs-capsule-nav-bar { max-width: calc(100vw - 84px); overflow-x: auto; scrollbar-width: none; }
+  .vs-capsule-nav-bar::-webkit-scrollbar { display: none; }
+  .vs-capsule-nav-brand, .vs-capsule-nav-track { flex-shrink: 0; }
+  .vs-capsule-nav-track { width: max-content; }
+  .vs-capsule-nav-link { padding-inline: .9em; }
+}
+@media (forced-colors: active) {
+  .vs-capsule-nav-bar { border: 1px solid CanvasText; }
+  .vs-capsule-nav-pill { background: Highlight; }
+  .vs-capsule-nav-pill .vs-capsule-nav-link { color: HighlightText; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vs-capsule-nav-link { transition: none; }
+}

@@ -77,6 +77,7 @@ export const content: Record<string, ToolContent> = {
       "You can repeat a scenario with a different term to understand the trade-off between cash flow and total cost. Keep the currency and grouping in mind when comparing this page with a lender's statement, and do not mix a monthly rate with an annual rate. The input labels describe the assumptions used by the formula so a second calculation can be checked consistently.",
     ],
     sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
+    guides: [{ label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" }],
     faq: faq([
       { question: "Does this include property taxes?", answer: "No. It estimates principal and interest only." },
       { question: "Why is the payment an estimate?", answer: "The payment is an estimate because it covers principal and interest only, using the amount, rate and term you entered. A lender's figure can differ through property tax, insurance, mortgage insurance, fees, closing costs, rounding, payment dates or an adjustable rate. Always confirm the full monthly cost with the lender before applying." },
@@ -130,6 +131,7 @@ export const content: Record<string, ToolContent> = {
       { question: "How many decimals are shown?", answer: "The percentage is displayed to two decimal places." },
       { question: "Is multiplying by 9.5 always correct?", answer: "No. Multiplying by 9.5 is the commonly published CBSE convention for a 10-point CGPA, and this page labels its result an estimate for that reason. Other institutions publish their own conversion rules or tables. Always check the rule your university, employer, or application requires before submitting a converted percentage." },
     ]),
+    guides: [{ label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" }],
   },
   "word-counter": {
     definition: "A word counter measures a piece of text by counting its words, characters, sentences, and estimated reading time.",

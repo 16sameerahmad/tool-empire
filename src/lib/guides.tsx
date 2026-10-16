@@ -1113,6 +1113,109 @@ export const guides: Guide[] = [
     related: ["bmi-calculator", "age-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
   },
+  {
+    slug: "how-to-calculate-bmi",
+    title: "How to Calculate BMI by Hand: Formula, Examples, Metric and Imperial",
+    seoTitle: "How to Calculate BMI Manually (kg/m² & lb/in) With Examples | Tulyro",
+    seoDescription:
+      "BMI = weight ÷ height². Worked examples in kilograms and pounds, the WHO bands explained, and the mistakes that give wrong numbers.",
+    href: "/guides/how-to-calculate-bmi/",
+    intro: [
+      <>
+        Body Mass Index is one division problem. Weight divided by height squared. This guide shows
+        the formula in both metric and imperial units, works through real numbers step by step, and
+        flags the small mistakes — wrong units, rounding too early — that silently give the wrong
+        answer.
+      </>,
+    ],
+    cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
+    sections: [
+      {
+        heading: "The formula",
+        body: [
+          <>
+            In metric: BMI = weight in kilograms ÷ (height in metres)². In imperial: BMI = 703 ×
+            weight in pounds ÷ (height in inches)². The 703 is a conversion constant, not a magic
+            number — it folds the kg-to-lb and m-to-in conversions into one step.
+          </>,
+          <>
+            One rule before you start: never mix units. Kilograms with centimetres, or pounds with
+            feet, will give a confident-looking wrong answer. Convert first, then divide.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked example: metric",
+        body: [
+          <>
+            A person weighs 70 kg and is 1.75 m tall. Step one, square the height: 1.75 × 1.75 =
+            3.0625. Step two, divide: 70 ÷ 3.0625 = 22.857…, which rounds to 22.9. That sits in
+            the normal band.
+          </>,
+          <>
+            If your height is in centimetres, convert first: 175 cm = 1.75 m. Squaring 175 directly
+            and dividing 70 by it gives 0.0023 — the classic unit-mix mistake.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked example: imperial",
+        body: [
+          <>
+            A person weighs 154 lb and is 5 ft 9 in tall. Step one, height in inches: 5 × 12 + 9 =
+            69 in. Step two, square it: 69 × 69 = 4,761. Step three: 703 × 154 = 108,262. Step
+            four: 108,262 ÷ 4,761 = 22.74…, about 22.7. Same person, same answer as the metric
+            version — as it should be.
+          </>,
+        ],
+      },
+      {
+        heading: "Reading the result",
+        body: [
+          <>
+            The World Health Organization bands: below 18.5 is underweight, 18.5–24.9 is normal,
+            25–29.9 is overweight, 30 and above is obesity. These describe population-level risk,
+            not a personal diagnosis — muscle, age, and build all shift what a number means for
+            you specifically.
+          </>,
+          <>
+            Common mistakes that skew the number: weighing yourself after a meal or in heavy
+            clothes (adds 1–2 kg), measuring height in shoes (adds 2–3 cm), and rounding height
+            before squaring, which compounds the error. Measure morning, barefoot, light clothes.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What is the BMI formula?",
+        answer:
+          "BMI = weight (kg) ÷ height (m)². In imperial units: BMI = 703 × weight (lb) ÷ height (in)². Both give the same result when the units are consistent.",
+      },
+      {
+        question: "How do I calculate BMI with feet and inches?",
+        answer:
+          "Convert height fully to inches first (feet × 12 + inches), square that number, then compute 703 × weight in pounds ÷ height-in-inches². For 5 ft 9 in at 154 lb: 703 × 154 ÷ 69² ≈ 22.7.",
+      },
+      {
+        question: "What is a normal BMI?",
+        answer:
+          "The WHO normal band is 18.5 to 24.9. It is a screening range, not a health certificate — pair it with a waist check (keep waist under half your height) for a fuller picture.",
+      },
+      {
+        question: "Why is my hand calculation different from an online calculator?",
+        answer:
+          "Almost always a unit mix (cm instead of m, feet instead of inches) or rounding height before squaring. Redo it converting to metres or inches first, and round only the final answer.",
+      },
+      {
+        question: "Is the 703 in the imperial formula exact?",
+        answer:
+          "It is exact enough: 703 comes from converting kg/m² to lb/in² (453.592 g per lb and 0.0254 m per inch). Using it gives results matching the metric formula to one decimal place.",
+      },
+    ],
+    related: ["bmi-calculator", "age-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

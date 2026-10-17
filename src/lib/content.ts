@@ -54,6 +54,7 @@ export const content: Record<string, ToolContent> = {
     guides: [
       { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
       { label: "How to Choose an EMI Calculator", href: "/guides/how-to-choose-emi-calculator/" },
+      { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
     ],
     faq: faq([
       { question: "What does EMI mean?", answer: "EMI means equated monthly instalment: the fixed amount you pay every month until a reducing-balance loan is repaid. Each payment covers that month's interest plus part of the principal, so the interest portion shrinks over time while the EMI itself stays the same for a fixed-rate loan." },
@@ -109,7 +110,10 @@ export const content: Record<string, ToolContent> = {
       { question: "How does a BMI calculator work?", answer: "It divides your weight in kilograms by your height in metres squared. For example, 70 kg at 1.75 m gives 70 ÷ (1.75 × 1.75) = 22.9. If you enter imperial units, it first converts pounds to kilograms and feet and inches to metres using exact conversion factors, then applies the same formula." },
     ]),
     sources: [{ label: "WHO — Obesity and overweight (adult BMI ≥ 25 overweight, ≥ 30 obesity)", href: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" }],
-    guides: [{ label: "Is BMI Accurate? What the Number Can't Tell You", href: "/guides/is-bmi-accurate/" }],
+    guides: [
+      { label: "Is BMI Accurate? What the Number Can't Tell You", href: "/guides/is-bmi-accurate/" },
+      { label: "How to Calculate BMI by Hand: Formula, Examples, Metric and Imperial", href: "/guides/how-to-calculate-bmi/" },
+    ],
   },
   "cgpa-to-percentage": {
     definition: "CGPA to percentage conversion estimates a percentage from a 10-point Cumulative Grade Point Average, commonly by multiplying the CGPA by 9.5 under the CBSE convention.",

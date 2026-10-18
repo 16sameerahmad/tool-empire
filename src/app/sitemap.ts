@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const indexableClusters = clusters.filter((cluster) => getToolsByCluster(cluster).length >= 2);
   const pages = [
     "/",
+    "/tools/",
     "/guides/",
     ...guides.map((guide) => guide.href),
     ...indexableClusters.map((cluster) => `/${cluster.toLowerCase()}/`),

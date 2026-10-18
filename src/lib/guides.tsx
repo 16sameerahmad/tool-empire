@@ -987,9 +987,14 @@ export const guides: Guide[] = [
         body: [
           <>
             BMI = weight (kg) ÷ height (m)². A person who weighs 70 kg at 1.75 m: 1.75² = 3.0625, and
-            70 ÷ 3.0625 = 22.9. The standard bands, from the World Health Organization: below 18.5 is
-            underweight, 18.5 to 24.9 is the normal range, 25 to 29.9 is overweight, 30 and above is
-            obesity. So 22.9 sits comfortably in the normal band.
+            70 ÷ 3.0625 = 22.9. To run the maths yourself, see{" "}
+            <Link href="/guides/how-to-calculate-bmi/" className="text-primary underline">
+              How to Calculate BMI by Hand
+            </Link>
+            , which works through metric and imperial examples step by step. The standard bands, from
+            the World Health Organization: below 18.5 is underweight, 18.5 to 24.9 is the normal
+            range, 25 to 29.9 is overweight, 30 and above is obesity. So 22.9 sits comfortably in the
+            normal band.
           </>,
           <>
             Those bands were drawn from population data, which matters more than it sounds. They
@@ -1176,7 +1181,11 @@ export const guides: Guide[] = [
             The World Health Organization bands: below 18.5 is underweight, 18.5–24.9 is normal,
             25–29.9 is overweight, 30 and above is obesity. These describe population-level risk,
             not a personal diagnosis — muscle, age, and build all shift what a number means for
-            you specifically.
+            you specifically. For the full honest version, read{" "}
+            <Link href="/guides/is-bmi-accurate/" className="text-primary underline">
+              Is BMI Accurate? What the Number Can&apos;t Tell You
+            </Link>
+            .
           </>,
           <>
             Common mistakes that skew the number: weighing yourself after a meal or in heavy

@@ -43,3 +43,30 @@ No verified functional bug was found in this pass:
 A hypothesis becomes a VERIFIED bug only with: steps to reproduce + expected vs actual
 behavior + evidence (curl output, screenshot, or failing test). Until then it stays in
 the hypothesis table. The weekly run owns reproduction (browser screenshots + build/tests).
+
+## 2026-10-19 — Weekly run entry (Day 6, read-only audit)
+
+**Calculation spot-checks (recomputed, all match):**
+- EMI(₹100,000, 12%, 12mo) = **8,884.88** — formula in `src/tools/emi/logic.ts` is the
+  standard amortization formula; matches vitest `emi(100000, 12, 12)` ≈ 8884.8788.
+- BMI(70kg, 175cm) = **22.9** ("Normal") — `bmi(70, 1.75).toFixed(1)` = 22.9; category
+  bands correct.
+- Age(2000-01-01 as of 2026-10-19) = **26y 9m 18d, 9,788 days lived** — faithful port of
+  `ageCalc` matches independent python date math and the vitest suite.
+
+**Routes/links:** all **29 sitemap URLs → HTTP 200** (live curl, 2026-10-19). Sitemap
+grew from 23 to 29 URLs since 2026-10-14.
+
+**Hypothesis updates:**
+- H1 CLOSED — EMI page carries 4 JSON-LD blocks (HowTo, SoftwareApplication,
+  BreadcrumbList, FAQPage); all parse as valid JSON and match current page content.
+- H4 CLOSED as N/A — `0` `<img>` tags in `src/`; icons are inline SVG components.
+- H2 partially addressed by code review: homepage hero decorative blur (`-right-24`)
+  sits inside `section.relative.overflow-hidden` (no page-level horizontal overflow);
+  tool tables use `overflow-x-auto`; new CGPA table reuses the same pattern. Still needs
+  a real-device screenshot for full closure.
+- H3 (TTS voice quality — Sam-side manual check) and H5 (ToolPanel state resets —
+  tool-logic changes need a verified repro first) remain OPEN.
+
+**New verified fixes landed since 2026-10-14:** security headers (S1–S3) fixed by
+commit `ff34254`, verified live this run — see security.md.

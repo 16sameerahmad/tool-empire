@@ -97,3 +97,27 @@ Incident response: no formal plan exists; for a static site the recovery path is
   (outside this audit's scope) — 2FA on both accounts is Sam's responsibility.
 - No monitoring/alerting for attacks exists (static site, no logs) — the daily health
   check covers uptime/content; it cannot see attack traffic.
+
+## 2026-10-19 — Weekly re-check (Day 6)
+
+- **S1/S2/S3 → FIXED, verified live.** Commit `ff34254` added `vercel.json` response
+  headers; the live homepage now serves: `Content-Security-Policy-Report-Only`
+  (`default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'
+  'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';
+  frame-ancestors 'none'; base-uri 'self'; form-action 'self'`), `X-Frame-Options: DENY`,
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
+  and `Permissions-Policy: camera=(), microphone=(), geolocation=()`. CSP is report-only
+  per the audit's own recommendation (a too-strict enforcing policy could break pages).
+- **S7 → CLOSED.** Git-history scan (`git grep` over all revisions for
+  `ghp_|gho_|github_pat|aws_secret|BEGIN (RSA )?PRIVATE KEY|sk-live|xoxb-`): no matches.
+  Working tree re-grep is clean (only benign hits: the contact email and Base64
+  documentation prose). The GSC verification token in `src/app/layout.tsx` remains
+  required-by-Google, not a leak; its value is never reproduced in reports.
+- **S6 → still UNVERIFIED.** `npm audit` still fails with egress-proxy `403
+  policy_denied` (2026-10-19, same as 2026-10-14). Production dependency surface is still
+  3 packages (next, react, react-dom). Do NOT claim "no vulnerabilities" until a scan
+  actually runs.
+- **S5 → still INFO.** The egress proxy performs TLS interception (presents a Hatch
+  Sandbox Egress CA certificate), so the origin certificate's real expiry is not
+  observable from this VM. Vercel auto-renews; confirmation stays Sam-side in the
+  Vercel dashboard.

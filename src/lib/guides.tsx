@@ -371,6 +371,42 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Quick conversion table",
+        body: [
+          <>
+            Every value below is CGPA × 9.5, computed with the same formula as our{" "}
+            <Link href="/calculators/cgpa-to-percentage/" className="text-primary underline">
+              CGPA Calculator
+            </Link>
+            . Find your CGPA in the left column and read across. Remember: each value is an
+            estimate, not a marksheet figure.
+          </>,
+          <div key="cgpa-conversion-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">CGPA</th>
+                <th className="border border-outline-variant/60 p-3">Percentage (× 9.5, estimated)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">5.0</td><td className="border border-outline-variant/60 p-3">47.50%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">5.5</td><td className="border border-outline-variant/60 p-3">52.25%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">6.0</td><td className="border border-outline-variant/60 p-3">57.00%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">6.5</td><td className="border border-outline-variant/60 p-3">61.75%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">7.0</td><td className="border border-outline-variant/60 p-3">66.50%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">7.5</td><td className="border border-outline-variant/60 p-3">71.25%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">8.0</td><td className="border border-outline-variant/60 p-3">76.00%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">8.5</td><td className="border border-outline-variant/60 p-3">80.75%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">9.0</td><td className="border border-outline-variant/60 p-3">85.50%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">9.5</td><td className="border border-outline-variant/60 p-3">90.25%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">10.0</td><td className="border border-outline-variant/60 p-3">95.00%</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
         heading: "Where 9.5 came from",
         body: [
           <>

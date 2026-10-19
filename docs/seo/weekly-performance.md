@@ -50,6 +50,64 @@ None — insufficient data. Correlation vs causation is not assessable with ~zer
 1. Wait for GSC data to accumulate; Sam runs GSC "Request Indexing" on key pages (homepage + 11 tools) via URL Inspection. Verification: GSC index-coverage numbers next week.
 2. Do NOT act on this week's (non-)data — no title/meta rewrites, no content changes justified by rankings until a full week of GSC data exists.
 
+## Week of 2026-10-19 (Day 6 — first weekly review) — INSUFFICIENT DATA
+
+**No GSC data pasted by Sam this week → all performance metrics remain insufficient
+data.** Last known indexing state (Sam, 2026-10-17): homepage + `/guides/` INDEXED;
+`/tools/` "URL is unknown to Google"; EMI + BMI pages "Discovered – currently not
+indexed". Shipped since that check: `/tools/` sitemap referring fix (`2307544`),
+noindex removal from hubs (`bc37502`), BMI guide cross-links (`7f6bfba`), content depth
+to ~1500 words on EMI/BMI/Age (`ecafee7`), and the CGPA conversion table (this run).
+Expectation (not data): `/tools/` enters the index via the resubmitted sitemap and
+EMI/BMI move from Discovered → Indexed on Google's next pass. No ranking, click, CTR,
+or volume number is claimed — none exists.
+
+| Metric | This week | Previous week | Delta | Note |
+|---|---|---|---|---|
+| GSC clicks | insufficient data | insufficient data | — | No Sam GSC paste |
+| GSC impressions | insufficient data | insufficient data | — | — |
+| Average CTR | insufficient data | insufficient data | — | — |
+| Average position | insufficient data | insufficient data | — | — |
+| Indexed pages (GSC) | insufficient data (last known: homepage + /guides/) | insufficient data | — | 2026-10-17 Sam report; no fresh check |
+| Sitemap URLs submitted | 29 (was 18 at submit, 23 on 2026-10-14) | 23 | +6 | New guides + tools pages |
+
+### Top queries (week of 2026-10-19)
+
+insufficient data — no GSC query data yet.
+
+### Top pages (week of 2026-10-19)
+
+insufficient data — no GSC page data yet.
+
+### Countries (week of 2026-10-19)
+
+insufficient data — no GSC country data yet.
+
+### Competitor-change notes (week of 2026-10-19)
+
+- Baseline established in `competitor-log.md` (created this run). calculator.net
+  `/loan-calculator.html` title: "Loan Calculator" (short, ~30 KB page). wordcounter.net:
+  title "WordCounter - Count Words & Correct Writing", 800+ visible words, zero tables —
+  the tool+blog flywheel pattern (Insight 2) is visibly live there. No GSC-impression
+  driven checks possible yet (no GSC data) — skipped honestly per routine.
+
+### Wins / losses diagnosis (week of 2026-10-19)
+
+- Audit + security posture: genuine progress, evidence-backed — hardening headers
+  (S1–S3) fixed and verified live; git-history secret scan clean (S7 closed);
+  calculation spot-checks all recomputed correctly; all 29 sitemap URLs return 200.
+- No traffic wins/losses can be diagnosed — correlation vs causation is not assessable
+  with zero GSC data. Any "ranking improved because of the sitemap fix" claim would be
+  invented. Wait for a full week of data.
+
+### Next action (week of 2026-10-19)
+
+1. Sam re-checks GSC URL Inspection for `/tools/`, EMI, BMI, and the CGPA guide
+   (index status after the sitemap fix + this run's content addition). Owner: Sam.
+   Verification: fresh GSC index-coverage numbers in next week's entry.
+2. Do NOT act on rankings until a full week of GSC data exists — next week's highest-value
+   action gets picked from real queries (near-misses at position 4–15 per routine §7).
+
 ## Template — Week of YYYY-MM-DD (copy for each new week)
 
 | Metric | This week | Previous week | Delta | Note |

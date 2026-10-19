@@ -34,3 +34,21 @@ state to restore. Verify live with the daily health check after any revert.
 Each fix run appends: date, change, files touched, test evidence (build/lint/typecheck/
 tests + live verification), and any regression found. "Fixed" is claimed only with
 evidence; hypotheses stay open until reproduced or closed with evidence.
+
+## 2026-10-19 — Weekly run (Day 6): CGPA conversion table
+
+- **Change:** Added a "Quick conversion table" section to the CGPA CBSE ×9.5 guide
+  (`/guides/cgpa-to-percentage-cbse-9-5-rule/`): 11 rows, CGPA 5.0–10.0 in 0.5 steps
+  → percentage computed as CGPA × 9.5 (47.50%–95.00%), all values our own computed
+  numbers, each row labeled estimated. Uses the EMI guide's established
+  `overflow-x-auto` bordered-table pattern; intro links the CGPA calculator. Closes
+  GAP-CGPA-2 / competitor Insight 5 action. Files: `src/lib/guides.tsx` (+1 section).
+- **Verification:** `tsc --noEmit` ✓ · `eslint .` ✓ · vitest 33/33 ✓ · `next build` ✓
+  (all green, no revert needed). Table + all 11 values confirmed in built HTML
+  (`out/guides/cgpa-to-percentage-cbse-9-5-rule/index.html`).
+- **Live:** verified after Vercel auto-deploy (see curl check below).
+- **Audit findings this run (read-only):** calc spot-checks ✓ (EMI 8,884.88 /
+  BMI 22.9 / Age 26y 9m 18d); 29/29 sitemap URLs → 200; JSON-LD 4/4 valid (H1
+  closed); 0 `<img>` tags (H4 closed); secrets clean incl. git history (S7
+  closed); headers S1–S3 fixed & live (`ff34254`); npm audit still 403-blocked
+  (S6 open); H3/H5 remain open hypotheses.

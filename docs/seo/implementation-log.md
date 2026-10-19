@@ -77,3 +77,14 @@
 - Real domain (tulyro.com) — availability unverified; AdSense approval on a vercel.app subdomain is uncertain.
 - Author bio decision — no bylines until Sam decides (never invent).
 - GSC "Request Indexing" for key pages — Sam-side, via URL Inspection.
+
+## 2026-10-19 — CGPA guide: quick conversion table (weekly run, Day 6)
+
+- **Change:** `src/lib/guides.tsx` — new "Quick conversion table" section on the CGPA
+  CBSE ×9.5 guide (`/guides/cgpa-to-percentage-cbse-9-5-rule/`): 11 rows,
+  CGPA 5.0→10.0 (0.5 steps) × 9.5 = 47.50%…95.00%, all rows labeled estimated,
+  same `overflow-x-auto` bordered table pattern as the EMI guide comparison table,
+  intro links the CGPA calculator. Closes GAP-CGPA-2 (competitor Insight 5 action);
+  targets the "cgpa to percentage table" query with our own computed numbers.
+- **Verification:** typecheck ✓, lint ✓, vitest 33/33 ✓, `next build` ✓ — all green.
+  Table + heading confirmed in built HTML. Live curl check after Vercel auto-deploy.

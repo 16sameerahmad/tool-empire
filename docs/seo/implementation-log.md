@@ -87,4 +87,5 @@
   intro links the CGPA calculator. Closes GAP-CGPA-2 (competitor Insight 5 action);
   targets the "cgpa to percentage table" query with our own computed numbers.
 - **Verification:** typecheck ✓, lint ✓, vitest 33/33 ✓, `next build` ✓ — all green.
-  Table + heading confirmed in built HTML. Live curl check after Vercel auto-deploy.
+  Table + heading confirmed in built HTML. Live: 2026-10-19 ~10:50 IST, curl after
+  Vercel auto-deploy → HTTP 200, heading + values present on the production page.

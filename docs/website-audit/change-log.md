@@ -46,7 +46,10 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
 - **Verification:** `tsc --noEmit` ✓ · `eslint .` ✓ · vitest 33/33 ✓ · `next build` ✓
   (all green, no revert needed). Table + all 11 values confirmed in built HTML
   (`out/guides/cgpa-to-percentage-cbse-9-5-rule/index.html`).
-- **Live:** verified after Vercel auto-deploy (see curl check below).
+- **Live:** verified 2026-10-19 ~10:50 IST — curl on
+  `https://tulyrotools.vercel.app/guides/cgpa-to-percentage-cbse-9-5-rule/` after Vercel
+  auto-deploy returns HTTP 200 with the "Quick conversion table" heading and table
+  values (52.25%, 95.00% spot-checked).
 - **Audit findings this run (read-only):** calc spot-checks ✓ (EMI 8,884.88 /
   BMI 22.9 / Age 26y 9m 18d); 29/29 sitemap URLs → 200; JSON-LD 4/4 valid (H1
   closed); 0 `<img>` tags (H4 closed); secrets clean incl. git history (S7

@@ -533,7 +533,12 @@ export const guides: Guide[] = [
           <>
             EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1). Monthly rate is the annual
             rate divided by 12. Both pages run this. If you have ever wondered whether the two pages
-            disagree, they do not. Same inputs, same answer, different clothes.
+            disagree, they do not. Same inputs, same answer, different clothes. If you want to see the
+            maths worked out step by step,{" "}
+            <Link href="/guides/how-to-calculate-emi/" className="text-primary underline">
+              How to Calculate EMI by Hand
+            </Link>{" "}
+            runs the full formula with real numbers.
           </>,
         ],
       },
@@ -620,6 +625,13 @@ export const guides: Guide[] = [
             calculator for its own loan. Do not convert one loan into the other&apos;s currency inside
             your head and compare the monthly figures. That is how the trap in the previous section
             starts.
+          </>,
+          <>
+            And if you are judging calculators in general, not just these two, the five checks in{" "}
+            <Link href="/guides/how-to-choose-emi-calculator/" className="text-primary underline">
+              How to Choose an EMI Calculator
+            </Link>{" "}
+            show what separates an honest calculator from a misleading one.
           </>,
         ],
       },

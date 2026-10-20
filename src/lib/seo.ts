@@ -149,8 +149,8 @@ export function createWebSiteJsonLd() {
     "@graph": [
       {
         "@type": "WebSite",
-        name: "Tulyro",
-        alternateName: "Tulyro Tools",
+        name: "Tulyro Tools",
+        alternateName: "Tulyro",
         url: siteUrl,
         description: "Free browser-only tools. No signup. No watermark. Nothing you enter is sent to a server.",
         dateModified: contentUpdated,

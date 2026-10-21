@@ -1273,6 +1273,199 @@ export const guides: Guide[] = [
     related: ["bmi-calculator", "age-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
   },
+  {
+    slug: "how-many-words-per-page",
+    title: "How Many Words Fit on a Page?",
+    seoTitle: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts | Tulyro",
+    seoDescription:
+      "About 500 words on a single-spaced page, about 250 double-spaced (12pt type, 1-inch margins). See the line-by-line math, font differences, and the manuscript standard.",
+    href: "/guides/how-many-words-per-page/",
+    intro: [
+      <>
+        About 500 words on a single-spaced page, about 250 on a double-spaced one, assuming 12-point
+        type and 1-inch margins. Those two numbers answer most people&apos;s question. The rest of
+        this guide shows where they come from, when they break down, and how to convert any word count
+        into a page count without guessing.
+      </>,
+    ],
+    cta: { label: "Try the Word Counter", href: "/text/word-counter/" },
+    sections: [
+      {
+        heading: "The short answer",
+        body: [
+          <>
+            These are standard estimates for 12-point type with 1-inch margins on all sides. They are
+            rounded on purpose; real documents vary, and the next sections explain exactly why.
+          </>,
+          <div key="words-per-page-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Format</th>
+                <th className="border border-outline-variant/60 p-3">Words per page (approx.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Single-spaced (12pt)</td><td className="border border-outline-variant/60 p-3">500</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Double-spaced (12pt)</td><td className="border border-outline-variant/60 p-3">250</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">1.5-spaced (12pt)</td><td className="border border-outline-variant/60 p-3">320</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Manuscript: Courier 12pt, double-spaced</td><td className="border border-outline-variant/60 p-3">250</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Printed trade paperback page</td><td className="border border-outline-variant/60 p-3">300&ndash;350</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Handwritten page</td><td className="border border-outline-variant/60 p-3">250</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "Where 500 and 250 come from",
+        body: [
+          <>
+            Take a US Letter page with 1-inch margins. The printable area is 6.5 inches wide by 9
+            inches tall. Twelve-point Times New Roman set single-spaced has a line height of about
+            14.4 points, so the page fits 9 × 72 ÷ 14.4 = 45 lines. A full line holds roughly 65
+            characters, and the average English word is about 5 characters plus a space, so each line
+            carries around 10.6 words. Multiply: 45 × 10.6 ≈ 480, which everyone rounds to 500.
+          </>,
+          <>
+            Double-spacing halves the line count to about 22.5, and the same arithmetic lands near
+            240, rounded to 250. A4 paper is a little taller, so the same setup fits about 48 lines
+            and comes out near 516 words single-spaced &mdash; close enough that nobody uses a
+            separate rule for it. The two headline numbers are not decreed by any authority. They are
+            just what the geometry works out to, which is why they have survived for decades.
+          </>,
+        ],
+      },
+      {
+        heading: "What moves the number",
+        body: [
+          <>
+            Font matters more than most people expect. A narrow font like Times New Roman packs about
+            65 characters per line; a wider font like Arial fits noticeably fewer, so a page of Arial
+            holds fewer words at the same size. Courier New is the predictable one: 12-point Courier
+            is exactly 10 characters per inch, so 6.5 inches of line width is exactly 65 characters
+            every line. Double-spaced, that is 22.5 × 10.6 ≈ 240 words &mdash; which is where the
+            manuscript world&apos;s 250-word page comes from, as you will see below.
+          </>,
+          <>
+            Margins move it too. Shrink the margins from 1 inch to half an inch on a Letter page and
+            the text block becomes 7.5 by 10 inches: 50 lines × about 12.3 words per line ≈ 615
+            words, roughly 30% more than the standard page. Line spacing does the opposite by
+            definition: 1.5-spacing gives 45 ÷ 1.5 = 30 lines, or about 320 words a page. And font
+            size multiplies everything &mdash; 10-point type fits roughly 20% more words than 12-point
+            in the same block.
+          </>,
+          <>
+            The honest takeaway: any words-per-page figure is an estimate tied to its assumptions. If
+            someone quotes you a number, ask what font, size, margins, and spacing it assumed. Two
+            people can both be right about different numbers for exactly this reason.
+          </>,
+          <>
+            One more thing eats space without adding words: whitespace. Paragraph breaks, subheadings,
+            and bullet lists all consume lines that carry no words. A page of short paragraphs with
+            frequent subheadings can hold a fifth fewer words than the table above claims, and
+            dialogue-heavy fiction runs lighter than narration for the same reason. Dense,
+            paragraph-style prose is the best case for the headline numbers; anything with visible
+            structure lands below them.
+          </>,
+        ],
+      },
+      {
+        heading: "Manuscripts and books: the 250-word page",
+        body: [
+          <>
+            The publishing industry standardised this long ago. A manuscript page means 12-point
+            Courier New, double-spaced, 1-inch margins, and it is counted as 250 words. Editors,
+            agents, and word processors use this page to estimate a book&apos;s length before it is
+            typeset, because it does not depend on anyone&apos;s particular word choice. A 100,000-word
+            novel is 400 manuscript pages. An 80,000-word novel is 320.
+          </>,
+          <>
+            The printed book page is denser. A trade paperback page typically holds 300 to 350 words,
+            so that 80,000-word novel comes out at roughly 230 to 270 printed pages before front
+            matter. If you ever wondered how a manuscript becomes a bookstore book, this is most of
+            the conversion: 250 words a page going in, 300-plus coming out.
+          </>,
+        ],
+      },
+      {
+        heading: "Word counts to page counts, in practice",
+        body: [
+          <>
+            With the math above, common conversions are straightforward. A 1,000-word essay is about
+            2 single-spaced pages, or about 4 double-spaced. Five thousand words is roughly 10
+            single-spaced pages or 21 double-spaced. Ten thousand words is about 21 single-spaced
+            pages, or 42 double-spaced &mdash; which is also exactly 40 manuscript pages at the
+            standard 250 words a page.
+          </>,
+          <>
+            If you are working from a word count rather than toward one, stop guessing and measure.
+            Paste the text into our{" "}
+            <Link href="/text/word-counter/" className="text-primary underline">
+              free word counter
+            </Link>
+            , get the exact count, and divide by the words-per-page figure that matches your
+            formatting. It takes ten seconds and beats every rule of thumb on this page.
+          </>,
+        ],
+      },
+      {
+        heading: "When the page stops mattering",
+        body: [
+          <>
+            Some formats have no fixed pages at all. E-books reflow to the screen, which is why
+            e-readers report &ldquo;locations&rdquo; instead of pages. Web articles are measured in
+            scroll depth or reading time, not pages. A useful yardstick: adults read about 200 to
+            250 words per minute, so 1,000 words is roughly four and a half minutes of reading. That
+            often answers the real question behind &ldquo;how many pages&rdquo; &mdash; the writer
+            wants to know whether the piece feels long or short.
+          </>,
+          <>
+            For that, listening beats counting. Paste the draft into a{" "}
+            <Link href="/text/text-to-speech/" className="text-primary underline">
+              text-to-speech tool
+            </Link>{" "}
+            and hear it read back. If a section drags at four minutes of listening, it will drag on
+            the page too, whatever the page count says.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why do teachers say 500 words equals one page?",
+        answer:
+          "They mean a single-spaced page in 12-point type with 1-inch margins, which holds about 480 words by the line-by-line math (45 lines × ~10.6 words). It is a fair rule of thumb for that exact setup.",
+      },
+      {
+        question: "How many words are on a double-spaced page?",
+        answer:
+          "About 250. Double-spacing halves the line count from roughly 45 to 22.5 lines per page, so the word count halves too. This is also the publishing industry's standard manuscript page (Courier New 12pt, double-spaced).",
+      },
+      {
+        question: "How many pages is 2,000 words?",
+        answer:
+          "About 4 pages single-spaced, or about 8 pages double-spaced, at 12pt with 1-inch margins. As manuscript pages (250 words each), 2,000 words is exactly 8 pages.",
+      },
+      {
+        question: "Does the font really change the word count per page?",
+        answer:
+          "Yes. Narrow fonts like Times New Roman fit more words per line than wider fonts like Arial at the same size. Courier New 12pt is exactly 10 characters per inch, which is why manuscript pages are so predictable.",
+      },
+      {
+        question: "How many handwritten pages is 500 words?",
+        answer:
+          "Roughly two handwritten pages. Handwriting varies a lot, but around 250 words per page is a reasonable estimate for medium-sized handwriting on lined paper.",
+      },
+      {
+        question: "Do e-books have a fixed number of words per page?",
+        answer:
+          "No. E-books reflow to fit the screen and font size the reader chooses, so page counts change. E-readers use 'locations' instead of fixed pages for this reason.",
+      },
+    ],
+    related: ["word-counter", "text-to-speech"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -191,6 +191,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I clear the draft?", answer: "Yes. Clear removes the current text and resets all counts." },
       { question: "How many words are in one page?", answer: "As a rough guide, one typed page holds about 500 words single-spaced or about 250 words double-spaced, using a 12-point font and 1-inch margins. Font, margins, headings, and paragraph breaks all move the real number. When a limit matters, trust the word count rather than the page count." },
     ]),
+    guides: [{ label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" }],
   },
   "text-to-speech": {
     definition: "Text to speech converts written text into spoken audio using voices provided by the reader's own browser.",

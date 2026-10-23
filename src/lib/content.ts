@@ -214,6 +214,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the text limit?", answer: "The text area accepts up to 10,000 characters." },
       { question: "How do I make my computer read text aloud?", answer: "Paste your text into the box on this page, pick a voice and speed, then press Play. Your browser's built-in voices read the text aloud — nothing needs installing and no audio file is created. If no voices appear, the page explains that your browser does not support text to speech." },
     ]),
+    guides: [{ label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" }],
   },
   "fancy-text-generator": {
     definition: "A fancy text generator replaces ordinary Latin letters with visually styled Unicode characters that can be copied and pasted.",

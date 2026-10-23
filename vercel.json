@@ -1,6 +1,19 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "framework": "nextjs",
+    "redirects": [
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "tulyrotools.vercel.app"
+                }
+            ],
+            "destination": "https://tulyro.online/:path*",
+            "permanent": true
+        }
+    ],
     "headers": [
         {
             "headers": [

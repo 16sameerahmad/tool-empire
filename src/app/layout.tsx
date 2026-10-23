@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Tulyro",
   description: "Browser-only tools with no signup and no watermark.",
   verification: {
-    google: "tJrMNOm9hTGetu1cicfDoSof6pWc3QL-1deNputt3_g",
+    google: ["tJrMNOm9hTGetu1cicfDoSof6pWc3QL-1deNputt3_g", "rjO2TsnneYtKHGFfwlaymfRz62e-xuvUCGfRIGymAFU"],
   },
   icons: {
     icon: [

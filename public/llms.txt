@@ -7,41 +7,41 @@
 ## Entity facts
 
 - Name: Tulyro
-- Website: https://tulyrotools.vercel.app/
+- Website: https://tulyro.online/
 - Contact: Tulyrotools@gmail.com
 - Model: free browser-only tools; no accounts, no backend, no database, no watermark, no popups.
-- Full detail: https://tulyrotools.vercel.app/llms-full.txt
+- Full detail: https://tulyro.online/llms-full.txt
 
 ## Tools
 
-- [Age Calculator](https://tulyrotools.vercel.app/calculators/age-calculator/): Calculate exact age in years, months and days from a date of birth. See total days lived and the next birthday.
-- [EMI Calculator](https://tulyrotools.vercel.app/calculators/emi-calculator/): Estimate a monthly EMI, total interest and total payment for an Indian loan in rupees.
-- [Mortgage Calculator](https://tulyrotools.vercel.app/calculators/mortgage-calculator/): Estimate a US mortgage payment with total interest and total payment in dollars.
-- [BMI Calculator](https://tulyrotools.vercel.app/calculators/bmi-calculator/): Check adult BMI from height and weight in metric or imperial units, with screening categories explained.
-- [CGPA to Percentage](https://tulyrotools.vercel.app/calculators/cgpa-to-percentage/): Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate.
-- [Word Counter](https://tulyrotools.vercel.app/text/word-counter/): Count words, characters, sentences and reading time as you type.
-- [Text to Speech](https://tulyrotools.vercel.app/text/text-to-speech/): Listen to text read aloud with voices already in the browser. No audio download.
-- [Fancy Text Generator](https://tulyrotools.vercel.app/text/fancy-text-generator/): Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more.
-- [Base64 Encoder/Decoder](https://tulyrotools.vercel.app/dev/base64-encoder-decoder/): Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in the browser.
-- [Invoice Generator](https://tulyrotools.vercel.app/tools/invoice-generator/): Create a simple invoice in the browser and print or save it as PDF. No watermark.
-- [Fake Text Generator](https://tulyrotools.vercel.app/fun/fake-text-generator/): Make a generic chat mockup for sketches, presentations and entertainment. Export PNG.
+- [Age Calculator](https://tulyro.online/calculators/age-calculator/): Calculate exact age in years, months and days from a date of birth. See total days lived and the next birthday.
+- [EMI Calculator](https://tulyro.online/calculators/emi-calculator/): Estimate a monthly EMI, total interest and total payment for an Indian loan in rupees.
+- [Mortgage Calculator](https://tulyro.online/calculators/mortgage-calculator/): Estimate a US mortgage payment with total interest and total payment in dollars.
+- [BMI Calculator](https://tulyro.online/calculators/bmi-calculator/): Check adult BMI from height and weight in metric or imperial units, with screening categories explained.
+- [CGPA to Percentage](https://tulyro.online/calculators/cgpa-to-percentage/): Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate.
+- [Word Counter](https://tulyro.online/text/word-counter/): Count words, characters, sentences and reading time as you type.
+- [Text to Speech](https://tulyro.online/text/text-to-speech/): Listen to text read aloud with voices already in the browser. No audio download.
+- [Fancy Text Generator](https://tulyro.online/text/fancy-text-generator/): Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more.
+- [Base64 Encoder/Decoder](https://tulyro.online/dev/base64-encoder-decoder/): Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in the browser.
+- [Invoice Generator](https://tulyro.online/tools/invoice-generator/): Create a simple invoice in the browser and print or save it as PDF. No watermark.
+- [Fake Text Generator](https://tulyro.online/fun/fake-text-generator/): Make a generic chat mockup for sketches, presentations and entertainment. Export PNG.
 
 ## Guides
 
-- [How to Calculate EMI by Hand](https://tulyrotools.vercel.app/guides/how-to-calculate-emi/): Worked reducing-balance EMI examples with verified numbers.
-- [How to Calculate Your Age in Days](https://tulyrotools.vercel.app/guides/how-to-calculate-age-in-days/): Verified day counts, leap-year handling, and why dividing by 365.25 gives the wrong answer.
-- [CGPA to Percentage: The CBSE ×9.5 Rule, Explained](https://tulyrotools.vercel.app/guides/cgpa-to-percentage-cbse-9-5-rule/): What the ×9.5 rule means, where it applies, and where it does not.
-- [EMI Calculator vs Mortgage Calculator: Which One to Use](https://tulyrotools.vercel.app/guides/emi-vs-mortgage-calculator/): Same formula, different currency, formatting, and context — how to pick.
-- [How to Choose an EMI Calculator](https://tulyrotools.vercel.app/guides/how-to-choose-emi-calculator/): Five checks that separate honest EMI calculators from traps — total interest, amortization, prepayment, currency, disclosed limits.
-- [Calculate Age in Excel](https://tulyrotools.vercel.app/guides/calculate-age-in-excel/): DATEDIF, YEARFRAC and the quick method for exact ages in spreadsheets, with common errors.
-- [Is BMI Accurate? What the Number Can't Tell You](https://tulyrotools.vercel.app/guides/is-bmi-accurate/): Where BMI fails (muscle, age, build), what it gets right, and what doctors check instead.
-- [All Guides](https://tulyrotools.vercel.app/guides/): Index of every guide.
+- [How to Calculate EMI by Hand](https://tulyro.online/guides/how-to-calculate-emi/): Worked reducing-balance EMI examples with verified numbers.
+- [How to Calculate Your Age in Days](https://tulyro.online/guides/how-to-calculate-age-in-days/): Verified day counts, leap-year handling, and why dividing by 365.25 gives the wrong answer.
+- [CGPA to Percentage: The CBSE ×9.5 Rule, Explained](https://tulyro.online/guides/cgpa-to-percentage-cbse-9-5-rule/): What the ×9.5 rule means, where it applies, and where it does not.
+- [EMI Calculator vs Mortgage Calculator: Which One to Use](https://tulyro.online/guides/emi-vs-mortgage-calculator/): Same formula, different currency, formatting, and context — how to pick.
+- [How to Choose an EMI Calculator](https://tulyro.online/guides/how-to-choose-emi-calculator/): Five checks that separate honest EMI calculators from traps — total interest, amortization, prepayment, currency, disclosed limits.
+- [Calculate Age in Excel](https://tulyro.online/guides/calculate-age-in-excel/): DATEDIF, YEARFRAC and the quick method for exact ages in spreadsheets, with common errors.
+- [Is BMI Accurate? What the Number Can't Tell You](https://tulyro.online/guides/is-bmi-accurate/): Where BMI fails (muscle, age, build), what it gets right, and what doctors check instead.
+- [All Guides](https://tulyro.online/guides/): Index of every guide.
 
 ## Pages
 
-- [All Tools](https://tulyrotools.vercel.app/tools/): Full directory of every live tool.
-- [Calculators](https://tulyrotools.vercel.app/calculators/): Age, EMI, mortgage, BMI and CGPA calculators.
-- [Text Tools](https://tulyrotools.vercel.app/text/): Word counter, text to speech and fancy text generator.
-- [About](https://tulyrotools.vercel.app/about/): What Tulyro is and how it is built.
-- [Privacy Policy](https://tulyrotools.vercel.app/privacy/): How browser-only tools, analytics and text-to-speech are handled.
-- [Terms](https://tulyrotools.vercel.app/terms/): Terms for using the free browser-only tools.
+- [All Tools](https://tulyro.online/tools/): Full directory of every live tool.
+- [Calculators](https://tulyro.online/calculators/): Age, EMI, mortgage, BMI and CGPA calculators.
+- [Text Tools](https://tulyro.online/text/): Word counter, text to speech and fancy text generator.
+- [About](https://tulyro.online/about/): What Tulyro is and how it is built.
+- [Privacy Policy](https://tulyro.online/privacy/): How browser-only tools, analytics and text-to-speech are handled.
+- [Terms](https://tulyro.online/terms/): Terms for using the free browser-only tools.

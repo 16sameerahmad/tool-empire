@@ -11,6 +11,7 @@ export const NAV = [
   { label: "Text Tools", href: "/text/" },
   { label: "Developer Tools", href: "/dev/" },
   { label: "Fun Tools", href: "/fun/" },
+  { label: "Guides & Formulas", href: "/guides/" },
   { label: "All Tools", href: "/tools/" },
 ];
 

@@ -12,6 +12,33 @@ export function Footer() {
       {/* Blend the light content above into the midnight footer — no hard edge. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface to-transparent" />
       <div className="mx-auto max-w-shell px-6">
+        {/* Site directory — every tool one click from the footer, on every page. */}
+        <nav aria-label="All tools directory" className="mb-space-xl border-b border-white/10 pb-space-lg">
+          <h2 className="font-headline-sm text-headline-sm text-white">Browse All Tools</h2>
+          <div className="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4">
+            {(
+              [
+                { heading: "Calculators", cluster: "Calculators" },
+                { heading: "Text Tools", cluster: "Text" },
+                { heading: "Developer Tools", cluster: "Dev" },
+                { heading: "Fun Tools", cluster: "Fun" },
+              ] as const
+            ).map((group) => (
+              <div key={group.heading}>
+                <h3 className="font-label-md text-label-md font-semibold uppercase tracking-wider text-tertiary-fixed">{group.heading}</h3>
+                <ul className="mt-2 space-y-2">
+                  {getToolsByCluster(group.cluster).map((tool) => (
+                    <li key={tool.id}>
+                      <Link className={linkClass} href={tool.href}>
+                        {tool.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </nav>
         <div className="mb-space-xl grid grid-cols-1 gap-space-lg md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-3 lg:col-span-2">
             <Logo />
@@ -61,6 +88,11 @@ export function Footer() {
               <li>
                 <Link className={linkClass} href="/tools/">
                   Tool Directory
+                </Link>
+              </li>
+              <li>
+                <Link className={linkClass} href="/guides/">
+                  Guides &amp; Formulas
                 </Link>
               </li>
             </ul>

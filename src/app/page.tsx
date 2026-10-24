@@ -32,7 +32,7 @@ const CATEGORIES = [
   { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", theme: "calculator" },
 ];
 const TRUST = [
-  { title: "11 Free Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { title: "11 Free Browser Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
   { title: "100% Client-Side", sub: "Zero payload sent to servers", icon: "lock", tint: "bg-secondary-fixed text-secondary" },
   { title: "Instant Compute", sub: "Computed locally in your browser", icon: "speed", tint: "bg-tertiary-fixed text-tertiary" },
   { title: "No Signup", sub: "Start instantly, nothing to install", icon: "bolt", tint: "bg-surface-container-high text-on-surface" },
@@ -45,7 +45,7 @@ const BLUEPRINT = [
 ];
 /* Mobile-home (Stitch mobile skeleton) content — real tools, real counts, short labels. */
 const MOBILE_STATS = [
-  { value: "11", label: "Free Utilities", icon: "apps" },
+  { value: "11", label: "Free Browser Utilities", icon: "apps" },
   { value: "100%", label: "Client-Side", icon: "verified" },
   { value: "No", label: "Signup", icon: "lock_open" },
   { value: "Instant", label: "In-Browser Compute", icon: "wifi_off" },
@@ -99,10 +99,13 @@ export default function HomePage() {
                   11 free tools • No signup • Private by design
                 </p>
                 <h1 className="hero-enter font-display font-display-hero leading-[1.08] tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
-                  Precision tools for
+                  Free Online Calculators,
                   <br className="hidden sm:inline" />{" "}
-                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">everyday numbers.</span>
+                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">Text &amp; Developer Tools</span>
                 </h1>
+                <p className="hero-enter font-display text-xl font-semibold text-tertiary-fixed" style={{ ["--enter-delay" as string]: "135ms" }}>
+                  Precision tools for everyday numbers.
+                </p>
                 <p className="hero-enter max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
                   EMI, age, BMI, word counts, Base64 and 6 more — 11 free utilities running entirely in your browser. No signup, no tracking, no waiting.
                 </p>
@@ -135,11 +138,14 @@ export default function HomePage() {
                 11 free tools • No signup • Private by design
               </p>
               <div className="hero-enter font-display font-display-hero-mobile tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
-                Precision tools for{" "}
+                Free Online Calculators,{" "}
                 <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">
-                  everyday numbers.
+                  Text &amp; Developer Tools
                 </span>
               </div>
+              <p className="hero-enter font-display text-lg font-semibold text-tertiary-fixed" style={{ ["--enter-delay" as string]: "135ms" }}>
+                Precision tools for everyday numbers.
+              </p>
               <p className="hero-enter font-body-md text-body-md leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
                 Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
               </p>
@@ -179,7 +185,7 @@ export default function HomePage() {
                   </span>
                   <span>
                     <span className="block font-display font-headline-sm text-headline-sm font-bold text-on-surface">{
-                      item.title === "11 Free Utilities" ? <><CountUp to={11} /> Free Utilities</> : item.title
+                      item.title === "11 Free Browser Utilities" ? <><CountUp to={11} /> Free Browser Utilities</> : item.title
                     }</span>
                     <span className="block font-body-sm text-body-sm text-on-surface-variant">{item.sub}</span>
                   </span>

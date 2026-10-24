@@ -5,6 +5,44 @@ import { getToolsByCluster } from "@/lib/tools";
 
 const linkClass = "rounded font-body-sm text-body-sm text-tertiary-fixed-dim transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container";
 
+/** Footer site directory — Argon Day 1 (1C): tools grouped by topical silo + top guides. */
+const DIRECTORY: { heading: string; links: { label: string; href: string }[] }[] = [
+  {
+    heading: "Finance & Business Tools",
+    links: [
+      { label: "Loan EMI Calculator (₹)", href: "/calculators/emi-calculator/" },
+      { label: "Mortgage Calculator", href: "/calculators/mortgage-calculator/" },
+      { label: "Free Invoice Generator", href: "/tools/invoice-generator/" },
+    ],
+  },
+  {
+    heading: "Academic, Health & Date",
+    links: [
+      { label: "CGPA to Percentage Calculator", href: "/calculators/cgpa-to-percentage/" },
+      { label: "BMI Calculator (Metric & Imperial)", href: "/calculators/bmi-calculator/" },
+      { label: "Exact Age Calculator", href: "/calculators/age-calculator/" },
+    ],
+  },
+  {
+    heading: "Text, Creator & Dev Tools",
+    links: [
+      { label: "Word & Character Counter", href: "/text/word-counter/" },
+      { label: "Browser Text-to-Speech", href: "/text/text-to-speech/" },
+      { label: "Fancy Text Font Generator", href: "/text/fancy-text-generator/" },
+      { label: "Base64 Encoder & Decoder", href: "/dev/base64-encoder-decoder/" },
+      { label: "Fake Text Message Generator", href: "/fun/fake-text-generator/" },
+    ],
+  },
+];
+
+const GUIDE_LINKS: { label: string; href: string }[] = [
+  { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
+  { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
+  { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+  { label: "How to Calculate BMI by Hand: Formula, Examples, Metric and Imperial", href: "/guides/how-to-calculate-bmi/" },
+  { label: "Calculate Age in Excel: 3 Formulas That Work", href: "/guides/calculate-age-in-excel/" },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -16,27 +54,41 @@ export function Footer() {
         <nav aria-label="All tools directory" className="mb-space-xl border-b border-white/10 pb-space-lg">
           <h2 className="font-headline-sm text-headline-sm text-white">Browse All Tools</h2>
           <div className="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4">
-            {(
-              [
-                { heading: "Calculators", cluster: "Calculators" },
-                { heading: "Text Tools", cluster: "Text" },
-                { heading: "Developer Tools", cluster: "Dev" },
-                { heading: "Fun Tools", cluster: "Fun" },
-              ] as const
-            ).map((group) => (
+            {DIRECTORY.map((group) => (
               <div key={group.heading}>
                 <h3 className="font-label-md text-label-md font-semibold uppercase tracking-wider text-tertiary-fixed">{group.heading}</h3>
                 <ul className="mt-2 space-y-2">
-                  {getToolsByCluster(group.cluster).map((tool) => (
-                    <li key={tool.id}>
-                      <Link className={linkClass} href={tool.href}>
-                        {tool.title}
+                  {group.links.map((entry) => (
+                    <li key={entry.href}>
+                      <Link className={linkClass} href={entry.href}>
+                        {entry.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
+            <div>
+              <h3 className="font-label-md text-label-md font-semibold uppercase tracking-wider text-tertiary-fixed">
+                <Link className="rounded transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container" href="/guides/">
+                  Guides &amp; Formulas
+                </Link>
+              </h3>
+              <ul className="mt-2 space-y-2">
+                {GUIDE_LINKS.map((entry) => (
+                  <li key={entry.href}>
+                    <Link className={linkClass} href={entry.href}>
+                      {entry.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link className={linkClass} href="/guides/">
+                    View All 9 Guides →
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
         <div className="mb-space-xl grid grid-cols-1 gap-space-lg md:grid-cols-2 lg:grid-cols-5">

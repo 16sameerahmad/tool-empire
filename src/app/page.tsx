@@ -107,7 +107,7 @@ export default function HomePage() {
                   Precision tools for everyday numbers.
                 </p>
                 <p className="hero-enter max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
-                  EMI, age, BMI, word counts, Base64 and 6 more — 11 free utilities running entirely in your browser. No signup, no tracking, no waiting.
+                  Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
                 </p>
                 <div className="hero-enter flex flex-wrap items-center gap-3" style={{ ["--enter-delay" as string]: "270ms" }}>
                   <Link href="#browse" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
@@ -147,7 +147,7 @@ export default function HomePage() {
                 Precision tools for everyday numbers.
               </p>
               <p className="hero-enter font-body-md text-body-md leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
-                Age, EMI, BMI, word count, Base64 and 6 more — everything runs in your browser. Nothing you type ever leaves your phone.
+                Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
               </p>
               <div className="hero-enter flex flex-wrap items-center gap-2.5" style={{ ["--enter-delay" as string]: "270ms" }}>
                 <Link href="#browse-mobile" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">

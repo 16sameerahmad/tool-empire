@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ToolDefinition } from "./tools";
+import { getTool } from "./tools";
 
 export const siteUrl = "https://tulyro.online";
 
@@ -165,6 +166,26 @@ export function createWebSiteJsonLd() {
         logo: `${siteUrl}/logo.svg`,
         email: "Tulyrotools@gmail.com",
         description: "Free browser-only tools. No signup. No watermark.",
+      },
+      {
+        "@type": "ItemList",
+        name: "Tulyro Free Tools",
+        itemListElement: [
+          "emi-calculator",
+          "mortgage-calculator",
+          "bmi-calculator",
+          "age-calculator",
+          "cgpa-to-percentage",
+          "word-counter",
+          "text-to-speech",
+          "fancy-text-generator",
+          "base64-encoder-decoder",
+          "invoice-generator",
+          "fake-text-generator",
+        ].map((id, index) => {
+          const tool = getTool(id);
+          return { "@type": "ListItem", position: index + 1, name: tool.title, url: `${siteUrl}${tool.href}` };
+        }),
       },
     ],
   };

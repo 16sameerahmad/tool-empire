@@ -342,7 +342,11 @@ export const guides: Guide[] = [
       <>
         Multiply your CGPA by 9.5. An 8.0 CGPA gives about 76%. That is an estimate, not an official
         conversion. The ×9.5 rule is a CBSE convention, and your institution&apos;s rule wins over any
-        calculator.
+        calculator. Try the numbers on our{" "}
+        <Link href="/calculators/cgpa-to-percentage/" className="text-primary underline">
+          free CGPA to Percentage Calculator
+        </Link>
+        .
       </>,
     ],
     cta: { label: "Try the CGPA Calculator", href: "/calculators/cgpa-to-percentage/" },
@@ -1025,7 +1029,11 @@ export const guides: Guide[] = [
         an entire industry of arguments. Here is the honest version: BMI is a decent screening tool
         and a bad diagnosis. It is right often enough to be useful and wrong often enough that no
         doctor should use it alone. This guide shows where it fails, with numbers, and what gets
-        checked instead.
+        checked instead. You can check your own number on our{" "}
+        <Link href="/calculators/bmi-calculator/" className="text-primary underline">
+          Indian &amp; WHO BMI Calculator
+        </Link>
+        .
       </>,
     ],
     cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
@@ -1178,7 +1186,11 @@ export const guides: Guide[] = [
         Body Mass Index is one division problem. Weight divided by height squared. This guide shows
         the formula in both metric and imperial units, works through real numbers step by step, and
         flags the small mistakes — wrong units, rounding too early — that silently give the wrong
-        answer.
+        answer. Run your numbers on our{" "}
+        <Link href="/calculators/bmi-calculator/" className="text-primary underline">
+          Indian &amp; WHO BMI Calculator
+        </Link>{" "}
+        as you follow along.
       </>,
     ],
     cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
@@ -1465,6 +1477,722 @@ export const guides: Guide[] = [
     ],
     related: ["word-counter", "text-to-speech"],
     pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "how-to-create-gst-compliant-invoice-india",
+    title: "How to Create a GST-Compliant Invoice in India (Mandatory Fields & Format)",
+    seoTitle: "How to Create a GST-Compliant Invoice in India (Rule 46 Checklist) | Tulyro",
+    seoDescription:
+      "Learn all 16 mandatory fields required under CGST Rule 46 for a valid Indian GST tax invoice, how to split CGST/SGST vs IGST, and generate free client-side invoices.",
+    href: "/guides/how-to-create-gst-compliant-invoice-india/",
+    intro: [
+      <>
+        A GST tax invoice is not a receipt with a logo. Under Rule 46 of the CGST Rules 2017, a valid
+        tax invoice must carry 16 specific fields — miss one, and your buyer cannot claim input tax
+        credit on their GSTR-3B. This guide lists every field, shows how CGST/SGST and IGST split,
+        and works through a real ₹50,000 example. Then build the invoice itself in under a minute
+        with our{" "}
+        <Link href="/tools/invoice-generator/" className="text-primary underline">
+          free browser-based Invoice Generator
+        </Link>
+        , which runs entirely on your device with no signup.
+      </>,
+    ],
+    cta: { label: "Try the Invoice Generator", href: "/tools/invoice-generator/" },
+    sections: [
+      {
+        heading: "The 16 Mandatory Fields Under CGST Rule 46",
+        body: [
+          <>
+            Rule 46 of the CGST Rules 2017 lists what a tax invoice must contain. The table below is
+            the checklist — run your invoice against it before sending.
+          </>,
+          <div key="rule-46-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">#</th>
+                <th className="border border-outline-variant/60 p-3">Field</th>
+                <th className="border border-outline-variant/60 p-3">What goes on the invoice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">1</td><td className="border border-outline-variant/60 p-3">Supplier details</td><td className="border border-outline-variant/60 p-3">Legal name, trade name, registered billing address</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">2</td><td className="border border-outline-variant/60 p-3">Supplier GSTIN</td><td className="border border-outline-variant/60 p-3">15-character alphanumeric GSTIN</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">3</td><td className="border border-outline-variant/60 p-3">Invoice serial number</td><td className="border border-outline-variant/60 p-3">Consecutive, max 16 characters, letters/digits/hyphen/slash only, unique per financial year</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">4</td><td className="border border-outline-variant/60 p-3">Date of issue</td><td className="border border-outline-variant/60 p-3">The date the invoice is issued</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">5</td><td className="border border-outline-variant/60 p-3">Recipient details</td><td className="border border-outline-variant/60 p-3">Name, billing address, and delivery address</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">6</td><td className="border border-outline-variant/60 p-3">Recipient GSTIN / UIN</td><td className="border border-outline-variant/60 p-3">Mandatory for B2B supplies — the buyer needs it to claim input tax credit</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">7</td><td className="border border-outline-variant/60 p-3">Place of supply</td><td className="border border-outline-variant/60 p-3">State name + 2-digit state code, e.g. 07 Delhi, 27 Maharashtra</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">8</td><td className="border border-outline-variant/60 p-3">HSN / SAC code</td><td className="border border-outline-variant/60 p-3">4 digits when turnover is up to ₹5 crore (B2B; optional for B2C), 6 digits above ₹5 crore — Notification 78/2020</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">9</td><td className="border border-outline-variant/60 p-3">Item description &amp; quantity</td><td className="border border-outline-variant/60 p-3">Description plus quantity with its Unique Quantity Code (UQC) for goods</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">10</td><td className="border border-outline-variant/60 p-3">Total &amp; taxable value</td><td className="border border-outline-variant/60 p-3">Gross value and net taxable value after discounts</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">11</td><td className="border border-outline-variant/60 p-3">GST rate</td><td className="border border-outline-variant/60 p-3">Rate % — 5%, 12%, 18% or 28%; IT, design and consulting services are typically 18%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">12</td><td className="border border-outline-variant/60 p-3">Tax split CGST / SGST vs IGST</td><td className="border border-outline-variant/60 p-3">Exact rupee amounts for each tax head (see the split below)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">13</td><td className="border border-outline-variant/60 p-3">Reverse charge indicator</td><td className="border border-outline-variant/60 p-3">Yes/No — whether tax is payable under reverse charge (RCM)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">14</td><td className="border border-outline-variant/60 p-3">Shipping address</td><td className="border border-outline-variant/60 p-3">If different from the billing address</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">15</td><td className="border border-outline-variant/60 p-3">Invoice total in figures &amp; words</td><td className="border border-outline-variant/60 p-3">Total in ₹, written out in words, rounded per Section 170 of the CGST Act</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">16</td><td className="border border-outline-variant/60 p-3">Authorised signature</td><td className="border border-outline-variant/60 p-3">Physical signature or digital signature (DSC) of the supplier or authorised representative</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "CGST + SGST vs. IGST",
+        body: [
+          <>
+            The split depends on where the buyer is. Intra-state supply — same state on both sides,
+            say Delhi (07) to Delhi (07) — splits the tax: 18% becomes 9% CGST + 9% SGST. Inter-state
+            supply — Delhi (07) to Karnataka (29) or Maharashtra (27) — charges a single 18% IGST
+            instead. The rate is the same; only the heads change, and the place of supply (field 7)
+            decides which one applies.
+          </>,
+          <>
+            Export of services is zero-rated: 0% IGST with a Letter of Undertaking (LUT), and the
+            invoice carries the endorsement &ldquo;Supply meant for export under Letter of Undertaking
+            without payment of integrated tax.&rdquo;
+          </>,
+        ],
+      },
+      {
+        heading: "Worked Example: ₹50,000 Consulting/Software Invoice at 18% GST",
+        body: [
+          <>
+            A freelancer bills ₹50,000 for software work (SAC 998314) at 18% GST. Here is how the
+            same invoice looks in three situations:
+          </>,
+          <div key="gst-example-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Line</th>
+                <th className="border border-outline-variant/60 p-3">Intra-state (Delhi → Delhi)</th>
+                <th className="border border-outline-variant/60 p-3">Inter-state (Delhi → Karnataka)</th>
+                <th className="border border-outline-variant/60 p-3">Unregistered freelancer (below ₹20 lakh)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Taxable value</td><td className="border border-outline-variant/60 p-3">₹50,000</td><td className="border border-outline-variant/60 p-3">₹50,000</td><td className="border border-outline-variant/60 p-3">₹50,000</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">CGST 9%</td><td className="border border-outline-variant/60 p-3">₹4,500</td><td className="border border-outline-variant/60 p-3">—</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">SGST 9%</td><td className="border border-outline-variant/60 p-3">₹4,500</td><td className="border border-outline-variant/60 p-3">—</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">IGST 18%</td><td className="border border-outline-variant/60 p-3">—</td><td className="border border-outline-variant/60 p-3">₹9,000</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Total</td><td className="border border-outline-variant/60 p-3">₹59,000</td><td className="border border-outline-variant/60 p-3">₹59,000</td><td className="border border-outline-variant/60 p-3">₹50,000</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The unregistered freelancer charges no GST at all — the invoice is a commercial invoice
+            for ₹50,000 with no tax line. Never print a GST line on an invoice when you are not
+            registered: charging tax you are not allowed to collect is a compliance problem, not a
+            discount.
+          </>,
+        ],
+      },
+      {
+        heading: "Tax Invoice vs. Bill of Supply",
+        body: [
+          <>
+            Registered regular taxpayers issue a Tax Invoice and charge GST. Composition-scheme dealers
+            and sellers of exempt goods or services issue a Bill of Supply instead — and a Bill of
+            Supply cannot charge GST. Unregistered sellers below the ₹20 lakh services threshold issue
+            a plain commercial invoice at 0% tax. The document name matters: a buyer who needs input
+            tax credit cannot claim it from a Bill of Supply or a commercial invoice, however
+            professional it looks.
+          </>,
+          <>
+            Once the format is clear, the arithmetic is the easy part. If you are weighing a loan
+            against the invoice you are about to raise, run the numbers on our{" "}
+            <Link href="/calculators/emi-calculator/" className="text-primary underline">
+              EMI Calculator
+            </Link>{" "}
+            or the{" "}
+            <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
+              Mortgage Calculator
+            </Link>
+            . And remember: only businesses with turnover above ₹5 crore need IRN/QR e-invoices
+            generated on the Invoice Registration Portal — everyone else issues the invoice directly.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I generate a GST invoice without accounting software?",
+        answer:
+          "Yes. A valid GST invoice needs the 16 Rule 46 fields and a serial number of at most 16 characters. Only businesses with turnover above ₹5 crore need IRN/QR e-invoices generated on the Invoice Registration Portal; everyone else can issue the invoice directly.",
+      },
+      {
+        question: "What is the character limit for a GST invoice number?",
+        answer:
+          "16 characters maximum, under Rule 46(b): letters, numerals, hyphen and slash only — for example INV/2026-27/0042. The number must be consecutive and unique for the financial year.",
+      },
+      {
+        question: "Is it safe to create client invoices on online generator websites?",
+        answer:
+          "Server-based tools can store your client data. Tulyro's Invoice Generator is 100% client-side: the invoice is built in your browser and nothing is uploaded or stored.",
+      },
+    ],
+    related: ["invoice-generator", "emi-calculator", "mortgage-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "how-mortgage-amortization-works",
+    title: "How Mortgage Amortization Works: Why Your Loan Balance Falls So Slowly at First",
+    seoTitle: "How Mortgage Amortization Works: Principal vs. Interest Explained | Tulyro",
+    seoDescription:
+      "Understand why 70% to 80% of early mortgage payments go toward interest, how monthly amortization schedules are calculated, and compare 15-year vs 30-year loans.",
+    href: "/guides/how-mortgage-amortization-works/",
+    intro: [
+      <>
+        Thirty-six payments in, and the balance has barely moved. That is not a bank trick — it is
+        reducing-balance amortization, the same maths behind every EMI. This guide shows why most of
+        your early payments go to interest, works through a $300,000 example month by month, and
+        compares a 15-year loan with a 30-year one. Model your own loan on our{" "}
+        <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
+          free Mortgage Calculator
+        </Link>
+        , or use the{" "}
+        <Link href="/calculators/emi-calculator/" className="text-primary underline">
+          Indian Loan EMI Calculator
+        </Link>{" "}
+        for rupee loans.
+      </>,
+    ],
+    cta: { label: "Try the Mortgage Calculator", href: "/calculators/mortgage-calculator/" },
+    sections: [
+      {
+        heading: "What Does Amortization Mean in a Home Loan?",
+        body: [
+          <>
+            Amortization is the schedule that repays a loan in fixed monthly payments. Every payment
+            has two components: the interest that accrued that month on the current unpaid balance,
+            and the principal reduction — whatever is left of the payment after interest. Early on,
+            the balance is large, so the interest component is large and the principal component is
+            small. As the balance shrinks, the interest shrinks with it, and more of each payment
+            goes to principal.
+          </>,
+        ],
+      },
+      {
+        heading: "The Two-Step Monthly Amortization Formula",
+        body: [
+          <>
+            Each month, two calculations happen in order. First, r = Annual Rate ÷ 12, and Interest
+            = Current Balance × r. Second, Principal Paid = Monthly Payment − Interest. In month 1,
+            the balance is 100% of the loan, so the payment is mostly interest. By month 300, the
+            balance is small, so the same payment is mostly principal. Nothing about the payment
+            changes — only the split does.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked Example: $300,000 Mortgage at 6.5% (30-Year)",
+        body: [
+          <>
+            A $300,000 loan at 6.5% over 30 years costs $1,896.20 a month. Here is what the split
+            looks like at milestones — every figure computed with the reducing-balance formula:
+          </>,
+          <div key="mortgage-milestones-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Milestone</th>
+                <th className="border border-outline-variant/60 p-3">Starting balance</th>
+                <th className="border border-outline-variant/60 p-3">Interest</th>
+                <th className="border border-outline-variant/60 p-3">Principal</th>
+                <th className="border border-outline-variant/60 p-3">% interest</th>
+                <th className="border border-outline-variant/60 p-3">Ending balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Month 1</td><td className="border border-outline-variant/60 p-3">$300,000.00</td><td className="border border-outline-variant/60 p-3">$1,625.00</td><td className="border border-outline-variant/60 p-3">$271.20</td><td className="border border-outline-variant/60 p-3">85.7%</td><td className="border border-outline-variant/60 p-3">$299,728.80</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 60</td><td className="border border-outline-variant/60 p-3">$281,205.94</td><td className="border border-outline-variant/60 p-3">$1,523.20</td><td className="border border-outline-variant/60 p-3">$373.01</td><td className="border border-outline-variant/60 p-3">80.3%</td><td className="border border-outline-variant/60 p-3">$280,832.93</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 120</td><td className="border border-outline-variant/60 p-3">$254,844.18</td><td className="border border-outline-variant/60 p-3">$1,380.41</td><td className="border border-outline-variant/60 p-3">$515.80</td><td className="border border-outline-variant/60 p-3">72.8%</td><td className="border border-outline-variant/60 p-3">$254,328.38</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 233 (tipping point)</td><td className="border border-outline-variant/60 p-3">$174,739.06</td><td className="border border-outline-variant/60 p-3">$946.50</td><td className="border border-outline-variant/60 p-3">$949.70</td><td className="border border-outline-variant/60 p-3">49.9%</td><td className="border border-outline-variant/60 p-3">$173,789.36</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 300</td><td className="border border-outline-variant/60 p-3">$98,276.36</td><td className="border border-outline-variant/60 p-3">$532.33</td><td className="border border-outline-variant/60 p-3">$1,363.87</td><td className="border border-outline-variant/60 p-3">28.1%</td><td className="border border-outline-variant/60 p-3">$96,912.49</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 360</td><td className="border border-outline-variant/60 p-3">$1,885.99</td><td className="border border-outline-variant/60 p-3">$10.22</td><td className="border border-outline-variant/60 p-3">$1,885.99</td><td className="border border-outline-variant/60 p-3">0.5%</td><td className="border border-outline-variant/60 p-3">$0.00</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The tipping point is month 233 — year 19, month 5. It takes nearly 20 years before more
+            than half of each payment finally pays down the principal. After five years of payments,
+            the balance has fallen by less than $20,000 of the original $300,000.
+          </>,
+        ],
+      },
+      {
+        heading: "15-Year vs. 30-Year Mortgage",
+        body: [
+          <>
+            Same $300,000 loan at 6.5%, two very different outcomes:
+          </>,
+          <div key="mortgage-15v30-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3"></th>
+                <th className="border border-outline-variant/60 p-3">15-year</th>
+                <th className="border border-outline-variant/60 p-3">30-year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Installments</td><td className="border border-outline-variant/60 p-3">180</td><td className="border border-outline-variant/60 p-3">360 (+180)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Monthly payment</td><td className="border border-outline-variant/60 p-3">$2,613.32</td><td className="border border-outline-variant/60 p-3">$1,896.20 (−$717.12)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Month 1 principal share</td><td className="border border-outline-variant/60 p-3">37.8% ($988.32)</td><td className="border border-outline-variant/60 p-3">14.3% ($271.20)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Total interest</td><td className="border border-outline-variant/60 p-3">$170,397.98</td><td className="border border-outline-variant/60 p-3">$382,633.47 (+$212,235.49)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Total cost</td><td className="border border-outline-variant/60 p-3">$470,397.98</td><td className="border border-outline-variant/60 p-3">$682,633.47 (+45.1%)</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The 30-year loan lowers the monthly payment by about 27%, but more than doubles the
+            interest. The 15-year loan builds equity 2.6 times faster from the very first payment.
+            Which one is right depends on your cash flow — but the price of the lower payment should
+            be a conscious choice, not a surprise at year 20.
+          </>,
+        ],
+      },
+      {
+        heading: "How Extra Principal Prepayments Short-Circuit the Curve",
+        body: [
+          <>
+            An extra payment goes 100% to principal, and it kills all the future compound interest
+            that principal would have generated. That is why a lump sum early in the loan saves far
+            more than the same amount paid near the end. Even one extra payment a year — the
+            bi-weekly trick of 26 half-payments, which adds up to 13 full payments a year — typically
+            shaves 4–5 years off a 30-year mortgage. The curve bends fastest where the balance is
+            biggest, which is at the start.
+          </>,
+          <>
+            The same maths runs in rupees on the Indian side. Our{" "}
+            <Link href="/guides/emi-vs-mortgage-calculator/" className="text-primary underline">
+              EMI vs. Mortgage Calculator
+            </Link>{" "}
+            guide explains when to use which calculator, and the prepayment arithmetic in detail.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why do banks front-load interest?",
+        answer:
+          "They do not front-load it artificially. Interest each month is proportional to what you still owe, and the balance is at its maximum in year 1 — so the interest portion is at its maximum too. The split flips naturally as the balance falls.",
+      },
+      {
+        question: "Does paying bi-weekly speed up amortization?",
+        answer:
+          "Yes. Twenty-six half-payments a year add up to 13 full monthly payments instead of 12, and the extra payment goes straight to principal. On a typical 30-year mortgage that shaves roughly 4–5 years off the term.",
+      },
+    ],
+    related: ["mortgage-calculator", "emi-calculator", "invoice-generator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "what-is-base64-encoding-and-when-to-use-it",
+    title: "What Is Base64 Encoding, Why Does It Increase Size by 33%, and When Should You Use It?",
+    seoTitle: "What Is Base64 Encoding, Why Does It Add 33% Size & When to Use It | Tulyro",
+    seoDescription:
+      "Learn how Base64 converts 3 bytes (24 bits) into 4 ASCII characters, why it increases payload size by 33%, how = padding works, and how to decode strings locally.",
+    href: "/guides/what-is-base64-encoding-and-when-to-use-it/",
+    intro: [
+      <>
+        Base64 is a binary-to-text encoding (RFC 4648) that turns arbitrary binary data into safe,
+        printable ASCII characters. You meet it in email attachments, data URLs, API payloads, and
+        auth headers — usually without noticing. This guide explains why it exists, why it always
+        adds about 33% to the size, and when you should and should not use it. Try it yourself with
+        our{" "}
+        <Link href="/dev/base64-encoder-decoder/" className="text-primary underline">
+          client-side Base64 Encoder &amp; Decoder
+        </Link>
+        , which runs 100% locally in your browser.
+      </>,
+    ],
+    cta: { label: "Try the Base64 Encoder & Decoder", href: "/dev/base64-encoder-decoder/" },
+    sections: [
+      {
+        heading: "Why Base64 Exists: Solving the Binary Transport Problem",
+        body: [
+          <>
+            SMTP, HTTP headers, XML, and JSON are text protocols. Raw binary bytes — a 0x00 null, a
+            0x0A line feed — get misread as control commands by those systems. Base64 solves this by
+            representing any bytes using only 64 safe characters: A–Z (values 0–25), a–z (26–51),
+            0–9 (52–61), + and / (62–63, or - and _ in the Base64URL variant), plus = as padding.
+          </>,
+        ],
+      },
+      {
+        heading: "How the 24-Bit Math Works (And Why Base64 Adds 33% Overhead)",
+        body: [
+          <>
+            64 equals 2<sup>6</sup>, so each Base64 character carries 6 bits, while a byte carries 8
+            bits. The least common multiple of 6 and 8 is 24: three bytes (24 bits) are regrouped
+            into four chunks of 6 bits, and each chunk becomes one character. Three bytes in, four
+            characters out — a 33.33% size increase, every time. You can verify the expansion
+            yourself: encode a paragraph, then count the characters before and after in our{" "}
+            <Link href="/text/word-counter/" className="text-primary underline">
+              Word Counter
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        heading: "Worked Bit-Level Example: 'Man' vs Padding",
+        body: [
+          <>
+            Padding appears when the input length is not a multiple of three bytes. The encoder pads
+            the final group with zero bits and marks the missing characters with =:
+          </>,
+          <div key="base64-example-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Input</th>
+                <th className="border border-outline-variant/60 p-3">Bits</th>
+                <th className="border border-outline-variant/60 p-3">6-bit groups</th>
+                <th className="border border-outline-variant/60 p-3">Indices</th>
+                <th className="border border-outline-variant/60 p-3">Base64</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">&ldquo;Man&rdquo; (3 bytes)</td><td className="border border-outline-variant/60 p-3">01001101 01100001 01101110</td><td className="border border-outline-variant/60 p-3">010011 010110 000101 101110</td><td className="border border-outline-variant/60 p-3">19, 22, 5, 46</td><td className="border border-outline-variant/60 p-3">TWFu (no padding)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">&ldquo;Ma&rdquo; (2 bytes)</td><td className="border border-outline-variant/60 p-3">01001101 01100001</td><td className="border border-outline-variant/60 p-3">010011 010110 000100 + pad</td><td className="border border-outline-variant/60 p-3">19, 22, 4, pad</td><td className="border border-outline-variant/60 p-3">TWE= (one =)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">&ldquo;M&rdquo; (1 byte)</td><td className="border border-outline-variant/60 p-3">01001101</td><td className="border border-outline-variant/60 p-3">010011 010000 + pad + pad</td><td className="border border-outline-variant/60 p-3">19, 16, pad, pad</td><td className="border border-outline-variant/60 p-3">TQ== (two ==)</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "Security Warning: Base64 Is Encoding, NOT Encryption",
+        body: [
+          <>
+            Base64 provides zero confidentiality. There is no secret key, and anyone can reverse it
+            in milliseconds — never store passwords as Base64, and never assume an encoded string is
+            hidden. Worse, never paste production secrets into server-side Base64 tools: Basic Auth
+            headers, Kubernetes secrets, and JWT payloads get logged server-side. For anything
+            sensitive, use the 100% browser-only Base64 tool on this site, and use real encryption
+            for anything that must stay secret.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why do some Base64 strings end with = or ==?",
+        answer:
+          "Padding marks an incomplete final group: one = means the final group had 2 input bytes, and == means it had 1 input byte. A complete group of 3 bytes needs no padding.",
+      },
+      {
+        question: "When should I inline images as Base64 Data URLs?",
+        answer:
+          "For tiny icons under about 2 KB, inlining saves an HTTP request. Avoid it for large photos — the 33% size bloat plus no independent caching makes the page slower, not faster.",
+      },
+    ],
+    related: ["base64-encoder-decoder", "word-counter", "invoice-generator"],
+    pillar: { label: "All Tools", href: "/tools/" },
+  },
+  {
+    slug: "how-browser-text-to-speech-web-speech-api-works",
+    title: "How Browser Text-to-Speech Works: Unlimited Reading Without Cloud Paywalls",
+    seoTitle: "How Browser Text-to-Speech Works (Web Speech API Guide & Pacing) | Tulyro",
+    seoDescription:
+      "Discover how native browser text-to-speech reads unlimited words offline without cloud paywalls, optimal WPM listening speeds, and how to proofread by ear.",
+    href: "/guides/how-browser-text-to-speech-web-speech-api-works/",
+    intro: [
+      <>
+        Commercial text-to-speech services cap free users at around 500 characters and upload your
+        documents to the cloud. Browsers solve this natively through the W3C Web Speech API
+        (window.speechSynthesis): your device reads text aloud with no character fees, no latency,
+        and full privacy. This guide explains how it works under the hood, the best listening
+        speeds, and why hearing your own writing catches errors your eyes miss. Try it now with our{" "}
+        <Link href="/text/text-to-speech/" className="text-primary underline">
+          free Browser Text-to-Speech Reader
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Text-to-Speech Reader", href: "/text/text-to-speech/" },
+    sections: [
+      {
+        heading: "How Client-Side Speech Synthesis Works Under the Hood",
+        body: [
+          <>
+            The browser invokes the operating system&apos;s speech engine locally. Windows 10 and 11
+            use Microsoft SAPI/OneCore voices (David, Zira, Heera, and Ravi for Indian English);
+            macOS and iOS use AVSpeechSynthesizer (Samantha, Daniel, Rishi); Android and ChromeOS use
+            Google Speech Services. The text never leaves your device for local voices, there is no
+            character count to pay for, and playback starts instantly.
+          </>,
+        ],
+      },
+      {
+        heading: "Speaking Rate & Listening Speed Reference Table (WPM)",
+        body: [
+          <>
+            The Web Speech API accepts rates from 0.5× to 2.0×. Here is what that means in practice:
+          </>,
+          <div key="tts-wpm-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Rate</th>
+                <th className="border border-outline-variant/60 p-3">Speed (WPM)</th>
+                <th className="border border-outline-variant/60 p-3">Time per 1,000 words</th>
+                <th className="border border-outline-variant/60 p-3">Best for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">0.75× Slow</td><td className="border border-outline-variant/60 p-3">110–120 WPM</td><td className="border border-outline-variant/60 p-3">~8m 40s</td><td className="border border-outline-variant/60 p-3">Language learning, dictation, technical text</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">1.0× Default</td><td className="border border-outline-variant/60 p-3">150–160 WPM</td><td className="border border-outline-variant/60 p-3">~6m 30s</td><td className="border border-outline-variant/60 p-3">Standard narration</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">1.25× Brisk</td><td className="border border-outline-variant/60 p-3">190–200 WPM</td><td className="border border-outline-variant/60 p-3">~5m 10s</td><td className="border border-outline-variant/60 p-3">Proofreading — catches awkward phrasing and typos</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">1.5× Fast</td><td className="border border-outline-variant/60 p-3">225–240 WPM</td><td className="border border-outline-variant/60 p-3">~4m 15s</td><td className="border border-outline-variant/60 p-3">Long articles, study notes</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">2.0× Speed listen</td><td className="border border-outline-variant/60 p-3">300+ WPM</td><td className="border border-outline-variant/60 p-3">~3m 20s</td><td className="border border-outline-variant/60 p-3">Rapid skimming</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "Why Proofreading With TTS Catches More Errors",
+        body: [
+          <>
+            Silent reading is predictive: your brain auto-corrects and shows you the words you
+            intended to write. A synthesizer reads literally, so it pronounces doubled words
+            (&ldquo;the the&rdquo;), dropped prepositions, and run-on sentences exactly as written.
+            Listening at 1.25× is the sweet spot for proofreading — fast enough to stay focused,
+            slow enough to hear every stumble. For formatting and page-length planning, pair it with
+            our{" "}
+            <Link href="/guides/how-many-words-per-page/" className="text-primary underline">
+              How Many Words Fit on a Page?
+            </Link>{" "}
+            guide and the{" "}
+            <Link href="/text/word-counter/" className="text-primary underline">
+              Word Counter &amp; Reading Time Estimator
+            </Link>
+            .
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why do voices differ between my phone and my laptop?",
+        answer:
+          "Voices come from the device operating system: an iPhone uses Apple voices, a Windows PC uses Microsoft voices, and desktop Chrome adds Google voices. The same text can sound different on each device.",
+      },
+      {
+        question: "Does browser text-to-speech work offline?",
+        answer:
+          "Yes. OS-native local voices work fully offline once the page is open. Some browser voices are provided online and need a connection — the tool tells you which voices are local.",
+      },
+    ],
+    related: ["text-to-speech", "word-counter", "fancy-text-generator"],
+    pillar: { label: "All Text Tools", href: "/text/" },
+  },
+  {
+    slug: "how-unicode-fancy-text-fonts-work-on-social-media",
+    title: "How Unicode Fancy Text Works: Why You Can Copy-Paste Bold & Cursive into Plain Text",
+    seoTitle: "How Unicode Fancy Text Fonts Work on Instagram, LinkedIn & X | Tulyro",
+    seoDescription:
+      "Learn why copy-paste fancy text fonts work in plain-text social media bios using Unicode Mathematical Alphanumeric Symbols, plus key accessibility rules.",
+    href: "/guides/how-unicode-fancy-text-fonts-work-on-social-media/",
+    intro: [
+      <>
+        Instagram, LinkedIn, X, and YouTube comments have no rich-text toolbar — yet you see bold,
+        cursive, and monospace text in bios everywhere. Those are not fonts. They are Unicode
+        Mathematical Alphanumeric Symbols: distinct characters that look like styled letters and
+        travel inside plain text like emoji. This guide explains how they work, which styles are
+        safe to use, and where they break accessibility. Try it with our{" "}
+        <Link href="/text/fancy-text-generator/" className="text-primary underline">
+          Fancy Text Font Generator
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Fancy Text Generator", href: "/text/fancy-text-generator/" },
+    sections: [
+      {
+        heading: "Fonts vs. Unicode Characters",
+        body: [
+          <>
+            In Word or Google Docs, bold is the ASCII letter A (U+0041) plus a &lt;strong&gt; tag.
+            Paste that into a bio and the tag is stripped, leaving a plain A. A fancy-text generator
+            instead substitutes each ASCII letter with a distinct character from the Unicode
+            Mathematical Alphanumeric Symbols block (U+1D400–U+1D7FF), which was added so
+            mathematicians could distinguish a scalar A, a vector A, and a set A in plain text. The
+            styled symbols travel inside the string itself — no CSS, no font file, no formatting to
+            lose.
+          </>,
+        ],
+      },
+      {
+        heading: "Unicode Block Reference Table",
+        body: [
+          <div key="unicode-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Style</th>
+                <th className="border border-outline-variant/60 p-3">Sample</th>
+                <th className="border border-outline-variant/60 p-3">Unicode range</th>
+                <th className="border border-outline-variant/60 p-3">UTF-8 bytes</th>
+                <th className="border border-outline-variant/60 p-3">Screen reader &amp; search</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Standard ASCII</td><td className="border border-outline-variant/60 p-3">Tulyro Tools</td><td className="border border-outline-variant/60 p-3">U+0041–U+007A</td><td className="border border-outline-variant/60 p-3">1 byte/char</td><td className="border border-outline-variant/60 p-3">100% accessible &amp; searchable</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Sans-Serif Bold</td><td className="border border-outline-variant/60 p-3">𝗧𝘂𝗹𝘆𝗿𝗼 𝗧𝗼𝗼𝗹𝘀</td><td className="border border-outline-variant/60 p-3">U+1D5D4–U+1D607</td><td className="border border-outline-variant/60 p-3">4 bytes/char</td><td className="border border-outline-variant/60 p-3">Good for 2–4 word headers (some readers announce &ldquo;mathematical bold&rdquo;)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Serif Bold Italic</td><td className="border border-outline-variant/60 p-3">𝑻𝒖𝒍𝒚𝒓𝒐 𝑻𝒐𝒐𝒍𝒔</td><td className="border border-outline-variant/60 p-3">U+1D468–U+1D49B</td><td className="border border-outline-variant/60 p-3">4 bytes</td><td className="border border-outline-variant/60 p-3">Best for short subheadings</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Mathematical Script (Cursive)</td><td className="border border-outline-variant/60 p-3">𝒯𝓊𝓁𝓎𝓇𝑜 𝒯𝑜𝑜𝓁𝓈</td><td className="border border-outline-variant/60 p-3">U+1D49C–U+1D4CF</td><td className="border border-outline-variant/60 p-3">4 bytes</td><td className="border border-outline-variant/60 p-3">Decorative only — readers read letter-by-letter or skip</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Monospace</td><td className="border border-outline-variant/60 p-3">𝚃𝚞𝚕𝚢𝚛𝚘 𝚃𝚘𝚘𝚕𝚜</td><td className="border border-outline-variant/60 p-3">U+1D670–U+1D6A3</td><td className="border border-outline-variant/60 p-3">4 bytes</td><td className="border border-outline-variant/60 p-3">Great for code snippets and numeric alignment</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Double-Struck / Blackboard</td><td className="border border-outline-variant/60 p-3">𝕋𝕦𝕝𝕪𝕣𝕠 𝕋𝕠𝕠𝕝𝕤</td><td className="border border-outline-variant/60 p-3">U+1D538–U+1D56B</td><td className="border border-outline-variant/60 p-3">4 bytes</td><td className="border border-outline-variant/60 p-3">Decorative badges and display names only</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "3 Rules for Using Unicode Text Without Hurting Accessibility or Reach",
+        body: [
+          <>
+            (1) Short hooks only — 2 to 5 words. A 200-word cursive paragraph is unreadable for
+            screen-reader users. (2) Never put Unicode in hashtags or primary keywords: search
+            matches ASCII unless the platform applies NFKD normalization, so keep your #WebDevelopment
+            tag, handle, and job title in plain text. (3) Watch character counters: characters above
+            U+FFFF count as 2 UTF-16 code units on X, so check the exact length in our{" "}
+            <Link href="/text/word-counter/" className="text-primary underline">
+              Word Counter
+            </Link>{" "}
+            before posting.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why do some fancy letters show as empty boxes (tofu)?",
+        answer:
+          "The device lacks a font covering U+1D400 and above, so it renders a □ placeholder. Modern iOS, Android, Windows 10/11, and macOS render these characters natively; older devices and some TVs do not.",
+      },
+      {
+        question: "Does bold Unicode hurt LinkedIn or Instagram reach?",
+        answer:
+          "No — one to three short styled headers can improve dwell time. But putting core keywords only in Unicode can block exact-keyword search, so keep searchable terms in plain ASCII.",
+      },
+    ],
+    related: ["fancy-text-generator", "fake-text-generator", "word-counter"],
+    pillar: { label: "All Text Tools", href: "/text/" },
+  },
+  {
+    slug: "how-to-create-chat-mockups-for-presentations-and-ui",
+    title: "How to Create Clean Chat Mockups for Video Editing, Presentations & UI Design",
+    seoTitle: "How to Create Realistic Chat Mockups for Videos, UI & Decks (No Watermark) | Tulyro",
+    seoDescription:
+      "Learn how video editors, educators, and UI designers create crisp, watermark-free chat message screenshots for Reels, Shorts, and slide decks in the browser.",
+    href: "/guides/how-to-create-chat-mockups-for-presentations-and-ui/",
+    intro: [
+      <>
+        Staging a real two-phone SMS conversation is slow, and the screenshots come out
+        inconsistent. Most mockup sites watermark the result unless you pay. This guide shows how
+        video editors, educators, and UI designers build crisp, realistic chat mockups for Reels,
+        Shorts, pitch decks, and documentation — free, with no watermark, 100% locally in the
+        browser, using our{" "}
+        <Link href="/fun/fake-text-generator/" className="text-primary underline">
+          no-watermark Fake Text Generator
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Fake Text Generator", href: "/fun/fake-text-generator/" },
+    sections: [
+      {
+        heading: "4 Legitimate Creative & Professional Use Cases",
+        body: [
+          <>
+            (1) Short-form video hooks (Reels, Shorts, TikTok): a 2-message exchange over B-roll
+            grabs attention in the first seconds — pair it with the{" "}
+            <Link href="/text/text-to-speech/" className="text-primary underline">
+              Text-to-Speech Reader
+            </Link>{" "}
+            to keep the hook under 3 seconds. (2) Cybersecurity and anti-smishing training: realistic
+            fake delivery links, bank OTP alerts, and CEO-impersonation texts, without using real
+            phone numbers. (3) Marketing case studies and pitch decks: client praise (with
+            permission, anonymized) presented as a chat layout beats a block quote. (4)
+            Fiction and epistolary storytelling: web novels and classroom prompts told through
+            text-message dialogue.
+          </>,
+        ],
+      },
+      {
+        heading: "Design Specifications for Crisp, Readable Chat Graphics",
+        body: [
+          <div key="mockup-specs-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Format</th>
+                <th className="border border-outline-variant/60 p-3">Aspect / size</th>
+                <th className="border border-outline-variant/60 p-3">Max messages</th>
+                <th className="border border-outline-variant/60 p-3">Max words per bubble</th>
+                <th className="border border-outline-variant/60 p-3">Pacing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Vertical Video (Reels / Shorts / TikTok)</td><td className="border border-outline-variant/60 p-3">9:16, 1080×1920</td><td className="border border-outline-variant/60 p-3">2–4 bubbles</td><td className="border border-outline-variant/60 p-3">8–15 words</td><td className="border border-outline-variant/60 p-3">1.8–2.5s per bubble</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">YouTube Long-Form / 16:9</td><td className="border border-outline-variant/60 p-3">1920×1080</td><td className="border border-outline-variant/60 p-3">3–5 bubbles</td><td className="border border-outline-variant/60 p-3">12–25 words</td><td className="border border-outline-variant/60 p-3">Center-cropped card at 125% zoom</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">IG Carousel / LinkedIn Slide</td><td className="border border-outline-variant/60 p-3">4:5, 1080×1350</td><td className="border border-outline-variant/60 p-3">4–6 bubbles</td><td className="border border-outline-variant/60 p-3">15–30 words</td><td className="border border-outline-variant/60 p-3">1 exchange per slide</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">UI / Documentation</td><td className="border border-outline-variant/60 p-3">Natural device width</td><td className="border border-outline-variant/60 p-3">2–4 bubbles</td><td className="border border-outline-variant/60 p-3">10–20 words</td><td className="border border-outline-variant/60 p-3">Annotate the key action button</td></tr>
+            </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "How to Make Mockup Dialogue Look Authentic",
+        body: [
+          <>
+            (1) Short conversational bubbles: break a long thought into two bubbles — a 4-word
+            opener, then the main point. Real people do not send 80-word SMS paragraphs. (2)
+            Chronological timestamps: a 10:41 AM reply sitting below a 10:44 AM message breaks
+            immersion instantly, and so does a battery at 0%. (3) Custom contact names and Unicode
+            styling, sparingly: generate styled text in the{" "}
+            <Link href="/text/fancy-text-generator/" className="text-primary underline">
+              Fancy Text Generator
+            </Link>{" "}
+            first, then paste it into the mockup builder.
+          </>,
+        ],
+      },
+      {
+        heading: "Ethical & Legal Best Practices",
+        body: [
+          <>
+            Chat mockups are for creative storytelling, UI design, education, and parody only. Never
+            fabricate defamatory statements about real people, forge payment receipts, or present a
+            mockup as evidence. Label fictional conversations clearly whenever the context could be
+            misunderstood.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does Tulyro add a watermark?",
+        answer:
+          "No. The Fake Text Generator is 100% free with zero watermarks or branding on the exported image.",
+      },
+      {
+        question: "Are my messages saved on a server?",
+        answer:
+          "No. Messages are rendered in browser local memory only; refreshing the page clears the session.",
+      },
+    ],
+    related: ["fake-text-generator", "fancy-text-generator", "text-to-speech"],
+    pillar: { label: "All Tools", href: "/tools/" },
   },
 ];
 

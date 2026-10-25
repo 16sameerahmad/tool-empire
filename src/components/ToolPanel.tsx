@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { bmi, bmiCategory, poundsToKg, validateMetric } from "@/tools/bmi/logic";
-import { cgpaToPercentage } from "@/tools/cgpa/logic";
+import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
@@ -328,8 +327,40 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
   );
 }
 
+/** BMI screening scales. WHO is the global standard; the Indian/Asian ICMR scale uses lower
+ *  overweight/obesity cutoffs (23.0 / 25.0) because health risks rise at lower BMI values in
+ *  Asian populations. Implemented here (not in tools/bmi/logic.ts) so the shared logic stays
+ *  untouched. */
+export const BMI_SCALES = {
+  who: {
+    label: "WHO Global Standard (25.0 Overweight / 30.0 Obese)",
+    shortLabel: "WHO Global",
+    categories: [
+      { name: "Underweight", min: 0, max: 18.49, rangeText: "Below 18.5" },
+      { name: "Normal Weight", min: 18.5, max: 24.99, rangeText: "18.5 – 24.9" },
+      { name: "Overweight", min: 25.0, max: 29.99, rangeText: "25.0 – 29.9" },
+      { name: "Obese (Class I–III)", min: 30.0, max: Infinity, rangeText: "30.0 & Above" },
+    ],
+    healthyRange: [18.5, 24.9] as const,
+  },
+  asian: {
+    label: "Indian / Asian ICMR Standard (23.0 Overweight / 25.0 Obese)",
+    shortLabel: "Indian / Asian ICMR",
+    categories: [
+      { name: "Underweight", min: 0, max: 18.49, rangeText: "Below 18.5" },
+      { name: "Normal / Healthy Weight", min: 18.5, max: 22.99, rangeText: "18.5 – 22.9" },
+      { name: "Overweight (At Risk)", min: 23.0, max: 24.99, rangeText: "23.0 – 24.9" },
+      { name: "Obese (Action Required)", min: 25.0, max: Infinity, rangeText: "25.0 & Above" },
+    ],
+    healthyRange: [18.5, 22.9] as const,
+  },
+} as const;
+
+export type BmiScaleKey = keyof typeof BMI_SCALES;
+
 function BmiPanel() {
   const [unit, setUnit] = useState("Metric");
+  const [scale, setScale] = useState<BmiScaleKey>("who");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [feet, setFeet] = useState("");
@@ -341,7 +372,12 @@ function BmiPanel() {
   const anyInput = imperial ? feet !== "" || inches !== "" || weight !== "" : height !== "" || weight !== "";
   const error = !anyInput ? null : validateMetric(weightKg, heightCm);
   const value = !error && heightCm && weightKg ? Number(bmi(weightKg, heightCm / 100).toFixed(1)) : null;
-  const category = value !== null ? bmiCategory(value) : null;
+  const activeScale = BMI_SCALES[scale];
+  const category =
+    value !== null
+      ? activeScale.categories.find((c) => value >= c.min && value <= c.max)?.name ??
+        activeScale.categories[activeScale.categories.length - 1].name
+      : null;
   const changeUnit = (next: string) => {
     setUnit(next);
     setHeight("");
@@ -350,8 +386,9 @@ function BmiPanel() {
     setInches("");
   };
   const markerPct = value !== null ? Math.min(100, Math.max(0, ((value - 14) / (40 - 14)) * 100)) : 0;
-  const idealLow = heightCm ? 18.5 * (heightCm / 100) ** 2 : null;
-  const idealHigh = heightCm ? 24.9 * (heightCm / 100) ** 2 : null;
+  const [healthyLow, healthyHigh] = activeScale.healthyRange;
+  const idealLow = heightCm ? healthyLow * (heightCm / 100) ** 2 : null;
+  const idealHigh = heightCm ? healthyHigh * (heightCm / 100) ** 2 : null;
   const copySummary = async () => {
     if (value === null || !category) return;
     try {
@@ -368,6 +405,18 @@ function BmiPanel() {
       <div className="grid items-start gap-6 lg:grid-cols-12">
         <div className="space-y-5 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
           <Segmented value={unit} options={["Metric", "Imperial"]} onChange={changeUnit} ariaLabel="Unit system" />
+          <div>
+            <span className={labelClass}>BMI scale</span>
+            <div className="mt-1">
+              <Segmented
+                value={activeScale.shortLabel}
+                options={["WHO Global", "Indian / Asian ICMR"]}
+                onChange={(next) => setScale(next === "WHO Global" ? "who" : "asian")}
+                ariaLabel="BMI screening scale"
+              />
+            </div>
+            <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">{activeScale.label}</p>
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
             {imperial ? (
               <>
@@ -435,7 +484,9 @@ function BmiPanel() {
         <div aria-live="polite" className="space-y-4 lg:col-span-5">
           <div className="rounded-xl bg-surface-container-lowest p-6 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="rounded bg-secondary-fixed px-2 py-0.5 font-label-sm text-label-sm text-on-secondary-fixed-variant">WHO Clinical Result</span>
+              <span className="rounded bg-secondary-fixed px-2 py-0.5 font-label-sm text-label-sm text-on-secondary-fixed-variant">
+                {scale === "who" ? "WHO Clinical Result" : "Indian / Asian ICMR Result"}
+              </span>
               <span className="font-code-data text-xs text-on-surface-variant">Adult screening</span>
             </div>
             {!anyInput ? (
@@ -474,7 +525,7 @@ function BmiPanel() {
                         ? `${(idealLow * 2.20462).toFixed(1)} – ${(idealHigh * 2.20462).toFixed(1)} lb`
                         : `${idealLow.toFixed(1)} – ${idealHigh.toFixed(1)} kg`}
                     </span>{" "}
-                    (BMI 18.5–24.9 for your height)
+                    (BMI {healthyLow}–{healthyHigh} for your height)
                   </p>
                 ) : null}
                 <button type="button" onClick={copySummary} className={`${secondaryButtonClass} mt-4 w-full`}>
@@ -491,41 +542,147 @@ function BmiPanel() {
 
       <div className="mt-6 overflow-hidden rounded-2xl bg-surface-container-lowest shadow-sm">
         <div className="border-b border-surface-container px-6 py-4">
-          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">WHO Adult BMI Cut-offs</h2>
+          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">WHO vs Indian / Asian ICMR Cut-offs</h2>
         </div>
-        <table className="w-full text-left font-body-sm text-body-sm">
-          <tbody className="divide-y divide-surface-container">
-            {[
-              ["Underweight", "< 18.5"],
-              ["Normal Weight", "18.5 – 24.9"],
-              ["Overweight", "25.0 – 29.9"],
-              ["Obese", "≥ 30.0"],
-            ].map(([label, range]) => (
-              <tr key={label}>
-                <td className="px-6 py-3 font-medium text-on-surface">{label}</td>
-                <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{range}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="border-b border-surface-container">
+                <th className="px-6 py-3 font-medium text-on-surface">Category</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">WHO Global</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">Indian / Asian ICMR</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-surface-container">
+              {[
+                ["Underweight", "< 18.5", "< 18.5"],
+                ["Normal", "18.5 – 24.9", "18.5 – 22.9"],
+                ["Overweight", "25.0 – 29.9", "23.0 – 24.9"],
+                ["Obese (Class I)", "30.0 – 34.9", "25.0 – 29.9"],
+                ["Obese (Class II+)", "35.0 & above", "30.0 & above"],
+              ].map(([label, who, asian]) => (
+                <tr key={label}>
+                  <td className="px-6 py-3 font-medium text-on-surface">{label}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{who}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{asian}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <p className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
           BMI is a screening measure, not a diagnosis, and is intended for adults 18 and over.
+        </p>
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl bg-surface-container-lowest shadow-sm">
+        <div className="border-b border-surface-container px-6 py-4">
+          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Healthy Weight by Height</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="border-b border-surface-container">
+                <th className="px-6 py-3 font-medium text-on-surface">Height</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">Indian / Asian (18.5–22.9)</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">WHO (18.5–24.9)</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">WHO obesity (30.0)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-container">
+              {[
+                ["150 cm", "41.6 – 51.5 kg", "41.6 – 56.0 kg", "67.5 kg"],
+                ["155 cm", "44.4 – 55.0 kg", "44.4 – 59.8 kg", "72.1 kg"],
+                ["160 cm", "47.4 – 58.6 kg", "47.4 – 63.7 kg", "76.8 kg"],
+                ["165 cm", "50.4 – 62.3 kg", "50.4 – 67.8 kg", "81.7 kg"],
+                ["170 cm", "53.5 – 66.2 kg", "53.5 – 72.0 kg", "86.7 kg"],
+                ["175 cm", "56.7 – 70.1 kg", "56.7 – 76.3 kg", "91.9 kg"],
+                ["180 cm", "59.9 – 74.2 kg", "59.9 – 80.7 kg", "97.2 kg"],
+                ["185 cm", "63.3 – 78.4 kg", "63.3 – 85.2 kg", "102.7 kg"],
+                ["190 cm", "66.8 – 82.7 kg", "66.8 – 89.9 kg", "108.3 kg"],
+              ].map(([height, indian, who, obese]) => (
+                <tr key={height}>
+                  <td className="px-6 py-3 font-medium text-on-surface">{height}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{indian}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{who}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{obese}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
+          Healthy weight ranges are BMI × height² for each scale. The last column is the weight at
+          which the WHO obesity threshold (BMI 30.0) is reached for that height.
         </p>
       </div>
     </div>
   );
 }
 
+/** CGPA-to-percentage formulas by institution. Verified against published conversions:
+ *  CBSE ×9.5; UGC/AICTE/IIT/NIT ×10; VTU/AKTU/JNTU (CGPA−0.75)×10; GTU/BPUT (CGPA−0.5)×10;
+ *  Mumbai University 7.1×CGPA+11 (the most widely cited MU formula — check your transcript).
+ *  Deliberately NOT shipped: SPPU (its formula varies by batch/circular: ×8.8, ×8.9, or
+ *  (CGPA−0.75)×10) and Anna University (varies by regulation: CGPA×10 or (CGPA×10)−7.5).
+ *  Implemented here (not in tools/cgpa/logic.ts) so the shared logic stays untouched. */
+export const CGPA_FORMULAS = {
+  cbse95: {
+    name: "CBSE Class 10/12 & Standard 9.5 Rule (CGPA × 9.5)",
+    shortFormula: "Percentage = CGPA × 9.5",
+    maxCgpa: 10,
+    calculate: (cgpa: number) => Math.min(100, cgpa * 9.5),
+  },
+  ugc10: {
+    name: "UGC / AICTE / IIT / NIT 10-Point Direct Scale (CGPA × 10)",
+    shortFormula: "Percentage = CGPA × 10",
+    maxCgpa: 10,
+    calculate: (cgpa: number) => Math.min(100, cgpa * 10),
+  },
+  vtu: {
+    name: "VTU / AKTU / JNTU (CBCS Scheme): (CGPA − 0.75) × 10",
+    shortFormula: "Percentage = (CGPA − 0.75) × 10",
+    maxCgpa: 10,
+    calculate: (cgpa: number) => Math.max(0, Math.min(100, (cgpa - 0.75) * 10)),
+  },
+  gtu: {
+    name: "GTU / BPUT: (CGPA − 0.5) × 10",
+    shortFormula: "Percentage = (CGPA − 0.5) × 10",
+    maxCgpa: 10,
+    calculate: (cgpa: number) => Math.max(0, Math.min(100, (cgpa - 0.5) * 10)),
+  },
+  mumbai: {
+    name: "Mumbai University (MU 10-Point CBSGS): (7.1 × CGPA) + 11",
+    shortFormula: "Percentage = (7.1 × CGPA) + 11",
+    maxCgpa: 10,
+    calculate: (cgpa: number) => Math.min(100, 7.1 * cgpa + 11),
+  },
+} as const;
+
+export type CgpaFormulaKey = keyof typeof CGPA_FORMULAS;
+
+function cgpaDivision(percentage: number): string {
+  if (percentage >= 75) return "First Class with Distinction";
+  if (percentage >= 60) return "First Class / Division";
+  if (percentage >= 50) return "Second Class / Division";
+  return "Pass Class";
+}
+
 function CgpaPanel() {
   const [value, setValue] = useState("");
+  const [formulaKey, setFormulaKey] = useState<CgpaFormulaKey>("cbse95");
   const [copied, setCopied] = useState(false);
-  const result = value === "" ? null : cgpaToPercentage(Number(value));
-  const errorMessage = result && typeof result === "object" ? result.error : undefined;
-  const percent = typeof result === "number" ? result : null;
+  const formula = CGPA_FORMULAS[formulaKey];
+  const num = value === "" ? null : Number(value);
+  const validInput =
+    num !== null && Number.isFinite(num) && num >= 0 && num <= 10 && /^\d+(\.\d{1,2})?$/.test(value.trim());
+  const errorMessage = value === "" ? null : validInput ? null : "CGPA must be a number from 0 to 10 with up to 2 decimals.";
+  const percent = validInput && num !== null ? Number(formula.calculate(num).toFixed(2)) : null;
+  const division = percent !== null ? cgpaDivision(percent) : null;
   const copyResult = async () => {
     if (percent === null) return;
     try {
-      await navigator.clipboard.writeText(`${percent.toFixed(2)}% (Estimated)`);
+      await navigator.clipboard.writeText(`${percent.toFixed(2)}% (Estimated, ${formula.shortFormula})`);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -534,63 +691,172 @@ function CgpaPanel() {
   };
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-12">
-      <div className="space-y-5 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
-        <div>
-          <span className={labelClass}>Grading Standard &amp; University Rule</span>
-          <p className="mt-2 inline-flex items-center gap-2 rounded-lg bg-primary-container px-3 py-2 font-label-md text-label-md text-white">
-            CBSE / 10-Pt (× 9.5)
-          </p>
-          <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
-            Only the CBSE 10-point rule is shipped. Other grading scales are not included — institutions differ, so check your own rule.
-          </p>
-        </div>
-        <div>
-          <label htmlFor="cgpa-input" className={labelClass}>
-            Enter Your CGPA <span className="text-on-surface-variant">Range: 0.00 – 10.00</span>
-          </label>
-          <input id="cgpa-input" type="number" min="0" max="10" step="0.01" value={value} onChange={(event) => setValue(event.target.value)} className={inputClass} />
-          <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="mr-1 font-label-sm text-label-sm text-on-surface-variant">Quick Presets:</span>
-            {[7.5, 8.0, 8.5, 9.0, 9.5, 10.0].map((preset) => (
-              <button
-                key={preset}
-                type="button"
-                onClick={() => setValue(preset.toFixed(2))}
-                className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${Number(value) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
-              >
-                {preset.toFixed(2)}
-              </button>
-            ))}
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-5 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div>
+            <label htmlFor="cgpa-formula" className={labelClass}>
+              Grading Standard &amp; University Rule
+            </label>
+            <select
+              id="cgpa-formula"
+              value={formulaKey}
+              onChange={(event) => setFormulaKey(event.target.value as CgpaFormulaKey)}
+              className={inputClass}
+            >
+              {(Object.keys(CGPA_FORMULAS) as CgpaFormulaKey[]).map((key) => (
+                <option key={key} value={key}>
+                  {CGPA_FORMULAS[key].name}
+                </option>
+              ))}
+            </select>
+            <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
+              {formula.shortFormula}. Institutions differ — if your transcript already prints a
+              percentage, use that. SPPU and Anna University are not listed because their official
+              formulas vary by batch and regulation; check your college&apos;s circular.
+            </p>
+          </div>
+          <div>
+            <label htmlFor="cgpa-input" className={labelClass}>
+              Enter Your CGPA <span className="text-on-surface-variant">Range: 0.00 – 10.00</span>
+            </label>
+            <input id="cgpa-input" type="number" min="0" max="10" step="0.01" value={value} onChange={(event) => setValue(event.target.value)} className={inputClass} />
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
+              <span className="mr-1 font-label-sm text-label-sm text-on-surface-variant">Quick Presets:</span>
+              {[7.5, 8.0, 8.5, 9.0, 9.5, 10.0].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setValue(preset.toFixed(2))}
+                  className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${Number(value) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"}`}
+                >
+                  {preset.toFixed(2)}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div aria-live="polite" className="rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-5">
-        <div className="flex items-center justify-between">
-          <span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Calculated Grade Assessment</span>
-          <span className="rounded-full bg-secondary-fixed px-2 py-0.5 font-label-sm text-label-sm text-on-secondary-fixed-variant">Estimated</span>
+        <div aria-live="polite" className="rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-5">
+          <div className="flex items-center justify-between">
+            <span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Calculated Grade Assessment</span>
+            <span className="rounded-full bg-secondary-fixed px-2 py-0.5 font-label-sm text-label-sm text-on-secondary-fixed-variant">Estimated</span>
+          </div>
+          {errorMessage ? (
+            <p role="alert" className="mt-4 font-body-md text-body-md font-medium text-error">
+              {errorMessage}
+            </p>
+          ) : percent === null ? (
+            <p className="mt-4 font-body-md text-body-md text-on-surface-variant">Enter your CGPA.</p>
+          ) : (
+            <>
+              <p className="mt-3 font-display font-result-metric text-result-metric text-on-surface">
+                {percent.toFixed(2)}% <span className="font-body-md text-body-md font-normal text-on-surface-variant">/ 100</span>
+              </p>
+              <p className="mt-1 font-display font-headline-sm text-headline-sm text-primary">{division}</p>
+              <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
+                Active calculation formula:{" "}
+                <span className="font-code-data text-on-surface">
+                  {formula.shortFormula.replace("CGPA", `CGPA (${num !== null ? num.toFixed(2) : ""})`)}
+                </span>
+              </p>
+              <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">Estimated percentage. Institutions differ; check your own rule.</p>
+              <button type="button" onClick={copyResult} className={`${secondaryButtonClass} mt-4 w-full`}>
+                <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
+                {copied ? "Copied!" : "Copy Result"}
+              </button>
+            </>
+          )}
         </div>
-        {errorMessage ? (
-          <p role="alert" className="mt-4 font-body-md text-body-md font-medium text-error">
-            {errorMessage}
-          </p>
-        ) : percent === null ? (
-          <p className="mt-4 font-body-md text-body-md text-on-surface-variant">Enter your CGPA.</p>
-        ) : (
-          <>
-            <p className="mt-3 font-display font-result-metric text-result-metric text-on-surface">
-              {percent.toFixed(2)}% <span className="font-body-md text-body-md font-normal text-on-surface-variant">/ 100</span>
-            </p>
-            <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
-              Active calculation formula: <span className="font-code-data text-on-surface">Percentage (%) = CGPA ({Number(value).toFixed(2)}) × 9.5</span>
-            </p>
-            <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">Estimated percentage. Institutions differ; check your own rule.</p>
-            <button type="button" onClick={copyResult} className={`${secondaryButtonClass} mt-4 w-full`}>
-              <MorphIcon from="content_copy" to="check" morphed={copied} className="h-4 w-4" />
-              {copied ? "Copied!" : "Copy Result"}
-            </button>
-          </>
-        )}
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl bg-surface-container-lowest shadow-sm">
+        <div className="border-b border-surface-container px-6 py-4">
+          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Official Conversion Formulas</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="border-b border-surface-container">
+                <th className="px-6 py-3 font-medium text-on-surface">University / Board</th>
+                <th className="px-6 py-3 font-medium text-on-surface">Formula</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">8.0 CGPA</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">9.0 CGPA</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-container">
+              {[
+                ["CBSE (Class 10/12)", "CGPA × 9.5", "76.00%", "85.50%"],
+                ["UGC / AICTE / IIT / NIT", "CGPA × 10", "80.00%", "90.00%"],
+                ["VTU / AKTU / JNTU", "(CGPA − 0.75) × 10", "72.50%", "82.50%"],
+                ["GTU / BPUT", "(CGPA − 0.5) × 10", "75.00%", "85.00%"],
+                ["Mumbai University", "(7.1 × CGPA) + 11", "67.80%", "74.90%"],
+              ].map(([board, rule, eight, nine]) => (
+                <tr key={board}>
+                  <td className="px-6 py-3 font-medium text-on-surface">{board}</td>
+                  <td className="px-6 py-3 font-mono text-on-surface-variant">{rule}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{eight}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{nine}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
+          Mumbai University&apos;s (7.1 × CGPA) + 11 is the most widely cited MU formula — verify it
+          against your transcript. SPPU&apos;s formula varies by batch and circular (×8.8, ×8.9, or
+          (CGPA − 0.75) × 10 in different circulars); Anna University&apos;s conversion also varies by
+          regulation. When in doubt, quote the CGPA itself.
+        </p>
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl bg-surface-container-lowest shadow-sm">
+        <div className="border-b border-surface-container px-6 py-4">
+          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">CGPA to Percentage Conversion Chart</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="border-b border-surface-container">
+                <th className="px-6 py-3 font-medium text-on-surface">CGPA</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">CBSE × 9.5</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">× 10</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">VTU (CGPA − 0.75) × 10</th>
+                <th className="px-6 py-3 text-right font-medium text-on-surface">Mumbai (7.1 × CGPA) + 11</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-container">
+              {[
+                ["5.0", "47.50%", "50.00%", "42.50%", "46.50%"],
+                ["5.5", "52.25%", "55.00%", "47.50%", "50.05%"],
+                ["6.0", "57.00%", "60.00%", "52.50%", "53.60%"],
+                ["6.5", "61.75%", "65.00%", "57.50%", "57.15%"],
+                ["7.0", "66.50%", "70.00%", "62.50%", "60.70%"],
+                ["7.5", "71.25%", "75.00%", "67.50%", "64.25%"],
+                ["8.0", "76.00%", "80.00%", "72.50%", "67.80%"],
+                ["8.2", "77.90%", "82.00%", "74.50%", "69.22%"],
+                ["8.5", "80.75%", "85.00%", "77.50%", "71.35%"],
+                ["8.8", "83.60%", "88.00%", "80.50%", "73.48%"],
+                ["9.0", "85.50%", "90.00%", "82.50%", "74.90%"],
+                ["9.2", "87.40%", "92.00%", "84.50%", "76.32%"],
+                ["9.5", "90.25%", "95.00%", "87.50%", "78.45%"],
+                ["9.8", "93.10%", "98.00%", "90.50%", "80.58%"],
+                ["10.0", "95.00%", "100.00%", "92.50%", "82.00%"],
+              ].map(([cgpa, cbse, ten, vtu, mumbai]) => (
+                <tr key={cgpa}>
+                  <td className="px-6 py-3 font-medium text-on-surface">{cgpa}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{cbse}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{ten}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{vtu}</td>
+                  <td className="px-6 py-3 text-right font-mono text-on-surface-variant">{mumbai}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
+          Every value is computed with the formula in its column heading. All results are estimates —
+          your institution&apos;s rule wins.
+        </p>
       </div>
     </div>
   );

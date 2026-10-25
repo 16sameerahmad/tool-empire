@@ -53,18 +53,23 @@ private mortgage insurance, closing costs, and adjustable-rate changes are not i
 
 Body mass index (BMI) is a screening number calculated as weight in kilograms divided by
 height in metres squared. Inputs: height and weight in metric (kg, cm) or imperial (lb,
-feet/inches) units. Outputs: BMI value and screening category. BMI is a screening tool, not a
+feet/inches) units, plus a scale selector: WHO global cutoffs or Indian/Asian ICMR cutoffs.
+Outputs: BMI value, screening category under the chosen scale, ideal weight range for the
+entered height, and a healthy-weight-by-height reference table. BMI is a screening tool, not a
 diagnosis; it does not distinguish muscle from fat, and it does not replace medical advice.
 The page cites the World Health Organization's adult BMI categories (see Sources).
 
 ### CGPA to Percentage — https://tulyro.online/calculators/cgpa-to-percentage/
 
 CGPA to percentage conversion estimates a percentage from a 10-point Cumulative Grade Point
-Average, commonly by multiplying the CGPA by 9.5 under the CBSE convention. Inputs: a CGPA
-on the 10-point scale. Output: an estimated percentage. The result is labelled an estimate on
-the page because no single conversion rule applies everywhere: many universities publish their
-own formula, and the ×9.5 rule is a CBSE school-board convention. Always confirm against the
-formula printed on your own marksheet or issued by your board or university.
+Average. Inputs: a CGPA on the 10-point scale, plus a selectable conversion formula — CBSE
+×9.5, VTU/AKTU/JNTU (CGPA−0.75)×10, GTU (CGPA−0.5)×10, Mumbai University 7.1×CGPA+11, or
+plain CGPA×10. Outputs: an estimated percentage and the division classification (First Class
+with Distinction, First Class, Second Class, or Pass Class), plus a reference chart of CGPA
+5.0–10.0 under each formula. The result is labelled an estimate on the page because no single
+conversion rule applies everywhere: many universities publish their own formula, and the ×9.5
+rule is a CBSE school-board convention. Always confirm against the formula printed on your own
+marksheet or issued by your board or university.
 
 ### Word Counter — https://tulyro.online/text/word-counter/
 
@@ -134,6 +139,22 @@ present them as real.
   DATEDIF, YEARFRAC and the quick method for exact ages in spreadsheets, with the three errors everyone hits.
 - Is BMI Accurate? What the Number Can't Tell You — https://tulyro.online/guides/is-bmi-accurate/
   Where BMI fails (muscle, age, build), what it gets right, and what doctors check instead.
+- How to Calculate BMI: The Formula in Metric and Imperial Units — https://tulyro.online/guides/how-to-calculate-bmi/
+  The BMI formula worked step by step in metric and imperial units, with common mistakes flagged.
+- How Many Words Fit on a Page? — https://tulyro.online/guides/how-many-words-per-page/
+  Word counts for single- and double-spaced pages by document type, with margins and font effects.
+- How to Create a GST-Compliant Invoice in India — https://tulyro.online/guides/how-to-create-gst-compliant-invoice-india/
+  All 16 mandatory fields under CGST Rule 46, CGST/SGST vs IGST splits, and a worked ₹50,000 example.
+- How Mortgage Amortization Works — https://tulyro.online/guides/how-mortgage-amortization-works/
+  Why most early payments go to interest, a worked $300,000 example, and a 15-year vs 30-year comparison.
+- What Is Base64 Encoding, and When to Use It — https://tulyro.online/guides/what-is-base64-encoding-and-when-to-use-it/
+  The 24-bit maths behind Base64, why it adds 33% size, padding, and why it is not encryption.
+- How Browser Text-to-Speech Works — https://tulyro.online/guides/how-browser-text-to-speech-web-speech-api-works/
+  The Web Speech API, optimal listening speeds, and proofreading by ear.
+- How Unicode Fancy Text Works on Social Media — https://tulyro.online/guides/how-unicode-fancy-text-fonts-work-on-social-media/
+  Mathematical Alphanumeric Symbols, style ranges, and accessibility rules.
+- How to Create Chat Mockups for Presentations and UI — https://tulyro.online/guides/how-to-create-chat-mockups-for-presentations-and-ui/
+  Design specs for crisp chat mockups in Reels, decks, and documentation, with ethical guidelines.
 - All Guides — https://tulyro.online/guides/
 
 ## Sources cited on tool pages

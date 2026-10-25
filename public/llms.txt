@@ -17,8 +17,8 @@
 - [Age Calculator](https://tulyro.online/calculators/age-calculator/): Calculate exact age in years, months and days from a date of birth. See total days lived and the next birthday.
 - [EMI Calculator](https://tulyro.online/calculators/emi-calculator/): Estimate a monthly EMI, total interest and total payment for an Indian loan in rupees.
 - [Mortgage Calculator](https://tulyro.online/calculators/mortgage-calculator/): Estimate a US mortgage payment with total interest and total payment in dollars.
-- [BMI Calculator](https://tulyro.online/calculators/bmi-calculator/): Check adult BMI from height and weight in metric or imperial units, with screening categories explained.
-- [CGPA to Percentage](https://tulyro.online/calculators/cgpa-to-percentage/): Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate.
+- [BMI Calculator](https://tulyro.online/calculators/bmi-calculator/): Check adult BMI from height and weight in metric or imperial units, with a switch between WHO global cutoffs and Indian/Asian ICMR cutoffs, plus healthy-weight ranges by height.
+- [CGPA to Percentage](https://tulyro.online/calculators/cgpa-to-percentage/): Convert a 10-point CGPA to an estimated percentage using a selectable university formula — CBSE ×9.5, VTU/AKTU/JNTU (CGPA−0.75)×10, GTU (CGPA−0.5)×10, Mumbai 7.1×CGPA+11, or plain CGPA×10 — with division classification. The result is an estimate.
 - [Word Counter](https://tulyro.online/text/word-counter/): Count words, characters, sentences and reading time as you type.
 - [Text to Speech](https://tulyro.online/text/text-to-speech/): Listen to text read aloud with voices already in the browser. No audio download.
 - [Fancy Text Generator](https://tulyro.online/text/fancy-text-generator/): Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more.
@@ -35,6 +35,14 @@
 - [How to Choose an EMI Calculator](https://tulyro.online/guides/how-to-choose-emi-calculator/): Five checks that separate honest EMI calculators from traps — total interest, amortization, prepayment, currency, disclosed limits.
 - [Calculate Age in Excel](https://tulyro.online/guides/calculate-age-in-excel/): DATEDIF, YEARFRAC and the quick method for exact ages in spreadsheets, with common errors.
 - [Is BMI Accurate? What the Number Can't Tell You](https://tulyro.online/guides/is-bmi-accurate/): Where BMI fails (muscle, age, build), what it gets right, and what doctors check instead.
+- [How to Calculate BMI: The Formula in Metric and Imperial Units](https://tulyro.online/guides/how-to-calculate-bmi/): The BMI formula worked step by step in metric and imperial units, with common mistakes flagged.
+- [How Many Words Fit on a Page?](https://tulyro.online/guides/how-many-words-per-page/): Word counts for single- and double-spaced pages by document type, with margins and font effects.
+- [How to Create a GST-Compliant Invoice in India](https://tulyro.online/guides/how-to-create-gst-compliant-invoice-india/): All 16 mandatory fields under CGST Rule 46, CGST/SGST vs IGST splits, and a worked ₹50,000 example.
+- [How Mortgage Amortization Works](https://tulyro.online/guides/how-mortgage-amortization-works/): Why most early payments go to interest, a worked $300,000 example, and 15-year vs 30-year comparison.
+- [What Is Base64 Encoding, and When to Use It](https://tulyro.online/guides/what-is-base64-encoding-and-when-to-use-it/): The 24-bit maths behind Base64, why it adds 33% size, padding, and why it is not encryption.
+- [How Browser Text-to-Speech Works](https://tulyro.online/guides/how-browser-text-to-speech-web-speech-api-works/): The Web Speech API, optimal listening speeds, and proofreading by ear.
+- [How Unicode Fancy Text Works on Social Media](https://tulyro.online/guides/how-unicode-fancy-text-fonts-work-on-social-media/): Mathematical Alphanumeric Symbols, style ranges, and accessibility rules.
+- [How to Create Chat Mockups for Presentations and UI](https://tulyro.online/guides/how-to-create-chat-mockups-for-presentations-and-ui/): Design specs for crisp chat mockups in Reels, decks, and documentation, with ethical guidelines.
 - [All Guides](https://tulyro.online/guides/): Index of every guide.
 
 ## Pages

@@ -10,6 +10,8 @@ export type ToolDefinition = {
   keywords: string[];
   related: string[];
   live: boolean;
+  /** Long-form H1 for the tool page. Falls back to `title` (used on cards, breadcrumbs, JSON-LD). */
+  h1?: string;
   /** Intent-rich <title> for search results. Falls back to `${title} | Tulyro`. */
   seoTitle?: string;
   /** Intent-rich meta description. Falls back to the short description. */
@@ -69,9 +71,10 @@ export const tools: ToolDefinition[] = [
     keywords: ["bmi", "body mass index", "weight", "height"],
     related: ["age-calculator", "cgpa-to-percentage"],
     live: true,
-    seoTitle: "BMI Calculator — Body Mass Index, Metric & Imperial | Tulyro",
+    h1: "BMI Calculator — Body Mass Index (WHO & Indian ICMR Scales)",
+    seoTitle: "BMI Calculator — WHO & Indian ICMR Scales, Metric & Imperial | Tulyro",
     seoDescription:
-      "Check adult BMI from height and weight in metric or imperial units, with screening categories explained. Uses WHO adult cutoffs. Free, browser-only.",
+      "Check adult BMI from height and weight in metric or imperial units, with WHO and Indian/Asian ICMR screening cutoffs and a healthy weight range. Free, browser-only.",
   },
   {
     id: "cgpa-to-percentage",
@@ -83,9 +86,10 @@ export const tools: ToolDefinition[] = [
     keywords: ["cgpa", "percentage", "marks", "cbse"],
     related: ["age-calculator", "word-counter"],
     live: true,
-    seoTitle: "CGPA to Percentage Calculator (×9.5, CBSE) | Tulyro",
+    h1: "CGPA to Percentage Calculator — CBSE 9.5, UGC 10-Point & Indian Universities",
+    seoTitle: "CGPA to Percentage Calculator — CBSE ×9.5, VTU, Mumbai & More | Tulyro",
     seoDescription:
-      "Convert a 10-point CGPA to an estimated percentage using the CBSE ×9.5 convention. The result is an estimate — confirm your institution's rule. Free.",
+      "Convert a 10-point CGPA to an estimated percentage with CBSE ×9.5, UGC ×10, VTU, GTU/BPUT, and Mumbai University formulas. The result is an estimate — confirm your institution's rule. Free.",
   },
   {
     id: "word-counter",

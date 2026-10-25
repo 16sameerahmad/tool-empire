@@ -101,7 +101,10 @@ export const content: Record<string, ToolContent> = {
       "You can repeat a scenario with a different term to understand the trade-off between cash flow and total cost. Keep the currency and grouping in mind when comparing this page with a lender's statement, and do not mix a monthly rate with an annual rate. The input labels describe the assumptions used by the formula so a second calculation can be checked consistently.",
     ],
     sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
-    guides: [{ label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" }],
+    guides: [
+      { label: "How Mortgage Amortization Works: Principal vs. Interest Explained", href: "/guides/how-mortgage-amortization-works/" },
+      { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
+    ],
     faq: faq([
       { question: "Does this include property taxes?", answer: "No. It estimates principal and interest only." },
       { question: "Why is the payment an estimate?", answer: "The payment is an estimate because it covers principal and interest only, using the amount, rate and term you entered. A lender's figure can differ through property tax, insurance, mortgage insurance, fees, closing costs, rounding, payment dates or an adjustable rate. Always confirm the full monthly cost with the lender before applying." },
@@ -113,8 +116,8 @@ export const content: Record<string, ToolContent> = {
   },
   "bmi-calculator": {
     definition: "Body mass index (BMI) is a screening number calculated as weight in kilograms divided by height in metres squared.",
-    intro: "Calculate adult BMI from metric or imperial height and weight inputs.",
-    howTo: ["Choose Metric or Imperial units.", "Enter height and weight.", "Read the BMI value and screening category."],
+    intro: "Calculate adult BMI with WHO or Indian/Asian ICMR cutoffs, from metric or imperial height and weight.",
+    howTo: ["Choose Metric or Imperial units.", "Choose the WHO global or Indian/Asian ICMR scale.", "Enter height and weight.", "Read the BMI value and screening category."],
     content: [
       "Body mass index, or BMI, is a screening measure based on height and weight. This calculator supports metric centimetres and kilograms as well as imperial feet, inches, and pounds. It converts imperial values using exact unit factors, calculates weight in kilograms divided by height in metres squared, and displays the result to one decimal place. The category is based on that displayed value so boundary results are easy to understand.",
       "For adults, the screening ranges used here are under 18.5 for Underweight, 18.5 through 24.9 for Normal, 25.0 through 29.9 for Overweight, and 30.0 or above for Obese. These cutoffs match the WHO's adult definitions: overweight is a BMI of 25 or more, and obesity is a BMI of 30 or more. These categories are commonly used adult ranges, but BMI cannot distinguish muscle, bone, fat distribution, age, pregnancy, or many health conditions. It is not a diagnosis. Children and teenagers need age- and sex-specific charts, so this page is intended for adults aged 18 and over.",
@@ -124,7 +127,7 @@ export const content: Record<string, ToolContent> = {
       "BMI can be useful for a population-level screening conversation, but a single number does not describe fitness, nutrition, or health on its own. Record the units beside any value you share, because a pound and a kilogram are not interchangeable. The page keeps the conversion factors visible in its implementation and gives an error rather than producing a misleading result for an impossible height or weight.",
       "Two quick examples show the arithmetic. A person weighing 70 kg at 1.75 m has a BMI of 70 divided by (1.75 times 1.75), which is 22.9 — inside the normal range. A person weighing 85 kg at 1.70 m has a BMI of 85 divided by (1.70 times 1.70), which is 29.4 — in the overweight range, near the obesity cutoff. Small changes move the number more than people expect: at 1.70 m, each kilogram of weight shifts BMI by about 0.35. Try the calculator with your own numbers rather than trusting a remembered figure.",
       "BMI's biggest blind spot is composition. A strength athlete with heavy muscle can score above 25 while carrying little body fat; an older adult can score normal while having lost significant muscle. The formula also ignores where fat sits — abdominal fat is more closely linked to health risk than fat elsewhere — and it says nothing about fitness, diet quality, sleep, or blood markers. Two people with the same BMI of 27 can have very different health profiles. Treat the number as one input among many, not a verdict.",
-      "Cutoffs are debated for Asian populations. The WHO has noted that health risks in Asian populations tend to rise at lower BMI values than in European populations, and some countries publish lower action thresholds. There is no single agreed alternative scale, so this page keeps the standard WHO adult cutoffs — 25 for overweight, 30 for obesity — for consistency and labels the result a screening number. If you are of Asian descent, mention it when discussing the result with a health professional rather than reinterpreting the category yourself.",
+      "Cutoffs are debated for Asian populations. The WHO has noted that health risks in Asian populations tend to rise at lower BMI values than in European populations, and some countries publish lower action thresholds. The Indian/Asian ICMR cutoffs used by many Indian clinicians set overweight at 23.0 and obesity at 25.0. This page lets you switch between the WHO global standard and the Indian/Asian ICMR scale above the calculator, so you can see both readings. If you are of Asian descent, mention it when discussing the result with a health professional rather than reinterpreting the category yourself.",
       "Two cheap companions make BMI more informative. Waist circumference reflects the abdominal fat that BMI misses; a tape measure around the waist at navel level takes seconds. Body-fat percentage, estimated by calipers, bioimpedance scales, or a DEXA scan, separates fat from lean mass directly. None of these replaces clinical judgement either. The practical move is to track the same measurements the same way over time — trends beat single readings.",
       "A result outside the normal range is a prompt, not a prescription. General, low-risk steps include re-measuring in a week to rule out error, reviewing sleep, activity, and eating patterns honestly, and booking a check-up if the number stays high or weight changed quickly. Avoid crash diets and unregulated supplements; rapid weight loss can cost muscle and rebound. This page gives general information only and is not medical advice — a qualified professional who knows your history should interpret the number.",
       "For children and teenagers, adult cutoffs do not apply because healthy BMI changes with growth. Paediatricians use BMI-for-age percentiles plotted on sex-specific growth charts: a percentile, not the raw number, decides the category. Online adult calculators will misclassify a growing child, so do not use this page for anyone under 18. If you are checking a child's growth, ask the paediatrician which chart they use and bring the raw height and weight, not just a BMI value.",
@@ -137,7 +140,8 @@ export const content: Record<string, ToolContent> = {
       { question: "Are children covered?", answer: "No. This calculator is intended for adults aged 18 and over." },
       { question: "Is BMI accurate?", answer: "BMI is a useful screening number, but it is not a precise measure of health on its own. It cannot tell muscle from fat, so a muscular person can score as overweight, and it says nothing about where fat is carried. Treat the result as a starting point for a conversation with a health professional, not a diagnosis." },
       { question: "How does a BMI calculator work?", answer: "It divides your weight in kilograms by your height in metres squared. For example, 70 kg at 1.75 m gives 70 ÷ (1.75 × 1.75) = 22.9. If you enter imperial units, it first converts pounds to kilograms and feet and inches to metres using exact conversion factors, then applies the same formula." },
-      { question: "Is BMI different for Indians or Asians?", answer: "The WHO notes that health risks in Asian populations can rise at lower BMI values, and some countries use lower thresholds — but there is no single agreed alternative scale. This page uses the standard WHO adult cutoffs for consistency. Mention your background to your doctor when discussing the result." },
+      { question: "Is BMI different for Indians or Asians?", answer: "The WHO notes that health risks in Asian populations can rise at lower BMI values, and some countries use lower thresholds. The Indian/Asian ICMR cutoffs — overweight at 23.0, obese at 25.0 — are offered on this page alongside the WHO standard; switch scales above the calculator to compare. Mention your background to your doctor when discussing the result." },
+      { question: "Is BMI different for men and women?", answer: "No. The formula and the cutoffs are the same for adult men and women aged 20 and over. Average body composition differs between men and women, but that does not change the BMI bands — it is one more reason the number is a screening flag, not a diagnosis." },
       { question: "Can a muscular person have an overweight BMI?", answer: "Yes. BMI cannot tell muscle from fat, so strength athletes often score above 25 while lean. If you train heavily, pair BMI with a waist measurement or body-fat estimate instead of reading the category alone." },
       { question: "What is more accurate than BMI?", answer: "Body-fat percentage (calipers, bioimpedance scales, DEXA scans) separates fat from lean mass, and waist circumference captures the abdominal fat that BMI misses. Each has error margins too — tracking trends in the same measurements over time is more useful than any single reading." },
       { question: "How often should I check my BMI?", answer: "Monthly is plenty for most adults; weight fluctuates daily with water, food, and timing. Measure under consistent conditions — same time of day, similar clothing — and watch the trend rather than reacting to one reading." },
@@ -151,10 +155,10 @@ export const content: Record<string, ToolContent> = {
   },
   "cgpa-to-percentage": {
     definition: "CGPA to percentage conversion estimates a percentage from a 10-point Cumulative Grade Point Average, commonly by multiplying the CGPA by 9.5 under the CBSE convention.",
-    intro: "Convert a 10-point CGPA to an estimated percentage using ×9.5.",
-    howTo: ["Enter a CGPA from 0 to 10.", "Review the multiplier shown on the page.", "Use the displayed percentage as an estimate."],
+    intro: "Convert a 10-point CGPA to an estimated percentage — CBSE ×9.5, UGC ×10, VTU, GTU/BPUT, and Mumbai University formulas.",
+    howTo: ["Choose your university's conversion formula.", "Enter a CGPA from 0 to 10.", "Use the displayed percentage as an estimate."],
     content: [
-      "This CGPA to percentage calculator applies the commonly published CBSE convention of multiplying a 10-point CGPA by 9.5. Enter a value from 0 to 10 and the page displays the percentage to two decimal places. For example, 8.00 becomes 76.00 percent and 7.50 becomes 71.25 percent. The multiplier is shown next to the result so the method is transparent rather than hidden behind a single answer.",
+      "This CGPA to percentage calculator applies the commonly published CBSE convention of multiplying a 10-point CGPA by 9.5. Enter a value from 0 to 10 and the page displays the percentage to two decimal places. For example, 8.00 becomes 76.00 percent and 7.50 becomes 71.25 percent. The multiplier is shown next to the result so the method is transparent rather than hidden behind a single answer. Use the formula selector above the input to switch between the CBSE ×9.5 rule, the UGC ×10 scale, and the VTU, GTU/BPUT, and Mumbai University formulas — each is labelled with its rule, and the result always states which formula was used.",
       "Institutions do not all convert grades in the same way. Some universities publish their own formula, transcript rule, or conversion table. The 9.5 multiplier is therefore an estimated convention for this page, not a universal academic law. Check your school, university, employer, or application instructions before submitting the result. The page does not provide a US GPA mode; that mode is intentionally blocked until its formula and source are decided.",
       "The input accepts numeric values with up to two decimal places. Negative values, values above 10, non-numeric text, and malformed input show a plain-language error. An empty field keeps the result area in its placeholder state. The calculation is a pure multiplication, so it is immediate and deterministic. No mark, name, or academic information is stored, and the entered value remains only in the current browser page.",
       "A percentage estimate can help with a quick comparison, but it does not change the official grade on a transcript. If an application asks for both CGPA and percentage, provide the original CGPA as well as the conversion rule used. This tool is informational and does not replace an institution's official document. Use the linked tools for other everyday calculations, but keep each result tied to the assumptions stated on its page.",
@@ -168,8 +172,13 @@ export const content: Record<string, ToolContent> = {
       { question: "Does it include GPA conversion?", answer: "No. US GPA mode is not shipped until its formula and source are decided." },
       { question: "How many decimals are shown?", answer: "The percentage is displayed to two decimal places." },
       { question: "Is multiplying by 9.5 always correct?", answer: "No. Multiplying by 9.5 is the commonly published CBSE convention for a 10-point CGPA, and this page labels its result an estimate for that reason. Other institutions publish their own conversion rules or tables. Always check the rule your university, employer, or application requires before submitting a converted percentage." },
+      { question: "Why does a 10 CGPA give 95% and not 100%?", answer: "Because the CBSE ×9.5 convention maps the top of the 10-point scale to 95%. A student scoring 99% also gets a CGPA of 10, so the formula can never produce 96–100%. The CGPA is the fact; the percentage is an interpretation of it." },
+      { question: "How do I convert a VTU CGPA to a percentage?", answer: "VTU uses (CGPA − 0.75) × 10 under its CBCS scheme, so 8.0 CGPA is 72.5%. AKTU and JNTU use the same formula. Always check your transcript or university circular — if it already prints a percentage, use that." },
     ]),
-    guides: [{ label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" }],
+    guides: [
+      { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+      { label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" },
+    ],
   },
   "word-counter": {
     definition: "A word counter measures a piece of text by counting its words, characters, sentences, and estimated reading time.",
@@ -214,7 +223,10 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the text limit?", answer: "The text area accepts up to 10,000 characters." },
       { question: "How do I make my computer read text aloud?", answer: "Paste your text into the box on this page, pick a voice and speed, then press Play. Your browser's built-in voices read the text aloud — nothing needs installing and no audio file is created. If no voices appear, the page explains that your browser does not support text to speech." },
     ]),
-    guides: [{ label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" }],
+    guides: [
+      { label: "How Browser Text-to-Speech Works (Web Speech API Guide & Pacing)", href: "/guides/how-browser-text-to-speech-web-speech-api-works/" },
+      { label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" },
+    ],
   },
   "fancy-text-generator": {
     definition: "A fancy text generator replaces ordinary Latin letters with visually styled Unicode characters that can be copied and pasted.",
@@ -237,6 +249,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What if copying is blocked?", answer: "Select the output and press Ctrl+C on Windows or Cmd+C on Mac." },
       { question: "How do I make fancy text for Instagram?", answer: "Type your text here, pick one of the style rows, and copy it. Then open Instagram, go to Edit Profile, and paste the styled text into your bio. The styles are Unicode characters rather than a font, so they paste anywhere plain text is accepted — but keep important details in ordinary text, since styled characters can read poorly in screen readers." },
     ]),
+    guides: [{ label: "How Unicode Fancy Text Fonts Work on Instagram, LinkedIn & X", href: "/guides/how-unicode-fancy-text-fonts-work-on-social-media/" }],
   },
   "base64-encoder-decoder": {
     definition: "Base64 is a reversible encoding that represents binary data using letters, digits, plus, slash, and padding. It is not encryption.",
@@ -259,6 +272,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What happens with invalid UTF-8?", answer: "The decoder reports that the decoded data is not valid UTF-8 text." },
       { question: "What is Base64 used for?", answer: "Base64 carries binary data through systems that only handle text. Common uses include email attachments (MIME), embedding small images in HTML or CSS as data URLs, sending binary payloads inside JSON APIs, and HTTP Basic Authentication headers. It changes the format of data — it does not encrypt or compress it." },
     ]),
+    guides: [{ label: "What Is Base64 Encoding, Why Does It Add 33% Size & When to Use It", href: "/guides/what-is-base64-encoding-and-when-to-use-it/" }],
   },
   "invoice-generator": {
     definition: "An invoice is a document a seller gives a buyer that lists goods or services, quantities, prices, tax, and the total amount owed.",
@@ -280,6 +294,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Is the form saved?", answer: "No. Refreshing clears the form, so print or save it before leaving." },
       { question: "What should an invoice include?", answer: "A complete invoice usually lists the word 'Invoice', the seller's and buyer's details, a unique invoice number, the issue date, itemised lines with quantity and unit price, subtotal, tax, and total, plus payment terms or a due date. This generator covers those core fields. Check your local tax rules for extras your jurisdiction requires, such as a tax identification number." },
     ]),
+    guides: [{ label: "How to Create a GST-Compliant Invoice in India (Rule 46 Checklist)", href: "/guides/how-to-create-gst-compliant-invoice-india/" }],
   },
   "fake-text-generator": {
     definition: "A fake text generator creates a fictional chat mockup for sketches, presentations, and entertainment. It is not connected to any messaging app.",
@@ -301,6 +316,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What is it for?", answer: "Use it for mockups, humour, entertainment and design exploration — for example, a chat wireframe, a presentation example or a joke screenshot. It is a generic browser-only mockup, not a real messaging app, so label fictional conversations clearly and never present one as evidence of a real exchange." },
       { question: "Is it legal to make a fake text message?", answer: "Making a chat mockup for jokes, presentations, wireframes, education, or entertainment is generally fine. It crosses the line when a mockup is presented as a real conversation — to deceive someone, defraud, impersonate, harass, or serve as fake evidence. Label fictional conversations clearly and never pass one off as real. This is general information, not legal advice." },
     ]),
+    guides: [{ label: "How to Create Realistic Chat Mockups for Videos, UI & Decks (No Watermark)", href: "/guides/how-to-create-chat-mockups-for-presentations-and-ui/" }],
   },
 };
 

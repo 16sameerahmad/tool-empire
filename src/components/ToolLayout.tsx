@@ -15,7 +15,7 @@ const HERO_PILLS: Record<string, string> = {
   "emi-calculator": "Financial Engineering Suite • Instant Computation",
   "mortgage-calculator": "Home Loan Suite • Instant Computation",
   "bmi-calculator": "Biometric Health Suite • Screening Only",
-  "cgpa-to-percentage": "Academic Grading Suite • CBSE 9.5",
+  "cgpa-to-percentage": "Academic Grading Suite • 5 University Formulas",
   "word-counter": "Text Analytics Suite • Real-Time Parsing",
   "text-to-speech": "Web Speech Synthesis • In-Browser Audio",
   "fancy-text-generator": "Unicode Typography Suite • Client-Side Only",
@@ -74,7 +74,7 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
               <span className="h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
               {HERO_PILLS[tool.id] ?? "Client-Side Only"}
             </p>
-            <h1 className="hero-enter mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg" style={{ ["--enter-delay" as string]: "90ms" }}>{tool.title}</h1>
+            <h1 className="hero-enter mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg" style={{ ["--enter-delay" as string]: "90ms" }}>{tool.h1 ?? tool.title}</h1>
             <p className="hero-enter mt-2 max-w-2xl font-body-lg text-body-lg text-tertiary-fixed-dim" style={{ ["--enter-delay" as string]: "180ms" }}>{intro}</p>
           </div>
         </section>

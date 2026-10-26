@@ -89,3 +89,21 @@
 - **Verification:** typecheck ✓, lint ✓, vitest 33/33 ✓, `next build` ✓ — all green.
   Table + heading confirmed in built HTML. Live: 2026-10-19 ~10:50 IST, curl after
   Vercel auto-deploy → HTTP 200, heading + values present on the production page.
+
+## 2026-10-26 — EMI guide: month-by-month amortisation table (weekly run, Day 13)
+
+- **Change:** New "Month by month: where each ₹8,884.88 goes" section on the EMI guide
+  (`/guides/how-to-calculate-emi/`): 12-row schedule for the guide's own worked
+  example (₹1,00,000 @ 12%, 12 months) — month, interest, principal repaid, balance
+  left — using the same `overflow-x-auto` bordered-table pattern as the CGPA
+  conversion table. Closes Argon audit gap "EMI tool lacks amortization table" in
+  content form; tool logic untouched (the tool's own disclaimer still correctly
+  says the calculator itself does not show amortisation tables).
+- **Verification:** every figure recomputed independently (node): interest column
+  sums to ₹6,618.55, total paid ₹1,06,618.55, final balance ₹0.00 — matches the
+  guide's existing worked-example totals exactly. Gates all green: `tsc --noEmit` ✓,
+  `eslint .` ✓ (one unescaped-apostrophe lint error found and fixed mid-run),
+  vitest 33/33 ✓, `next build` ✓. Table + values confirmed in built HTML.
+- **Live:** commit `f1f8c5a`, pushed to `main`; Vercel auto-deploy verified
+  2026-10-26 ~10:45 IST — curl on `https://tulyro.online/guides/how-to-calculate-emi/`
+  returns HTTP 200 with the new heading and table values present.

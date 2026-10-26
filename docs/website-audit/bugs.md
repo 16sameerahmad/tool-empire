@@ -70,3 +70,31 @@ grew from 23 to 29 URLs since 2026-10-14.
 
 **New verified fixes landed since 2026-10-14:** security headers (S1–S3) fixed by
 commit `ff34254`, verified live this run — see security.md.
+
+## 2026-10-26 — Weekly run entry (Day 13, full audit + fix)
+
+**Calculation spot-checks (recomputed, all match):**
+- EMI(₹100,000, 12%, 12mo) = **8,884.88** — matches `src/tools/emi/logic.ts` and vitest.
+- BMI(70kg, 175cm) = **22.9** ("Normal").
+- Age(2000-01-01 as of 2026-10-26) = **9,795 days lived** (26y 9m 25d) — consistent with
+  9,788 on 2026-10-19 + 7 days.
+
+**Routes/links:** 10/10 sampled live URLs → HTTP 200 (/, /tools/, /guides/,
+/calculators/emi-calculator/, /guides/how-to-calculate-emi/,
+/guides/how-mortgage-amortization-works/, /text/word-counter/,
+/fun/fake-text-generator/, /tools/invoice-generator/, /privacy/). Sitemap lists
+**36 URLs** (was 29 on 2026-10-19; +6 guides + llms refresh from Argon Days 5–13,
+commit `2760da0`). Old host `tulyrotools.vercel.app` → **308** to `tulyro.online`.
+
+**Responsive code review:** all decorative blur blobs (`-right-24`, `-left-20`, etc.)
+sit inside `overflow-hidden` sections (GuideLayout, ToolLayout, HubPage, homepage);
+new guide tables reuse the `overflow-x-auto` wrapper. No new overflow risk found in
+code. Real-device screenshot check still pending (H2 remains open on that point only).
+
+**New findings:**
+- FINDING (Low, doc accuracy): `security.md` "Verified clean" table claims HSTS
+  `max-age=63072000; includeSubDomains; preload`, but the live homepage serves only
+  `Strict-Transport-Security: max-age=63072000` (no flags). The table is stale vs
+  live. Next-best fix candidate: set the full HSTS value in `vercel.json` headers.
+- No verified functional bugs found this run. H3 (TTS voice quality, Sam-side manual)
+  and H5 (ToolPanel state resets, needs a verified repro first) remain OPEN.

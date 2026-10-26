@@ -55,3 +55,23 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
   closed); 0 `<img>` tags (H4 closed); secrets clean incl. git history (S7
   closed); headers S1–S3 fixed & live (`ff34254`); npm audit still 403-blocked
   (S6 open); H3/H5 remain open hypotheses.
+
+## 2026-10-26 — Weekly run (Day 13): EMI amortisation table in guide
+
+- **Change:** Added a "Month by month: where each ₹8,884.88 goes" section to the EMI
+  guide (`/guides/how-to-calculate-emi/`): 12-row amortisation schedule for the
+  guide's own worked example (₹1,00,000 @ 12%, 12 months). All figures recomputed
+  independently — interest ₹6,618.55, total paid ₹1,06,618.55, final balance ₹0.00 —
+  matching the guide's existing totals. Files: `src/lib/guides.tsx` (+1 section, 42 lines).
+  Closes Argon audit gap "EMI tool lacks amortization table" in content form.
+- **Verification:** `tsc --noEmit` ✓ · `eslint .` ✓ (1 apostrophe error fixed mid-run) ·
+  vitest 33/33 ✓ · `next build` ✓ (all green, no revert needed). Table + values
+  confirmed in built HTML (`out/guides/how-to-calculate-emi/index.html`).
+- **Live:** commit `f1f8c5a`, verified 2026-10-26 ~10:45 IST — curl on
+  `https://tulyro.online/guides/how-to-calculate-emi/` returns HTTP 200 with the new
+  heading and table values (₹92,115.12 spot-checked).
+- **Audit findings this run (read-only):** calc spot-checks ✓ (EMI 8,884.88 / BMI 22.9 /
+  Age 9,795 days); 10/10 sampled routes → 200; sitemap now 36 URLs; 308 redirect from
+  old vercel.app host ✓; secrets clean; headers S1–S3 live; npm audit still 403-blocked
+  (S6 open); NEW Low finding: live HSTS lacks includeSubDomains/preload, contradicting
+  security.md's table — next-run fix candidate. H3/H5 remain open hypotheses.

@@ -149,3 +149,59 @@ insufficient data — no GSC country data yet.
 ### Next action (week of YYYY-MM-DD)
 
 1. (one highest-value action, owner, verification method)
+
+## Week of 2026-10-26 (Day 13) — GSC data pending (Sam has not pasted fresh GSC data)
+
+**Measured facts only.** No GSC numbers were pasted for this week, so all GSC rows are
+"insufficient data" — nothing is invented. Last known GSC state (Argon audit,
+2026-10-25, real GSC data): **0 clicks / 0 impressions**, 10 of 30 sitemap URLs
+indexed at that time. Site is now 36 URLs live (6 new guides landed 2026-10-25,
+commit `2760da0`).
+
+| Metric | This week | Previous week | Delta | Note |
+|---|---|---|---|---|
+| GSC clicks | insufficient data | 0 (2026-10-25 Argon audit) | — | No fresh GSC paste this run |
+| GSC impressions | insufficient data | 0 (2026-10-25 Argon audit) | — | No fresh GSC paste this run |
+| Average CTR | insufficient data | — | — | No data |
+| Average position | insufficient data | — | — | No data |
+| Indexed pages (GSC) | insufficient data | 10 of 30 (2026-10-25) | — | Re-check needed after 36-URL sitemap settles |
+| Sitemap URLs submitted | 36 live | 30 (2026-10-25) | +6 | 6 new guides (Days 7–12) |
+
+### Top queries (week of 2026-10-26)
+
+insufficient data — no fresh GSC paste.
+
+### Top pages (week of 2026-10-26)
+
+insufficient data — no fresh GSC paste.
+
+### Countries (week of 2026-10-26)
+
+insufficient data — no fresh GSC paste.
+
+### Competitor-change notes (week of 2026-10-26)
+
+- Public SERP check 2026-10-26 ("EMI calculator India monthly payment", verified-public):
+  top results are ClearTax, GoPocket, hrcalcy.in, swastika.co.in, buddyloan, fundulator.in.
+  No ranking claim about Tulyro is made from this — it only shows who visibly ranks today.
+- hrcalcy.in (small newer site, verified-public) ranks with a full amortisation schedule
+  plus reverse modes (find loan amount / tenure, rate-change impact, CSV download).
+  Implication (correlation-only): schedule depth is a visible pattern among ranking EMI
+  pages — our EMI guide now has a 12-month schedule table (this run, commit `f1f8c5a`).
+  Whether it moves rankings is unproven until GSC shows impressions.
+
+### Wins / losses diagnosis (week of 2026-10-26)
+
+- Win: EMI guide now carries a verified month-by-month amortisation table (all figures
+  independently recomputed; totals match the guide's worked example exactly). Evidence
+  for the change is the live page itself; any ranking effect is correlation-only until
+  GSC data arrives.
+- Loss: none measured — no GSC data to show a loss.
+- Open: HSTS flags missing live (Low, doc-accuracy + hardening) — next-run fix candidate.
+
+### Next action (week of 2026-10-26)
+
+1. Set full HSTS (`max-age=63072000; includeSubDomains; preload`) via `vercel.json`
+   headers + correct the stale HSTS row in `docs/website-audit/security.md`; verify
+   live with `curl -I`. Owner: weekly run. (Sam-side: paste fresh GSC data when
+   available so the next weekly entry can compare real numbers.)

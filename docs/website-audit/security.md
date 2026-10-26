@@ -121,3 +121,24 @@ Incident response: no formal plan exists; for a static site the recovery path is
   Sandbox Egress CA certificate), so the origin certificate's real expiry is not
   observable from this VM. Vercel auto-renews; confirmation stays Sam-side in the
   Vercel dashboard.
+
+## 2026-10-26 — Weekly re-check (Day 13)
+
+- **S1/S2/S3 → still FIXED, verified live.** Homepage serves `Content-Security-Policy-Report-Only`
+  (same policy as 2026-10-19), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(),
+  geolocation=()`. CSP stays report-only per the audit's own recommendation.
+- **Secrets re-check → clean.** Working-tree grep for API-key/secret/password/token
+  assignment patterns across `src/`, `public/`, `vercel.json`, `next.config.ts`: no hits.
+  GSC verification token in `src/app/layout.tsx` remains required-by-Google, not a leak;
+  its value is never reproduced in reports.
+- **S6 → still UNVERIFIED.** `npm audit` still fails with egress-proxy `403 policy_denied`
+  (same as 2026-10-14 and 2026-10-19). Production dependency surface is still 3 packages
+  (next, react, react-dom). Do NOT claim "no vulnerabilities" until a scan actually runs.
+- **NEW (Low): HSTS flags missing live.** Live `Strict-Transport-Security` is
+  `max-age=63072000` only — no `includeSubDomains`, no `preload` — contradicting the
+  "Verified clean" table above, which claims all three. Table needs correction; the fix
+  is a one-line `vercel.json` header addition (candidate for next run).
+- **S5 → still INFO.** Egress proxy performs TLS interception, so the origin certificate's
+  real expiry is not observable from this VM. Vercel auto-renews; confirmation stays
+  Sam-side in the Vercel dashboard.

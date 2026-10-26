@@ -78,6 +78,48 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Month by month: where each ₹8,884.88 goes",
+        body: [
+          <>
+            Same loan, split open. Each month the interest is 1% of what you still owe, the rest of
+            the EMI repays principal, and the balance falls. Watch the two middle columns trade
+            places: month 1 is mostly interest, month 12 is almost all principal.
+          </>,
+          <div key="emi-amortization-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Month</th>
+                <th className="border border-outline-variant/60 p-3">Interest</th>
+                <th className="border border-outline-variant/60 p-3">Principal repaid</th>
+                <th className="border border-outline-variant/60 p-3">Balance left</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">1</td><td className="border border-outline-variant/60 p-3">₹1,000.00</td><td className="border border-outline-variant/60 p-3">₹7,884.88</td><td className="border border-outline-variant/60 p-3">₹92,115.12</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">2</td><td className="border border-outline-variant/60 p-3">₹921.15</td><td className="border border-outline-variant/60 p-3">₹7,963.73</td><td className="border border-outline-variant/60 p-3">₹84,151.39</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">3</td><td className="border border-outline-variant/60 p-3">₹841.51</td><td className="border border-outline-variant/60 p-3">₹8,043.36</td><td className="border border-outline-variant/60 p-3">₹76,108.03</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">4</td><td className="border border-outline-variant/60 p-3">₹761.08</td><td className="border border-outline-variant/60 p-3">₹8,123.80</td><td className="border border-outline-variant/60 p-3">₹67,984.23</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">5</td><td className="border border-outline-variant/60 p-3">₹679.84</td><td className="border border-outline-variant/60 p-3">₹8,205.04</td><td className="border border-outline-variant/60 p-3">₹59,779.19</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">6</td><td className="border border-outline-variant/60 p-3">₹597.79</td><td className="border border-outline-variant/60 p-3">₹8,287.09</td><td className="border border-outline-variant/60 p-3">₹51,492.11</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">7</td><td className="border border-outline-variant/60 p-3">₹514.92</td><td className="border border-outline-variant/60 p-3">₹8,369.96</td><td className="border border-outline-variant/60 p-3">₹43,122.15</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">8</td><td className="border border-outline-variant/60 p-3">₹431.22</td><td className="border border-outline-variant/60 p-3">₹8,453.66</td><td className="border border-outline-variant/60 p-3">₹34,668.49</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">9</td><td className="border border-outline-variant/60 p-3">₹346.68</td><td className="border border-outline-variant/60 p-3">₹8,538.19</td><td className="border border-outline-variant/60 p-3">₹26,130.30</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">10</td><td className="border border-outline-variant/60 p-3">₹261.30</td><td className="border border-outline-variant/60 p-3">₹8,623.58</td><td className="border border-outline-variant/60 p-3">₹17,506.72</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">11</td><td className="border border-outline-variant/60 p-3">₹175.07</td><td className="border border-outline-variant/60 p-3">₹8,709.81</td><td className="border border-outline-variant/60 p-3">₹8,796.91</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">12</td><td className="border border-outline-variant/60 p-3">₹87.97</td><td className="border border-outline-variant/60 p-3">₹8,796.91</td><td className="border border-outline-variant/60 p-3">₹0.00</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The columns add up: total interest ₹6,618.55, total paid ₹1,06,618.55, balance zero at the
+            end. This is the schedule your lender calls an amortisation table, computed here from the
+            same example above — the version from a real lender can differ by a few paise from rounding, and
+            by more once fees or a floating rate enter the picture.
+          </>,
+        ],
+      },
+      {
         heading: "A second example: ₹5,00,000 at 10% for 24 months",
         body: [
           <>

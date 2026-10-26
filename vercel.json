@@ -18,6 +18,15 @@
         {
             "headers": [
                 {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                }
+            ],
+            "source": "/tulyro-logo-200.png"
+        },
+        {
+            "headers": [
+                {
                     "key": "X-Content-Type-Options",
                     "value": "nosniff"
                 },

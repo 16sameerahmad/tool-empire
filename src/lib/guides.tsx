@@ -574,7 +574,12 @@ export const guides: Guide[] = [
           <>
             Look at that interest figure. Over 30 years you pay back more in interest than you borrowed.
             That is normal for a long mortgage, and it is exactly why the total matters more than the
-            monthly figure. A payment that feels affordable can still be an expensive loan.
+            monthly figure. A payment that feels affordable can still be an expensive loan. Early
+            payments go mostly to interest and only later ones cut the principal — see{" "}
+            <Link href="/guides/how-mortgage-amortization-works/" className="text-primary underline">
+              how mortgage amortization works
+            </Link>
+            .
           </>,
           <>
             Run it yourself on the{" "}

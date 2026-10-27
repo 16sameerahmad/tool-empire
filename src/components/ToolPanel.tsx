@@ -14,6 +14,11 @@ import { decodeB64, encodeB64 } from "@/tools/base64/logic";
 import { chunkText } from "@/tools/text-to-speech/logic";
 import { wordStats } from "@/tools/word-counter/logic";
 import { canAddMessage, type FakeMessage, validateMessage } from "@/tools/fake-text/logic";
+import {
+  detectCornerColor,
+  hexToRgb,
+  processImageBackground,
+} from "@/tools/remove-background/logic";
 import { AgeWorkspace } from "@/components/AgeWorkspace";
 import { Icon } from "@/components/icons";
 import { MorphIcon } from "@/components/motion";
@@ -2314,6 +2319,249 @@ function FakePanel() {
   );
 }
 
+function RemoveBackgroundPanel() {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [targetColor, setTargetColor] = useState<string>("#ffffff");
+  const [tolerance, setTolerance] = useState<number>(18);
+  const [feather, setFeather] = useState<number>(10);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [processedUrl, setProcessedUrl] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string>("image");
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const originalImageRef = useRef<HTMLImageElement | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFileName(file.name.replace(/\.[^/.]+$/, ""));
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const src = event.target?.result as string;
+      setImageSrc(src);
+
+      const img = new Image();
+      img.onload = () => {
+        originalImageRef.current = img;
+
+        // Auto-detect dominant corner backdrop color
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        const ctx = tempCanvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          const imgData = ctx.getImageData(0, 0, img.width, img.height);
+          const detected = detectCornerColor(imgData);
+          const hex = `#${((1 << 24) + (detected.r << 16) + (detected.g << 8) + detected.b).toString(16).slice(1)}`;
+          setTargetColor(hex);
+        }
+      };
+      img.src = src;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  useEffect(() => {
+    if (!originalImageRef.current || !imageSrc) return;
+
+    setIsProcessing(true);
+    const timer = setTimeout(() => {
+      const img = originalImageRef.current;
+      if (!img) {
+        setIsProcessing(false);
+        return;
+      }
+
+      const canvas = canvasRef.current || document.createElement("canvas");
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setIsProcessing(false);
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+
+      const rgb = hexToRgb(targetColor) || { r: 255, g: 255, b: 255 };
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      processImageBackground(imgData, {
+        targetColor: rgb,
+        tolerance,
+        feather,
+      });
+
+      ctx.putImageData(imgData, 0, 0);
+      setProcessedUrl(canvas.toDataURL("image/png"));
+      setIsProcessing(false);
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [imageSrc, targetColor, tolerance, feather]);
+
+  const handleDownload = () => {
+    if (!processedUrl) return;
+    const a = document.createElement("a");
+    a.href = processedUrl;
+    a.download = `${fileName}-transparent.png`;
+    a.click();
+  };
+
+  const handleReset = () => {
+    setImageSrc(null);
+    setProcessedUrl(null);
+    originalImageRef.current = null;
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  return (
+    <div className="space-y-6">
+      {!imageSrc ? (
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition hover:border-primary cursor-pointer"
+        >
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-white mb-4">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-on-surface">Choose an image or drop here</h3>
+          <p className="mt-1 text-sm text-on-surface-variant">Supports PNG, JPG, JPEG, WEBP. Processed 100% locally in your browser.</p>
+          <button type="button" className={`${buttonClass} mt-5`}>
+            Select Image
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </div>
+      ) : (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
+            <div>
+              <label className={labelClass}>Target Background Color</label>
+              <div className="mt-2 flex items-center gap-3">
+                <input
+                  type="color"
+                  value={targetColor}
+                  onChange={(e) => setTargetColor(e.target.value)}
+                  className="h-10 w-12 cursor-pointer rounded border border-outline-variant bg-transparent p-0"
+                />
+                <input
+                  type="text"
+                  value={targetColor}
+                  onChange={(e) => setTargetColor(e.target.value)}
+                  className="w-24 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-on-surface"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex justify-between">
+                <label className={labelClass}>Tolerance</label>
+                <span className="text-xs text-on-surface-variant font-medium">{tolerance}%</span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="80"
+                value={tolerance}
+                onChange={(e) => setTolerance(Number(e.target.value))}
+                className="mt-3 w-full accent-primary"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between">
+                <label className={labelClass}>Edge Feathering</label>
+                <span className="text-xs text-on-surface-variant font-medium">{feather}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value={feather}
+                onChange={(e) => setFeather(Number(e.target.value))}
+                className="mt-3 w-full accent-primary"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <span className="text-sm font-medium text-on-surface-variant">Original Image</span>
+              <div className="flex min-h-[260px] items-center justify-center rounded-xl border border-outline-variant bg-surface-container-lowest p-3 overflow-hidden">
+                <img
+                  src={imageSrc}
+                  alt="Original upload"
+                  className="max-h-[340px] max-w-full rounded object-contain"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-sm font-medium text-on-surface-variant">
+                Transparent PNG {isProcessing && <span className="text-xs text-primary">(Processing...)</span>}
+              </span>
+              <div
+                className="flex min-h-[260px] items-center justify-center rounded-xl border border-outline-variant p-3 overflow-hidden"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(45deg, #1e293b 25%, transparent 25%), linear-gradient(-45deg, #1e293b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1e293b 75%), linear-gradient(-45deg, transparent 75%, #1e293b 75%)",
+                  backgroundSize: "16px 16px",
+                  backgroundPosition: "0 0, 0 8px, 8px -8px, -8px 0px",
+                  backgroundColor: "#0f172a",
+                }}
+              >
+                {processedUrl && (
+                  <img
+                    src={processedUrl}
+                    alt="Processed transparent output"
+                    className="max-h-[340px] max-w-full rounded object-contain"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button
+              type="button"
+              onClick={handleReset}
+              className={secondaryButtonClass}
+            >
+              Upload Different Image
+            </button>
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={!processedUrl || isProcessing}
+              className={buttonClass}
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Transparent PNG
+            </button>
+          </div>
+        </div>
+      )}
+
+      <canvas ref={canvasRef} className="hidden" aria-hidden="true" />
+    </div>
+  );
+}
+
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
@@ -2346,6 +2594,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <InvoicePanel />;
     case "fake-text-generator":
       return <FakePanel />;
+    case "remove-background":
+      return <RemoveBackgroundPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

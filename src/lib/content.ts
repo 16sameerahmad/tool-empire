@@ -188,6 +188,39 @@ export const content: Record<string, ToolContent> = {
       { question: "Does this calculator support credit-weighted CBCS systems?", answer: "Yes. You can optionally specify the credit count for each semester to get an exact credit-weighted CGPA matching your official university transcript." },
     ]),
   },
+  "remove-background": {
+    definition: "An online background remover makes an image's backdrop transparent so logos, product photos, graphics, and signatures can be placed over any canvas or background.",
+    intro: "Remove image background online directly in your browser. 100% private, free, and no watermark.",
+    howTo: [
+      "Upload or drop an image (PNG, JPG, WEBP).",
+      "The tool automatically detects the backdrop color from the image corners.",
+      "Fine-tune transparency with the Tolerance and Edge Feathering sliders.",
+      "Download your transparent PNG instantly in full original resolution.",
+    ],
+    content: [
+      "Removing backgrounds from logos, product shots, signatures, and graphics is an everyday task for e-commerce store owners, students preparing presentations, and creators designing digital assets. Most online background removers require expensive paid subscriptions, force account creation, or stamp ugly watermarks on your exported images.",
+      "Tulyro Background Remover runs entirely inside your client browser using high-performance HTML5 Canvas pixel manipulation. Your original photos and sensitive graphics are never uploaded to any remote server or third-party cloud. This guarantees 100% data privacy and instant processing even without high-speed internet.",
+      "The tool features auto-detection of dominant corner backdrop colors, an interactive color selector, customizable tolerance thresholding (0-100%), and progressive edge-feathering to eliminate jagged borders or halos around subjects.",
+      "Exported results are saved as lossless 32-bit transparent PNG files with full alpha transparency preserved, ready for Canva, Photoshop, presentation slides, or e-commerce listings.",
+    ],
+    guides: [
+      { label: "How Browser Image Processing Works", href: "/about/" },
+    ],
+    faq: faq([
+      {
+        question: "Is this background remover free without watermark?",
+        answer: "Yes, 100% free with zero watermarks. Your exported PNG has no logos or branding stamps.",
+      },
+      {
+        question: "Are my photos uploaded to any external server?",
+        answer: "No. All pixel rendering happens client-side in your device's browser memory via Canvas API. No image data ever touches an external server.",
+      },
+      {
+        question: "What image formats are supported?",
+        answer: "You can upload PNG, JPG, JPEG, and WEBP images. The output is always downloaded as a clean transparent PNG.",
+      },
+    ]),
+  },
   "mortgage-calculator": {
     definition: "A mortgage payment is the fixed monthly amount of principal and interest that repays a home loan in full over its term.",
     intro: "Estimate a US mortgage payment, total interest, and total payment in dollars.",

@@ -235,6 +235,20 @@ export const tools: ToolDefinition[] = [
     seoDescription:
       "Make a generic chat mockup for sketches, presentations and entertainment. Add messages, preview, export PNG. No watermark — free, no signup. Try it now.",
   },
+  {
+    id: "remove-background",
+    title: "Background Remover",
+    cluster: "Fun",
+    href: "/tools/remove-background/",
+    locale: "en",
+    description: "Remove image background online directly in your browser. 100% private, free, and no watermark.",
+    keywords: ["remove background", "bg remover", "transparent background", "transparent png", "remove bg online"],
+    related: ["invoice-generator", "base64-encoder-decoder"],
+    live: true,
+    seoTitle: "Free Background Remover — Transparent PNG in Browser | Tulyro",
+    seoDescription:
+      "Remove image backgrounds instantly in your browser. Auto-detect backdrop, custom color eyedropper, feather edges, download high-res transparent PNG. Free & private.",
+  },
 ];
 
 export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun"];

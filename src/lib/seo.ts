@@ -164,6 +164,7 @@ export function createWebSiteJsonLd() {
         alternateName: "Tulyro Tools",
         url: siteUrl,
         logo: `${siteUrl}/logo.svg`,
+        sameAs: ["https://www.producthunt.com/products/tulyro"],
         email: "Tulyrotools@gmail.com",
         description: "Free browser-only tools. No signup. No watermark.",
       },

@@ -138,7 +138,12 @@ export function createArticleJsonLd(article: { headline: string; description: st
     description: article.description,
     url: `${siteUrl}${article.path}`,
     dateModified: contentUpdated,
-    author: { "@type": "Organization", name: "Tulyro", url: siteUrl },
+    author: {
+      "@type": "Person",
+      name: "Sameer Ahmad",
+      url: `${siteUrl}/about/`,
+      jobTitle: "Founder & Lead Developer",
+    },
     publisher: { "@type": "Organization", name: "Tulyro", url: siteUrl, logo: `${siteUrl}/logo.svg` },
   };
 }

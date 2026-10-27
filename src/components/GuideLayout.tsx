@@ -90,6 +90,13 @@ export function GuideLayout({ guide }: { guide: Guide }) {
                 </p>
               ))}
             </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3 font-label-sm text-xs text-tertiary-fixed-dim">
+              <span>By <Link href="/about/" className="text-white underline hover:text-primary-fixed">Sameer Ahmad</Link></span>
+              <span aria-hidden="true">•</span>
+              <span>Updated October 2026</span>
+              <span aria-hidden="true">•</span>
+              <span>Verified mathematical accuracy</span>
+            </div>
             <Link
               href={guide.cta.href}
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-container px-5 py-3 font-label-md text-label-md text-white shadow-md transition-colors hover:bg-primary"
@@ -113,6 +120,21 @@ export function GuideLayout({ guide }: { guide: Guide }) {
               </section>
             ))}
           </article>
+
+          {/* Author Bio Box */}
+          <div className="mt-10 rounded-2xl border border-surface-container bg-surface-container-low p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-container text-white font-bold text-lg">
+                SA
+              </div>
+              <div>
+                <h3 className="font-display font-title-md text-on-surface">Written &amp; Verified by Sameer Ahmad</h3>
+                <p className="mt-1 text-sm text-on-surface-variant leading-relaxed">
+                  Founder &amp; software developer at Tulyro. Specializing in client-side computational architecture, transparent mathematical modeling, and zero-tracking privacy utilities. Read our <Link href="/about/" className="text-primary hover:underline">editorial standards</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div className="mt-12 max-w-[900px]">
             <FAQ items={guide.faq} />

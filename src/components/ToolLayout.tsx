@@ -176,7 +176,7 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
                 Related tools
               </h2>
               <a href="/tools/" className="flex items-center gap-1 font-label-md text-label-md text-primary hover:underline">
-                View all 11 tools
+                View all tools
                 <Icon name="arrow_forward" className="h-4 w-4" />
               </a>
             </div>

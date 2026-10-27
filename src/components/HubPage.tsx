@@ -92,7 +92,7 @@ export function DirectoryPage() {
                 All Tools
               </span>
             </nav>
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed">Full Directory • 11 utilities</p>
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed">Full Directory</p>
             <h1 className="mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg">All tools</h1>
             <p className="mt-2 max-w-[720px] font-body-lg text-body-lg text-tertiary-fixed-dim">
               Every free browser-only tool on Tulyro. No signup, no watermark, nothing sent to a server.

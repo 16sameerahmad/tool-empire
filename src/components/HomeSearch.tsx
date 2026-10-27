@@ -150,7 +150,7 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
             setTyped("");
           }}
           onKeyDown={onKeyDown}
-          placeholder={typed ? `Try "${typed}"` : "Search 11 tools…"}
+          placeholder={typed ? `Try "${typed}"` : "Search tools…"}
           role="combobox"
           aria-expanded={open && query.trim().length > 0}
           aria-controls={`home-search-suggestions-${variantId}`}
@@ -221,7 +221,7 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
         </div>
       ) : null}
       <p className="mt-3 text-center font-body-sm text-body-sm text-tertiary-fixed-dim">
-        Press <kbd className="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-code-data text-xs text-white">/</kbd> to search · 11 free tools · No signup
+        Press <kbd className="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-code-data text-xs text-white">/</kbd> to search · Free tools · No signup
       </p>
     </div>
   );

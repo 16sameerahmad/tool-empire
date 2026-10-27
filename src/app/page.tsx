@@ -6,7 +6,7 @@ import { HeroEmiSimulator } from "@/components/HeroEmiSimulator";
 import { HomeSearch } from "@/components/HomeSearch";
 import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
-import { Parallax, Reveal, CountUp } from "@/components/motion";
+import { Parallax, Reveal } from "@/components/motion";
 import { GlassToolCard, GlassCategoryRow } from "@/components/GlassToolCard";
 import { getTool, tools } from "@/lib/tools";
 import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
@@ -25,14 +25,14 @@ const TRENDING = [
   { id: "fancy-text-generator", label: "Fancy Text" },
 ];
 const CATEGORIES = [
-  { label: "Calculators", href: "/calculators/", count: "5 tools", icon: "calculate", theme: "calculator" },
-  { label: "Text Tools", href: "/text/", count: "3 tools", icon: "font_download", theme: "text" },
-  { label: "Developer Tools", href: "/dev/", count: "1 tool", icon: "terminal", theme: "developer" },
-  { label: "Fun Tools", href: "/fun/", count: "2 tools", icon: "auto_awesome", theme: "media" },
-  { label: "All Tools", href: "/tools/", count: "11 utilities", icon: "apps", theme: "calculator" },
+  { label: "Calculators", href: "/calculators/", icon: "calculate", theme: "calculator" },
+  { label: "Text Tools", href: "/text/", icon: "font_download", theme: "text" },
+  { label: "Developer Tools", href: "/dev/", icon: "terminal", theme: "developer" },
+  { label: "Fun Tools", href: "/fun/", icon: "auto_awesome", theme: "media" },
+  { label: "All Tools", href: "/tools/", icon: "apps", theme: "calculator" },
 ];
 const TRUST = [
-  { title: "11 Free Browser Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { title: "Free Browser Utilities", sub: "Finance, Math, Text & Dev tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
   { title: "100% Client-Side", sub: "Zero payload sent to servers", icon: "lock", tint: "bg-secondary-fixed text-secondary" },
   { title: "Instant Compute", sub: "Computed locally in your browser", icon: "speed", tint: "bg-tertiary-fixed text-tertiary" },
   { title: "No Signup", sub: "Start instantly, nothing to install", icon: "bolt", tint: "bg-surface-container-high text-on-surface" },
@@ -45,17 +45,16 @@ const BLUEPRINT = [
 ];
 /* Mobile-home (Stitch mobile skeleton) content — real tools, real counts, short labels. */
 const MOBILE_STATS = [
-  { value: "11", label: "Free Browser Utilities", icon: "apps" },
   { value: "100%", label: "Client-Side", icon: "verified" },
   { value: "No", label: "Signup", icon: "lock_open" },
   { value: "Instant", label: "In-Browser Compute", icon: "wifi_off" },
 ];
 const MOBILE_CATEGORIES = [
-  { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", count: "5 tools", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
-  { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", count: "3 tools", icon: "article", tint: "bg-secondary-fixed text-secondary" },
-  { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", count: "1 tool", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
-  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", count: "2 tools", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
-  { label: "All Tools", sub: "Every utility in one place", href: "/tools/", count: "11 utilities", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
+  { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", icon: "article", tint: "bg-secondary-fixed text-secondary" },
+  { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
+  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
+  { label: "All Tools", sub: "Every utility in one place", href: "/tools/", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
 ];
 
 function TrendingRow() {
@@ -96,7 +95,7 @@ export default function HomePage() {
               <div className="flex flex-col space-y-6 lg:col-span-7">
                 <p className="hero-enter inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-label-sm text-label-sm text-tertiary-fixed shadow-inner" style={{ ["--enter-delay" as string]: "0ms" }}>
                   <span className="flex h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
-                  11 free tools • No signup • Private by design
+                  Free tools • No signup • Private by design
                 </p>
                 <h1 className="hero-enter font-display font-display-hero leading-[1.08] tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                   Free Online Calculators,
@@ -111,7 +110,7 @@ export default function HomePage() {
                 </p>
                 <div className="hero-enter flex flex-wrap items-center gap-3" style={{ ["--enter-delay" as string]: "270ms" }}>
                   <Link href="#browse" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
-                    Browse all 11 tools
+                    Browse all tools
                     <Icon name="arrow_forward" className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
                   </Link>
                   <Link href="#why-tulyro" className="btn-press inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
@@ -135,7 +134,7 @@ export default function HomePage() {
             <div className="flex flex-col gap-4">
               <p className="hero-enter inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-label-sm text-label-sm text-tertiary-fixed" style={{ ["--enter-delay" as string]: "0ms" }}>
                 <span className="flex h-2 w-2 rounded-full bg-primary-container animate-pulse" aria-hidden="true" />
-                11 free tools • No signup • Private by design
+                Free tools • No signup • Private by design
               </p>
               <div className="hero-enter font-display font-display-hero-mobile tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                 Free Online Calculators,{" "}
@@ -151,7 +150,7 @@ export default function HomePage() {
               </p>
               <div className="hero-enter flex flex-wrap items-center gap-2.5" style={{ ["--enter-delay" as string]: "270ms" }}>
                 <Link href="#browse-mobile" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
-                  Browse all 11 tools
+                  Browse all tools
                   <Icon name="arrow_forward" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link href="#why-tulyro-mobile" className="btn-press inline-flex items-center gap-1.5 rounded-xl border border-white/20 px-5 py-2.5 font-label-md text-label-md font-semibold text-white transition-colors hover:bg-white/10">
@@ -184,9 +183,7 @@ export default function HomePage() {
                     <Icon name={item.icon} className="h-[26px] w-[26px]" />
                   </span>
                   <span>
-                    <span className="block font-display font-headline-sm text-headline-sm font-bold text-on-surface">{
-                      item.title === "11 Free Browser Utilities" ? <><CountUp to={11} /> Free Browser Utilities</> : item.title
-                    }</span>
+                    <span className="block font-display font-headline-sm text-headline-sm font-bold text-on-surface">{item.title}</span>
                     <span className="block font-body-sm text-body-sm text-on-surface-variant">{item.sub}</span>
                   </span>
                 </div>
@@ -219,7 +216,7 @@ export default function HomePage() {
                   Featured Utilities
                 </h2>
                 <Link href="/tools/" className="group flex items-center gap-0.5 font-label-md text-label-md font-semibold text-primary">
-                  View all (11)
+                  View all
                   <Icon name="chevron_right" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
@@ -260,7 +257,6 @@ export default function HomePage() {
                   <span className="glass-title mt-3 font-display font-headline-sm text-headline-sm font-semibold text-on-surface">
                     {category.label}
                   </span>
-                  <span className="mt-1 font-body-sm text-body-sm text-on-surface-variant">{category.count}</span>
                 </Link>
               ))}
             </div>

@@ -91,7 +91,6 @@ export interface CategoryRow {
   label: string;
   sub: string;
   href: string;
-  count: string;
   icon: string;
   tint: string;
 }
@@ -135,7 +134,6 @@ export function GlassCategoryRow({ category }: { category: CategoryRow }) {
         <span className="glass-row-title block font-display text-sm font-semibold text-on-surface">{category.label}</span>
         <span className="block truncate font-body-sm text-body-sm text-on-surface-variant">{category.sub}</span>
       </span>
-      <span className="relative z-[1] shrink-0 font-label-sm text-label-sm text-on-surface-variant">{category.count}</span>
       <Icon name="chevron_right" className="glass-row-chevron relative z-[1] h-4 w-4 shrink-0 text-outline-variant" />
     </Link>
   );

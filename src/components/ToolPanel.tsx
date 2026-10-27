@@ -19,6 +19,7 @@ import {
   hexToRgb,
   processImageBackground,
 } from "@/tools/remove-background/logic";
+import { calculateGst } from "@/tools/gst/logic";
 import { calculateSwp } from "@/tools/swp/logic";
 import { calculateLumpsum } from "@/tools/lumpsum/logic";
 import { calculateCagr } from "@/tools/cagr/logic";
@@ -2571,6 +2572,123 @@ function RemoveBackgroundPanel() {
   );
 }
 
+function GstPanel() {
+  const [amount, setAmount] = useState("10000");
+  const [rate, setRate] = useState("18");
+  const [type, setType] = useState<"exclusive" | "inclusive">("exclusive");
+  const [copied, setCopied] = useState(false);
+
+  const numAmount = Number(amount) || 0;
+  const numRate = Number(rate) || 0;
+
+  const result = calculateGst({
+    amount: numAmount,
+    rate: numRate,
+    type,
+  });
+
+  const fmt = (v: number) => "₹" + v.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `GST Calculation (${type.toUpperCase()}): Net ${fmt(result.netAmount)}, GST (${rate}%) ${fmt(result.gstAmount)} [CGST ${fmt(result.cgst)} + SGST ${fmt(result.sgst)}], Total ${fmt(result.totalAmount)}`
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setType("exclusive")}
+          className={type === "exclusive" ? buttonClass : secondaryButtonClass}
+        >
+          GST Exclusive (Add GST)
+        </button>
+        <button
+          type="button"
+          onClick={() => setType("inclusive")}
+          className={type === "inclusive" ? buttonClass : secondaryButtonClass}
+        >
+          GST Inclusive (Remove GST)
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass}>
+            {type === "exclusive" ? "Initial Net Amount (₹)" : "Total Gross Amount (₹)"}
+          </label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 10000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>GST Rate (%)</label>
+          <div className="flex flex-wrap gap-2 mt-1">
+            {["5", "12", "18", "28"].map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRate(r)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
+                  rate === r
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
+                }`}
+              >
+                {r}%
+              </button>
+            ))}
+          </div>
+          <input
+            type="number"
+            value={rate}
+            onChange={(e) => setRate(e.target.value)}
+            className={`${inputClass} mt-2`}
+            placeholder="Custom GST %"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 rounded-xl bg-surface-container-low p-4">
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Net Pre-Tax Value</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.netAmount)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">CGST ({numRate / 2}%)</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.cgst)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">SGST ({numRate / 2}%)</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.sgst)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Total Gross Value</p>
+          <p className="text-xl font-bold text-primary mt-1">{fmt(result.totalAmount)}</p>
+        </div>
+      </div>
+
+      <div className="rounded-xl bg-surface-container-lowest p-4 border border-outline-variant flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span className="text-xs text-on-surface-variant font-medium">Total GST Component ({rate}%)</span>
+          <p className="text-2xl font-bold text-primary mt-0.5">{fmt(result.gstAmount)}</p>
+        </div>
+        <button onClick={handleCopy} className={secondaryButtonClass}>
+          {copied ? "Copied Breakdown!" : "Copy Tax Breakdown"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function SwpPanel() {
   const [investment, setInvestment] = useState("1000000");
   const [withdrawal, setWithdrawal] = useState("10000");
@@ -3217,6 +3335,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <RemoveBackgroundPanel />;
     case "image-resizer":
       return <ImageResizerPanel />;
+    case "gst-calculator":
+      return <GstPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

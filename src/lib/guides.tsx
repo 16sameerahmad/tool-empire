@@ -2520,6 +2520,221 @@ export const guides: Guide[] = [
     related: ["emi-calculator", "mortgage-calculator", "sip-calculator"],
     pillar: { label: "Calculators", href: "/calculators/" },
   },
+  {
+    slug: "swp-vs-fd-for-retirement-income",
+    title: "SWP vs Fixed Deposit: Which is Better for Regular Monthly Income?",
+    seoTitle: "SWP vs FD for Monthly Income — Tax & Returns Compared | Tulyro",
+    seoDescription:
+      "Detailed comparison of Mutual Fund Systematic Withdrawal Plan (SWP) vs Bank Fixed Deposit (FD) for monthly retirement income, tax efficiency, and capital safety.",
+    href: "/guides/swp-vs-fd-for-retirement-income/",
+    intro: [
+      <>
+        For retirees and individuals seeking monthly cash flow, the two primary options are a Bank Fixed
+        Deposit (FD) paying monthly interest and a Mutual Fund Systematic Withdrawal Plan (SWP). While
+        FDs offer guaranteed capital protection, SWPs provide superior post-tax cash flows and long-term
+        inflation protection.
+      </>,
+    ],
+    cta: { label: "Calculate SWP Returns", href: "/calculators/swp-calculator/" },
+    sections: [
+      {
+        heading: "Taxation: Where SWP Beats Fixed Deposits",
+        body: [
+          <>
+            Fixed Deposit interest is fully taxable according to your income tax slab rate (up to 30% plus
+            surcharge). Furthermore, banks deduct TDS on interest exceeding ₹40,000 (₹50,000 for senior
+            citizens).
+          </>,
+          <>
+            In contrast, an SWP withdrawal is treated as a redemption of mutual fund units. Only the
+            capital gain component of each withdrawal is taxed, not the principal amount. For equity mutual
+            funds held over 12 months, long-term capital gains (LTCG) above ₹1.25 lakh per financial year
+            are taxed at 12.5%.
+          </>,
+        ],
+      },
+      {
+        heading: "Inflation Protection and Wealth Preservation",
+        body: [
+          <>
+            Bank FD rates typically hover around 6.5% to 7.5%, barely matching consumer price inflation
+            over a 10 to 15 year horizon. Over time, the purchasing power of your initial deposit erodes.
+          </>,
+          <>
+            Conservative hybrid or balanced advantage mutual funds historically generate 9% to 12%
+            annualized returns. By maintaining a withdrawal rate of 6% to 7%, your remaining corpus
+            continues to compound, preserving and growing your capital against inflation.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is SWP safe for senior citizens?",
+        answer:
+          "SWP from conservative hybrid, debt, or multi-asset funds is widely used by senior citizens because it generates predictable cash flows while offering significantly higher tax efficiency than FDs.",
+      },
+      {
+        question: "Can an SWP deplete my initial capital?",
+        answer:
+          "Yes. If your monthly withdrawal rate exceeds the portfolio's annual rate of return over prolonged market downturns, the principal balance will gradually decrease. Use our SWP Calculator to plan safe withdrawal rates.",
+      },
+      {
+        question: "Does SWP have TDS deduction?",
+        answer:
+          "For resident Indian individuals, mutual funds do not deduct TDS on capital gains from domestic mutual fund redemptions.",
+      },
+    ],
+    related: ["swp-calculator", "sip-calculator", "lumpsum-calculator"],
+    pillar: { label: "Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "cagr-vs-xirr-in-mutual-funds",
+    title: "CAGR vs XIRR: Differences, Formulas, and When to Use Which",
+    seoTitle: "CAGR vs XIRR in Mutual Funds — Key Differences & Formulas | Tulyro",
+    seoDescription:
+      "Understand the difference between CAGR and XIRR. Learn when to use CAGR for lumpsum investments and XIRR for SIPs, with formulas and mathematical examples.",
+    href: "/guides/cagr-vs-xirr-in-mutual-funds/",
+    intro: [
+      <>
+        When evaluating mutual fund returns, investors frequently encounter two acronyms: CAGR (Compound
+        Annual Growth Rate) and XIRR (Extended Internal Rate of Return). Using the wrong metric can give
+        a misleading picture of your actual portfolio performance.
+      </>,
+    ],
+    cta: { label: "Compute Your CAGR", href: "/calculators/cagr-calculator/" },
+    sections: [
+      {
+        heading: "What is CAGR and When Should You Use It?",
+        body: [
+          <>
+            CAGR measures the geometric mean annualized return of an investment over a multi-year period,
+            assuming the profits are reinvested every year. The formula is:
+            <br />
+            <strong>CAGR = (End Value / Beginning Value)<sup>(1 / Years)</sup> − 1</strong>
+          </>,
+          <>
+            CAGR works accurately <em>only</em> when there are exactly two cash flows: a single initial
+            investment and a final redemption value (lumpsum investing). It completely ignores intermediate
+            deposits or withdrawals.
+          </>,
+        ],
+      },
+      {
+        heading: "What is XIRR and Why is it Necessary for SIPs?",
+        body: [
+          <>
+            When you invest through a monthly SIP or make multiple staggered deposits and withdrawals, each
+            installment stays invested for a different duration. For example, your first SIP installment
+            compounds for 36 months, but your 36th installment compounds for only 1 month.
+          </>,
+          <>
+            XIRR accounts for the exact transaction date of every individual cash inflow and outflow. It
+            calculates the annualized internal rate of return across the entire series of cash flows using
+            polynomial root-finding algorithms.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which is better: CAGR or XIRR?",
+        answer:
+          "Neither is inherently 'better'—they serve different purposes. For one-time lumpsum investments, CAGR is the exact benchmark. For SIPs and portfolios with multiple cash flows, XIRR is the only accurate measure.",
+      },
+      {
+        question: "Can CAGR be calculated for periods under 1 year?",
+        answer:
+          "CAGR is not recommended for time horizons shorter than 12 months because annualizing short-term volatility produces misleading and exaggerated rates of return. Use absolute return instead.",
+      },
+      {
+        question: "Why does my broker show both CAGR and XIRR?",
+        answer:
+          "Brokerages display CAGR for individual stock holdings or point-to-point index comparisons, and XIRR for your overall mutual fund portfolio or SIP performance.",
+      },
+    ],
+    related: ["cagr-calculator", "sip-calculator", "lumpsum-calculator"],
+    pillar: { label: "Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "photo-and-signature-size-guide-for-govt-exams",
+    title: "Govt Exam Photo & Signature Size Guide: SSC, UPSC, IBPS, NTA",
+    seoTitle: "Govt Exam Photo & Signature Size (20KB, 50KB) — SSC, UPSC | Tulyro",
+    seoDescription:
+      "Complete dimensions, DPI, and file size specifications (20KB to 50KB) for passport photos and signatures required by SSC, UPSC, IBPS, and NEET/JEE portals.",
+    href: "/guides/photo-and-signature-size-guide-for-govt-exams/",
+    intro: [
+      <>
+        Online applications for Indian government recruitment and entrance examinations (SSC CGL/CHSL,
+        UPSC Civil Services, IBPS Bank PO, NTA NEET/JEE) have stringent image upload rules. Submitting a
+        photo or signature that exceeds file size limits (usually 20KB to 50KB) or incorrect pixel
+        dimensions results in automatic form rejection.
+      </>,
+    ],
+    cta: { label: "Resize Photo to Exact KB", href: "/tools/image-resizer/" },
+    sections: [
+      {
+        heading: "Standard Photo & Signature Specifications by Exam Board",
+        body: [
+          <>
+            <strong>1. SSC (Staff Selection Commission):</strong>
+            <br />
+            • Photo: 20 KB to 50 KB, JPEG format, 3.5 cm width × 4.5 cm height (approx 132 × 170 pixels).
+            <br />
+            • Signature: 10 KB to 20 KB, JPEG format, 4.0 cm width × 2.0 cm height.
+          </>,
+          <>
+            <strong>2. UPSC (Union Public Service Commission):</strong>
+            <br />
+            • Photo: 20 KB to 300 KB, minimum resolution 350 × 350 pixels, maximum 1000 × 1000 pixels.
+            <br />
+            • Signature: 20 KB to 300 KB, same resolution requirements.
+          </>,
+          <>
+            <strong>3. IBPS & State Bank of India:</strong>
+            <br />
+            • Photo: 20 KB to 50 KB, 200 × 230 pixels, white background preferred.
+            <br />
+            • Signature: 10 KB to 20 KB, 140 × 60 pixels on white paper with black ink.
+          </>,
+        ],
+      },
+      {
+        heading: "Common Pitfalls Causing Application Rejection",
+        body: [
+          <>
+            • <strong>File size mismatch:</strong> An image of 20.4 KB is rejected if the upper ceiling is
+            strictly 20 KB. Always target 18–19 KB.
+            <br />
+            • <strong>Aspect ratio distortion:</strong> Stretches or squishes face features when resizing
+            without maintaining aspect ratio.
+            <br />
+            • <strong>Background clutter:</strong> Most portals explicitly mandate a plain white or
+            off-white background without shadows, hats, or dark glasses.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How do I compress my image under 20KB without blurriness?",
+        answer:
+          "Use our browser-based Image Resizer in KB. It automatically computes optimal dimensions and quality balancing to hit sub-20KB limits without server-side pixel degradation.",
+      },
+      {
+        question: "Can I take a mobile photo of my signature?",
+        answer:
+          "Yes, provided you sign on crisp white paper with a dark black or blue pen in bright light, crop closely, and compress to the required 10–20KB range.",
+      },
+      {
+        question: "Is it safe to upload government ID photos to online compressors?",
+        answer:
+          "Most online compressors upload your sensitive photos to remote servers. Tulyro processes images 100% locally in your browser canvas with zero server uploads.",
+      },
+    ],
+    related: ["image-resizer", "remove-background"],
+    pillar: { label: "Tools", href: "/tools/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -221,6 +221,47 @@ export const content: Record<string, ToolContent> = {
       },
     ]),
   },
+  "gst-calculator": {
+    intro:
+      "Calculate GST on any product or service instantly. Switch between GST Inclusive (reverse tax extraction) and GST Exclusive (adding tax) with automatic CGST, SGST, and IGST breakdowns for Indian tax slabs.",
+    definition:
+      "Goods and Services Tax (GST) in India is a comprehensive, multi-stage, destination-based indirect tax levied on the supply of goods and services with standardized 5%, 12%, 18%, and 28% slabs.",
+    howTo: [
+      "Enter the base net amount or total invoice value.",
+      "Select the applicable GST slab (5%, 12%, 18%, or 28%) or enter a custom rate.",
+      "Choose 'GST Exclusive' to add tax, or 'GST Inclusive' to extract pre-tax base cost and tax component.",
+      "View the exact CGST, SGST, total tax, and gross invoice value.",
+    ],
+    content: [
+      "GST Exclusive Formula: GST Amount = (Base Amount × GST%) / 100. Total Value = Base Amount + GST Amount.",
+      "GST Inclusive Formula: Base Amount = (Total Value × 100) / (100 + GST%). GST Amount = Total Value − Base Amount.",
+      "For intrastate sales within the same state, GST is split 50/50 into CGST (Central) and SGST (State). For interstate sales, the full amount is levied as IGST (Integrated).",
+    ],
+    faq: faq([
+      {
+        question: "What is the difference between GST inclusive and exclusive?",
+        answer:
+          "GST Exclusive means the advertised price does not include tax; tax is added on top of the base amount. GST Inclusive means the advertised price already includes tax, and the base price plus tax component must be reverse calculated.",
+      },
+      {
+        question: "How are CGST and SGST divided?",
+        answer:
+          "On intrastate transactions within India, the total applicable GST rate is divided equally 50-50 between the Central Government (CGST) and State Government (SGST). For example, an 18% GST rate consists of 9% CGST and 9% SGST.",
+      },
+      {
+        question: "What items fall under the 18% GST slab?",
+        answer:
+          "The 18% slab is standard for most IT services, software, capital goods, restaurants, and various industrial supplies in India.",
+      },
+    ]),
+    sources: [
+      { label: "CBIC GST Portal", href: "https://cbic-gst.gov.in/" },
+      { label: "GST Council India", href: "https://gstcouncil.gov.in/" },
+    ],
+    guides: [
+      { label: "How to Create a GST-Compliant Invoice in India", href: "/guides/how-to-create-gst-compliant-invoice-india/" },
+    ],
+  },
   "swp-calculator": {
     definition: "An SWP (Systematic Withdrawal Plan) Calculator calculates scheduled periodic withdrawals from a mutual fund corpus while the remaining balance continues earning compounded market returns.",
     intro: "Calculate monthly income, total withdrawals, and residual corpus from your mutual fund systematic withdrawal plan.",

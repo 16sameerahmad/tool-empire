@@ -20,6 +20,21 @@ export type ToolDefinition = {
 
 export const tools: ToolDefinition[] = [
   {
+    id: "gst-calculator",
+    title: "GST Calculator (India) — Inclusive & Exclusive with CGST/SGST",
+    cluster: "Calculators",
+    href: "/calculators/gst-calculator/",
+    locale: "en",
+    description:
+      "Calculate Goods and Services Tax (GST) for India instantly. Supports 5%, 12%, 18%, and 28% tax slabs with inclusive, exclusive, and CGST/SGST splits.",
+    keywords: ["gst calculator", "gst calculator india", "inclusive gst calculator", "cgst sgst calculator"],
+    related: ["invoice-generator", "percentage-calculator", "emi-calculator"],
+    live: true,
+    seoTitle: "GST Calculator India — Inclusive & Exclusive CGST SGST | Tulyro",
+    seoDescription:
+      "Free GST calculator for India. Calculate inclusive and exclusive GST, 5%, 12%, 18%, 28% slabs with CGST and SGST tax breakdown instantly.",
+  },
+  {
     id: "age-calculator",
     title: "Age Calculator",
     cluster: "Calculators",

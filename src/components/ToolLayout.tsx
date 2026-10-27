@@ -12,6 +12,7 @@ import { EmbedButton } from "@/components/EmbedButton";
 
 /** Honest per-tool hero pills (Stitch-style, no fabricated version numbers). */
 const HERO_PILLS: Record<string, string> = {
+  "gst-calculator": "Indian Taxation Suite • CGST & SGST Split",
   "age-calculator": "High Precision Utility • Client-Side Only",
   "attendance-calculator": "University Academic Suite • 75% Rule Engine",
   "ppf-calculator": "Indian Sovereign Savings • Tax-Free Returns",

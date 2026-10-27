@@ -177,6 +177,7 @@ export function createWebSiteJsonLd() {
         "@type": "ItemList",
         name: "Tulyro Free Tools",
         itemListElement: [
+          "gst-calculator",
           "emi-calculator",
           "mortgage-calculator",
           "bmi-calculator",

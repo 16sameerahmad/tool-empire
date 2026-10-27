@@ -15,8 +15,11 @@ import { chunkText } from "@/tools/text-to-speech/logic";
 import { wordStats } from "@/tools/word-counter/logic";
 import { canAddMessage, type FakeMessage, validateMessage } from "@/tools/fake-text/logic";
 import {
+  decodeDownscaled,
   detectCornerColor,
+  getProcessingMaxEdge,
   hexToRgb,
+  isLowPowerDevice,
   processImageBackground,
   removeBackgroundAI,
   rgbToHex,
@@ -38,6 +41,21 @@ import { MorphIcon } from "@/components/motion";
 
 const inputClass = "stitch-input mt-1 min-h-11 w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-3 text-base text-on-surface";
 const labelClass = "block font-label-md text-label-md text-on-surface-variant";
+
+/** Revoke an object URL only (data: URLs and remote URLs are left alone). */
+function revokeIfBlob(url: string | null | undefined) {
+  if (url && url.startsWith("blob:")) URL.revokeObjectURL(url);
+}
+
+/** Decode an image URL (object/data URL) into an <img> element. */
+function loadImageElement(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Could not decode image"));
+    img.src = src;
+  });
+}
 const buttonClass =
   "btn-press btn-sheen btn-glow inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-primary-container px-4 font-label-md text-label-md text-white shadow-button-glow transition-colors hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container disabled:cursor-not-allowed disabled:bg-outline-variant disabled:text-on-surface-variant disabled:shadow-none";
 const secondaryButtonClass =
@@ -2370,86 +2388,97 @@ function RemoveBackgroundPanel() {
   const originalImageRef = useRef<HTMLImageElement | null>(null);
   const currentFileBlobRef = useRef<Blob | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const processedUrlRef = useRef<string | null>(null);
+  const imageSrcRef = useRef<string | null>(null);
+  const chromaRunRef = useRef(0);
+
+  // Swap a displayed URL, revoking the previous object URL so memory is freed.
+  const setProcessedUrlSafe = useCallback((url: string | null) => {
+    revokeIfBlob(processedUrlRef.current);
+    processedUrlRef.current = url;
+    setProcessedUrl(url);
+  }, []);
+  const setImageSrcSafe = useCallback((url: string | null) => {
+    revokeIfBlob(imageSrcRef.current);
+    imageSrcRef.current = url;
+    setImageSrc(url);
+  }, []);
+
+  // Free object URLs when the panel unmounts.
+  useEffect(() => {
+    return () => {
+      revokeIfBlob(processedUrlRef.current);
+      revokeIfBlob(imageSrcRef.current);
+    };
+  }, []);
+
+  // Decode + downscale any source image to the on-device processing cap,
+  // then wire it into the panel. Full-res phone photos are the crash:
+  // BiRefNet plus full-res canvas copies blow the tab's memory on mobile.
+  const prepareImage = useCallback(
+    async (blob: Blob, name: string) => {
+      setErrorMessage(null);
+      setAiProgress(null);
+      setProcessedUrlSafe(null);
+      setAiBlob(null);
+      setIsProcessing(true);
+      setAiStatusMessage("Preparing image…");
+      try {
+        const maxEdge = getProcessingMaxEdge();
+        const { width, height, blob: ready } = await decodeDownscaled(blob, maxEdge);
+        currentFileBlobRef.current = ready;
+        setFileName(name);
+        const previewUrl = URL.createObjectURL(ready);
+        setImageSrcSafe(previewUrl);
+        const img = await loadImageElement(previewUrl);
+        originalImageRef.current = img;
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+        const ctx = tempCanvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const imgData = ctx.getImageData(0, 0, width, height);
+          const detected = detectCornerColor(imgData);
+          setTargetColor(rgbToHex(detected.r, detected.g, detected.b));
+        }
+      } catch {
+        setErrorMessage("Could not read that image. Try a JPG, PNG or WEBP photo under 25 MB.");
+      } finally {
+        setIsProcessing(false);
+        setAiStatusMessage("");
+      }
+    },
+    [setImageSrcSafe, setProcessedUrlSafe]
+  );
 
   const loadSample = async (sampleUrl: string, sampleName: string) => {
-    setErrorMessage(null);
-    setImageSrc(sampleUrl);
-    setFileName(sampleName.toLowerCase().replace(/\s+/g, "-"));
-    setProcessedUrl(null);
-    setAiBlob(null);
-
     try {
       const res = await fetch(sampleUrl);
       const blob = await res.blob();
-      currentFileBlobRef.current = blob;
+      await prepareImage(blob, sampleName.toLowerCase().replace(/\s+/g, "-"));
     } catch {
-      // fallback if fetch fails
+      setErrorMessage("Could not load that sample. Try uploading your own image.");
     }
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      originalImageRef.current = img;
-      const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = img.width;
-      tempCanvas.height = img.height;
-      const ctx = tempCanvas.getContext("2d");
-      if (ctx) {
-        ctx.drawImage(img, 0, 0);
-        const imgData = ctx.getImageData(0, 0, img.width, img.height);
-        const detected = detectCornerColor(imgData);
-        setTargetColor(rgbToHex(detected.r, detected.g, detected.b));
-      }
-    };
-    img.src = sampleUrl;
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setErrorMessage(null);
-    setAiProgress(null);
-    setProcessedUrl(null);
-    setAiBlob(null);
-
-    // File validation: JPG, JPEG, PNG, WEBP, up to 60MB
+    // File validation: JPG, JPEG, PNG, WEBP, up to 25MB
     const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
     if (!validTypes.includes(file.type) && !/\.(jpe?g|png|webp)$/i.test(file.name)) {
       setErrorMessage("Please upload a valid image file (JPG, PNG, or WEBP).");
       return;
     }
 
-    if (file.size > 60 * 1024 * 1024) {
-      setErrorMessage("Image is too large (exceeds 60 MB limit). Please choose a smaller photo.");
+    if (file.size > 25 * 1024 * 1024) {
+      setErrorMessage("Image is too large (over the 25 MB limit). Please choose a smaller photo.");
       return;
     }
 
-    currentFileBlobRef.current = file;
-    setFileName(file.name.replace(/\.[^/.]+$/, ""));
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const src = event.target?.result as string;
-      setImageSrc(src);
-
-      const img = new Image();
-      img.onload = () => {
-        originalImageRef.current = img;
-
-        const tempCanvas = document.createElement("canvas");
-        tempCanvas.width = img.width;
-        tempCanvas.height = img.height;
-        const ctx = tempCanvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(img, 0, 0);
-          const imgData = ctx.getImageData(0, 0, img.width, img.height);
-          const detected = detectCornerColor(imgData);
-          setTargetColor(rgbToHex(detected.r, detected.g, detected.b));
-        }
-      };
-      img.src = src;
-    };
-    reader.readAsDataURL(file);
+    void prepareImage(file, file.name.replace(/\.[^/.]+$/, ""));
   };
 
   // Run AI background removal via @bg0/browser
@@ -2473,7 +2502,7 @@ function RemoveBackgroundPanel() {
       if (!blob) throw new Error("No image data available");
 
       const result = await removeBackgroundAI(blob, {
-        quality: "quality",
+        quality: isLowPowerDevice() ? "fast" : "quality",
         signal: ac.signal,
         onProgress: (prog) => {
           setAiProgress(prog);
@@ -2482,8 +2511,7 @@ function RemoveBackgroundPanel() {
       });
 
       setAiBlob(result.blob);
-      const transparentUrl = URL.createObjectURL(result.blob);
-      applyBackdrop(transparentUrl);
+      applyBackdrop(result.blob);
       setIsProcessing(false);
       setAiStatusMessage(`Completed with ${result.provider.toUpperCase()} in ${(result.durationMs / 1000).toFixed(1)}s`);
     } catch (err: unknown) {
@@ -2500,34 +2528,47 @@ function RemoveBackgroundPanel() {
     }
   };
 
-  const applyBackdrop = useCallback((cutoutSrc: string) => {
-    if (bgChoice === "transparent") {
-      setProcessedUrl(cutoutSrc);
-      return;
-    }
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        setProcessedUrl(cutoutSrc);
+  const applyBackdrop = useCallback(
+    (cutoutBlob: Blob) => {
+      if (bgChoice === "transparent") {
+        setProcessedUrlSafe(URL.createObjectURL(cutoutBlob));
         return;
       }
-      ctx.fillStyle = bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      setProcessedUrl(canvas.toDataURL("image/png"));
-    };
-    img.src = cutoutSrc;
-  }, [bgChoice, customBgColor]);
+      const srcUrl = URL.createObjectURL(cutoutBlob);
+      void loadImageElement(srcUrl)
+        .then((img) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth || img.width;
+          canvas.height = img.naturalHeight || img.height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            setProcessedUrlSafe(srcUrl);
+            return;
+          }
+          ctx.fillStyle =
+            bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob((out) => {
+            if (out) {
+              URL.revokeObjectURL(srcUrl);
+              setProcessedUrlSafe(URL.createObjectURL(out));
+            } else {
+              setProcessedUrlSafe(srcUrl);
+            }
+          }, "image/png");
+        })
+        .catch(() => {
+          setProcessedUrlSafe(srcUrl);
+        });
+    },
+    [bgChoice, customBgColor, setProcessedUrlSafe]
+  );
 
   // Re-apply backdrop whenever bgChoice or customBgColor changes on existing AI cutout
   useEffect(() => {
     if (engineMode === "ai" && aiBlob) {
-      const url = URL.createObjectURL(aiBlob);
-      applyBackdrop(url);
+      applyBackdrop(aiBlob);
     }
   }, [applyBackdrop, aiBlob, engineMode]);
 
@@ -2537,6 +2578,7 @@ function RemoveBackgroundPanel() {
     if (!originalImageRef.current || !imageSrc) return;
 
     setIsProcessing(true);
+    const runId = ++chromaRunRef.current;
     const timer = setTimeout(() => {
       const img = originalImageRef.current;
       if (!img) {
@@ -2582,12 +2624,15 @@ function RemoveBackgroundPanel() {
         }
       }
 
-      setProcessedUrl(canvas.toDataURL("image/png"));
-      setIsProcessing(false);
+      canvas.toBlob((out) => {
+        if (runId !== chromaRunRef.current) return;
+        if (out) setProcessedUrlSafe(URL.createObjectURL(out));
+        setIsProcessing(false);
+      }, "image/png");
     }, 40);
 
     return () => clearTimeout(timer);
-  }, [imageSrc, targetColor, tolerance, feather, bgChoice, customBgColor, engineMode]);
+  }, [imageSrc, targetColor, tolerance, feather, bgChoice, customBgColor, engineMode, setProcessedUrlSafe]);
 
   const handleDownload = () => {
     if (!processedUrl) return;
@@ -2599,8 +2644,8 @@ function RemoveBackgroundPanel() {
 
   const handleReset = () => {
     abortControllerRef.current?.abort();
-    setImageSrc(null);
-    setProcessedUrl(null);
+    setImageSrcSafe(null);
+    setProcessedUrlSafe(null);
     setAiBlob(null);
     setAiProgress(null);
     setAiStatusMessage("");
@@ -2657,7 +2702,7 @@ function RemoveBackgroundPanel() {
               className="hidden"
             />
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-on-surface-variant">
-              <span>Supports PNG, JPG, WEBP (up to 60 MB)</span>
+              <span>Supports PNG, JPG, WEBP (up to 25 MB)</span>
               <span>•</span>
               <span className="font-medium text-primary">Private WebGPU/WASM AI Engine</span>
               <span>•</span>
@@ -2786,6 +2831,9 @@ function RemoveBackgroundPanel() {
                 <p className="text-xs text-on-surface-variant">
                   Runs locally in your browser with WebGPU / WASM acceleration. No images uploaded.
                 </p>
+                <p className="text-xs font-medium text-primary">
+                  Photos are resized for on-device AI (1024px on phones) so the tab stays smooth.
+                </p>
                 {aiStatusMessage && (
                   <p className="text-xs font-semibold text-primary pt-1">{aiStatusMessage}</p>
                 )}
@@ -2883,7 +2931,7 @@ function RemoveBackgroundPanel() {
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-semibold text-on-surface-variant px-1">
                 <span>Original</span>
-                <span>Drag slider to inspect cutout</span>
+                <span className="hidden sm:inline">Drag slider to inspect cutout</span>
                 <span>Cutout {isProcessing && "(Processing...)"}</span>
               </div>
               <div className="relative mx-auto max-w-2xl h-[360px] sm:h-[420px] rounded-2xl border border-outline-variant overflow-hidden select-none shadow-lg">
@@ -2913,16 +2961,20 @@ function RemoveBackgroundPanel() {
                 </div>
 
                 <div
-                  className="absolute inset-y-0 left-0 overflow-hidden border-r-2 border-primary bg-surface-container-lowest"
-                  style={{ width: `${sliderPos}%` }}
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
                 >
                   <img
                     src={imageSrc}
                     alt="Original"
-                    className="h-full w-full object-contain max-w-none"
-                    style={{ width: "100%", height: "100%" }}
+                    className="h-full w-full object-contain"
                   />
                 </div>
+
+                <div
+                  className="pointer-events-none absolute inset-y-0 w-0.5 bg-primary z-10"
+                  style={{ left: `${sliderPos}%` }}
+                />
 
                 <input
                   type="range"
@@ -3005,7 +3057,7 @@ function RemoveBackgroundPanel() {
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download HD Cutout ({bgChoice.toUpperCase()})
+              Download Cutout ({bgChoice.toUpperCase()})
             </button>
           </div>
         </div>

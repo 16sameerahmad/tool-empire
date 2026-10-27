@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  computeDownscaleSize,
   detectCornerColor,
   getColorDistance,
+  getProcessingMaxEdge,
   hexToRgb,
   processImageBackground,
   rgbToHex,
@@ -65,5 +67,30 @@ describe("remove-background logic", () => {
   it("exports rgbToHex correctly", () => {
     expect(rgbToHex(255, 255, 255)).toBe("#ffffff");
     expect(rgbToHex(0, 0, 0)).toBe("#000000");
+  });
+
+  it("keeps small images unchanged and caps the longest edge", () => {
+    // 4000x3000 phone photo capped at 1024px keeps its 4:3 ratio
+    expect(computeDownscaleSize(4000, 3000, 1024)).toEqual({
+      width: 1024,
+      height: 768,
+    });
+    // Portrait photo: height is the longest edge
+    expect(computeDownscaleSize(3000, 4000, 1024)).toEqual({
+      width: 768,
+      height: 1024,
+    });
+    // Already under the cap: untouched (no upscale)
+    expect(computeDownscaleSize(800, 600, 1024)).toEqual({
+      width: 800,
+      height: 600,
+    });
+    expect(computeDownscaleSize(0, 0, 1024)).toEqual({ width: 0, height: 0 });
+  });
+
+  it("returns a valid processing cap without a browser navigator", () => {
+    // Node's navigator (if present) carries no mobile signals; the cap must
+    // always be one of the two known values, never arbitrary.
+    expect([1024, 1600]).toContain(getProcessingMaxEdge());
   });
 });

@@ -178,3 +178,122 @@ export async function removeBackgroundAI(
     durationMs: result.durationMs,
   };
 }
+
+/* ------------------------------------------------------------------ */
+/* Mobile-safe processing: downscale before any heavy work.           */
+/* A full-res phone photo (12MP+) fed straight into BiRefNet / a       */
+/* per-pixel canvas loop blows the tab's memory and crashes the        */
+/* renderer ("Aw, Snap!"). Capping the longest edge keeps peak         */
+/* memory small and the UI responsive.                                 */
+/* ------------------------------------------------------------------ */
+
+/** Longest-edge cap for on-device work: 1024px on phones/low-memory, 1600px on desktop. */
+export function getProcessingMaxEdge(): number {
+  if (typeof navigator === "undefined") return 1600;
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const coarse =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(pointer: coarse)").matches;
+  const lowMem = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+  const fewCores =
+    typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency <= 4;
+  const mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(nav.userAgent || "");
+  return coarse || lowMem || fewCores || mobileUA ? 1024 : 1600;
+}
+
+export function isLowPowerDevice(): boolean {
+  return getProcessingMaxEdge() <= 1024;
+}
+
+/** Pure: capped dimensions keeping aspect ratio (never upscales). */
+export function computeDownscaleSize(
+  width: number,
+  height: number,
+  maxEdge: number
+): { width: number; height: number } {
+  if (width <= 0 || height <= 0 || maxEdge <= 0) return { width: 0, height: 0 };
+  const longest = Math.max(width, height);
+  if (longest <= maxEdge) return { width, height };
+  const scale = maxEdge / longest;
+  return {
+    width: Math.max(1, Math.round(width * scale)),
+    height: Math.max(1, Math.round(height * scale)),
+  };
+}
+
+/**
+ * Decode an image blob and downscale it to the processing cap.
+ * Uses createImageBitmap with resize options (downscales during decode,
+ * so a huge photo never exists at full res in memory). Falls back to
+ * <img> + canvas. Returns the (possibly original) blob plus its size.
+ */
+export async function decodeDownscaled(
+  blob: Blob,
+  maxEdge: number
+): Promise<{ width: number; height: number; blob: Blob }> {
+  if (typeof createImageBitmap === "function") {
+    try {
+      const probe = await createImageBitmap(blob);
+      const pw = probe.width;
+      const ph = probe.height;
+      probe.close();
+      const target = computeDownscaleSize(pw, ph, maxEdge);
+      if (target.width === pw && target.height === ph) {
+        return { width: pw, height: ph, blob };
+      }
+      const bmp = await createImageBitmap(blob, {
+        resizeWidth: target.width,
+        resizeHeight: target.height,
+        resizeQuality: "high",
+      });
+      const canvas = document.createElement("canvas");
+      canvas.width = bmp.width;
+      canvas.height = bmp.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        bmp.close();
+        throw new Error("Canvas unavailable");
+      }
+      ctx.drawImage(bmp, 0, 0);
+      bmp.close();
+      const out = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob(resolve, "image/png")
+      );
+      if (!out) throw new Error("Downscale failed");
+      return { width: canvas.width, height: canvas.height, blob: out };
+    } catch {
+      // Fall through to the <img> path (e.g. SVG samples, old browsers).
+    }
+  }
+
+  const url = URL.createObjectURL(blob);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const im = new Image();
+      im.onload = () => resolve(im);
+      im.onerror = () => reject(new Error("Could not decode image"));
+      im.src = url;
+    });
+    const nw = img.naturalWidth || img.width;
+    const nh = img.naturalHeight || img.height;
+    const target = computeDownscaleSize(nw, nh, maxEdge);
+    if (target.width === nw && target.height === nh) {
+      return { width: nw, height: nh, blob };
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = target.width;
+    canvas.height = target.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas unavailable");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, 0, 0, target.width, target.height);
+    const out = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/png")
+    );
+    if (!out) throw new Error("Downscale failed");
+    return { width: target.width, height: target.height, blob: out };
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}

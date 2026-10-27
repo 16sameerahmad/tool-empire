@@ -2250,6 +2250,199 @@ export const guides: Guide[] = [
     related: ["fake-text-generator", "fancy-text-generator", "text-to-speech"],
     pillar: { label: "All Tools", href: "/tools/" },
   },
+  {
+    slug: "sip-vs-lumpsum",
+    title: "SIP vs Lumpsum Investment: Which Generates Better Returns?",
+    seoTitle: "SIP vs Lumpsum: Which Is Better for Mutual Funds? (Calculations & Formula) | Tulyro",
+    seoDescription:
+      "Compare SIP vs Lumpsum investing with exact math, rupee cost averaging breakdowns, market cycle risks, and tax implications. Includes worked examples.",
+    href: "/guides/sip-vs-lumpsum/",
+    intro: [
+      <>
+        Choosing between a Systematic Investment Plan (SIP) and a lump-sum mutual fund deposit comes down to market volatility and cash availability. While a lump sum capitalizes on maximum compounding time in sustained bull runs, an SIP mitigates downside risk through rupee cost averaging in fluctuating markets.
+      </>,
+    ],
+    cta: { label: "Calculate SIP Returns", href: "/calculators/sip-calculator/" },
+    sections: [
+      {
+        heading: "The Core Difference: Cash Timing vs Rupee Cost Averaging",
+        body: [
+          <>
+            In a <strong>lump-sum investment</strong>, your entire capital is deployed on day one. Every rupee participates in market compounding from the very first minute. If the market climbs steadily upward, a lump sum historically beats recurring installments because your money spends more total time working in the market.
+          </>,
+          <>
+            In a <strong>Systematic Investment Plan (SIP)</strong>, your capital is broken into fixed periodic intervals (usually monthly). By investing the same rupee amount every month regardless of index movements, you purchase fewer mutual fund units when Net Asset Values (NAVs) are high and more units when NAVs plummet. This mechanism—known as <em>rupee cost averaging</em>—neutralizes emotional panic and eliminates the impossible chore of market timing.
+          </>,
+        ],
+      },
+      {
+        heading: "Mathematical Worked Example: 10-Year Timeline",
+        body: [
+          <>
+            Let us compare deploying a total capital of <strong>₹6,00,000</strong> over a 10-year horizon at an annualized expected return rate of <strong>12%</strong>:
+          </>,
+          <>
+            <strong>Lump-Sum Investment:</strong> Depositing ₹6,00,000 all at once at 12% annual compounding for 10 years yields an estimated maturity corpus of approximately <strong>₹18,63,509</strong> (Total profit: ₹12,63,509).
+          </>,
+          <>
+            <strong>SIP Route:</strong> Depositing ₹5,000 every month for 120 months (total deposited = ₹6,00,000) at 12% compounding yields an estimated maturity corpus of approximately <strong>₹11,61,695</strong> (Total profit: ₹5,61,695).
+          </>,
+          <>
+            On purely static compound math, the lump sum appears substantially higher. However, this assumes you possess ₹6,00,000 in liquid capital upfront on day one and that the market does not immediately suffer a 30% crash right after your entry. For salaried earners building wealth from monthly paychecks, SIP is mathematically the only practical gateway to continuous market equity.
+          </>,
+        ],
+      },
+      {
+        heading: "Market Scenario Comparison",
+        body: [
+          <>
+            <strong>Sustained Bull Market:</strong> Lump sum wins cleanly. Deploying money early captures maximum upward trajectory.
+          </>,
+          <>
+            <strong>Bear or Choppy Market:</strong> SIP wins decisively. An investor entering a falling market with a lump sum experiences immediate capital drawdown. An SIP investor buys heavily discounted units each month, accelerating recovery once the cycle reverses.
+          </>,
+          <>
+            <strong>Stagflation / Range-Bound:</strong> SIP outperforms due to lower average unit procurement cost over time.
+          </>,
+        ],
+      },
+      {
+        heading: "Taxation Considerations in India",
+        body: [
+          <>
+            For Indian equity mutual funds, capital gains are taxed identically regardless of whether units were acquired via SIP or lump sum, but holding periods are computed per batch:
+          </>,
+          <>
+            <strong>Short-Term Capital Gains (STCG):</strong> Units held for 12 months or less are taxed at 20%.
+          </>,
+          <>
+            <strong>Long-Term Capital Gains (LTCG):</strong> Units held longer than 12 months are taxed at 12.5% on gains exceeding ₹1.25 Lakh per fiscal year.
+          </>,
+          <>
+            <em>Crucial SIP rule:</em> Because each monthly installment buys distinct mutual fund units with a unique purchase date, each individual installment must complete a full 365 days of holding to qualify for LTCG treatment.
+          </>,
+        ],
+      },
+      {
+        heading: "Verdict: When Should You Pick Each?",
+        body: [
+          <>
+            Choose a <strong>Lump Sum</strong> if you have received a windfall (annual bonus, property sale, inheritance) and your investment horizon exceeds 7 to 10 years, or route it via a Systematic Transfer Plan (STP) into equity over 6 to 12 months. Choose an <strong>SIP</strong> for monthly salary discipline, emergency liquidity protection, and volatile market peace of mind.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I stop an SIP midway without penalty?",
+        answer:
+          "Yes. Mutual fund SIPs in India can be paused, modified, or stopped at any time without any exit penalty on future contributions.",
+      },
+      {
+        question: "Is SIP completely risk-free compared to lump sum?",
+        answer:
+          "No. Mutual fund investments remain subject to market risk. While an SIP reduces timing risk through averaging, market fluctuations still affect the portfolio valuation.",
+      },
+      {
+        question: "Can I increase my SIP amount every year?",
+        answer:
+          "Yes. Most asset management companies offer a 'Step-Up SIP' feature allowing you to automatically increase your monthly investment by a fixed percentage or rupee amount annually.",
+      },
+    ],
+    related: ["sip-calculator", "ppf-calculator", "emi-calculator"],
+    pillar: { label: "Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "college-75-percent-attendance-rule-explained",
+    title: "The 75% College Attendance Rule: Criteria, Bunk Limits & Medical Condonation",
+    seoTitle: "75% Attendance Rule Explained: How Many Classes Can You Bunk? (UGC & AICTE) | Tulyro",
+    seoDescription:
+      "Understand the 75% attendance rule under UGC, AICTE, and university norms. Learn how to calculate bunkable classes, medical condonation, and exam detention rules.",
+    href: "/guides/college-75-percent-attendance-rule-explained/",
+    intro: [
+      <>
+        Most Indian universities and technical institutes governed by UGC and AICTE mandate a minimum of 75% classroom attendance to appear for semester examinations. Falling below this threshold risks course repetition, grade deductions, or exam hall ticket debarment.
+      </>,
+    ],
+    cta: { label: "Check Your Bunk Limit", href: "/calculators/attendance-calculator/" },
+    sections: [
+      {
+        heading: "Why Universities Mandate 75% Attendance",
+        body: [
+          <>
+            Regulatory bodies such as the University Grants Commission (UGC) and All India Council for Technical Education (AICTE) prescribe 75% minimum physical presence to ensure continuous academic engagement, lab practical competency, and standardized evaluation integrity.
+          </>,
+          <>
+            Many engineering, medical, law, and degree universities enforce this threshold strictly via biometric punch logs or ERP software portals. Students failing to meet the requirement are classified under &quot;shortage of attendance&quot; and face examination debarment.
+          </>,
+        ],
+      },
+      {
+        heading: "The Math: How to Calculate Bunkable Classes",
+        body: [
+          <>
+            Students often make the costly mistake of assuming that having an 85% attendance rate means they can skip 10 consecutive lectures. Attendance percentages do not subtract linearly because the total class count increases with each skipped lecture.
+          </>,
+          <>
+            To calculate how many upcoming lectures you can safely skip while remaining at or above a 75% threshold (0.75):
+          </>,
+          <pre key="bunk-formula" className="overflow-x-auto rounded-lg bg-surface-container-low p-4 font-code text-sm">
+            Bunkable Classes = Math.floor((Attended Classes / 0.75) - Total Classes Held)
+          </pre>,
+          <>
+            For instance, if 60 lectures have been conducted so far and you attended 54: Attended = 54, Target ratio = 54 / 0.75 = 72, Bunkable buffer = 72 - 60 = <strong>12 classes</strong>. If you skip the next 12 lectures, total classes reach 72 while attended remains 54, landing you at exactly 75.0%.
+          </>,
+        ],
+      },
+      {
+        heading: "Recovering from an Attendance Shortage",
+        body: [
+          <>
+            If your current attendance has fallen below 75%, how many consecutive classes must you attend without missing a single period to restore compliance?
+          </>,
+          <pre key="attend-formula" className="overflow-x-auto rounded-lg bg-surface-container-low p-4 font-code text-sm">
+            Classes to Attend = Math.ceil((0.75 * Total Classes - Attended Classes) / (1 - 0.75))
+          </pre>,
+          <>
+            If 50 lectures were held and you attended only 30 (current rate: 60%): Deficit = (0.75 × 50) - 30 = 7.5. Required consecutive attendance = 7.5 / 0.25 = <strong>30 classes</strong>. You must attend the next 30 scheduled classes consecutively without missing one just to lift your average back to 75%.
+          </>,
+        ],
+      },
+      {
+        heading: "Medical Condonation and Duty Leave Exemptions",
+        body: [
+          <>
+            <strong>Medical Condonation:</strong> If attendance falls between 65% and 74%, students can submit government hospital medical certificates, discharge summaries, and parent consent forms to the Dean of Academic Affairs. Many institutes permit condonation of up to 10% on genuine medical grounds, often accompanied by a prescribed institutional condonation fee.
+          </>,
+          <>
+            <strong>On-Duty (OD) Leave:</strong> Official representations for college sports teams, cultural fests, hackathons, or NCC/NSS training camps are credited back into total attendance upon HOD endorsement.
+          </>,
+          <>
+            <strong>Zero Condonation Below 65%:</strong> In virtually all statutory university regulations (including Bar Council of India, Medical Council, and AICTE), students below 65% are strictly barred from exams without exception.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can an attendance shortage below 65% be condoned?",
+        answer:
+          "Generally no. Most university academic councils have strict regulatory ceilings where condonation cannot be granted below 65% even with valid medical records.",
+      },
+      {
+        question: "Do lab practicals have separate attendance requirements?",
+        answer:
+          "Yes. Many professional degree programs treat theory classes and laboratory sessions as distinct attendance tracks, requiring 75% independently in both.",
+      },
+      {
+        question: "Does bunking a 2-hour lecture count as one or two absences?",
+        answer:
+          "If the university ERP logs attendance by lecture period, a 2-hour continuous class usually logs as 2 distinct absences.",
+      },
+    ],
+    related: ["attendance-calculator", "sgpa-to-cgpa"],
+    pillar: { label: "Calculators", href: "/calculators/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -8,6 +8,7 @@ import { ToolCard } from "@/components/ToolCard";
 import { getTool, type ToolDefinition } from "@/lib/tools";
 import type { FAQItem } from "@/lib/content";
 import { Reveal } from "@/components/motion";
+import { EmbedButton } from "@/components/EmbedButton";
 
 /** Honest per-tool hero pills (Stitch-style, no fabricated version numbers). */
 const HERO_PILLS: Record<string, string> = {
@@ -70,10 +71,13 @@ export function ToolLayout({ tool, children, intro, definition, howTo, content, 
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden="true" />
           <div className="pointer-events-none absolute -bottom-32 right-1/3 h-80 w-80 rounded-full bg-secondary-container/15 blur-2xl" aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-shell">
-            <p className="hero-enter inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed shadow-sm" style={{ ["--enter-delay" as string]: "0ms" }}>
-              <span className="h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
-              {HERO_PILLS[tool.id] ?? "Client-Side Only"}
-            </p>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="hero-enter inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-code-data text-xs text-primary-fixed shadow-sm" style={{ ["--enter-delay" as string]: "0ms" }}>
+                <span className="h-2 w-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
+                {HERO_PILLS[tool.id] ?? "Client-Side Only"}
+              </p>
+              <EmbedButton tool={tool} />
+            </div>
             <h1 className="hero-enter mt-3 font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg" style={{ ["--enter-delay" as string]: "90ms" }}>{tool.h1 ?? tool.title}</h1>
             <p className="hero-enter mt-2 max-w-2xl font-body-lg text-body-lg text-tertiary-fixed-dim" style={{ ["--enter-delay" as string]: "180ms" }}>{intro}</p>
           </div>

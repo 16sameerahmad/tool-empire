@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { ReactNode } from "react";
 import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
@@ -18,7 +18,9 @@ import {
   detectCornerColor,
   hexToRgb,
   processImageBackground,
+  removeBackgroundAI,
   rgbToHex,
+  type RemoveBackgroundAIProgress,
 } from "@/tools/remove-background/logic";
 import { calculateGst } from "@/tools/gst/logic";
 import { calculateSwp } from "@/tools/swp/logic";
@@ -2357,14 +2359,33 @@ function RemoveBackgroundPanel() {
   const [customBgColor, setCustomBgColor] = useState<string>("#3b82f6");
   const [sliderPos, setSliderPos] = useState<number>(50);
   const [viewMode, setViewMode] = useState<"slider" | "side">("slider");
+  const [engineMode, setEngineMode] = useState<"ai" | "chroma">("ai");
+  const [aiProgress, setAiProgress] = useState<RemoveBackgroundAIProgress | null>(null);
+  const [aiStatusMessage, setAiStatusMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [aiBlob, setAiBlob] = useState<Blob | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
+  const currentFileBlobRef = useRef<Blob | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  const loadSample = (sampleUrl: string, sampleName: string) => {
+  const loadSample = async (sampleUrl: string, sampleName: string) => {
+    setErrorMessage(null);
     setImageSrc(sampleUrl);
     setFileName(sampleName.toLowerCase().replace(/\s+/g, "-"));
+    setProcessedUrl(null);
+    setAiBlob(null);
+
+    try {
+      const res = await fetch(sampleUrl);
+      const blob = await res.blob();
+      currentFileBlobRef.current = blob;
+    } catch {
+      // fallback if fetch fails
+    }
+
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => {
@@ -2387,6 +2408,24 @@ function RemoveBackgroundPanel() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setErrorMessage(null);
+    setAiProgress(null);
+    setProcessedUrl(null);
+    setAiBlob(null);
+
+    // File validation: JPG, JPEG, PNG, WEBP, up to 60MB
+    const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+    if (!validTypes.includes(file.type) && !/\.(jpe?g|png|webp)$/i.test(file.name)) {
+      setErrorMessage("Please upload a valid image file (JPG, PNG, or WEBP).");
+      return;
+    }
+
+    if (file.size > 60 * 1024 * 1024) {
+      setErrorMessage("Image is too large (exceeds 60 MB limit). Please choose a smaller photo.");
+      return;
+    }
+
+    currentFileBlobRef.current = file;
     setFileName(file.name.replace(/\.[^/.]+$/, ""));
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -2397,7 +2436,6 @@ function RemoveBackgroundPanel() {
       img.onload = () => {
         originalImageRef.current = img;
 
-        // Auto-detect dominant corner backdrop color
         const tempCanvas = document.createElement("canvas");
         tempCanvas.width = img.width;
         tempCanvas.height = img.height;
@@ -2414,7 +2452,88 @@ function RemoveBackgroundPanel() {
     reader.readAsDataURL(file);
   };
 
+  // Run AI background removal via @bg0/browser
+  const runAiRemoval = async () => {
+    if (!currentFileBlobRef.current && !imageSrc) return;
+
+    setIsProcessing(true);
+    setErrorMessage(null);
+    setAiStatusMessage("Initializing on-device AI...");
+    abortControllerRef.current?.abort();
+    const ac = new AbortController();
+    abortControllerRef.current = ac;
+
+    try {
+      let blob = currentFileBlobRef.current;
+      if (!blob && imageSrc) {
+        const res = await fetch(imageSrc);
+        blob = await res.blob();
+        currentFileBlobRef.current = blob;
+      }
+      if (!blob) throw new Error("No image data available");
+
+      const result = await removeBackgroundAI(blob, {
+        quality: "quality",
+        signal: ac.signal,
+        onProgress: (prog) => {
+          setAiProgress(prog);
+          setAiStatusMessage(prog.message || `${Math.round(prog.progress * 100)}% complete`);
+        },
+      });
+
+      setAiBlob(result.blob);
+      const transparentUrl = URL.createObjectURL(result.blob);
+      applyBackdrop(transparentUrl);
+      setIsProcessing(false);
+      setAiStatusMessage(`Completed with ${result.provider.toUpperCase()} in ${(result.durationMs / 1000).toFixed(1)}s`);
+    } catch (err: unknown) {
+      if (ac.signal.aborted) {
+        setAiStatusMessage("Cancelled");
+        setIsProcessing(false);
+        return;
+      }
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn("AI removal failed, switching to high-accuracy color keying:", msg);
+      setErrorMessage(`On-device AI notice: ${msg}. Switching to instant edge keying mode.`);
+      setEngineMode("chroma");
+      setIsProcessing(false);
+    }
+  };
+
+  const applyBackdrop = useCallback((cutoutSrc: string) => {
+    if (bgChoice === "transparent") {
+      setProcessedUrl(cutoutSrc);
+      return;
+    }
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setProcessedUrl(cutoutSrc);
+        return;
+      }
+      ctx.fillStyle = bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      setProcessedUrl(canvas.toDataURL("image/png"));
+    };
+    img.src = cutoutSrc;
+  }, [bgChoice, customBgColor]);
+
+  // Re-apply backdrop whenever bgChoice or customBgColor changes on existing AI cutout
   useEffect(() => {
+    if (engineMode === "ai" && aiBlob) {
+      const url = URL.createObjectURL(aiBlob);
+      applyBackdrop(url);
+    }
+  }, [applyBackdrop, aiBlob, engineMode]);
+
+  // Chroma keying fallback / manual adjustment pipeline
+  useEffect(() => {
+    if (engineMode !== "chroma") return;
     if (!originalImageRef.current || !imageSrc) return;
 
     setIsProcessing(true);
@@ -2468,7 +2587,7 @@ function RemoveBackgroundPanel() {
     }, 40);
 
     return () => clearTimeout(timer);
-  }, [imageSrc, targetColor, tolerance, feather, bgChoice, customBgColor]);
+  }, [imageSrc, targetColor, tolerance, feather, bgChoice, customBgColor, engineMode]);
 
   const handleDownload = () => {
     if (!processedUrl) return;
@@ -2479,14 +2598,39 @@ function RemoveBackgroundPanel() {
   };
 
   const handleReset = () => {
+    abortControllerRef.current?.abort();
     setImageSrc(null);
     setProcessedUrl(null);
+    setAiBlob(null);
+    setAiProgress(null);
+    setAiStatusMessage("");
+    setErrorMessage(null);
+    currentFileBlobRef.current = null;
     originalImageRef.current = null;
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const handleCancel = () => {
+    abortControllerRef.current?.abort();
+    setIsProcessing(false);
+    setAiStatusMessage("Processing cancelled");
+  };
+
   return (
     <div className="space-y-6">
+      {errorMessage && (
+        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-500 flex items-start justify-between gap-3">
+          <span>{errorMessage}</span>
+          <button
+            type="button"
+            onClick={() => setErrorMessage(null)}
+            className="text-xs font-bold underline hover:opacity-80"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+
       {!imageSrc ? (
         <div className="space-y-6">
           <div
@@ -2508,13 +2652,17 @@ function RemoveBackgroundPanel() {
             <input
               ref={fileInputRef}
               type="file"
-              accept="image/*"
+              accept="image/png,image/jpeg,image/webp"
               onChange={handleFileChange}
               className="hidden"
             />
-            <p className="mt-4 text-xs text-on-surface-variant">
-              100% Client-Side Privacy: No files leave your device.
-            </p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-on-surface-variant">
+              <span>Supports PNG, JPG, WEBP (up to 60 MB)</span>
+              <span>•</span>
+              <span className="font-medium text-primary">Private WebGPU/WASM AI Engine</span>
+              <span>•</span>
+              <span>Zero server uploads</span>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6">
@@ -2556,6 +2704,32 @@ function RemoveBackgroundPanel() {
                 className={viewMode === "side" ? buttonClass : secondaryButtonClass}
               >
                 Side-by-Side
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold text-on-surface-variant">Engine:</span>
+              <button
+                type="button"
+                onClick={() => setEngineMode("ai")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
+                  engineMode === "ai"
+                    ? "bg-primary text-white border-primary shadow-sm"
+                    : "bg-surface-container-lowest text-on-surface border-outline-variant"
+                }`}
+              >
+                AI Model (BiRefNet)
+              </button>
+              <button
+                type="button"
+                onClick={() => setEngineMode("chroma")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
+                  engineMode === "chroma"
+                    ? "bg-primary text-white border-primary shadow-sm"
+                    : "bg-surface-container-lowest text-on-surface border-outline-variant"
+                }`}
+              >
+                Instant Edge Keying
               </button>
             </div>
 
@@ -2601,62 +2775,116 @@ function RemoveBackgroundPanel() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
-            <div>
-              <label className={labelClass}>Target Background Color</label>
-              <div className="mt-2 flex items-center gap-3">
-                <input
-                  type="color"
-                  value={targetColor}
-                  onChange={(e) => setTargetColor(e.target.value)}
-                  className="h-10 w-12 cursor-pointer rounded border border-outline-variant bg-transparent p-0"
-                />
-                <input
-                  type="text"
-                  value={targetColor}
-                  onChange={(e) => setTargetColor(e.target.value)}
-                  className="w-24 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-on-surface"
-                />
+          {/* AI Mode Banner & Trigger */}
+          {engineMode === "ai" ? (
+            <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2">
+                  <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <p className="text-sm font-bold text-on-surface">BiRefNet On-Device AI Engine</p>
+                </div>
+                <p className="text-xs text-on-surface-variant">
+                  Runs locally in your browser with WebGPU / WASM acceleration. No images uploaded.
+                </p>
+                {aiStatusMessage && (
+                  <p className="text-xs font-semibold text-primary pt-1">{aiStatusMessage}</p>
+                )}
               </div>
-            </div>
 
-            <div>
-              <div className="flex justify-between">
-                <label className={labelClass}>Tolerance</label>
-                <span className="text-xs text-on-surface-variant font-medium">{tolerance}%</span>
+              <div className="flex items-center gap-2">
+                {isProcessing ? (
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="rounded-xl border border-red-500/50 bg-red-500/10 px-4 py-2.5 text-xs font-bold text-red-500 hover:bg-red-500/20 transition"
+                  >
+                    Cancel
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={runAiRemoval}
+                    className={`${buttonClass} px-6 py-2.5 font-bold shadow-md hover:shadow-primary/30`}
+                  >
+                    ✨ Run AI Background Removal
+                  </button>
+                )}
               </div>
-              <input
-                type="range"
-                min="1"
-                max="85"
-                value={tolerance}
-                onChange={(e) => setTolerance(Number(e.target.value))}
-                className="mt-3 w-full accent-primary"
-              />
             </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
+              <div>
+                <label className={labelClass}>Target Background Color</label>
+                <div className="mt-2 flex items-center gap-3">
+                  <input
+                    type="color"
+                    value={targetColor}
+                    onChange={(e) => setTargetColor(e.target.value)}
+                    className="h-10 w-12 cursor-pointer rounded border border-outline-variant bg-transparent p-0"
+                  />
+                  <input
+                    type="text"
+                    value={targetColor}
+                    onChange={(e) => setTargetColor(e.target.value)}
+                    className="w-24 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-on-surface"
+                  />
+                </div>
+              </div>
 
-            <div>
-              <div className="flex justify-between">
-                <label className={labelClass}>Edge Feathering</label>
-                <span className="text-xs text-on-surface-variant font-medium">{feather}%</span>
+              <div>
+                <div className="flex justify-between">
+                  <label className={labelClass}>Tolerance</label>
+                  <span className="text-xs text-on-surface-variant font-medium">{tolerance}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="85"
+                  value={tolerance}
+                  onChange={(e) => setTolerance(Number(e.target.value))}
+                  className="mt-3 w-full accent-primary"
+                />
               </div>
-              <input
-                type="range"
-                min="0"
-                max="50"
-                value={feather}
-                onChange={(e) => setFeather(Number(e.target.value))}
-                className="mt-3 w-full accent-primary"
-              />
+
+              <div>
+                <div className="flex justify-between">
+                  <label className={labelClass}>Edge Feathering</label>
+                  <span className="text-xs text-on-surface-variant font-medium">{feather}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="50"
+                  value={feather}
+                  onChange={(e) => setFeather(Number(e.target.value))}
+                  className="mt-3 w-full accent-primary"
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Progress bar if AI is working */}
+          {isProcessing && aiProgress && (
+            <div className="space-y-1.5">
+              <div className="flex justify-between text-xs font-semibold text-on-surface-variant">
+                <span>{aiProgress.message}</span>
+                <span>{Math.round(aiProgress.progress * 100)}%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-surface-container-highest">
+                <div
+                  className="h-full bg-primary transition-all duration-200"
+                  style={{ width: `${Math.round(aiProgress.progress * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           {viewMode === "slider" ? (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-semibold text-on-surface-variant px-1">
                 <span>Original</span>
                 <span>Drag slider to inspect cutout</span>
-                <span>Cutout {isProcessing && "(Updating...)"}</span>
+                <span>Cutout {isProcessing && "(Processing...)"}</span>
               </div>
               <div className="relative mx-auto max-w-2xl h-[360px] sm:h-[420px] rounded-2xl border border-outline-variant overflow-hidden select-none shadow-lg">
                 <div
@@ -2671,12 +2899,16 @@ function RemoveBackgroundPanel() {
                     backgroundColor: bgChoice === "transparent" ? "#0f172a" : bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor,
                   }}
                 >
-                  {processedUrl && (
+                  {processedUrl ? (
                     <img
                       src={processedUrl}
                       alt="Processed output"
                       className="h-full w-full object-contain"
                     />
+                  ) : (
+                    <div className="text-center p-6 text-on-surface-variant text-sm">
+                      Click <span className="font-bold text-primary">&quot;Run AI Background Removal&quot;</span> above to generate cutout
+                    </div>
                   )}
                 </div>
 
@@ -2726,7 +2958,7 @@ function RemoveBackgroundPanel() {
 
               <div className="space-y-2">
                 <span className="text-sm font-medium text-on-surface-variant">
-                  Processed Cutout {isProcessing && <span className="text-xs text-primary">(Processing...)</span>}
+                  Processed Cutout {isProcessing && <span className="text-xs text-primary">({aiStatusMessage || "Processing..."})</span>}
                 </span>
                 <div
                   className="flex min-h-[300px] items-center justify-center rounded-2xl border border-outline-variant p-3 overflow-hidden shadow-sm"
@@ -2740,12 +2972,16 @@ function RemoveBackgroundPanel() {
                     backgroundColor: bgChoice === "transparent" ? "#0f172a" : bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor,
                   }}
                 >
-                  {processedUrl && (
+                  {processedUrl ? (
                     <img
                       src={processedUrl}
                       alt="Processed output"
                       className="max-h-[360px] max-w-full rounded object-contain"
                     />
+                  ) : (
+                    <div className="text-center p-6 text-on-surface-variant text-sm">
+                      Ready to remove background. Click <span className="font-bold text-primary">&quot;Run AI Background Removal&quot;</span>.
+                    </div>
                   )}
                 </div>
               </div>
@@ -2758,7 +2994,7 @@ function RemoveBackgroundPanel() {
               onClick={handleReset}
               className={secondaryButtonClass}
             >
-              Upload Different Image
+              Start Over / New Image
             </button>
             <button
               type="button"

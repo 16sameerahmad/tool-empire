@@ -4,6 +4,7 @@ import {
   getColorDistance,
   hexToRgb,
   processImageBackground,
+  rgbToHex,
 } from "./logic";
 
 describe("remove-background logic", () => {
@@ -59,5 +60,10 @@ describe("remove-background logic", () => {
 
     const detected = detectCornerColor(mockImageData);
     expect(detected).toEqual({ r: 0, g: 255, b: 0 });
+  });
+
+  it("exports rgbToHex correctly", () => {
+    expect(rgbToHex(255, 255, 255)).toBe("#ffffff");
+    expect(rgbToHex(0, 0, 0)).toBe("#000000");
   });
 });

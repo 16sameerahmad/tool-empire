@@ -134,3 +134,47 @@ export function detectCornerColor(imageData: ImageData): { r: number; g: number;
     b: Math.round(bSum / count),
   };
 }
+
+export type RemovalEngine = "ai" | "chroma";
+
+export interface RemoveBackgroundAIProgress {
+  stage: "preparing" | "downloading" | "processing" | "finishing";
+  progress: number;
+  message: string;
+}
+
+export interface RemoveBackgroundAIResult {
+  blob: Blob;
+  width: number;
+  height: number;
+  provider: "webgpu" | "wasm";
+  durationMs: number;
+}
+
+/**
+ * Runs on-device BiRefNet inference via @bg0/browser.
+ * Dynamically loaded in the browser to avoid server-side bundling issues.
+ */
+export async function removeBackgroundAI(
+  input: Blob,
+  options?: {
+    quality?: "fast" | "quality";
+    onProgress?: (progress: RemoveBackgroundAIProgress) => void;
+    signal?: AbortSignal;
+  }
+): Promise<RemoveBackgroundAIResult> {
+  const { removeBackground } = await import("@bg0/browser");
+  const result = await removeBackground(input, {
+    quality: options?.quality ?? "fast",
+    onProgress: options?.onProgress,
+    signal: options?.signal,
+  });
+
+  return {
+    blob: result.blob,
+    width: result.width,
+    height: result.height,
+    provider: result.provider,
+    durationMs: result.durationMs,
+  };
+}

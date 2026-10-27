@@ -117,6 +117,15 @@ export const guides: Guide[] = [
             same example above — the version from a real lender can differ by a few paise from rounding, and
             by more once fees or a floating rate enter the picture.
           </>,
+          <>
+            Over 12 months the shift is gentle: month 1 is ₹1,000 of interest, month 12 is ₹87.97.
+            Stretch the same maths over a 30-year home loan and the shift turns extreme — most early
+            payments go to interest and barely touch the principal. See{" "}
+            <Link href="/guides/how-mortgage-amortization-works/" className="text-primary underline">
+              how mortgage amortization works
+            </Link>
+            .
+          </>,
         ],
       },
       {

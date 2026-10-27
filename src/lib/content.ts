@@ -88,6 +88,34 @@ export const content: Record<string, ToolContent> = {
       { question: "Do EMIs affect my credit score?", answer: "Yes. Lenders report repayment behaviour to credit bureaus such as CIBIL, so on-time EMIs build history while missed or late payments hurt the score and stay on record. This calculator does not check or affect your score; it only estimates payments." },
     ]),
   },
+  "sip-calculator": {
+    definition: "A Systematic Investment Plan (SIP) is a method of investing a fixed amount regularly into mutual funds to benefit from compounding and rupee cost averaging.",
+    intro: "Calculate expected returns, invested amount, and total maturity value of your mutual fund SIP investments in Indian Rupees.",
+    howTo: [
+      "Enter your monthly investment amount in ₹.",
+      "Enter your expected annual return rate (CAGR %).",
+      "Enter your investment duration in years.",
+      "Review your invested capital, wealth gain, and estimated maturity value.",
+    ],
+    content: [
+      "A Systematic Investment Plan (SIP) calculator helps individual investors project the future maturity value of regular monthly investments in mutual funds or index funds. Instead of attempting to time the market with lump sums, a disciplined monthly contribution allows you to benefit from compounding and rupee-cost averaging across market cycles.",
+      "The calculator applies the standard monthly compounding formula: M = P × [((1 + i)^n − 1) / i] × (1 + i), where P is the periodic monthly deposit, i is the monthly return rate (annual expected return divided by 12 and then divided by 100), and n is the total number of monthly payments (years multiplied by 12). If zero return is specified, the maturity value strictly equals the principal invested.",
+      "Mutual fund investments are subject to market risks. Historical returns from equity funds or indices do not guarantee identical future results. This calculation represents a mathematical projection assuming a constant rate of return, whereas actual equity markets experience volatility and sequence-of-returns variance.",
+      "All calculations are performed entirely in your browser using client-side JavaScript. No personal details, portfolio amounts, or financial inputs are transmitted across any network or stored on any server. You can freely model aggressive, moderate, or conservative scenarios with complete privacy.",
+      "For long-term financial planning, disciplined consistency typically outweighs short-term market timing. Increasing your monthly SIP by a small percentage each year or extending your investment horizon can drastically accelerate total wealth generation due to the exponential nature of compound interest.",
+    ],
+    guides: [
+      { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
+      { label: "EMI vs Mortgage Calculator Comparison", href: "/guides/emi-vs-mortgage-calculator/" },
+    ],
+    faq: faq([
+      { question: "What is an SIP?", answer: "An SIP (Systematic Investment Plan) is a convenient vehicle where an investor contributes a fixed sum periodically (usually monthly) into a designated mutual fund scheme rather than investing a lump sum all at once." },
+      { question: "What is the formula used in this SIP calculator?", answer: "The calculator uses the compound interest future value annuity formula: Future Value = P × [((1 + i)^n - 1) / i] × (1 + i), where P is the monthly investment amount, i is the periodic monthly return (Annual Rate / 12 / 100), and n is total months." },
+      { question: "Are SIP returns guaranteed?", answer: "No. Mutual funds and equity markets do not offer guaranteed returns. Returns fluctuate with market conditions. The percentage entered in the calculator is an expected annual growth estimate for planning purposes." },
+      { question: "What is the benefit of rupee-cost averaging in an SIP?", answer: "Rupee-cost averaging ensures that you automatically purchase more mutual fund units when market prices are low and fewer units when prices are high, lowering your average cost per unit over long time horizons without needing to time market peaks and troughs." },
+      { question: "Is there any minimum or maximum lock-in period for SIPs?", answer: "Standard open-ended mutual fund SIPs have no lock-in period; you can stop investing or redeem units at any time. However, tax-saving ELSS mutual funds carry a mandatory 3-year lock-in period for each individual instalment." },
+    ]),
+  },
   "mortgage-calculator": {
     definition: "A mortgage payment is the fixed monthly amount of principal and interest that repays a home loan in full over its term.",
     intro: "Estimate a US mortgage payment, total interest, and total payment in dollars.",

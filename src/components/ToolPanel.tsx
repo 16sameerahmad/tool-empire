@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
+import { sip } from "@/tools/sip/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -54,6 +55,257 @@ function ErrorBox({ children }: { children: ReactNode }) {
 
 function AgePanel() {
   return <AgeWorkspace />;
+}
+
+function SipPanel() {
+  const [monthlyAmount, setMonthlyAmount] = useState("5000");
+  const [returnRate, setReturnRate] = useState("12");
+  const [durationYears, setDurationYears] = useState("10");
+  const [copied, setCopied] = useState(false);
+
+  const hasValues = monthlyAmount !== "" && returnRate !== "" && durationYears !== "";
+  const result = hasValues ? sip(Number(monthlyAmount), Number(returnRate), Number(durationYears)) : null;
+  const error = result && "error" in result ? result.error : null;
+  const valid = result && !("error" in result) ? result : null;
+  const format = numberFormat("en-IN", "INR");
+  const presets = [1000, 2500, 5000, 10000, 25000];
+  const monthlyAmountNum = Number(monthlyAmount) || 0;
+
+  const totalValue = valid ? valid.totalValue : 0;
+  const invested = valid ? valid.investedAmount : 0;
+  const investedPct = totalValue > 0 ? Math.round((invested / totalValue) * 100) : 0;
+  const returnsPct = 100 - investedPct;
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `SIP Investment Plan: ${format.format(Number(monthlyAmount))}/month for ${durationYears} years at ${returnRate}% expected return. Invested Amount: ${format.format(valid.investedAmount)}. Estimated Wealth Gain: ${format.format(valid.estimatedReturns)}. Expected Maturity Value: ${format.format(valid.totalValue)}. (Estimate only, subject to market fluctuations).`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        {/* Params (7 cols) */}
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          {/* Monthly Investment */}
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="sip-amount" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Monthly Investment
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">SIP deposit amount</span>
+            </div>
+            <div className="relative flex items-center">
+              <span className="absolute left-3 font-code-data font-semibold text-on-surface-variant">₹</span>
+              <input
+                id="sip-amount"
+                type="number"
+                min="100"
+                step="500"
+                value={monthlyAmount}
+                onChange={(e) => setMonthlyAmount(e.target.value)}
+                className={`${inputClass} mt-0 pl-8 font-code-data`}
+              />
+            </div>
+            <input
+              type="range"
+              min={500}
+              max={100000}
+              step={500}
+              value={Math.min(monthlyAmountNum, 100000)}
+              onChange={(e) => setMonthlyAmount(e.target.value)}
+              className="h-2 w-full cursor-pointer accent-primary-container"
+              aria-label="Monthly investment slider"
+            />
+            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+              <span className="mr-1 font-label-sm text-label-sm text-on-surface-variant">Presets:</span>
+              {presets.map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setMonthlyAmount(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 font-code-data text-xs ${
+                    monthlyAmountNum === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface hover:bg-primary-container hover:text-white"
+                  }`}
+                >
+                  ₹{preset.toLocaleString("en-IN")}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Expected Return Rate */}
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="sip-rate" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Expected Return Rate (p.a.)
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Historical avg 12-15%</span>
+            </div>
+            <div className="relative flex items-center">
+              <input
+                id="sip-rate"
+                type="number"
+                min="1"
+                max="30"
+                step="0.5"
+                value={returnRate}
+                onChange={(e) => setReturnRate(e.target.value)}
+                className={`${inputClass} mt-0 pr-8 font-code-data`}
+              />
+              <span className="absolute right-3 font-code-data font-semibold text-on-surface-variant">%</span>
+            </div>
+            <input
+              type="range"
+              min={1}
+              max={30}
+              step={0.5}
+              value={Number(returnRate) || 12}
+              onChange={(e) => setReturnRate(e.target.value)}
+              className="h-2 w-full cursor-pointer accent-primary-container"
+              aria-label="Return rate slider"
+            />
+          </div>
+
+          {/* Time Period (Years) */}
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="sip-years" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Investment Period
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Years</span>
+            </div>
+            <div className="relative flex items-center">
+              <input
+                id="sip-years"
+                type="number"
+                min="1"
+                max="40"
+                step="1"
+                value={durationYears}
+                onChange={(e) => setDurationYears(e.target.value)}
+                className={`${inputClass} mt-0 pr-16 font-code-data`}
+              />
+              <span className="absolute right-3 font-code-data font-semibold text-on-surface-variant">Years</span>
+            </div>
+            <input
+              type="range"
+              min={1}
+              max={40}
+              step={1}
+              value={Number(durationYears) || 10}
+              onChange={(e) => setDurationYears(e.target.value)}
+              className="h-2 w-full cursor-pointer accent-primary-container"
+              aria-label="Investment period slider"
+            />
+          </div>
+        </div>
+
+        {/* Results (5 cols) */}
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Expected Wealth Summary</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Invested Amount</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? format.format(valid.investedAmount) : "₹ 0"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Estimated Wealth Gain</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-primary">
+                    {valid ? format.format(valid.estimatedReturns) : "₹ 0"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Total Maturity Value</span>
+                  <span className="mt-1 block font-code-data text-3xl font-black text-on-surface">
+                    {valid ? format.format(valid.totalValue) : "₹ 0"}
+                  </span>
+                </div>
+
+                {valid && totalValue > 0 && (
+                  <div className="space-y-2 pt-2">
+                    <div className="flex justify-between font-label-sm text-xs text-on-surface-variant">
+                      <span>Invested: {investedPct}%</span>
+                      <span>Growth: {returnsPct}%</span>
+                    </div>
+                    <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container">
+                      <div className="h-full bg-primary-container" style={{ width: `${investedPct}%` }} />
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Summary copied!" : "Copy Summary"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-start gap-3 rounded-xl bg-surface-container p-4 shadow-sm">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary">
+              <Icon name="lightbulb" className="h-5 w-5" />
+            </span>
+            <div className="space-y-1">
+              <h4 className="font-display font-headline-sm text-sm font-semibold text-on-surface">Power of Compounding</h4>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                SIP gains compound over time. The longer you stay invested, the larger the wealth gain component relative to your actual invested principal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Formula explanation */}
+      <div className="mt-6 rounded-2xl bg-surface-container-lowest p-6 shadow-sm">
+        <div className="flex items-center gap-2">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary-container/10 text-primary">
+            <Icon name="functions" className="h-4 w-4" />
+          </span>
+          <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">The Mathematical Formula Behind SIP Returns</h2>
+        </div>
+        <p className="mt-3 font-body-md text-body-md text-on-surface-variant">
+          Future value of systematic periodic investments calculated using the standard annuity compound interest formula:
+        </p>
+        <div className="mt-4 overflow-x-auto rounded-xl bg-surface-container-low p-4 text-center">
+          <p className="font-mono text-lg font-bold tracking-wide text-on-surface md:text-xl">
+            M = P × [((1 + i)<sup>n</sup> − 1) / i] × (1 + i)
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-3 pt-4 sm:grid-cols-3">
+          {[
+            { k: "P = Monthly Deposit", v: "Fixed monthly amount invested regularly." },
+            { k: "i = Monthly Return Rate", v: "Annual expected return rate divided by 12, then divided by 100." },
+            { k: "n = Total Months", v: "Total number of monthly instalments (Years × 12)." },
+          ].map((item) => (
+            <div key={item.k} className="rounded-lg bg-surface-container-low p-3">
+              <span className="block font-code-data font-bold text-primary">{item.k}</span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">{item.v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
@@ -1602,6 +1854,8 @@ export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
       return <AgePanel />;
+    case "sip-calculator":
+      return <SipPanel />;
     case "emi-calculator":
       return <EmiPanel />;
     case "mortgage-calculator":

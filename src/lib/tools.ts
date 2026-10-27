@@ -48,6 +48,21 @@ export const tools: ToolDefinition[] = [
       "Estimate your monthly EMI, total interest and total payment for an Indian loan. Enter amount, rate and tenure. Try it free in your browser — no signup.",
   },
   {
+    id: "sip-calculator",
+    title: "SIP Calculator",
+    cluster: "Calculators",
+    href: "/calculators/sip-calculator/",
+    locale: "en-IN",
+    description: "Calculate expected returns on mutual fund SIP investments in Indian rupees.",
+    keywords: ["sip", "sip calculator", "mutual fund", "investment", "returns", "wealth"],
+    related: ["emi-calculator", "mortgage-calculator"],
+    live: true,
+    h1: "SIP Calculator — Mutual Fund Investment & Wealth Growth in ₹",
+    seoTitle: "SIP Calculator — Systematic Investment Plan Returns in ₹ | Tulyro",
+    seoDescription:
+      "Calculate your expected mutual fund returns with our free SIP calculator. Enter monthly investment, expected return rate, and time period in years. 100% private.",
+  },
+  {
     id: "mortgage-calculator",
     title: "Mortgage Calculator",
     cluster: "Calculators",

@@ -14,6 +14,16 @@
 
 ## Tools
 
+- [SWP Calculator](https://tulyro.online/calculators/swp-calculator/): Calculate monthly systematic withdrawal payouts, final corpus balance, and capital exhaustion from mutual funds.
+- [Lumpsum Calculator](https://tulyro.online/calculators/lumpsum-calculator/): Compute total maturity value and wealth gains on one-time mutual fund investments using compound interest.
+- [CAGR Calculator](https://tulyro.online/calculators/cagr-calculator/): Determine true annualized Compound Annual Growth Rate and total returns across multi-year investments.
+- [Percentage Calculator](https://tulyro.online/calculators/percentage-calculator/): Calculate % of values, proportions, and percentage increase or decrease with step-by-step math.
+- [Image Resizer in KB](https://tulyro.online/tools/image-resizer/): Compress and resize photos and signatures to 20KB, 50KB, or 100KB for exam forms. 100% private in-browser.
+- [Remove Background](https://tulyro.online/tools/remove-background/): Free client-side image background remover with transparent PNG export. No server upload.
+- [SIP Calculator](https://tulyro.online/calculators/sip-calculator/): Mutual fund SIP return calculator with monthly compounding and inflation adjustment.
+- [75% Attendance Calculator](https://tulyro.online/calculators/attendance-calculator/): Calculate classes needed to attend or bunk while maintaining university attendance rules.
+- [PPF Calculator](https://tulyro.online/calculators/ppf-calculator/): 15-year Public Provident Fund interest, tax-free maturity and balance calculator.
+- [SGPA to CGPA Converter](https://tulyro.online/calculators/sgpa-to-cgpa/): Convert semester grade point averages into overall cumulative grade point average.
 - [Age Calculator](https://tulyro.online/calculators/age-calculator/): Calculate exact age in years, months and days from a date of birth. See total days lived and the next birthday.
 - [EMI Calculator](https://tulyro.online/calculators/emi-calculator/): Estimate a monthly EMI, total interest and total payment for an Indian loan in rupees.
 - [Mortgage Calculator](https://tulyro.online/calculators/mortgage-calculator/): Estimate a US mortgage payment with total interest and total payment in dollars.

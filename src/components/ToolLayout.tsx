@@ -13,6 +13,14 @@ import { EmbedButton } from "@/components/EmbedButton";
 /** Honest per-tool hero pills (Stitch-style, no fabricated version numbers). */
 const HERO_PILLS: Record<string, string> = {
   "age-calculator": "High Precision Utility • Client-Side Only",
+  "attendance-calculator": "University Academic Suite • 75% Rule Engine",
+  "ppf-calculator": "Indian Sovereign Savings • Tax-Free Returns",
+  "sgpa-to-cgpa": "Semester Grading Suite • Instant Computation",
+  "sip-calculator": "Mutual Fund Investment Suite • Compound Growth",
+  "swp-calculator": "Mutual Fund Pension Suite • Monthly Payouts",
+  "lumpsum-calculator": "Wealth Compounding Engine • One-Time Returns",
+  "cagr-calculator": "Investment Benchmark Suite • Annualized Growth",
+  "percentage-calculator": "Everyday Mathematics Suite • Step Breakdown",
   "emi-calculator": "Financial Engineering Suite • Instant Computation",
   "mortgage-calculator": "Home Loan Suite • Instant Computation",
   "bmi-calculator": "Biometric Health Suite • Screening Only",
@@ -23,6 +31,8 @@ const HERO_PILLS: Record<string, string> = {
   "base64-encoder-decoder": "Developer Encoding Suite • RFC 4648",
   "invoice-generator": "Client-Side Billing Engine • Zero Watermark",
   "fake-text-generator": "Chat Mockup Studio • Client-Side Only",
+  "remove-background": "Computer Vision Studio • Zero Server Upload",
+  "image-resizer": "Document Compression Engine • 100% Private",
 };
 
 type ToolLayoutProps = {

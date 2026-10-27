@@ -10,7 +10,7 @@ export const siteUrl = "https://tulyro.online";
  * Never auto-generate per build — a dateModified that moves on every
  * deploy without a content change is dishonest.
  */
-export const contentUpdated = "2026-10-25";
+export const contentUpdated = "2026-10-27";
 
 const ogImage = {
   url: `${siteUrl}/og-image.png`,
@@ -181,6 +181,14 @@ export function createWebSiteJsonLd() {
           "mortgage-calculator",
           "bmi-calculator",
           "age-calculator",
+          "attendance-calculator",
+          "ppf-calculator",
+          "sgpa-to-cgpa",
+          "sip-calculator",
+          "swp-calculator",
+          "lumpsum-calculator",
+          "cagr-calculator",
+          "percentage-calculator",
           "cgpa-to-percentage",
           "word-counter",
           "text-to-speech",
@@ -188,6 +196,8 @@ export function createWebSiteJsonLd() {
           "base64-encoder-decoder",
           "invoice-generator",
           "fake-text-generator",
+          "remove-background",
+          "image-resizer",
         ].map((id, index) => {
           const tool = getTool(id);
           return { "@type": "ListItem", position: index + 1, name: tool.title, url: `${siteUrl}${tool.href}` };

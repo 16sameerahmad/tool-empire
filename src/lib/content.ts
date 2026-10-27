@@ -116,6 +116,78 @@ export const content: Record<string, ToolContent> = {
       { question: "Is there any minimum or maximum lock-in period for SIPs?", answer: "Standard open-ended mutual fund SIPs have no lock-in period; you can stop investing or redeem units at any time. However, tax-saving ELSS mutual funds carry a mandatory 3-year lock-in period for each individual instalment." },
     ]),
   },
+  "attendance-calculator": {
+    definition: "An Attendance Calculator helps students check whether their current lecture attendance meets college criteria (typically 75%) and calculates exactly how many classes they can bunk or need to attend.",
+    intro: "Calculate your current attendance percentage, find out safe bunkable classes, or plan how many consecutive lectures to attend to clear attendance shortage.",
+    howTo: [
+      "Enter the total number of classes held so far.",
+      "Enter the number of classes you attended.",
+      "Set your minimum required attendance percentage (defaults to 75%).",
+      "Instantly see whether you can safely bunk classes or how many you must attend consecutively.",
+    ],
+    content: [
+      "Most Indian universities, engineering colleges, and professional institutions mandate a strict 75% minimum attendance requirement to appear in semester examinations. Falling below this threshold often leads to debarment, penalty assignments, or grade reductions.",
+      "This calculator provides two crucial metrics: If your attendance is currently above 75%, it calculates your 'Bunk Buffer'—the maximum consecutive lectures you can miss without dropping below the threshold. If your attendance is below 75%, it solves for the exact number of consecutive upcoming classes you must attend to restore your percentage.",
+      "The formula for bunkable lectures: Bunks = floor(Attended / TargetRate − Total). The formula for attendance recovery: Required = ceil((TargetRate × Total − Attended) / (1 − TargetRate)). All math runs in real-time.",
+      "Your attendance records and calculations remain completely private. All calculations occur inside your browser without logging in or sending data to third-party tracking services.",
+    ],
+    guides: [
+      { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+    ],
+    faq: faq([
+      { question: "How does the 75% attendance rule work?", answer: "Under university guidelines (such as AICTE, UGC, or VTU), students must attend at least 75 out of every 100 scheduled classes in each course. Failing this may lead to detention from sitting in final semester exams." },
+      { question: "How many classes can I bunk if my attendance is 80%?", answer: "It depends on total classes conducted. If 80 out of 100 classes were attended, you can bunk 6 consecutive classes. At that point, 80/106 = 75.47%, keeping you safe." },
+      { question: "Can medical certificates compensate for low attendance?", answer: "Most colleges allow a relaxation of 5% to 10% (down to 65%) upon submitting verified medical certificates, subject to the approval of the head of department." },
+    ]),
+  },
+  "ppf-calculator": {
+    definition: "A Public Provident Fund (PPF) calculator estimates maturity value and compounded interest earned under India's government-backed 15-year tax-exempt savings scheme.",
+    intro: "Plan your long-term wealth creation, annual interest accrual, and tax-free maturity amount under Section 80C with our PPF calculator.",
+    howTo: [
+      "Enter your planned annual deposit (between ₹500 and ₹1,50,000).",
+      "Select your investment tenure (15 years default, extendable in 5-year blocks up to 50 years).",
+      "The calculator applies the current government PPF interest rate (7.1% p.a.).",
+      "Review your total deposit, accumulated tax-free interest, and maturity balance.",
+    ],
+    content: [
+      "The Public Provident Fund (PPF) is an EEE (Exempt-Exempt-Exempt) sovereign savings vehicle backed by the Government of India. The investment amount qualifies for tax deductions under Section 80C, the interest accrued is completely tax-free, and the maturity proceeds carry zero capital gains tax.",
+      "PPF operates on a 15-year lock-in cycle with annual compounding. To maximize interest income, deposits should ideally be credited on or before the 5th of each calendar month, as interest is calculated on the lowest balance between the close of the 5th day and the end of the month.",
+      "After the mandatory 15-year completion, an account holder can extend the PPF facility in blocks of 5 years indefinitely, either with continuing contributions or without additional deposits while earning compounded returns.",
+      "All projections are processed strictly client-side. No financial figures are stored or transmitted.",
+    ],
+    guides: [
+      { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
+    ],
+    faq: faq([
+      { question: "What is the maximum amount I can deposit in PPF per financial year?", answer: "The maximum limit is ₹1,50,000 per financial year across all PPF accounts held by an individual (including minor accounts). Any excess deposit does not earn interest or qualify for tax benefits." },
+      { question: "Is PPF interest completely tax-free?", answer: "Yes. PPF enjoys EEE (Exempt-Exempt-Exempt) tax status under the Indian Income Tax Act. The investment, the accrued interest, and the final maturity amount are all 100% tax-exempt." },
+      { question: "Can I extend my PPF account after 15 years?", answer: "Yes, you can extend your PPF account in 5-year blocks indefinitely by submitting Form H within one year of maturity." },
+    ]),
+  },
+  "sgpa-to-cgpa": {
+    definition: "An SGPA to CGPA Calculator converts individual semester grade point averages into cumulative CGPA and equivalent percentage according to university academic rules.",
+    intro: "Calculate your cumulative grade point average (CGPA) and convert it into marks percentage across all completed college semesters.",
+    howTo: [
+      "Add your semester SGPA scores (up to 8 semesters).",
+      "Optionally enter semester credits if your university uses credit-weighted grading.",
+      "View your cumulative CGPA instantly.",
+      "Check equivalent percentage under standard (×10) and CBSE/AICTE (×9.5) formulas.",
+    ],
+    content: [
+      "In semester-based university degree programs (engineering, commerce, sciences, arts), individual semester performance is measured in SGPA (Semester Grade Point Average), while overall graduation standing is reported in CGPA (Cumulative Grade Point Average).",
+      "When semester credits are equal, CGPA is simply the arithmetic average of all semester SGPAs. However, in credit-based choice systems (CBCS), CGPA is computed as the credit-weighted sum: Σ(SGPA × Credits) / Σ(Credits). This tool seamlessly supports both equal-weighted and credit-weighted formats.",
+      "For job applications, campus placements, and government competitive exams, students must frequently convert CGPA into percentage. The calculator displays conversion using the standard multiplier (×10) as well as the standard AICTE/CBSE convention (×9.5).",
+      "Entirely private and local calculation. Ideal for quick placement form filling on mobile or desktop.",
+    ],
+    guides: [
+      { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+    ],
+    faq: faq([
+      { question: "What is the difference between SGPA and CGPA?", answer: "SGPA reflects your academic grade point for a single semester, whereas CGPA is the cumulative weighted average of all semesters completed to date." },
+      { question: "How do I convert SGPA to Percentage directly?", answer: "First combine your SGPAs into a cumulative CGPA. Then multiply by your university's formula (typically CGPA × 9.5 or CGPA × 10)." },
+      { question: "Does this calculator support credit-weighted CBCS systems?", answer: "Yes. You can optionally specify the credit count for each semester to get an exact credit-weighted CGPA matching your official university transcript." },
+    ]),
+  },
   "mortgage-calculator": {
     definition: "A mortgage payment is the fixed monthly amount of principal and interest that repays a home loan in full over its term.",
     intro: "Estimate a US mortgage payment, total interest, and total payment in dollars.",

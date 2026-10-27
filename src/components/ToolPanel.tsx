@@ -5,6 +5,9 @@ import type { ReactNode } from "react";
 import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
 import { sip } from "@/tools/sip/logic";
+import { attendance } from "@/tools/attendance/logic";
+import { ppf } from "@/tools/ppf/logic";
+import { sgpaToCgpa } from "@/tools/sgpa/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -55,6 +58,467 @@ function ErrorBox({ children }: { children: ReactNode }) {
 
 function AgePanel() {
   return <AgeWorkspace />;
+}
+
+function AttendancePanel() {
+  const [totalClasses, setTotalClasses] = useState("50");
+  const [attendedClasses, setAttendedClasses] = useState("42");
+  const [targetPct, setTargetPct] = useState("75");
+  const [copied, setCopied] = useState(false);
+
+  const res = attendance(Number(attendedClasses), Number(totalClasses), Number(targetPct));
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `Attendance Report: ${attendedClasses}/${totalClasses} (${valid.currentPercentage}%). Target: ${valid.targetPercentage}%. Status: ${
+      valid.status === "safe"
+        ? `Safe! You can bunk ${valid.classesCanBunk} more classes.`
+        : valid.status === "target_reached"
+        ? `On target (75%). Cannot bunk any classes right now.`
+        : `Shortage! You must attend ${valid.classesToAttend} consecutive classes to reach 75%.`
+    }`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <label htmlFor="att-total" className="font-display font-headline-sm text-headline-sm text-on-surface">
+              Total Classes Held
+            </label>
+            <input
+              id="att-total"
+              type="number"
+              min="1"
+              value={totalClasses}
+              onChange={(e) => setTotalClasses(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <label htmlFor="att-attended" className="font-display font-headline-sm text-headline-sm text-on-surface">
+              Classes Attended
+            </label>
+            <input
+              id="att-attended"
+              type="number"
+              min="0"
+              value={attendedClasses}
+              onChange={(e) => setAttendedClasses(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="att-target" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Target Attendance (%)
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Default 75%</span>
+            </div>
+            <input
+              id="att-target"
+              type="number"
+              min="50"
+              max="95"
+              value={targetPct}
+              onChange={(e) => setTargetPct(e.target.value)}
+              className={inputClass}
+            />
+            <div className="flex gap-2 pt-1">
+              {[75, 80, 85].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setTargetPct(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    Number(targetPct) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  {preset}%
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Attendance Status</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Current Attendance</span>
+                  <span className="mt-1 block font-code-data text-3xl font-black text-on-surface">
+                    {valid ? `${valid.currentPercentage}%` : "0%"}
+                  </span>
+                </div>
+
+                {valid && valid.status === "safe" && (
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
+                    <span className="block font-label-md text-label-md font-semibold text-emerald-700">You Are Safe!</span>
+                    <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                      You can bunk <strong className="text-xl text-emerald-600">{valid.classesCanBunk}</strong> upcoming classes without falling below {valid.targetPercentage}%.
+                    </span>
+                  </div>
+                )}
+
+                {valid && valid.status === "shortage" && (
+                  <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+                    <span className="block font-label-md text-label-md font-semibold text-amber-700">Attendance Shortage!</span>
+                    <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                      You must attend the next <strong className="text-xl text-amber-600">{valid.classesToAttend}</strong> consecutive classes to reach {valid.targetPercentage}%.
+                    </span>
+                  </div>
+                )}
+
+                {valid && valid.status === "target_reached" && (
+                  <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-4">
+                    <span className="block font-label-md text-label-md font-semibold text-blue-700">Right On Track</span>
+                    <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                      You are exactly at {valid.targetPercentage}%. Attending every scheduled lecture is recommended.
+                    </span>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Status copied!" : "Copy Status"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PpfPanel() {
+  const [annualDeposit, setAnnualDeposit] = useState("150000");
+  const [tenureYears, setTenureYears] = useState("15");
+  const [copied, setCopied] = useState(false);
+
+  const res = ppf(Number(annualDeposit), Number(tenureYears), 7.1);
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+  const format = numberFormat("en-IN", "INR");
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `PPF Investment Summary: ${format.format(Number(annualDeposit))}/year for ${tenureYears} years. Total Deposited: ${format.format(valid.investedAmount)}. Total Tax-Free Interest: ${format.format(valid.totalInterest)}. Expected Maturity Balance: ${format.format(valid.maturityAmount)}.`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="ppf-deposit" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Yearly Deposit (₹)
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Max ₹1.5L / year</span>
+            </div>
+            <div className="relative flex items-center">
+              <span className="absolute left-3 font-code-data font-semibold text-on-surface-variant">₹</span>
+              <input
+                id="ppf-deposit"
+                type="number"
+                min="500"
+                max="150000"
+                step="500"
+                value={annualDeposit}
+                onChange={(e) => setAnnualDeposit(e.target.value)}
+                className={`${inputClass} mt-0 pl-8 font-code-data`}
+              />
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {[10000, 50000, 100000, 150000].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setAnnualDeposit(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    Number(annualDeposit) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  ₹{preset.toLocaleString("en-IN")}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="ppf-tenure" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Time Period (Years)
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Min 15 years</span>
+            </div>
+            <input
+              id="ppf-tenure"
+              type="number"
+              min="15"
+              max="50"
+              step="5"
+              value={tenureYears}
+              onChange={(e) => setTenureYears(e.target.value)}
+              className={inputClass}
+            />
+            <div className="flex gap-2 pt-1">
+              {[15, 20, 25, 30].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setTenureYears(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    Number(tenureYears) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  {preset} Years
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-sm font-semibold text-on-surface">Government Interest Rate</span>
+            <span className="mt-1 block font-code-data text-xl font-bold text-primary">7.1% p.a. (Compounded Annually)</span>
+            <span className="font-body-sm text-xs text-on-surface-variant">100% Tax-Free under Section 80C (EEE Category)</span>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Maturity Summary</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Total Invested</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? format.format(valid.investedAmount) : "₹ 0"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Total Interest Earned</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-primary">
+                    {valid ? format.format(valid.totalInterest) : "₹ 0"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Total Maturity Value</span>
+                  <span className="mt-1 block font-code-data text-3xl font-black text-on-surface">
+                    {valid ? format.format(valid.maturityAmount) : "₹ 0"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Summary copied!" : "Copy Summary"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SgpaPanel() {
+  const [sems, setSems] = useState<Array<{ sgpa: string; credits: string }>>([
+    { sgpa: "8.2", credits: "20" },
+    { sgpa: "8.5", credits: "20" },
+    { sgpa: "8.0", credits: "22" },
+    { sgpa: "8.8", credits: "22" },
+  ]);
+  const [copied, setCopied] = useState(false);
+
+  const parsed = sems.map((s) => ({
+    sgpa: Number(s.sgpa) || 0,
+    credits: s.credits !== "" ? Number(s.credits) : undefined,
+  }));
+
+  const res = sgpaToCgpa(parsed);
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const updateSem = (idx: number, field: "sgpa" | "credits", val: string) => {
+    setSems((prev) => {
+      const next = [...prev];
+      next[idx] = { ...next[idx], [field]: val };
+      return next;
+    });
+  };
+
+  const addSem = () => {
+    if (sems.length < 8) {
+      setSems((prev) => [...prev, { sgpa: "8.0", credits: "20" }]);
+    }
+  };
+
+  const removeSem = (idx: number) => {
+    if (sems.length > 1) {
+      setSems((prev) => prev.filter((_, i) => i !== idx));
+    }
+  };
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `SGPA to CGPA Result: Cumulative CGPA: ${valid.cgpa} across ${sems.length} semesters. Equivalent Percentage (CBSE/AICTE ×9.5): ${valid.percentageCbse}%. Equivalent Percentage (×10): ${valid.percentageStandard}%.`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="flex items-center justify-between pb-2">
+            <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Semester SGPAs</h3>
+            {sems.length < 8 && (
+              <button
+                type="button"
+                onClick={addSem}
+                className="btn-chip flex items-center gap-1 rounded bg-primary-container px-2.5 py-1 text-xs text-white"
+              >
+                + Add Semester
+              </button>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            {sems.map((sem, idx) => (
+              <div key={idx} className="flex items-center gap-3 rounded-lg bg-surface-container-low/50 p-3">
+                <span className="w-16 font-label-md text-sm font-semibold text-on-surface">Sem {idx + 1}</span>
+                <div className="flex-1">
+                  <label htmlFor={`sgpa-${idx}`} className="sr-only">SGPA</label>
+                  <input
+                    id={`sgpa-${idx}`}
+                    type="number"
+                    min="0"
+                    max="10"
+                    step="0.01"
+                    placeholder="SGPA (0-10)"
+                    value={sem.sgpa}
+                    onChange={(e) => updateSem(idx, "sgpa", e.target.value)}
+                    className={`${inputClass} mt-0`}
+                  />
+                </div>
+                <div className="w-28">
+                  <label htmlFor={`credits-${idx}`} className="sr-only">Credits</label>
+                  <input
+                    id={`credits-${idx}`}
+                    type="number"
+                    min="0"
+                    max="40"
+                    placeholder="Credits"
+                    value={sem.credits}
+                    onChange={(e) => updateSem(idx, "credits", e.target.value)}
+                    className={`${inputClass} mt-0`}
+                  />
+                </div>
+                {sems.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSem(idx)}
+                    className="grid h-8 w-8 place-items-center rounded text-error hover:bg-error/10"
+                    aria-label={`Remove semester ${idx + 1}`}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Cumulative Results</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Cumulative CGPA</span>
+                  <span className="mt-1 block font-code-data text-4xl font-black text-on-surface">
+                    {valid ? valid.cgpa : "0.00"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Equivalent Marks (CBSE / AICTE ×9.5)</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `${valid.percentageCbse}%` : "0%"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Equivalent Marks (Standard ×10)</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `${valid.percentageStandard}%` : "0%"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Results copied!" : "Copy Results"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function SipPanel() {
@@ -1854,6 +2318,12 @@ export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
       return <AgePanel />;
+    case "attendance-calculator":
+      return <AttendancePanel />;
+    case "ppf-calculator":
+      return <PpfPanel />;
+    case "sgpa-to-cgpa":
+      return <SgpaPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "emi-calculator":

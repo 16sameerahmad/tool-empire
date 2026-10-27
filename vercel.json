@@ -13,6 +13,196 @@
           "permanent": true
         },
         {
+          "source": "/tools/emi-calculator",
+          "destination": "/calculators/emi-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/emi-calculator/",
+          "destination": "/calculators/emi-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/mortgage-calculator",
+          "destination": "/calculators/mortgage-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/mortgage-calculator/",
+          "destination": "/calculators/mortgage-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/bmi-calculator",
+          "destination": "/calculators/bmi-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/bmi-calculator/",
+          "destination": "/calculators/bmi-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/age-calculator",
+          "destination": "/calculators/age-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/age-calculator/",
+          "destination": "/calculators/age-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/cgpa-to-percentage",
+          "destination": "/calculators/cgpa-to-percentage/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/cgpa-to-percentage/",
+          "destination": "/calculators/cgpa-to-percentage/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/sip-calculator",
+          "destination": "/calculators/sip-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/sip-calculator/",
+          "destination": "/calculators/sip-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/attendance-calculator",
+          "destination": "/calculators/attendance-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/attendance-calculator/",
+          "destination": "/calculators/attendance-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/ppf-calculator",
+          "destination": "/calculators/ppf-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/ppf-calculator/",
+          "destination": "/calculators/ppf-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/sgpa-to-cgpa",
+          "destination": "/calculators/sgpa-to-cgpa/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/sgpa-to-cgpa/",
+          "destination": "/calculators/sgpa-to-cgpa/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/swp-calculator",
+          "destination": "/calculators/swp-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/swp-calculator/",
+          "destination": "/calculators/swp-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/percentage-calculator",
+          "destination": "/calculators/percentage-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/percentage-calculator/",
+          "destination": "/calculators/percentage-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/gst-calculator",
+          "destination": "/calculators/gst-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/gst-calculator/",
+          "destination": "/calculators/gst-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/cagr-calculator",
+          "destination": "/calculators/cagr-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/cagr-calculator/",
+          "destination": "/calculators/cagr-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/lumpsum-calculator",
+          "destination": "/calculators/lumpsum-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/lumpsum-calculator/",
+          "destination": "/calculators/lumpsum-calculator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/word-counter",
+          "destination": "/text/word-counter/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/word-counter/",
+          "destination": "/text/word-counter/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/text-to-speech",
+          "destination": "/text/text-to-speech/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/text-to-speech/",
+          "destination": "/text/text-to-speech/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/fancy-text-generator",
+          "destination": "/text/fancy-text-generator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/fancy-text-generator/",
+          "destination": "/text/fancy-text-generator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/base64-encoder-decoder",
+          "destination": "/dev/base64-encoder-decoder/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/base64-encoder-decoder/",
+          "destination": "/dev/base64-encoder-decoder/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/fake-text-generator",
+          "destination": "/fun/fake-text-generator/",
+          "permanent": true
+        },
+        {
+          "source": "/tools/fake-text-generator/",
+          "destination": "/fun/fake-text-generator/",
+          "permanent": true
+        },
+        {
           "source": "/:path*",
           "has": [
                 {

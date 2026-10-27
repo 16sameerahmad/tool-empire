@@ -18,6 +18,7 @@ import {
   detectCornerColor,
   hexToRgb,
   processImageBackground,
+  rgbToHex,
 } from "@/tools/remove-background/logic";
 import { calculateGst } from "@/tools/gst/logic";
 import { calculateSwp } from "@/tools/swp/logic";
@@ -2329,18 +2330,58 @@ function FakePanel() {
   );
 }
 
+const SAMPLE_IMAGES = [
+  {
+    name: "Red Sneaker",
+    url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23ffffff'/><path d='M60 220 Q120 120 220 130 Q310 140 340 180 Q320 230 250 230 Q170 230 60 220 Z' fill='%23ef4444'/><circle cx='180' cy='180' r='20' fill='%23111827'/><rect x='80' y='210' width='240' height='20' rx='10' fill='%230f172a'/><text x='130' y='270' font-size='16' font-weight='bold' font-family='sans-serif' fill='%2394a3b8'>Sample Sneaker</text></svg>",
+  },
+  {
+    name: "Person Portrait",
+    url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2338bdf8'/><circle cx='200' cy='120' r='55' fill='%23fbcfe8'/><path d='M110 270 C120 185 280 185 290 270 Z' fill='%231e293b'/><circle cx='180' cy='115' r='6' fill='%230f172a'/><circle cx='220' cy='115' r='6' fill='%230f172a'/><path d='M190 140 Q200 150 210 140' stroke='%230f172a' stroke-width='3' fill='none'/><text x='135' y='285' font-size='14' font-weight='bold' font-family='sans-serif' fill='%23ffffff'>Sample Portrait</text></svg>",
+  },
+  {
+    name: "Camera Gadget",
+    url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8fafc'/><rect x='100' y='100' width='200' height='130' rx='20' fill='%23334155'/><circle cx='200' cy='165' r='45' fill='%230284c7'/><circle cx='200' cy='165' r='25' fill='%230f172a'/><rect x='130' y='80' width='40' height='20' rx='5' fill='%2364748b'/><text x='140' y='265' font-size='14' font-weight='bold' font-family='sans-serif' fill='%2364748b'>Sample Camera</text></svg>",
+  },
+];
+
 function RemoveBackgroundPanel() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [targetColor, setTargetColor] = useState<string>("#ffffff");
-  const [tolerance, setTolerance] = useState<number>(18);
+  const [tolerance, setTolerance] = useState<number>(20);
   const [feather, setFeather] = useState<number>(10);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [processedUrl, setProcessedUrl] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("image");
+  const [bgChoice, setBgChoice] = useState<"transparent" | "white" | "black" | "custom">("transparent");
+  const [customBgColor, setCustomBgColor] = useState<string>("#3b82f6");
+  const [sliderPos, setSliderPos] = useState<number>(50);
+  const [viewMode, setViewMode] = useState<"slider" | "side">("slider");
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
+
+  const loadSample = (sampleUrl: string, sampleName: string) => {
+    setImageSrc(sampleUrl);
+    setFileName(sampleName.toLowerCase().replace(/\s+/g, "-"));
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      originalImageRef.current = img;
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = img.width;
+      tempCanvas.height = img.height;
+      const ctx = tempCanvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const imgData = ctx.getImageData(0, 0, img.width, img.height);
+        const detected = detectCornerColor(imgData);
+        setTargetColor(rgbToHex(detected.r, detected.g, detected.b));
+      }
+    };
+    img.src = sampleUrl;
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -2365,8 +2406,7 @@ function RemoveBackgroundPanel() {
           ctx.drawImage(img, 0, 0);
           const imgData = ctx.getImageData(0, 0, img.width, img.height);
           const detected = detectCornerColor(imgData);
-          const hex = `#${((1 << 24) + (detected.r << 16) + (detected.g << 8) + detected.b).toString(16).slice(1)}`;
-          setTargetColor(hex);
+          setTargetColor(rgbToHex(detected.r, detected.g, detected.b));
         }
       };
       img.src = src;
@@ -2407,13 +2447,28 @@ function RemoveBackgroundPanel() {
         feather,
       });
 
-      ctx.putImageData(imgData, 0, 0);
+      if (bgChoice === "transparent") {
+        ctx.putImageData(imgData, 0, 0);
+      } else {
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext("2d");
+        if (tempCtx) {
+          tempCtx.putImageData(imgData, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(tempCanvas, 0, 0);
+        }
+      }
+
       setProcessedUrl(canvas.toDataURL("image/png"));
       setIsProcessing(false);
-    }, 50);
+    }, 40);
 
     return () => clearTimeout(timer);
-  }, [imageSrc, targetColor, tolerance, feather]);
+  }, [imageSrc, targetColor, tolerance, feather, bgChoice, customBgColor]);
 
   const handleDownload = () => {
     if (!processedUrl) return;
@@ -2433,30 +2488,119 @@ function RemoveBackgroundPanel() {
   return (
     <div className="space-y-6">
       {!imageSrc ? (
-        <div
-          onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition hover:border-primary cursor-pointer"
-        >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-white mb-4">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+        <div className="space-y-6">
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="group relative flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-primary/40 bg-gradient-to-b from-surface-container-lowest to-surface-container-low p-8 sm:p-14 text-center transition hover:border-primary hover:shadow-xl cursor-pointer"
+          >
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary mb-4 transition transform group-hover:scale-110 shadow-inner">
+              <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">Upload an Image</h3>
+            <p className="mt-2 text-sm sm:text-base text-on-surface-variant max-w-lg">
+              100% Automatically and <span className="font-bold text-primary">Free</span>. Drop any image here or click to browse.
+            </p>
+            <button type="button" className={`${buttonClass} mt-6 px-8 py-3.5 text-base font-bold shadow-lg hover:shadow-primary/30`}>
+              Upload Image
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <p className="mt-4 text-xs text-on-surface-variant">
+              100% Client-Side Privacy: No files leave your device.
+            </p>
           </div>
-          <h3 className="text-lg font-semibold text-on-surface">Choose an image or drop here</h3>
-          <p className="mt-1 text-sm text-on-surface-variant">Supports PNG, JPG, JPEG, WEBP. Processed 100% locally in your browser.</p>
-          <button type="button" className={`${buttonClass} mt-5`}>
-            Select Image
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="hidden"
-          />
+
+          <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-bold text-on-surface">No image? Try one of these:</p>
+                <p className="text-xs text-on-surface-variant">Click any sample to test automatic background removal</p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {SAMPLE_IMAGES.map((sample) => (
+                  <button
+                    key={sample.name}
+                    type="button"
+                    onClick={() => loadSample(sample.url, sample.name)}
+                    className="flex items-center gap-2.5 rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-xs font-semibold text-on-surface hover:border-primary hover:bg-surface-container transition shadow-sm"
+                  >
+                    <img src={sample.url} alt={sample.name} className="h-9 w-9 rounded-lg object-cover border border-outline-variant" />
+                    <span>{sample.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="space-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-outline-variant pb-4">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setViewMode("slider")}
+                className={viewMode === "slider" ? buttonClass : secondaryButtonClass}
+              >
+                Before / After Slider
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("side")}
+                className={viewMode === "side" ? buttonClass : secondaryButtonClass}
+              >
+                Side-by-Side
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-on-surface-variant">Backdrop:</span>
+              <button
+                type="button"
+                onClick={() => setBgChoice("transparent")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
+                  bgChoice === "transparent" ? "bg-primary text-white border-primary" : "bg-surface-container-lowest text-on-surface border-outline-variant"
+                }`}
+              >
+                Transparent
+              </button>
+              <button
+                type="button"
+                onClick={() => setBgChoice("white")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
+                  bgChoice === "white" ? "bg-primary text-white border-primary" : "bg-surface-container-lowest text-on-surface border-outline-variant"
+                }`}
+              >
+                White
+              </button>
+              <button
+                type="button"
+                onClick={() => setBgChoice("black")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
+                  bgChoice === "black" ? "bg-primary text-white border-primary" : "bg-surface-container-lowest text-on-surface border-outline-variant"
+                }`}
+              >
+                Black
+              </button>
+              <input
+                type="color"
+                value={customBgColor}
+                onChange={(e) => {
+                  setCustomBgColor(e.target.value);
+                  setBgChoice("custom");
+                }}
+                className="h-7 w-7 rounded cursor-pointer border border-outline-variant bg-transparent p-0"
+                title="Pick custom backdrop color"
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
             <div>
               <label className={labelClass}>Target Background Color</label>
@@ -2484,7 +2628,7 @@ function RemoveBackgroundPanel() {
               <input
                 type="range"
                 min="1"
-                max="80"
+                max="85"
                 value={tolerance}
                 onChange={(e) => setTolerance(Number(e.target.value))}
                 className="mt-3 w-full accent-primary"
@@ -2507,44 +2651,108 @@ function RemoveBackgroundPanel() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {viewMode === "slider" ? (
             <div className="space-y-2">
-              <span className="text-sm font-medium text-on-surface-variant">Original Image</span>
-              <div className="flex min-h-[260px] items-center justify-center rounded-xl border border-outline-variant bg-surface-container-lowest p-3 overflow-hidden">
-                <img
-                  src={imageSrc}
-                  alt="Original upload"
-                  className="max-h-[340px] max-w-full rounded object-contain"
-                />
+              <div className="flex items-center justify-between text-xs font-semibold text-on-surface-variant px-1">
+                <span>Original</span>
+                <span>Drag slider to inspect cutout</span>
+                <span>Cutout {isProcessing && "(Updating...)"}</span>
               </div>
-            </div>
+              <div className="relative mx-auto max-w-2xl h-[360px] sm:h-[420px] rounded-2xl border border-outline-variant overflow-hidden select-none shadow-lg">
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{
+                    backgroundImage:
+                      bgChoice === "transparent"
+                        ? "linear-gradient(45deg, #1e293b 25%, transparent 25%), linear-gradient(-45deg, #1e293b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1e293b 75%), linear-gradient(-45deg, transparent 75%, #1e293b 75%)"
+                        : "none",
+                    backgroundSize: "16px 16px",
+                    backgroundPosition: "0 0, 0 8px, 8px -8px, -8px 0px",
+                    backgroundColor: bgChoice === "transparent" ? "#0f172a" : bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor,
+                  }}
+                >
+                  {processedUrl && (
+                    <img
+                      src={processedUrl}
+                      alt="Processed output"
+                      className="h-full w-full object-contain"
+                    />
+                  )}
+                </div>
 
-            <div className="space-y-2">
-              <span className="text-sm font-medium text-on-surface-variant">
-                Transparent PNG {isProcessing && <span className="text-xs text-primary">(Processing...)</span>}
-              </span>
-              <div
-                className="flex min-h-[260px] items-center justify-center rounded-xl border border-outline-variant p-3 overflow-hidden"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(45deg, #1e293b 25%, transparent 25%), linear-gradient(-45deg, #1e293b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1e293b 75%), linear-gradient(-45deg, transparent 75%, #1e293b 75%)",
-                  backgroundSize: "16px 16px",
-                  backgroundPosition: "0 0, 0 8px, 8px -8px, -8px 0px",
-                  backgroundColor: "#0f172a",
-                }}
-              >
-                {processedUrl && (
+                <div
+                  className="absolute inset-y-0 left-0 overflow-hidden border-r-2 border-primary bg-surface-container-lowest"
+                  style={{ width: `${sliderPos}%` }}
+                >
                   <img
-                    src={processedUrl}
-                    alt="Processed transparent output"
-                    className="max-h-[340px] max-w-full rounded object-contain"
+                    src={imageSrc}
+                    alt="Original"
+                    className="h-full w-full object-contain max-w-none"
+                    style={{ width: "100%", height: "100%" }}
                   />
-                )}
+                </div>
+
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sliderPos}
+                  onChange={(e) => setSliderPos(Number(e.target.value))}
+                  className="absolute inset-0 h-full w-full opacity-0 cursor-ew-resize z-20"
+                />
+
+                <div
+                  className="pointer-events-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white shadow-xl z-10"
+                  style={{ left: `${sliderPos}%` }}
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 9l4-4 4 4m0 6l-4 4-4-4" transform="rotate(90 12 12)" />
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <span className="text-sm font-medium text-on-surface-variant">Original Image</span>
+                <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-outline-variant bg-surface-container-lowest p-3 overflow-hidden shadow-sm">
+                  <img
+                    src={imageSrc}
+                    alt="Original upload"
+                    className="max-h-[360px] max-w-full rounded object-contain"
+                  />
+                </div>
+              </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div className="space-y-2">
+                <span className="text-sm font-medium text-on-surface-variant">
+                  Processed Cutout {isProcessing && <span className="text-xs text-primary">(Processing...)</span>}
+                </span>
+                <div
+                  className="flex min-h-[300px] items-center justify-center rounded-2xl border border-outline-variant p-3 overflow-hidden shadow-sm"
+                  style={{
+                    backgroundImage:
+                      bgChoice === "transparent"
+                        ? "linear-gradient(45deg, #1e293b 25%, transparent 25%), linear-gradient(-45deg, #1e293b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1e293b 75%), linear-gradient(-45deg, transparent 75%, #1e293b 75%)"
+                        : "none",
+                    backgroundSize: "16px 16px",
+                    backgroundPosition: "0 0, 0 8px, 8px -8px, -8px 0px",
+                    backgroundColor: bgChoice === "transparent" ? "#0f172a" : bgChoice === "white" ? "#ffffff" : bgChoice === "black" ? "#000000" : customBgColor,
+                  }}
+                >
+                  {processedUrl && (
+                    <img
+                      src={processedUrl}
+                      alt="Processed output"
+                      className="max-h-[360px] max-w-full rounded object-contain"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
             <button
               type="button"
               onClick={handleReset}
@@ -2556,12 +2764,12 @@ function RemoveBackgroundPanel() {
               type="button"
               onClick={handleDownload}
               disabled={!processedUrl || isProcessing}
-              className={buttonClass}
+              className={`${buttonClass} px-6 py-2.5 shadow-md`}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download Transparent PNG
+              Download HD Cutout ({bgChoice.toUpperCase()})
             </button>
           </div>
         </div>

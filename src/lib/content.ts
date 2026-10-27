@@ -189,27 +189,32 @@ export const content: Record<string, ToolContent> = {
     ]),
   },
   "remove-background": {
-    definition: "An online background remover makes an image's backdrop transparent so logos, product photos, graphics, and signatures can be placed over any canvas or background.",
-    intro: "Remove image background online directly in your browser. 100% private, free, and no watermark.",
+    definition: "An online background remover isolates the foreground subject and makes the background transparent or replaces it with solid colors for e-commerce, IDs, or design work.",
+    intro: "Remove image background 100% automatically and free in your browser. Features 1-click sample images, real-time before/after comparison slider, customizable backdrops (transparent, white, black, or custom colors), and instant HD download with zero server uploads.",
     howTo: [
-      "Upload or drop an image (PNG, JPG, WEBP).",
-      "The tool automatically detects the backdrop color from the image corners.",
-      "Fine-tune transparency with the Tolerance and Edge Feathering sliders.",
-      "Download your transparent PNG instantly in full original resolution.",
+      "Upload or drop an image (or click any of our 1-click sample images).",
+      "The tool auto-detects background color and generates a transparent cutout instantly.",
+      "Drag the interactive Before / After slider to inspect cutout accuracy.",
+      "Select your backdrop (Transparent, Clean White, Jet Black, or Custom Color) and fine-tune edge tolerance if needed.",
+      "Click 'Download HD Cutout' to save your high-resolution image instantly.",
     ],
     content: [
-      "Removing backgrounds from logos, product shots, signatures, and graphics is an everyday task for e-commerce store owners, students preparing presentations, and creators designing digital assets. Most online background removers require expensive paid subscriptions, force account creation, or stamp ugly watermarks on your exported images.",
-      "Tulyro Background Remover runs entirely inside your client browser using high-performance HTML5 Canvas pixel manipulation. Your original photos and sensitive graphics are never uploaded to any remote server or third-party cloud. This guarantees 100% data privacy and instant processing even without high-speed internet.",
-      "The tool features auto-detection of dominant corner backdrop colors, an interactive color selector, customizable tolerance thresholding (0-100%), and progressive edge-feathering to eliminate jagged borders or halos around subjects.",
-      "Exported results are saved as lossless 32-bit transparent PNG files with full alpha transparency preserved, ready for Canva, Photoshop, presentation slides, or e-commerce listings.",
+      "100% Automatic & Free: Upload an image or select one of the built-in sample images (sneaker, portrait, camera) to test edge detection in real time.",
+      "Interactive Before/After Slider: Like professional photo editing tools, drag across the image to inspect precision cutouts around hair, edges, and product contours.",
+      "Custom Backdrops: Need a white background for Amazon, eBay, or passport photos? Switch seamlessly between Transparent, Pure White, Solid Black, and custom colors.",
+      "100% Client-Side Privacy: Tulyro processes everything locally via HTML5 Canvas API in your browser. Your images are never uploaded to any remote server or third-party cloud.",
     ],
     guides: [
-      { label: "How Browser Image Processing Works", href: "/about/" },
+      { label: "Photo and Signature Size Guide for Govt Exams", href: "/guides/photo-and-signature-size-guide-for-govt-exams/" },
     ],
     faq: faq([
       {
         question: "Is this background remover free without watermark?",
-        answer: "Yes, 100% free with zero watermarks. Your exported PNG has no logos or branding stamps.",
+        answer: "Yes, 100% free with zero watermarks. Your exported cutout has no logos, branding stamps, or quality restrictions.",
+      },
+      {
+        question: "Can I replace the background with white or custom colors?",
+        answer: "Yes. Simply switch the backdrop selector between Transparent, White (ideal for Amazon/e-commerce), Black, or choose any custom hex color.",
       },
       {
         question: "Are my photos uploaded to any external server?",
@@ -217,7 +222,7 @@ export const content: Record<string, ToolContent> = {
       },
       {
         question: "What image formats are supported?",
-        answer: "You can upload PNG, JPG, JPEG, and WEBP images. The output is always downloaded as a clean transparent PNG.",
+        answer: "You can upload PNG, JPG, JPEG, and WEBP images. The output is downloaded as a high-definition PNG.",
       },
     ]),
   },

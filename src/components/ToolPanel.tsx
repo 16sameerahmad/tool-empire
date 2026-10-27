@@ -19,6 +19,15 @@ import {
   hexToRgb,
   processImageBackground,
 } from "@/tools/remove-background/logic";
+import { calculateSwp } from "@/tools/swp/logic";
+import { calculateLumpsum } from "@/tools/lumpsum/logic";
+import { calculateCagr } from "@/tools/cagr/logic";
+import {
+  calculateIsWhatPercent,
+  calculatePercentChange,
+  calculatePercentOf,
+} from "@/tools/percentage/logic";
+import { computeAspectRatioFit, formatFileSize } from "@/tools/image-resizer/logic";
 import { AgeWorkspace } from "@/components/AgeWorkspace";
 import { Icon } from "@/components/icons";
 import { MorphIcon } from "@/components/motion";
@@ -2562,6 +2571,608 @@ function RemoveBackgroundPanel() {
   );
 }
 
+function SwpPanel() {
+  const [investment, setInvestment] = useState("1000000");
+  const [withdrawal, setWithdrawal] = useState("10000");
+  const [rate, setRate] = useState("10");
+  const [years, setYears] = useState("5");
+  const [copied, setCopied] = useState(false);
+
+  const numInv = Number(investment) || 0;
+  const numWith = Number(withdrawal) || 0;
+  const numRate = Number(rate) || 0;
+  const numYears = Number(years) || 0;
+
+  const result = calculateSwp({
+    initialInvestment: numInv,
+    monthlyWithdrawal: numWith,
+    annualRate: numRate,
+    tenureYears: numYears,
+  });
+
+  const fmt = (v: number) => "₹" + v.toLocaleString("en-IN");
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `SWP Plan: Total Invested ${fmt(result.totalInvestment)}, Total Withdrawn ${fmt(result.totalWithdrawn)}, Remaining Balance ${fmt(result.finalBalance)}`
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass}>Total Investment (₹)</label>
+          <input
+            type="number"
+            value={investment}
+            onChange={(e) => setInvestment(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 1000000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Monthly Withdrawal (₹)</label>
+          <input
+            type="number"
+            value={withdrawal}
+            onChange={(e) => setWithdrawal(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 10000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Expected Return Rate (p.a %)</label>
+          <input
+            type="number"
+            value={rate}
+            onChange={(e) => setRate(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 10"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Tenure (Years)</label>
+          <input
+            type="number"
+            value={years}
+            onChange={(e) => setYears(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 5"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Total Withdrawn</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.totalWithdrawn)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Final Balance</p>
+          <p className="text-xl font-bold text-primary mt-1">{fmt(result.finalBalance)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Total Wealth Created</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.totalGained)}</p>
+        </div>
+      </div>
+
+      {result.depletedMonth && (
+        <div className="rounded-lg bg-error-container/20 border border-error/30 p-3 text-sm text-error">
+          ⚠️ Note: At this withdrawal rate, your capital is exhausted by month {result.depletedMonth}. Consider lowering monthly withdrawal or extending returns.
+        </div>
+      )}
+
+      <button onClick={handleCopy} className={secondaryButtonClass}>
+        {copied ? "Copied Summary!" : "Copy SWP Summary"}
+      </button>
+    </div>
+  );
+}
+
+function LumpsumPanel() {
+  const [investment, setInvestment] = useState("100000");
+  const [rate, setRate] = useState("12");
+  const [years, setYears] = useState("10");
+  const [copied, setCopied] = useState(false);
+
+  const numInv = Number(investment) || 0;
+  const numRate = Number(rate) || 0;
+  const numYears = Number(years) || 0;
+
+  const result = calculateLumpsum({
+    totalInvestment: numInv,
+    annualRate: numRate,
+    tenureYears: numYears,
+  });
+
+  const fmt = (v: number) => "₹" + v.toLocaleString("en-IN");
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `Lumpsum Plan: Invested ${fmt(result.totalInvestment)}, Wealth Gain ${fmt(result.estimatedReturns)}, Total Maturity ${fmt(result.totalValue)}`
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label className={labelClass}>Total Investment (₹)</label>
+          <input
+            type="number"
+            value={investment}
+            onChange={(e) => setInvestment(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 100000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Expected Return Rate (p.a %)</label>
+          <input
+            type="number"
+            value={rate}
+            onChange={(e) => setRate(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 12"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Tenure (Years)</label>
+          <input
+            type="number"
+            value={years}
+            onChange={(e) => setYears(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 10"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Invested Amount</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.totalInvestment)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Estimated Wealth Gain</p>
+          <p className="text-xl font-bold text-on-surface mt-1">{fmt(result.estimatedReturns)}</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Total Maturity Value</p>
+          <p className="text-xl font-bold text-primary mt-1">{fmt(result.totalValue)}</p>
+        </div>
+      </div>
+
+      <button onClick={handleCopy} className={secondaryButtonClass}>
+        {copied ? "Copied Summary!" : "Copy Maturity Summary"}
+      </button>
+    </div>
+  );
+}
+
+function CagrPanel() {
+  const [initial, setInitial] = useState("100000");
+  const [finalVal, setFinalVal] = useState("250000");
+  const [years, setYears] = useState("5");
+  const [copied, setCopied] = useState(false);
+
+  const numInit = Number(initial) || 0;
+  const numFinal = Number(finalVal) || 0;
+  const numYears = Number(years) || 0;
+
+  const result = calculateCagr({
+    initialValue: numInit,
+    finalValue: numFinal,
+    tenureYears: numYears,
+  });
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `CAGR Result: ${result.cagrPercentage}% annual growth, ${result.totalGrowthPercentage}% total return over ${years} years`
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label className={labelClass}>Initial Investment Value</label>
+          <input
+            type="number"
+            value={initial}
+            onChange={(e) => setInitial(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 100000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Final Maturity Value</label>
+          <input
+            type="number"
+            value={finalVal}
+            onChange={(e) => setFinalVal(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 250000"
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Duration (Years)</label>
+          <input
+            type="number"
+            value={years}
+            onChange={(e) => setYears(e.target.value)}
+            className={inputClass}
+            placeholder="e.g. 5"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">CAGR (Annual Growth)</p>
+          <p className="text-2xl font-bold text-primary mt-1">{result.cagrPercentage}%</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Total Return</p>
+          <p className="text-2xl font-bold text-on-surface mt-1">{result.totalGrowthPercentage}%</p>
+        </div>
+        <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+          <p className="text-xs text-on-surface-variant font-medium">Absolute Profit</p>
+          <p className="text-2xl font-bold text-on-surface mt-1">{result.absoluteGain.toLocaleString()}</p>
+        </div>
+      </div>
+
+      <button onClick={handleCopy} className={secondaryButtonClass}>
+        {copied ? "Copied!" : "Copy CAGR Result"}
+      </button>
+    </div>
+  );
+}
+
+function PercentagePanel() {
+  const [mode, setMode] = useState<"of" | "what" | "change">("of");
+
+  // Mode 1: What is X% of Y?
+  const [pct1, setPct1] = useState("18");
+  const [val1, setVal1] = useState("5000");
+
+  // Mode 2: X is what % of Y?
+  const [num2, setNum2] = useState("450");
+  const [total2, setTotal2] = useState("600");
+
+  // Mode 3: % Increase/Decrease from X to Y
+  const [oldVal3, setOldVal3] = useState("120");
+  const [newVal3, setNewVal3] = useState("150");
+
+  const res1 = calculatePercentOf(Number(pct1) || 0, Number(val1) || 0);
+  const res2 = calculateIsWhatPercent(Number(num2) || 0, Number(total2) || 0);
+  const res3 = calculatePercentChange(Number(oldVal3) || 0, Number(newVal3) || 0);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setMode("of")}
+          className={mode === "of" ? buttonClass : secondaryButtonClass}
+        >
+          What is X% of Y?
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode("what")}
+          className={mode === "what" ? buttonClass : secondaryButtonClass}
+        >
+          X is what % of Y?
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode("change")}
+          className={mode === "change" ? buttonClass : secondaryButtonClass}
+        >
+          % Increase / Decrease
+        </button>
+      </div>
+
+      {mode === "of" && (
+        <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Percentage (%)</label>
+              <input
+                type="number"
+                value={pct1}
+                onChange={(e) => setPct1(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Total Value</label>
+              <input
+                type="number"
+                value={val1}
+                onChange={(e) => setVal1(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+            <span className="text-xs text-on-surface-variant font-medium">Result</span>
+            <p className="text-2xl font-bold text-primary mt-1">
+              {pct1}% of {val1} = {Number(res1.toFixed(2))}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {mode === "what" && (
+        <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Part Value (X)</label>
+              <input
+                type="number"
+                value={num2}
+                onChange={(e) => setNum2(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Total Value (Y)</label>
+              <input
+                type="number"
+                value={total2}
+                onChange={(e) => setTotal2(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+            <span className="text-xs text-on-surface-variant font-medium">Result</span>
+            <p className="text-2xl font-bold text-primary mt-1">
+              {num2} is {Number(res2.toFixed(2))}% of {total2}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {mode === "change" && (
+        <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Initial Value</label>
+              <input
+                type="number"
+                value={oldVal3}
+                onChange={(e) => setOldVal3(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>New Value</label>
+              <input
+                type="number"
+                value={newVal3}
+                onChange={(e) => setNewVal3(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+            <span className="text-xs text-on-surface-variant font-medium">Result</span>
+            <p className="text-2xl font-bold text-primary mt-1">
+              {res3.changePercent}% {res3.type === "increase" ? "Increase (+)" : res3.type === "decrease" ? "Decrease (-)" : "No change"}
+            </p>
+            <p className="text-xs text-on-surface-variant mt-1">Difference: {res3.difference}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ImageResizerPanel() {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [targetKb, setTargetKb] = useState<number>(50);
+  const [quality, setQuality] = useState<number>(85);
+  const [maxDimension, setMaxDimension] = useState<number>(1000);
+  const [compressedUrl, setCompressedUrl] = useState<string | null>(null);
+  const [currentSize, setCurrentSize] = useState<number>(0);
+  const [originalSize, setOriginalSize] = useState<number>(0);
+  const [fileName, setFileName] = useState<string>("resized-image");
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setOriginalSize(file.size);
+    setFileName(file.name.replace(/\.[^/.]+$/, ""));
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const src = ev.target?.result as string;
+      setImageSrc(src);
+
+      const img = new Image();
+      img.onload = () => {
+        imgRef.current = img;
+        runCompression(img, maxDimension, quality);
+      };
+      img.src = src;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const runCompression = (img: HTMLImageElement, maxDim: number, q: number) => {
+    const canvas = document.createElement("canvas");
+    const fit = computeAspectRatioFit(img.naturalWidth || img.width, img.naturalHeight || img.height, maxDim, maxDim);
+    canvas.width = fit.width;
+    canvas.height = fit.height;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.drawImage(img, 0, 0, fit.width, fit.height);
+
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) return;
+        setCurrentSize(blob.size);
+        setCompressedUrl(URL.createObjectURL(blob));
+      },
+      "image/jpeg",
+      q / 100
+    );
+  };
+
+  useEffect(() => {
+    if (imgRef.current) {
+      runCompression(imgRef.current, maxDimension, quality);
+    }
+  }, [maxDimension, quality]);
+
+  const handlePreset = (kb: number) => {
+    setTargetKb(kb);
+    if (kb <= 20) {
+      setMaxDimension(600);
+      setQuality(60);
+    } else if (kb <= 50) {
+      setMaxDimension(800);
+      setQuality(75);
+    } else if (kb <= 100) {
+      setMaxDimension(1200);
+      setQuality(85);
+    } else {
+      setMaxDimension(1600);
+      setQuality(90);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {!imageSrc ? (
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition hover:border-primary cursor-pointer"
+        >
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-white mb-4">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-on-surface">Upload photo or signature</h3>
+          <p className="mt-1 text-sm text-on-surface-variant">Compress to 20KB, 50KB, or 100KB for exam forms. 100% private in browser.</p>
+          <button type="button" className={`${buttonClass} mt-5`}>
+            Select Image
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFile}
+            className="hidden"
+          />
+        </div>
+      ) : (
+        <div className="space-y-6">
+          <div className="space-y-4 rounded-xl bg-surface-container-low p-4">
+            <span className="text-xs text-on-surface-variant font-medium">Quick Target Presets</span>
+            <div className="flex flex-wrap gap-2">
+              {[20, 50, 100, 200].map((kb) => (
+                <button
+                  key={kb}
+                  type="button"
+                  onClick={() => handlePreset(kb)}
+                  className={targetKb === kb ? buttonClass : secondaryButtonClass}
+                >
+                  Under {kb} KB
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div>
+                <div className="flex justify-between">
+                  <label className={labelClass}>Quality</label>
+                  <span className="text-xs text-on-surface-variant font-medium">{quality}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  value={quality}
+                  onChange={(e) => setQuality(Number(e.target.value))}
+                  className="mt-2 w-full accent-primary"
+                />
+              </div>
+              <div>
+                <div className="flex justify-between">
+                  <label className={labelClass}>Max Resolution</label>
+                  <span className="text-xs text-on-surface-variant font-medium">{maxDimension}px</span>
+                </div>
+                <input
+                  type="range"
+                  min="300"
+                  max="2000"
+                  step="50"
+                  value={maxDimension}
+                  onChange={(e) => setMaxDimension(Number(e.target.value))}
+                  className="mt-2 w-full accent-primary"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+              <span className="text-xs text-on-surface-variant font-medium">Original Size</span>
+              <p className="text-xl font-bold text-on-surface mt-1">{formatFileSize(originalSize)}</p>
+            </div>
+            <div className="rounded-lg bg-surface-container-lowest p-4 border border-outline-variant">
+              <span className="text-xs text-on-surface-variant font-medium">New Compressed Size</span>
+              <p className={`text-xl font-bold mt-1 ${currentSize / 1024 <= targetKb ? "text-primary" : "text-amber-500"}`}>
+                {formatFileSize(currentSize)} {currentSize / 1024 <= targetKb ? "✓ (Fits under limit)" : "⚠️ (Adjust slider)"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                setImageSrc(null);
+                setCompressedUrl(null);
+                imgRef.current = null;
+                if (fileInputRef.current) fileInputRef.current.value = "";
+              }}
+              className={secondaryButtonClass}
+            >
+              Upload Different Image
+            </button>
+            <a
+              href={compressedUrl || "#"}
+              download={`${fileName}-${targetKb}kb.jpg`}
+              className={buttonClass}
+            >
+              Download Resized JPEG ({formatFileSize(currentSize)})
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
@@ -2574,6 +3185,14 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <SgpaPanel />;
     case "sip-calculator":
       return <SipPanel />;
+    case "swp-calculator":
+      return <SwpPanel />;
+    case "lumpsum-calculator":
+      return <LumpsumPanel />;
+    case "cagr-calculator":
+      return <CagrPanel />;
+    case "percentage-calculator":
+      return <PercentagePanel />;
     case "emi-calculator":
       return <EmiPanel />;
     case "mortgage-calculator":
@@ -2596,6 +3215,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <FakePanel />;
     case "remove-background":
       return <RemoveBackgroundPanel />;
+    case "image-resizer":
+      return <ImageResizerPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

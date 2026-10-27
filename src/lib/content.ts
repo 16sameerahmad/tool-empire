@@ -221,6 +221,123 @@ export const content: Record<string, ToolContent> = {
       },
     ]),
   },
+  "swp-calculator": {
+    definition: "An SWP (Systematic Withdrawal Plan) Calculator calculates scheduled periodic withdrawals from a mutual fund corpus while the remaining balance continues earning compounded market returns.",
+    intro: "Calculate monthly income, total withdrawals, and residual corpus from your mutual fund systematic withdrawal plan.",
+    howTo: [
+      "Enter your initial total investment corpus in ₹.",
+      "Specify your intended monthly withdrawal payout amount.",
+      "Input expected annual return rate (%) of your mutual fund scheme.",
+      "Select planned withdrawal duration in years.",
+    ],
+    content: [
+      "A Systematic Withdrawal Plan (SWP) allows mutual fund investors to redeem a fixed sum on a monthly or quarterly basis while leaving the remaining balance invested to generate compounding returns. It is one of the most tax-efficient post-retirement cash flow solutions available in India.",
+      "Unlike traditional bank fixed deposit interest which is fully taxable at slab rates upon receipt, equity SWP withdrawals only attract capital gains tax on the proportional gain portion of each redeemed unit, saving substantial tax for retirees.",
+      "If your monthly withdrawal rate is kept below or equal to the portfolio's annualized growth rate, your core capital remains intact or even grows over time, creating a perpetual monthly pension.",
+      "This calculator runs the complete compound interest and monthly redemption amortization in your browser with zero latency.",
+    ],
+    guides: [
+      { label: "SIP vs Lumpsum Investment Comparison", href: "/guides/sip-vs-lumpsum/" },
+    ],
+    faq: faq([
+      { question: "What is SWP in mutual funds?", answer: "SWP stands for Systematic Withdrawal Plan. It lets you withdraw a predetermined fixed sum from your mutual fund at regular intervals while the remaining money stays invested." },
+      { question: "Is SWP better than Fixed Deposit for monthly income?", answer: "Yes, for many investors SWP offers superior tax efficiency compared to FD interest because only the capital gains component of the withdrawn units is taxed rather than the entire payout." },
+      { question: "What happens if my withdrawal exceeds fund growth?", answer: "If your monthly withdrawal exceeds your monthly gains, your principal capital will gradually decrease until the corpus is eventually depleted." },
+    ]),
+  },
+  "lumpsum-calculator": {
+    definition: "A Lumpsum Calculator computes the maturity value and total compound wealth created from a one-time lump sum mutual fund or stock investment over time.",
+    intro: "Determine future returns and wealth creation on a one-time mutual fund investment.",
+    howTo: [
+      "Enter your one-time lumpsum investment amount.",
+      "Enter expected annual rate of return (%).",
+      "Choose investment time period in years.",
+      "Review total maturity value and wealth gained.",
+    ],
+    content: [
+      "Investing a single lump sum in equity mutual funds, index funds, or sovereign gold bonds allows your money to harness compounding across the entire principal from day one.",
+      "While SIP (Systematic Investment Plan) averages out volatility across market ups and downs, lumpsum investing mathematically outperforms SIP during prolonged bull markets because 100% of the funds compound over the full duration.",
+      "The compound interest formula A = P(1 + r)^t powers this tool. For long horizons (10-20 years), even modest initial investments multiply several times over.",
+      "Fast, private calculation with zero tracking.",
+    ],
+    guides: [
+      { label: "SIP vs Lumpsum: Which Delivers Higher Returns?", href: "/guides/sip-vs-lumpsum/" },
+    ],
+    faq: faq([
+      { question: "What is a lumpsum investment?", answer: "A lumpsum investment is a single, one-time investment in a mutual fund or financial asset, rather than periodic contributions like an SIP." },
+      { question: "When should I invest lumpsum instead of SIP?", answer: "Lumpsum investing is favorable after significant market corrections or when you have bonus/surplus funds with a long investment horizon (5-10+ years)." },
+      { question: "How are lumpsum mutual fund returns taxed in India?", answer: "Equity mutual funds held for more than 12 months are subject to Long Term Capital Gains (LTCG) tax of 12.5% on gains exceeding ₹1.25 lakh per financial year." },
+    ]),
+  },
+  "cagr-calculator": {
+    definition: "A CAGR (Compound Annual Growth Rate) Calculator determines the constant geometric annual rate of return required for an investment to grow from its initial value to its final value over multiple years.",
+    intro: "Calculate the exact Compound Annual Growth Rate and absolute return of any investment.",
+    howTo: [
+      "Enter initial investment value (beginning balance).",
+      "Enter final value (ending balance).",
+      "Enter the duration in years.",
+      "View annualized CAGR %, total growth %, and absolute gains.",
+    ],
+    content: [
+      "Simple average returns can be highly misleading when evaluating mutual funds, stocks, real estate, or business revenues because market returns fluctuate wildly each year. A fund that gains 50% in Year 1 and drops 50% in Year 2 actually loses 25% of its value, yet has an arithmetic average of 0%.",
+      "CAGR solves this by calculating the constant annual smoothed growth rate using the geometric formula: CAGR = (End Value / Start Value)^(1 / Years) - 1. It is the global gold standard metric for benchmarking multi-year portfolio performance.",
+      "Use this calculator to verify fund manager claims, compare real estate returns against the Nifty 50 index, or analyze multi-year revenue growth.",
+    ],
+    guides: [
+      { label: "SIP vs Lumpsum Returns Explained", href: "/guides/sip-vs-lumpsum/" },
+    ],
+    faq: faq([
+      { question: "What is CAGR?", answer: "CAGR stands for Compound Annual Growth Rate. It represents the mean annual growth rate of an investment over a specified period longer than one year." },
+      { question: "Why is CAGR better than absolute return?", answer: "Absolute return ignores the time value of money. Earning 50% in 1 year is extraordinary, while earning 50% over 15 years is below inflation. CAGR normalizes returns to an annual basis." },
+      { question: "What is a good CAGR for investments in India?", answer: "Historically, broad market indices like the Nifty 50 have delivered roughly 11% to 14% long-term CAGR in India." },
+    ]),
+  },
+  "percentage-calculator": {
+    definition: "A Percentage Calculator solves everyday percentage problems including finding X% of a number, percentage increase or decrease, and calculating what percent one number is of another.",
+    intro: "Fast, accurate multi-mode percentage calculator with instant step-by-step breakdown.",
+    howTo: [
+      "Choose calculation mode: % of Value, What % is X of Y, or % Increase/Decrease.",
+      "Enter your numbers.",
+      "Get instant calculated results with step formula.",
+    ],
+    content: [
+      "Calculating percentages is an indispensable everyday task in business markups, retail discounts, sales tax/GST verification, academic exams, and profit margin analysis.",
+      "This utility provides 3 distinct calculation modes in one screen: direct percentage calculation (e.g. 18% GST on ₹4,500), proportion analysis (e.g. scored 485 out of 600 in exam), and percentage change (e.g. stock price moved from ₹120 to ₹155).",
+      "Calculations update on every keystroke with complete mathematical accuracy and privacy.",
+    ],
+    guides: [
+      { label: "CGPA to Percentage Conversion Rule", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+    ],
+    faq: faq([
+      { question: "How do I calculate percentage increase?", answer: "Subtract the original value from the new value, divide the difference by the original value, and multiply by 100." },
+      { question: "How do I find 18% GST on an amount?", answer: "Multiply the base amount by 0.18. For example, 18% of ₹1,000 is 1,000 × 0.18 = ₹180." },
+      { question: "How do I calculate my exam percentage?", answer: "Divide your obtained total marks by the maximum possible marks, then multiply the result by 100." },
+    ]),
+  },
+  "image-resizer": {
+    definition: "An Image Resizer in KB is a browser-based utility that compresses and resizes photos and signatures to match exact file size thresholds (20KB, 50KB, 100KB) required by online application portals.",
+    intro: "Resize and compress images to specific KB limits online. 100% private, free, and no watermark.",
+    howTo: [
+      "Upload your photo or signature (JPG, PNG, WEBP).",
+      "Select your target max file size preset (20KB, 50KB, 100KB, 200KB) or specify custom dimensions.",
+      "Adjust the quality slider to match required file limits.",
+      "Download your perfectly resized image ready for submission.",
+    ],
+    content: [
+      "Every candidate filling government recruitment forms in India (SSC CGL, CHSL, UPSC Civil Services, IBPS Bank PO, State PSC, NEET, JEE) faces strict photo upload restrictions: typically passport photo must be between 20KB to 50KB, and signature between 10KB to 20KB.",
+      "Most commercial online compressors either blur images beyond recognition, add watermarks, or upload your sensitive personal ID photographs to third-party overseas servers.",
+      "Tulyro Image Resizer processes your image entirely inside your browser's local memory using HTML5 Canvas with bilinear downsampling. Your photos never leave your device, ensuring total privacy for sensitive ID documents.",
+      "Instantly export JPEG or WEBP files with exact byte size verification before downloading.",
+    ],
+    guides: [
+      { label: "How Browser Image Processing Protects Privacy", href: "/about/" },
+    ],
+    faq: faq([
+      { question: "How can I reduce image size to 20KB or 50KB?", answer: "Upload your image, choose the 20KB or 50KB preset, and our client-side canvas engine automatically scales dimensions and adjusts compression quality to fit under the limit." },
+      { question: "Is it safe to upload personal ID photos?", answer: "Yes. Processing is 100% client-side inside your browser. No files are uploaded to any server or cloud database." },
+      { question: "Will my resized image have watermarks?", answer: "No. All downloads are clean, unbranded, and high resolution." },
+    ]),
+  },
   "mortgage-calculator": {
     definition: "A mortgage payment is the fixed monthly amount of principal and interest that repays a home loan in full over its term.",
     intro: "Estimate a US mortgage payment, total interest, and total payment in dollars.",

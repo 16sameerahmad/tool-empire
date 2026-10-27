@@ -25,6 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HowToCalculateBmiPage() {
+export default function HowBrowserTtsWorksPage() {
   return <GuideLayout guide={guide} />;
 }

@@ -283,6 +283,7 @@ export const content: Record<string, ToolContent> = {
       "This calculator runs the complete compound interest and monthly redemption amortization in your browser with zero latency.",
     ],
     guides: [
+      { label: "SWP vs Fixed Deposit: Which is Better for Regular Monthly Income?", href: "/guides/swp-vs-fd-for-retirement-income/" },
       { label: "SIP vs Lumpsum Investment Comparison", href: "/guides/sip-vs-lumpsum/" },
     ],
     faq: faq([
@@ -330,6 +331,7 @@ export const content: Record<string, ToolContent> = {
       "Use this calculator to verify fund manager claims, compare real estate returns against the Nifty 50 index, or analyze multi-year revenue growth.",
     ],
     guides: [
+      { label: "CAGR vs XIRR: Differences, Formulas, and When to Use Which", href: "/guides/cagr-vs-xirr-in-mutual-funds/" },
       { label: "SIP vs Lumpsum Returns Explained", href: "/guides/sip-vs-lumpsum/" },
     ],
     faq: faq([

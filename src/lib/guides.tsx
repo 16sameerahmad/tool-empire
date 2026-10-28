@@ -2735,6 +2735,274 @@ export const guides: Guide[] = [
     related: ["image-resizer", "remove-background"],
     pillar: { label: "Tools", href: "/tools/" },
   },
+  {
+    slug: "emi-prepayment-explained",
+    title: "EMI Prepayment Explained: How Paying Extra Early Saves Lakhs in Interest",
+    seoTitle: "EMI Prepayment Explained — How Extra Payments Save Interest | Tulyro",
+    seoDescription:
+      "Paying ₹5,00,000 extra in year 1 of a ₹50 lakh home loan saves ₹17,69,951 in interest and cuts 50 months off the loan. See the worked math, RBI's no-penalty rule, and when not to prepay.",
+    href: "/guides/emi-prepayment-explained/",
+    intro: [
+      <>
+        A prepayment is any extra money you pay on a loan beyond your monthly EMI. It goes straight
+        against the principal, and because interest is charged on the balance that remains, every rupee
+        you prepay stops earning interest for the lender from that day on. A single extra payment early
+        in a loan can save lakhs. The same payment made near the end saves almost nothing. This guide
+        shows the arithmetic, the choice every lender asks you to make, and the RBI rule that says
+        prepaying a floating-rate loan costs you no penalty.
+      </>,
+    ],
+    cta: { label: "Try the EMI Calculator", href: "/calculators/emi-calculator/" },
+    sections: [
+      {
+        heading: "What a prepayment actually does",
+        body: [
+          <>
+            Your EMI has two parts: interest on what you still owe, and principal that shrinks the
+            balance. Early in a loan the interest part is large, because the balance is large. A
+            prepayment cuts the balance directly, so every EMI after it carries less interest and more
+            principal. That is the whole mechanism. Nothing else about the loan changes: the rate stays
+            the same, and the EMI stays the same unless you ask for it to change.
+          </>,
+          <>
+            There are two kinds. A part prepayment is an extra lump sum — a bonus, a tax refund, a
+            matured deposit — paid on top of your EMIs. A full prepayment, also called foreclosure,
+            pays off the entire outstanding balance and closes the loan. The maths is the same for
+            both; only the size differs.
+          </>,
+          <>
+            After a part prepayment, the lender will ask you to choose one of two things: keep the EMI
+            the same and finish early, or keep the tenure the same and pay a smaller EMI. This choice
+            matters more than most borrowers realise. The numbers below show why.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked example: a ₹50,00,000 home loan at 9% for 20 years",
+        body: [
+          <>
+            Take a home loan of ₹50,00,000 at 9% annual interest for 20 years (240 months). The EMI is
+            ₹44,986.30 a month. Over 240 months you pay ₹1,07,96,711.47 in total, so the interest alone
+            is ₹57,96,711.47 — more than the amount borrowed. This is the baseline. Everything that
+            follows is measured against it.
+          </>,
+          <>
+            After 12 monthly payments the balance is ₹49,06,364.48. You have paid ₹4,46,200.06 in
+            interest in that first year and barely dented the principal. That is normal for a long
+            loan, and it is exactly why an early prepayment is so powerful: the balance is still
+            almost the full loan, so cutting it now removes interest from nearly every payment that
+            follows. I verified these figures with the reducing-balance formula — the same maths
+            behind our{" "}
+            <Link href="/calculators/emi-calculator/" className="text-primary underline">
+              EMI Calculator
+            </Link>
+            . If you want to check the formula itself first, read{" "}
+            <Link href="/guides/how-to-calculate-emi/" className="text-primary underline">
+              How to Calculate EMI by Hand
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        heading: "Option A: prepay ₹5,00,000, keep the EMI, finish 50 months early",
+        body: [
+          <>
+            Suppose a bonus arrives after the first year and you prepay ₹5,00,000. The balance falls
+            from ₹49,06,364.48 to ₹44,06,364.48 in one stroke. If you keep paying the same EMI of
+            ₹44,986.30, the loan ends in month 190 instead of month 240. Total interest falls to
+            ₹40,26,760.21. You save ₹17,69,951.26 in interest and finish 50 months — just over four
+            years — early.
+          </>,
+          <>
+            Notice what happened. The prepayment was 10% of the loan, but the interest saved is about
+            31% of the total interest. That is the leverage of paying early: the ₹5,00,000 you paid in
+            month 12 would otherwise have sat in the balance generating interest for the next 19 years.
+          </>,
+        ],
+      },
+      {
+        heading: "Option B: prepay the same ₹5,00,000, but take a smaller EMI",
+        body: [
+          <>
+            The same ₹5,00,000 prepayment, but this time you ask the lender to keep the 240-month
+            tenure and reduce the EMI instead. The new EMI is ₹40,401.81 a month — about ₹4,584 less
+            than before. Total interest comes to ₹52,51,449.15, a saving of ₹5,45,262.33 over the
+            life of the loan.
+          </>,
+          <>
+            Compare the two options side by side:
+          </>,
+          <div key="prepayment-options-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Choice after ₹5,00,000 prepayment</th>
+                <th className="border border-outline-variant/60 p-3">Monthly EMI</th>
+                <th className="border border-outline-variant/60 p-3">Loan ends</th>
+                <th className="border border-outline-variant/60 p-3">Interest saved</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">No prepayment</td><td className="border border-outline-variant/60 p-3">₹44,986.30</td><td className="border border-outline-variant/60 p-3">Month 240</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Keep EMI, cut tenure</td><td className="border border-outline-variant/60 p-3">₹44,986.30</td><td className="border border-outline-variant/60 p-3">Month 190</td><td className="border border-outline-variant/60 p-3">₹17,69,951.26</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Keep tenure, cut EMI</td><td className="border border-outline-variant/60 p-3">₹40,401.81</td><td className="border border-outline-variant/60 p-3">Month 240</td><td className="border border-outline-variant/60 p-3">₹5,45,262.33</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Keeping the EMI saves more than three times as much interest as cutting it. That is the
+            default advice: if you can afford the current EMI, keep it and take the shorter tenure.
+            Take the smaller EMI only if the monthly relief is what you actually need — a lower
+            income, a new expense — because it costs you over ₹12 lakh in lost savings here.
+          </>,
+          <>
+            One warning: many lenders default to reducing the EMI unless you say otherwise. When you
+            prepay, tell the lender in writing that you want the tenure reduced. Check the revised
+            schedule they send you. If the EMI dropped and the tenure did not, the choice was made
+            for you.
+          </>,
+        ],
+      },
+      {
+        heading: "Why early beats late: the same ₹1,00,000, two different years",
+        body: [
+          <>
+            Timing matters as much as size. Take a personal loan of ₹10,00,000 at 12% for 5 years (60
+            months). The EMI is ₹22,244.45, and the total interest is ₹3,34,666.86. Prepay ₹1,00,000
+            after 12 months, keeping the EMI, and the loan ends in 53 months with interest of
+            ₹2,78,245.46 — a saving of ₹56,421.40 and 7 months early.
+          </>,
+          <>
+            Prepay that same ₹1,00,000 after 48 months instead, and the saving is only ₹10,466.39. The
+            amount is identical. The difference is that by month 48 most of the interest has already
+            been paid, and there are only 12 payments left for the prepayment to work on. The rule is
+            simple: the earlier the prepayment, the more interest it kills. A bonus in year one is
+            worth far more than the same bonus in year four.
+          </>,
+          <>
+            Small prepayments still count. On the ₹50 lakh home loan above, prepaying just ₹50,000
+            after 12 months — 1% of the loan — saves ₹2,19,590.39 in interest and finishes the loan 5
+            months early. You do not need a windfall. Regular small top-ups, even one a year, compound
+            into real savings.
+          </>,
+        ],
+      },
+      {
+        heading: "The RBI rule: no penalty on floating-rate loans",
+        body: [
+          <>
+            The most common reason people do not prepay is the fear of a penalty. For most borrowers
+            that fear is now out of date. Under the RBI (Pre-payment Charges on Loans) Directions,
+            2025, issued on 2 July 2025, lenders may not levy any prepayment or foreclosure charge on
+            floating-rate loans taken by individuals for purposes other than business. The rule applies
+            to loans sanctioned or renewed on or after 1 January 2026, with no minimum lock-in period,
+            and it does not matter where the prepayment money comes from — your savings, a bonus, or
+            another lender&apos;s loan.
+          </>,
+          <>
+            Two exceptions matter. First, fixed-rate loans can still carry prepayment charges, because
+            the lender&apos;s cost of funds is locked in. If your loan is fixed-rate, or fixed for an
+            initial period and floating after, check whether the fixed window still applies. Second, a
+            loan sanctioned before 1 January 2026 is governed by the terms in its own agreement and the
+            earlier circulars — read your sanction letter and the Key Facts Statement, and ask the
+            lender in writing what, if anything, it charges. Do not take a branch official&apos;s word
+            for it; get it in writing before you pay.
+          </>,
+        ],
+      },
+      {
+        heading: "Prepay or invest the money instead?",
+        body: [
+          <>
+            Prepaying a 9% loan is a guaranteed 9% return: every rupee prepaid saves 9% a year in
+            interest you will never pay, with zero market risk. For an investment to beat that, it must
+            earn more than 9% after tax. Equity gains above ₹1.25 lakh a year are taxed at 12.5% as
+            long-term capital gains, so an equity investment would need roughly 10.3% before tax
+            (9 ÷ 0.875) just to match the prepayment — and it carries the risk of earning far less.
+            That is the honest comparison: a guaranteed 9% against a hoped-for 10% plus.
+          </>,
+          <>
+            The maths favours prepaying when the loan rate is high — a personal loan at 12% or a credit
+            card at 36% beats almost any investment. It is less clear-cut for a cheap home loan at 8%
+            if you have a long horizon and a high risk appetite. Either way, never prepay with money
+            you will need soon. Keep an emergency fund of three to six months of expenses first, and
+            clear higher-interest debt before cheaper debt. A prepayment is not reversible: once the
+            money is in the loan, you cannot withdraw it.
+          </>,
+          <>
+            If you claim a home-loan interest deduction under the old income tax regime, note that less
+            interest also means a smaller deduction. Run the numbers for your own slab, or ask your tax
+            adviser, before prepaying a large amount purely for the interest saving.
+          </>,
+        ],
+      },
+      {
+        heading: "How to prepay, step by step",
+        body: [
+          <>
+            First, confirm the loan type. Floating-rate means no penalty under the RBI rule above;
+            fixed-rate means check the charges in your agreement first. Second, decide the option you
+            want — reduce the tenure, not the EMI — and put it in writing to the lender. Third, make
+            the payment through the lender&apos;s own channel, online banking or a branch visit, and
+            keep the acknowledgement. Fourth, collect the revised amortisation schedule and verify two
+            numbers: the new balance and the new end date. If either looks wrong, raise it before the
+            next EMI is due.
+          </>,
+          <>
+            Before paying, run the numbers for your own loan. The{" "}
+            <Link href="/calculators/emi-calculator/" className="text-primary underline">
+              EMI Calculator
+            </Link>{" "}
+            shows your total interest, and{" "}
+            <Link href="/guides/how-mortgage-amortization-works/" className="text-primary underline">
+              how mortgage amortization works
+            </Link>{" "}
+            explains why the early years are mostly interest. If your loan is a US-dollar mortgage
+            rather than an Indian loan, the same prepayment maths applies — check it against the{" "}
+            <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
+              Mortgage Calculator
+            </Link>
+            .
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does prepayment reduce my EMI or my loan tenure?",
+        answer:
+          "Your choice. Keeping the EMI the same and cutting the tenure saves far more interest: on a ₹50,00,000 loan at 9% for 20 years, a ₹5,00,000 prepayment in year 1 saves ₹17,69,951.26 with a shorter tenure, but only ₹5,45,262.33 with a smaller EMI. Tell the lender in writing that you want the tenure reduced.",
+      },
+      {
+        question: "Is there a penalty for prepaying a home loan in India?",
+        answer:
+          "Not on a floating-rate loan sanctioned or renewed on or after 1 January 2026: the RBI (Pre-payment Charges on Loans) Directions, 2025 prohibit prepayment and foreclosure charges for individuals, with no lock-in period. Fixed-rate loans can still carry charges, and older loans follow their own agreement — check your sanction letter and Key Facts Statement.",
+      },
+      {
+        question: "How much can I save by prepaying ₹1,00,000?",
+        answer:
+          "It depends on the rate, the balance, and when you pay. On a ₹10,00,000 personal loan at 12% for 5 years, prepaying ₹1,00,000 after 12 months saves ₹56,421.40 in interest and finishes the loan 7 months early. The same amount after 48 months saves only ₹10,466.39.",
+      },
+      {
+        question: "Should I prepay my loan or invest the money?",
+        answer:
+          "Prepaying is a guaranteed return equal to your loan rate — 9% on a 9% loan — with no market risk. An investment must earn more than that after tax to win; at 12.5% long-term capital gains tax, equities need roughly 10.3% before tax to match a 9% prepayment. Keep an emergency fund first and clear higher-interest debt before cheaper debt.",
+      },
+      {
+        question: "Can I prepay a personal loan or car loan the same way?",
+        answer:
+          "Yes, the maths is identical: extra principal cuts future interest. The same RBI no-penalty rule covers floating-rate personal and car loans to individuals. Check whether your loan is fixed or floating first, and confirm any charges in writing.",
+      },
+      {
+        question: "Does prepaying hurt my credit score?",
+        answer:
+          "No. Prepaying lowers your outstanding debt, and a loan closed with a clean repayment history stays on your credit report as a positive record. It does not count as a default or a missed payment.",
+      },
+    ],
+    related: ["emi-calculator", "mortgage-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -1,4 +1,4 @@
-export type Cluster = "Calculators" | "Text" | "Dev" | "Fun";
+export type Cluster = "Calculators" | "Text" | "Dev" | "Fun" | "Media";
 
 export type ToolDefinition = {
   id: string;
@@ -338,9 +338,54 @@ export const tools: ToolDefinition[] = [
     seoDescription:
       "Resize and compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB) for online job portals and exam applications. 100% client-side & private.",
   },
+  {
+    id: "pdf-tools",
+    title: "PDF to JPG & Image to PDF Converter",
+    cluster: "Media",
+    href: "/tools/pdf-tools/",
+    locale: "en",
+    description: "Convert PDF pages to JPG/PNG images or combine multiple images into a single PDF. 100% browser-based, no upload.",
+    keywords: ["pdf to jpg", "pdf to image", "image to pdf", "jpg to pdf", "pdf converter online", "convert pdf to png"],
+    related: ["image-resizer", "remove-background", "invoice-generator"],
+    live: true,
+    h1: "PDF to JPG & Image to PDF Converter — Free, Private, No Upload",
+    seoTitle: "PDF to JPG & Image to PDF Converter — Free Online | Tulyro",
+    seoDescription:
+      "Convert PDF pages to high-quality JPG/PNG images or combine multiple images into one PDF. Runs entirely in your browser — no file uploads, no signup.",
+  },
+  {
+    id: "qr-code-generator",
+    title: "QR Code Generator",
+    cluster: "Media",
+    href: "/tools/qr-code-generator/",
+    locale: "en",
+    description: "Generate customizable QR codes with logo overlay for URLs, text, WiFi, and vCards. Download as PNG or SVG.",
+    keywords: ["qr code generator", "qr code with logo", "free qr code", "qr code maker", "wifi qr code"],
+    related: ["invoice-generator", "base64-encoder-decoder", "pdf-tools"],
+    live: true,
+    h1: "QR Code Generator with Logo — Free, Customizable, Download PNG/SVG",
+    seoTitle: "QR Code Generator with Logo — Free Online QR Maker | Tulyro",
+    seoDescription:
+      "Create free QR codes for URLs, text, WiFi, and vCards with optional logo overlay. Customize colors, download as PNG or SVG. No signup, works offline.",
+  },
+  {
+    id: "income-tax-calculator",
+    title: "Income Tax Calculator (India)",
+    cluster: "Calculators",
+    href: "/calculators/income-tax-calculator/",
+    locale: "en-IN",
+    description: "Compare Old vs New tax regime for FY 2025-26 (AY 2026-27). Calculate tax liability with deductions under 80C, 80D, HRA and standard deduction.",
+    keywords: ["income tax calculator", "income tax calculator india", "old vs new regime", "tax calculator fy 2025-26", "80c deduction calculator"],
+    related: ["gst-calculator", "emi-calculator", "percentage-calculator"],
+    live: true,
+    h1: "Income Tax Calculator India — Old vs New Regime FY 2025-26",
+    seoTitle: "Income Tax Calculator India — Old vs New Regime FY 2025-26 | Tulyro",
+    seoDescription:
+      "Calculate your income tax under Old and New regime for FY 2025-26 (AY 2026-27). Compare tax savings with 80C, 80D, HRA deductions. Free, private, instant.",
+  },
 ];
 
-export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun"];
+export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun", "Media"];
 
 export function getTool(id: string): ToolDefinition {
   const tool = tools.find((entry) => entry.id === id);

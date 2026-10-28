@@ -3787,6 +3787,415 @@ function ImageResizerPanel() {
   );
 }
 
+function PdfToolsPanel() {
+  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf">("pdf-to-img");
+  const [pages, setPages] = useState<{ pageNumber: number; dataUrl: string; width: number; height: number }[]>([]);
+  const [pdfImages, setPdfImages] = useState<{ dataUrl: string; width: number; height: number }[]>([]);
+  const [progress, setProgress] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [format, setFormat] = useState<"jpeg" | "png">("jpeg");
+  const [pdfBlob, setPdfBlob] = useState<string | null>(null);
+
+  async function handlePdfUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    setPages([]);
+    setProgress("Loading PDF...");
+    try {
+      const { pdfToImages } = await import("@/tools/pdf-tools/logic");
+      const buf = await file.arrayBuffer();
+      const result = await pdfToImages(buf, {
+        format,
+        scale: 2,
+        onProgress: (done, total) => setProgress(`Rendering page ${done}/${total}`),
+      });
+      setPages(result);
+      setProgress(`Done — ${result.length} page(s) rendered`);
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleImagesUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setBusy(true);
+    setPdfBlob(null);
+    setProgress("Reading images...");
+    const imgs: { dataUrl: string; width: number; height: number }[] = [];
+    for (const f of Array.from(files)) {
+      const url = await new Promise<string>((res) => {
+        const r = new FileReader();
+        r.onload = () => res(r.result as string);
+        r.readAsDataURL(f);
+      });
+      const img = new Image();
+      await new Promise<void>((res) => { img.onload = () => res(); img.src = url; });
+      imgs.push({ dataUrl: url, width: img.naturalWidth, height: img.naturalHeight });
+    }
+    setPdfImages(imgs);
+    setProgress(`${imgs.length} image(s) ready — click Convert`);
+    setBusy(false);
+  }
+
+  async function convertImagesToPdf() {
+    if (!pdfImages.length) return;
+    setBusy(true);
+    setProgress("Generating PDF...");
+    try {
+      const { imagesToPdf } = await import("@/tools/pdf-tools/logic");
+      const blob = await imagesToPdf(pdfImages, {
+        pageSize: "fit",
+        onProgress: (done, total) => setProgress(`Processing image ${done}/${total}`),
+      });
+      setPdfBlob(URL.createObjectURL(blob));
+      setProgress("PDF ready — click Download");
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex gap-2">
+        <button onClick={() => { setMode("pdf-to-img"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
+          className={mode === "pdf-to-img" ? buttonClass : secondaryButtonClass}>
+          PDF → Images
+        </button>
+        <button onClick={() => { setMode("img-to-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
+          className={mode === "img-to-pdf" ? buttonClass : secondaryButtonClass}>
+          Images → PDF
+        </button>
+      </div>
+
+      {mode === "pdf-to-img" && (
+        <div className="space-y-4">
+          <div className="flex gap-3 items-center">
+            <label className="text-sm font-medium">Format:</label>
+            <select value={format} onChange={(e) => setFormat(e.target.value as "jpeg" | "png")}
+              className={inputClass}>
+              <option value="jpeg">JPEG</option>
+              <option value="png">PNG</option>
+            </select>
+          </div>
+          <input type="file" accept=".pdf" onChange={handlePdfUpload} disabled={busy} className={inputClass} />
+          {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
+          {pages.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {pages.map((p) => (
+                <div key={p.pageNumber} className="border rounded p-2 text-center">
+                  <img src={p.dataUrl} alt={`Page ${p.pageNumber}`} className="max-h-48 mx-auto" />
+                  <a href={p.dataUrl} download={`page-${p.pageNumber}.${format}`}
+                    className={`${secondaryButtonClass} mt-2 inline-block text-xs`}>
+                    Download Page {p.pageNumber}
+                  </a>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {mode === "img-to-pdf" && (
+        <div className="space-y-4">
+          <input type="file" accept="image/*" multiple onChange={handleImagesUpload} disabled={busy} className={inputClass} />
+          {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
+          {pdfImages.length > 0 && !pdfBlob && (
+            <button onClick={convertImagesToPdf} disabled={busy} className={buttonClass}>
+              Convert {pdfImages.length} Image(s) to PDF
+            </button>
+          )}
+          {pdfBlob && (
+            <a href={pdfBlob} download="combined.pdf" className={buttonClass}>
+              Download PDF
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function QrCodePanel() {
+  const [text, setText] = useState("https://tulyro.online");
+  const [fgColor, setFgColor] = useState("#000000");
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [size, setSize] = useState(256);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [ready, setReady] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const qrLibRef = useRef<unknown>(null);
+
+  useEffect(() => {
+    // Lazy-load qr-code-styling or fallback to simple canvas QR
+    async function loadLib() {
+      try {
+        // Use the lightweight CDN qrcode generator
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+        script.onload = () => { qrLibRef.current = true; setReady(true); };
+        document.head.appendChild(script);
+      } catch {
+        setErrorMsg("Failed to load QR library");
+      }
+    }
+    loadLib();
+  }, []);
+
+  useEffect(() => {
+    if (!ready || !text.trim()) return;
+    const container = document.getElementById("qr-render-target");
+    if (!container) return;
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    try {
+      // @ts-expect-error QRCode from CDN
+      new window.QRCode(container, {
+        text: text.trim(),
+        width: size,
+        height: size,
+        colorDark: fgColor,
+        colorLight: bgColor,
+        correctLevel: 2, // H
+      });
+      setErrorMsg("");
+    } catch (err) {
+      setErrorMsg((err as Error).message);
+    }
+  }, [ready, text, fgColor, bgColor, size]);
+
+  function downloadQr(fmt: "png" | "svg") {
+    const container = document.getElementById("qr-render-target");
+    const canvas = container?.querySelector("canvas");
+    if (!canvas) return;
+    if (fmt === "png") {
+      const a = document.createElement("a");
+      a.download = "qrcode.png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    } else {
+      // Simple SVG export from canvas pixel data
+      const ctx = canvas.getContext("2d")!;
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const pixelSize = canvas.width;
+      let svgParts = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${pixelSize} ${pixelSize}" width="${size}" height="${size}">`;
+      svgParts += `<rect width="${pixelSize}" height="${pixelSize}" fill="${bgColor}"/>`;
+      for (let y = 0; y < pixelSize; y++) {
+        for (let x = 0; x < pixelSize; x++) {
+          const idx = (y * pixelSize + x) * 4;
+          const r = imgData.data[idx], g = imgData.data[idx + 1], b = imgData.data[idx + 2];
+          if (r < 128 && g < 128 && b < 128) {
+            svgParts += `<rect x="${x}" y="${y}" width="1" height="1" fill="${fgColor}"/>`;
+          }
+        }
+      }
+      svgParts += "</svg>";
+      const blob = new Blob([svgParts], { type: "image/svg+xml" });
+      const a = document.createElement("a");
+      a.download = "qrcode.svg";
+      a.href = URL.createObjectURL(blob);
+      a.click();
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-3">
+        <label className="text-sm font-medium">Content (URL, text, WiFi, etc.)</label>
+        <textarea value={text} onChange={(e) => setText(e.target.value)}
+          rows={3} className={inputClass} placeholder="https://example.com" />
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div>
+          <label className="text-xs text-muted-foreground">Foreground</label>
+          <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)}
+            className="w-full h-10 cursor-pointer rounded" />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Background</label>
+          <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)}
+            className="w-full h-10 cursor-pointer rounded" />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Size (px)</label>
+          <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))}
+            min={64} max={1024} step={32} className={inputClass} />
+        </div>
+      </div>
+
+      {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
+
+      <div className="flex flex-col items-center gap-4">
+        <div id="qr-render-target" className="border rounded p-4 bg-white" />
+        <canvas ref={canvasRef} className="hidden" />
+        <div className="flex gap-2">
+          <button onClick={() => downloadQr("png")} className={buttonClass}>Download PNG</button>
+          <button onClick={() => downloadQr("svg")} className={secondaryButtonClass}>Download SVG</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IncomeTaxPanel() {
+  const [income, setIncome] = useState(1200000);
+  const [ded80c, setDed80c] = useState(150000);
+  const [ded80d, setDed80d] = useState(25000);
+  const [hra, setHra] = useState(0);
+  const [otherDed, setOtherDed] = useState(0);
+  const [age, setAge] = useState<"below60" | "60to80" | "above80">("below60");
+
+  // FY 2025-26 New Regime slabs (Budget 2025)
+  function calcNewRegime(taxableIncome: number): number {
+    // Standard deduction ₹75,000 under new regime
+    const ti = Math.max(0, taxableIncome - 75000);
+    // Full rebate if income <= 12,00,000 (after std deduction ≤ 12L → 0 tax)
+    if (ti <= 1200000) return 0;
+    const slabs = [
+      { upto: 400000, rate: 0 },
+      { upto: 800000, rate: 0.05 },
+      { upto: 1200000, rate: 0.10 },
+      { upto: 1600000, rate: 0.15 },
+      { upto: 2000000, rate: 0.20 },
+      { upto: 2400000, rate: 0.25 },
+      { upto: Infinity, rate: 0.30 },
+    ];
+    let tax = 0;
+    let prev = 0;
+    for (const s of slabs) {
+      if (ti <= prev) break;
+      const chunk = Math.min(ti, s.upto) - prev;
+      tax += chunk * s.rate;
+      prev = s.upto;
+    }
+    return tax;
+  }
+
+  // Old Regime slabs
+  function calcOldRegime(taxableIncome: number): number {
+    const totalDed = ded80c + ded80d + hra + otherDed + 50000; // 50k std deduction
+    const ti = Math.max(0, taxableIncome - totalDed);
+    const exemptLimit = age === "above80" ? 500000 : age === "60to80" ? 300000 : 250000;
+    if (ti <= exemptLimit) return 0;
+    let tax = 0;
+    const slabs = age === "above80"
+      ? [
+          { upto: 500000, rate: 0 },
+          { upto: 1000000, rate: 0.20 },
+          { upto: Infinity, rate: 0.30 },
+        ]
+      : age === "60to80"
+        ? [
+            { upto: 300000, rate: 0 },
+            { upto: 500000, rate: 0.05 },
+            { upto: 1000000, rate: 0.20 },
+            { upto: Infinity, rate: 0.30 },
+          ]
+        : [
+            { upto: 250000, rate: 0 },
+            { upto: 500000, rate: 0.05 },
+            { upto: 1000000, rate: 0.20 },
+            { upto: Infinity, rate: 0.30 },
+          ];
+    let prev = 0;
+    for (const s of slabs) {
+      if (ti <= prev) break;
+      const chunk = Math.min(ti, s.upto) - prev;
+      tax += chunk * s.rate;
+      prev = s.upto;
+    }
+    // 87A rebate for old regime (ti <= 5L for < 60)
+    if (age === "below60" && ti <= 500000) tax = 0;
+    if (age === "60to80" && ti <= 500000) tax = 0;
+    return tax;
+  }
+
+  const oldTax = calcOldRegime(income);
+  const newTax = calcNewRegime(income);
+  const oldCess = oldTax * 0.04;
+  const newCess = newTax * 0.04;
+  const oldTotal = oldTax + oldCess;
+  const newTotal = newTax + newCess;
+  const better = newTotal <= oldTotal ? "New" : "Old";
+  const savings = Math.abs(oldTotal - newTotal);
+
+  const fmt = (n: number) => "₹" + n.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="text-sm font-medium">Gross Annual Income</label>
+          <input type="number" value={income} onChange={(e) => setIncome(Number(e.target.value))}
+            min={0} step={10000} className={inputClass} />
+        </div>
+        <div>
+          <label className="text-sm font-medium">Age Group</label>
+          <select value={age} onChange={(e) => setAge(e.target.value as typeof age)} className={inputClass}>
+            <option value="below60">Below 60</option>
+            <option value="60to80">60 – 80 (Senior)</option>
+            <option value="above80">Above 80 (Super Senior)</option>
+          </select>
+        </div>
+      </div>
+
+      <details className="border rounded p-3">
+        <summary className="cursor-pointer text-sm font-medium">Old Regime Deductions</summary>
+        <div className="grid grid-cols-2 gap-3 mt-3">
+          <div>
+            <label className="text-xs text-muted-foreground">80C (max ₹1.5L)</label>
+            <input type="number" value={ded80c} onChange={(e) => setDed80c(Math.min(150000, Number(e.target.value)))}
+              min={0} max={150000} className={inputClass} />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground">80D Health Insurance</label>
+            <input type="number" value={ded80d} onChange={(e) => setDed80d(Number(e.target.value))}
+              min={0} className={inputClass} />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground">HRA Exemption</label>
+            <input type="number" value={hra} onChange={(e) => setHra(Number(e.target.value))}
+              min={0} className={inputClass} />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground">Other Deductions (80E, 80G, etc.)</label>
+            <input type="number" value={otherDed} onChange={(e) => setOtherDed(Number(e.target.value))}
+              min={0} className={inputClass} />
+          </div>
+        </div>
+      </details>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className={`border rounded p-4 ${better === "Old" ? "ring-2 ring-green-500" : ""}`}>
+          <h3 className="font-semibold text-lg">Old Regime</h3>
+          <p className="text-sm text-muted-foreground mt-1">Tax: {fmt(oldTax)}</p>
+          <p className="text-sm text-muted-foreground">Cess (4%): {fmt(oldCess)}</p>
+          <p className="text-xl font-bold mt-2">{fmt(oldTotal)}</p>
+        </div>
+        <div className={`border rounded p-4 ${better === "New" ? "ring-2 ring-green-500" : ""}`}>
+          <h3 className="font-semibold text-lg">New Regime</h3>
+          <p className="text-sm text-muted-foreground mt-1">Tax: {fmt(newTax)}</p>
+          <p className="text-sm text-muted-foreground">Cess (4%): {fmt(newCess)}</p>
+          <p className="text-xl font-bold mt-2">{fmt(newTotal)}</p>
+        </div>
+      </div>
+
+      <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded p-4 text-center">
+        <p className="text-lg font-semibold text-green-700 dark:text-green-300">
+          {better} Regime saves you {fmt(savings)}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
@@ -3833,6 +4242,12 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <ImageResizerPanel />;
     case "gst-calculator":
       return <GstPanel />;
+    case "pdf-tools":
+      return <PdfToolsPanel />;
+    case "qr-code-generator":
+      return <QrCodePanel />;
+    case "income-tax-calculator":
+      return <IncomeTaxPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

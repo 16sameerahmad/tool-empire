@@ -616,6 +616,67 @@ export const content: Record<string, ToolContent> = {
     ]),
     guides: [{ label: "How to Create Realistic Chat Mockups for Videos, UI & Decks (No Watermark)", href: "/guides/how-to-create-chat-mockups-for-presentations-and-ui/" }],
   },
+  "pdf-tools": {
+    definition: "A PDF converter renders PDF pages into raster images (JPEG/PNG) or packages multiple image files into a single portable document format (PDF).",
+    intro: "Convert PDF pages to high-resolution JPG or PNG images, or combine multiple images into a single PDF document entirely inside your browser.",
+    howTo: [
+      "Select your conversion mode: PDF → Images or Images → PDF.",
+      "Upload your PDF document or choose image files (PNG, JPG, WEBP).",
+      "Click Convert and download your individual page images or combined PDF file.",
+    ],
+    content: [
+      "This dual PDF tool runs 100% locally on your computer or mobile device. When you convert a PDF into JPG or PNG, the document is rendered directly onto an off-screen HTML5 canvas using WebAssembly and vector rendering. No pages or document bytes are ever uploaded to an external server or saved in a remote database.",
+      "In Images → PDF mode, the tool calculates appropriate page dimensions to ensure your photographs, scanned documents, receipts, or artwork fit cleanly without distortion. You can arrange and merge multiple photos into a single compact document ready for email or online portals.",
+      "Because conversion is client-side, your confidential financial statements, identity proofs, invoices, and legal agreements remain completely private. There is no file size limit imposed by server bandwidth, and conversion speeds depend purely on your device's hardware.",
+    ],
+    faq: faq([
+      { question: "Are my PDF files uploaded to any server?", answer: "No. All conversion happens directly in your web browser using HTML5 Canvas and client-side rendering. Your files never leave your device." },
+      { question: "Can I convert multi-page PDFs?", answer: "Yes. Every page is individually rendered and you can download all pages as high-quality JPG or PNG images." },
+      { question: "Is there a file size limit?", answer: "There is no server limit. The only restriction is the available RAM and browser processing memory on your local machine." },
+      { question: "Does this preserve image quality?", answer: "Yes, pages are rendered at 2x retina scale by default to ensure crisp text and high-definition graphics." },
+    ]),
+  },
+  "qr-code-generator": {
+    definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
+    intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",
+    howTo: [
+      "Type or paste your destination URL, text message, or WiFi details into the input field.",
+      "Choose your preferred foreground and background colors to match your brand style.",
+      "Select the desired output resolution and click Download PNG or Download SVG.",
+    ],
+    content: [
+      "This QR code generator produces standard ISO/IEC 18004 compliant two-dimensional matrix barcodes. It supports high error correction level (Level H), allowing up to 30% of the code to be obscured, scratched, or overlaid with a central logo while still scanning reliably on all modern iOS and Android cameras.",
+      "Unlike third-party QR services that route scans through tracking redirect links that expire after a 14-day trial, our generator produces permanent, direct QR codes. The URL or payload is encoded directly into the pixel matrix itself, meaning your QR codes will work indefinitely without subscription fees or dead links.",
+      "Export formats include high-density PNG for digital displays and social media banners, as well as crisp, infinitely scalable SVG vectors for billboards, packaging, stickers, and business cards.",
+    ],
+    faq: faq([
+      { question: "Do these QR codes expire?", answer: "Never. These are direct, static QR codes where your data is encoded directly into the pattern. They do not depend on redirects and will work forever." },
+      { question: "Can I download vector SVG format?", answer: "Yes. You can export as raster PNG or resolution-independent SVG vector for professional commercial printing." },
+      { question: "Are my QR contents saved or tracked?", answer: "No. The QR matrix is calculated entirely in your browser. No URLs, text, or scan statistics are sent to any server." },
+      { question: "What error correction level is used?", answer: "It uses Level H (High), which tolerates up to 30% data recovery, ensuring fast and reliable camera recognition even on damaged surfaces." },
+    ]),
+  },
+  "income-tax-calculator": {
+    definition: "An income tax calculator computes personal income tax liability under India's Old and New Tax Regimes, factoring in standard deductions, chapter VI-A exemptions, and section 87A rebates.",
+    intro: "Compare tax liability between Old and New Tax Regimes for FY 2025-26 (AY 2026-27) with updated Union Budget tax slabs and deduction limits.",
+    howTo: [
+      "Enter your annual gross salary or taxable income.",
+      "Select your age category (Below 60, Senior Citizen 60–80, or Super Senior 80+).",
+      "Optionally enter 80C investments, 80D health insurance, HRA, and home loan interest.",
+      "Review the instant side-by-side comparison to see which regime saves you more money.",
+    ],
+    content: [
+      "India's Union Budget has significantly enhanced the New Tax Regime, raising the standard deduction for salaried individuals to ₹75,000 and providing full tax rebate under Section 87A for taxable income up to ₹12,00,000. Under this regime, taxpayers earning up to ₹12.75 Lakhs gross salary pay zero income tax without needing any investment proofs.",
+      "The Old Tax Regime continues to offer exemptions including Section 80C (up to ₹1.5 Lakhs for PPF, EPF, ELSS, life insurance), Section 80D (health insurance premiums), House Rent Allowance (HRA) under Section 10(13A), and Section 24(b) home loan interest deduction up to ₹2 Lakhs.",
+      "This calculator performs an automated side-by-side comparison, applying the 4% Health and Education Cess and rebate provisions to highlight the exact monetary savings between the two structures so you can choose the optimal option before submitting your tax declaration.",
+    ],
+    faq: faq([
+      { question: "What is the zero-tax limit under the New Regime for FY 2025-26?", answer: "With the ₹75,000 standard deduction and the revised Section 87A rebate, salaried individuals with gross income up to ₹12.75 Lakhs have zero tax liability." },
+      { question: "Can I switch between Old and New regimes every year?", answer: "Salaried individuals without business or professional income can freely choose between the Old and New tax regimes every financial year at the time of filing their ITR." },
+      { question: "Is Section 80C available in the New Tax Regime?", answer: "No. Deductions under 80C, 80D, HRA, and standard home loan interest are not permitted under the New Regime; only employer NPS contributions (80CCD(2)) and standard deduction apply." },
+      { question: "Is the 4% Health and Education Cess included in calculations?", answer: "Yes, both regimes automatically compute the mandatory 4% cess on the total calculated income tax." },
+    ]),
+  },
 };
 
 export function getContent(id: string): ToolContent {

@@ -3003,6 +3003,183 @@ export const guides: Guide[] = [
     related: ["emi-calculator", "mortgage-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
   },
+  {
+    slug: "password-entropy-and-security-guide",
+    title: "Password Entropy & Strength Guide: What Actually Makes a Password Secure",
+    seoTitle: "Password Entropy & Strength Guide — How to Measure True Password Security | Tulyro",
+    seoDescription:
+      "Learn how password entropy works, calculate bits of entropy mathematically, and understand why length outperforms complex character substitution every time.",
+    href: "/guides/password-entropy-and-security-guide/",
+    intro: [
+      <>
+        Password security is not a guessing game. It is pure combinatorics and information theory.
+        Most people assume replacing an &apos;e&apos; with a &apos;3&apos; or adding an exclamation mark stops attackers, but
+        modern hash-cracking rigs compute tens of billions of SHA-256 and bcrypt hashes per second.
+      </>,
+      <>
+        This guide explains how entropy is calculated, why length dominates complexity, and how to create
+        passwords that are mathematically impossible to brute-force in human lifespans.
+      </>,
+    ],
+    cta: { label: "Generate Secure Password", href: "/tools/password-generator/" },
+    sections: [
+      {
+        heading: "The Mathematics of Password Entropy",
+        body: [
+          <>
+            Entropy is measured in bits (H = L × log<sub>2</sub>(R)), where <strong>L</strong> is the password
+            length and <strong>R</strong> is the pool size of unique available characters (radix).
+          </>,
+          <>
+            If you choose characters from lowercase letters alone (R = 26), an 8-character password provides
+            only 8 × log<sub>2</sub>(26) ≈ 37.6 bits of entropy. A commodity GPU cluster running Hashcat can crack
+            37 bits of entropy in seconds.
+          </>,
+          <>
+            By expanding the character set to uppercase, numbers, and symbols (R = 94) and increasing length to
+            16 characters, entropy explodes to 16 × log<sub>2</sub>(94) ≈ 104.8 bits. Overcoming 104 bits would require
+            billions of years of compute even on global supercomputers.
+          </>,
+        ],
+      },
+      {
+        heading: "Length vs Character Complexity: Why Length Always Wins",
+        body: [
+          <>
+            Adding symbols slightly increases the base (R), but increasing length directly multiplies the exponent.
+            An 18-character lowercase password (18 × 4.70 = 84.6 bits) is exponentially harder to crack than an 8-character
+            password filled with tricky symbols (8 × 6.55 = 52.4 bits).
+          </>,
+          <>
+            Furthermore, humans who create short &quot;complex&quot; passwords follow predictable patterns: capitalized first letter,
+            followed by letters, ending with digits and an exclamation mark. Dictionary-based cracking tools exploit this
+            exact bias with targeted rule files.
+          </>,
+        ],
+      },
+      {
+        heading: "Cryptographically Secure Random vs Math.random()",
+        body: [
+          <>
+            Standard pseudo-random number generators like JavaScript&apos;s <code>Math.random()</code> are deterministic PRNGs
+            (often Xoroshiro128+). They are designed for speed in simulations, not cryptographic security. If an attacker
+            captures a sequence of generated values, future states can be reverse-engineered.
+          </>,
+          <>
+            Tulyro&apos;s password generator uses <code>window.crypto.getRandomValues()</code>, which interfaces directly with
+            the OS cryptographic seed (entropy gathered from CPU hardware noise, interrupt timings, and OS randomness).
+            Values are generated locally inside your browser and never leave your device.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How many bits of entropy make a password unbreakable?",
+        answer:
+          "For online accounts protected by rate limiting, 60-70 bits is typically secure. For offline hashes (where a database dump is cracked offline), 80+ bits is minimum and 100+ bits is recommended.",
+      },
+      {
+        question: "Are symbols really necessary if the password is long enough?",
+        answer:
+          "If a password is 20+ characters, standard alphanumeric characters provide sufficient entropy. However, adding symbols prevents specific pattern matching and satisfies strict website policy rules.",
+      },
+      {
+        question: "Is it safe to generate passwords in a web browser?",
+        answer:
+          "Yes, provided the tool operates 100% client-side with native Web Crypto APIs and sends zero payloads over the network. Tulyro generates everything locally inside your browser sandbox.",
+      },
+    ],
+    related: ["password-generator", "json-formatter", "base64-encoder-decoder"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
+  {
+    slug: "unix-epoch-timestamp-guide",
+    title: "Understanding Unix Epoch Timestamps: Seconds, Milliseconds & Year 2038",
+    seoTitle: "Unix Epoch Timestamps Explained — Conversions, Milliseconds & Year 2038 Problem | Tulyro",
+    seoDescription:
+      "A complete guide to Unix epoch timestamps. Understand how epoch seconds and milliseconds work, detect them in code, and prepare for the Year 2038 Unix rollover.",
+    href: "/guides/unix-epoch-timestamp-guide/",
+    intro: [
+      <>
+        Unix time (also known as POSIX time or Epoch time) counts elapsed time as the number of seconds that have
+        passed since 00:00:00 UTC on 1 January 1970, excluding leap seconds.
+      </>,
+      <>
+        It is the foundational clock standard behind modern operating systems, databases, cloud APIs, and distributed
+        systems because an integer timestamp eliminates timezone ambiguity and daylight saving confusion.
+      </>,
+    ],
+    cta: { label: "Try Epoch Converter", href: "/tools/epoch-converter/" },
+    sections: [
+      {
+        heading: "Seconds vs Milliseconds: How to Detect Which One You Have",
+        body: [
+          <>
+            A classic source of developer bugs is mixing Unix seconds with milliseconds. Backend services like Unix utilities,
+            PostgreSQL, and Python&apos;s <code>time.time()</code> traditionally return seconds (10 digits in the 2020s, e.g., <code>1700000000</code>).
+          </>,
+          <>
+            JavaScript, Java (<code>System.currentTimeMillis()</code>), and browser DOM events count in milliseconds (13 digits,
+            e.g., <code>1700000000000</code>).
+          </>,
+          <>
+            <strong>Quick Rule:</strong> If your timestamp has 10 digits (under 10<sup>11</sup>), it is in seconds. If it has 13 digits,
+            it is in milliseconds. In JavaScript, converting seconds requires multiplying by 1,000 before passing into <code>new Date(ts * 1000)</code>.
+          </>,
+        ],
+      },
+      {
+        heading: "The Year 2038 Problem (Y2038)",
+        body: [
+          <>
+            Many legacy systems store Unix time as a signed 32-bit integer. The maximum value of a signed 32-bit integer is
+            2,147,483,647 (2<sup>31</sup> − 1).
+          </>,
+          <>
+            On <strong>19 January 2038 at 03:14:07 UTC</strong>, this integer overflows into negative territory (-2,147,483,648),
+            causing systems to interpret the date as 13 December 1901.
+          </>,
+          <>
+            Modern operating systems, 64-bit kernels, databases, and modern programming languages use 64-bit integers for timestamps,
+            pushing the overflow date approximately 292 billion years into the future.
+          </>,
+        ],
+      },
+      {
+        heading: "Timezone Conversion & ISO 8601",
+        body: [
+          <>
+            An epoch timestamp is universal and independent of geographical timezones. When an API returns <code>1700000000</code>,
+            it represents the exact same physical moment across London, New York, Tokyo, and New Delhi.
+          </>,
+          <>
+            Timezones only come into play during rendering. Translating epoch timestamps to ISO 8601 strings (e.g. <code>2023-11-14T22:13:20.000Z</code>)
+            maintains precision and clarity across international web applications.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does Unix time account for leap seconds?",
+        answer:
+          "No. Unix time ignores leap seconds; every day is treated as having exactly 86,400 seconds. When a leap second occurs, systems either repeat the second or apply a leap smear across several hours.",
+      },
+      {
+        question: "Can an epoch timestamp be negative?",
+        answer:
+          "Yes. Any date before 1 January 1970 is represented as a negative integer. For example, -315619200 corresponds to 1 January 1960 UTC.",
+      },
+      {
+        question: "Why does my JavaScript Date show the wrong time?",
+        answer:
+          "If you pass a 10-digit second timestamp to `new Date(ts)`, JavaScript treats it as milliseconds from 1970, landing in January 1970. Always multiply seconds by 1,000.",
+      },
+    ],
+    related: ["epoch-converter", "json-formatter", "base64-encoder-decoder"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

@@ -383,6 +383,51 @@ export const tools: ToolDefinition[] = [
     seoDescription:
       "Calculate your income tax under Old and New regime for FY 2025-26 (AY 2026-27). Compare tax savings with 80C, 80D, HRA deductions. Free, private, instant.",
   },
+  {
+    id: "password-generator",
+    title: "Password Generator",
+    cluster: "Dev",
+    href: "/tools/password-generator/",
+    locale: "en",
+    description: "Generate secure, cryptographically random passwords with custom length, numbers, symbols, and strength rating.",
+    keywords: ["password generator", "random password generator", "strong password generator", "secure password maker", "crypto password generator"],
+    related: ["qr-code-generator", "base64-encoder-decoder", "json-formatter"],
+    live: true,
+    h1: "Secure Random Password Generator — Strong, Private, Client-Side",
+    seoTitle: "Secure Password Generator — Strong Random Passwords | Tulyro",
+    seoDescription:
+      "Generate cryptographically strong random passwords instantly in your browser. Customize length, uppercase, lowercase, numbers, and symbols. 100% private.",
+  },
+  {
+    id: "epoch-converter",
+    title: "Epoch & Unix Timestamp Converter",
+    cluster: "Dev",
+    href: "/tools/epoch-converter/",
+    locale: "en",
+    description: "Convert Unix timestamps (seconds & milliseconds) to human-readable date formats and vice versa. Live clock included.",
+    keywords: ["epoch converter", "unix timestamp converter", "epoch to date", "timestamp to date", "unix time converter"],
+    related: ["json-formatter", "base64-encoder-decoder", "password-generator"],
+    live: true,
+    h1: "Epoch & Unix Timestamp Converter — Seconds, Milliseconds & Human Dates",
+    seoTitle: "Epoch & Unix Timestamp Converter — Free Online Tool | Tulyro",
+    seoDescription:
+      "Convert Unix timestamps in seconds or milliseconds to human-readable UTC and local date formats. Live epoch clock and date-to-timestamp converter.",
+  },
+  {
+    id: "json-formatter",
+    title: "JSON Formatter & Validator",
+    cluster: "Dev",
+    href: "/tools/json-formatter/",
+    locale: "en",
+    description: "Format, beautify, minify, and validate JSON data instantly with syntax error detection and byte size counter.",
+    keywords: ["json formatter", "json validator", "json beautifier", "format json online", "minify json", "json parser"],
+    related: ["base64-encoder-decoder", "epoch-converter", "password-generator"],
+    live: true,
+    h1: "JSON Formatter, Validator & Beautifier — Free Online",
+    seoTitle: "JSON Formatter & Validator — Beautify and Minify JSON | Tulyro",
+    seoDescription:
+      "Format, validate, beautify, and minify your JSON data instantly. Syntax error detection, line tracking, and byte size counter. 100% client-side.",
+  },
 ];
 
 export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun", "Media"];

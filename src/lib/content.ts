@@ -679,6 +679,68 @@ export const content: Record<string, ToolContent> = {
       { question: "Is the 4% Health and Education Cess included in calculations?", answer: "Yes, both regimes automatically compute the mandatory 4% cess on the total calculated income tax." },
     ]),
   },
+  "password-generator": {
+    definition: "A password generator creates pseudorandom or cryptographically random character sequences designed to resist brute-force and dictionary attacks.",
+    intro: "Generate secure, high-entropy passwords with custom length, uppercase, lowercase, numbers, and symbols directly in your web browser.",
+    howTo: [
+      "Select your desired password length (12 to 32 characters recommended for strong security).",
+      "Toggle character sets: uppercase letters, lowercase letters, numbers, and special symbols.",
+      "Optionally exclude ambiguous characters (like 0, O, 1, l, I) to prevent confusion.",
+      "Click Generate and Copy to clipboard.",
+    ],
+    content: [
+      "This generator uses the standard Web Cryptography API (`crypto.getRandomValues`) to draw cryptographically secure pseudo-random integers. Unlike `Math.random()`, which uses deterministic PRNG algorithms prone to reverse-engineering, cryptographic randomness ensures passwords have maximum unpredictable entropy.",
+      "All password generation is strictly client-side. The generated strings exist only in your browser's temporary memory and are never transmitted across a network, logged in analytics, or written to a server database.",
+      "The built-in strength meter evaluates length and character diversity in real time. We recommend using a unique password of at least 16 characters for each sensitive account, combined with a password manager.",
+    ],
+    faq: faq([
+      { question: "Is this password generator secure?", answer: "Yes. It uses your browser's native window.crypto.getRandomValues() API, which provides cryptographically strong entropy suitable for security keys and master passwords." },
+      { question: "Are my generated passwords sent to a server?", answer: "No. Everything runs 100% locally on your machine. No passwords ever leave your browser." },
+      { question: "What is the recommended password length?", answer: "A minimum of 16 characters with a combination of uppercase, lowercase, digits, and symbols is recommended for strong defense against modern offline hash-cracking." },
+      { question: "What does 'Exclude Similar Characters' do?", answer: "It removes easily confused glyphs such as uppercase 'I', lowercase 'l', digit '1', digit '0', and letter 'O', making the password easy to read and manually type if needed." },
+    ]),
+  },
+  "epoch-converter": {
+    definition: "An epoch converter translates Unix timestamps (the count of seconds or milliseconds elapsed since January 1, 1970 00:00:00 UTC) into human-readable calendar dates and vice versa.",
+    intro: "Convert Unix timestamps in seconds or milliseconds to human-readable UTC and local date formats with live epoch counter and date parser.",
+    howTo: [
+      "Enter any 10-digit (seconds) or 13-digit (milliseconds) Unix timestamp, or an ISO/human date string.",
+      "The converter automatically detects the format and updates UTC, local time, ISO 8601, and relative time.",
+      "Use the 'Now' button to instantly grab the current system timestamp.",
+    ],
+    content: [
+      "Unix time (also known as POSIX time or Epoch time) is an open system for tracking time by measuring seconds elapsed since the Unix epoch of January 1, 1970 at 00:00:00 Coordinated Universal Time (UTC), minus leap seconds.",
+      "Backend databases, log analyzers, APIs, and microservices commonly store and transmit timestamps in epoch seconds or milliseconds to avoid timezone ambiguity and daylight saving time discrepancies.",
+      "This utility converts back and forth between raw numeric timestamps and formatted calendar representations, showing ISO 8601, UTC strings, your local system time, and human-friendly relative durations (e.g. '2 hours ago' or 'in 3 days').",
+    ],
+    faq: faq([
+      { question: "What is Unix Epoch time?", answer: "Unix epoch is the point at which Unix time begins: 00:00:00 UTC on 1 January 1970. A Unix timestamp simply counts the elapsed seconds since that instant." },
+      { question: "What is the difference between 10-digit and 13-digit timestamps?", answer: "10-digit timestamps measure elapsed time in seconds (standard in Unix/Linux, Python, PHP), while 13-digit timestamps measure in milliseconds (standard in JavaScript Date.now())." },
+      { question: "What is the Year 2038 problem?", answer: "On January 19, 2038, 32-bit signed integers will overflow past their maximum value (2,147,483,647 seconds). Modern 64-bit systems handle timestamps safely for hundreds of billions of years." },
+      { question: "Does this handle my local timezone?", answer: "Yes, it displays both the universal standard UTC time and your exact local browser timezone simultaneously." },
+    ]),
+  },
+  "json-formatter": {
+    definition: "A JSON formatter parses JavaScript Object Notation data to validate structure, highlight syntax errors, beautify with indentation, or minify for network transport.",
+    intro: "Format, beautify, minify, and validate JSON data instantly with syntax error detection, line tracking, and byte size calculation.",
+    howTo: [
+      "Paste your raw JSON text or payload into the input editor.",
+      "Click Format to beautify with 2-space or 4-space indentation, or click Minify to compact it onto a single line.",
+      "If there are any syntax errors, view the exact error message and position indicator to fix the syntax.",
+      "Click Copy to copy the formatted or minified output to your clipboard.",
+    ],
+    content: [
+      "JSON (JavaScript Object Notation) is the ubiquitous standard data interchange format for modern web APIs, configuration files, and document databases like MongoDB and PostgreSQL. However, unformatted JSON responses from servers are often compressed without whitespace, making them difficult for developers to inspect or debug.",
+      "This tool quickly indents and aligns nested objects, arrays, keys, and values. It also features a zero-dependency JSON validator that pinpoints syntax mistakes such as unescaped strings, trailing commas, missing quotes around keys, or mismatched braces.",
+      "Unlike online formatters that send your payloads to a remote backend, our parser processes all data using your browser's native JavaScript runtime. Your proprietary configs, database exports, and user payloads never leave your computer.",
+    ],
+    faq: faq([
+      { question: "Is my JSON data kept private?", answer: "Yes, 100%. All parsing, formatting, and validation happens directly inside your web browser. No data is sent across the network." },
+      { question: "Can this detect syntax errors?", answer: "Yes. If your JSON is invalid, the tool flags the exact parsing error and attempts to highlight the character position or line where the issue occurred." },
+      { question: "What is the difference between Beautify and Minify?", answer: "Beautify adds line breaks and indentation so developers can read the data easily. Minify removes all unnecessary spaces and line breaks to minimize payload size for production APIs." },
+      { question: "Does it support large JSON files?", answer: "Yes, it can handle multi-megabyte JSON payloads with speed limited only by your browser's available memory." },
+    ]),
+  },
 };
 
 export function getContent(id: string): ToolContent {

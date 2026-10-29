@@ -4196,6 +4196,450 @@ function IncomeTaxPanel() {
   );
 }
 
+function PasswordGeneratorPanel() {
+  const [length, setLength] = useState(16);
+  const [uppercase, setUppercase] = useState(true);
+  const [lowercase, setLowercase] = useState(true);
+  const [numbers, setNumbers] = useState(true);
+  const [symbols, setSymbols] = useState(true);
+  const [excludeSimilar, setExcludeSimilar] = useState(false);
+  const [password, setPassword] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const generate = useCallback(async () => {
+    const { generatePassword } = await import("@/tools/password-generator/logic");
+    const pw = generatePassword({
+      length,
+      uppercase,
+      lowercase,
+      numbers,
+      symbols,
+      excludeSimilar,
+    });
+    setPassword(pw);
+    setCopied(false);
+  }, [length, uppercase, lowercase, numbers, symbols, excludeSimilar]);
+
+  useEffect(() => {
+    void generate();
+  }, [generate]);
+
+  const copyToClipboard = () => {
+    if (!password) return;
+    navigator.clipboard.writeText(password);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const strength = calculateLocalStrength(password);
+
+  return (
+    <div className="space-y-6">
+      <div className="relative">
+        <input
+          type="text"
+          readOnly
+          value={password}
+          className="w-full font-mono text-lg p-4 pr-24 rounded border bg-card tracking-wider font-semibold"
+          placeholder="Generating password..."
+        />
+        <div className="absolute right-2 top-2 bottom-2 flex items-center gap-1">
+          <button
+            type="button"
+            className="p-2 rounded text-sm hover:bg-muted font-bold"
+            onClick={() => void generate()}
+            title="Regenerate"
+          >
+            ↻
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1 bg-primary text-primary-foreground rounded text-sm font-medium hover:opacity-90"
+            onClick={copyToClipboard}
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        <div className="flex justify-between text-xs">
+          <span>Strength: <strong className={strength.color}>{strength.label}</strong></span>
+          <span>Length: {length}</span>
+        </div>
+        <div className="w-full bg-muted h-2 rounded-full overflow-hidden flex">
+          <div
+            className={`h-full transition-all duration-300 ${strength.barColor}`}
+            style={{ width: `${((strength.score + 1) / 5) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-4 pt-2">
+        <div>
+          <label className="text-sm font-medium flex justify-between">
+            <span>Password Length</span>
+            <span className="font-mono font-bold">{length}</span>
+          </label>
+          <input
+            type="range"
+            min={6}
+            max={64}
+            value={length}
+            onChange={(e) => setLength(Number(e.target.value))}
+            className="w-full mt-2 accent-primary"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={uppercase}
+              onChange={(e) => setUppercase(e.target.checked)}
+              className="rounded"
+            />
+            Uppercase Letters (A-Z)
+          </label>
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={lowercase}
+              onChange={(e) => setLowercase(e.target.checked)}
+              className="rounded"
+            />
+            Lowercase Letters (a-z)
+          </label>
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={numbers}
+              onChange={(e) => setNumbers(e.target.checked)}
+              className="rounded"
+            />
+            Numbers (0-9)
+          </label>
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={symbols}
+              onChange={(e) => setSymbols(e.target.checked)}
+              className="rounded"
+            />
+            Symbols (!@#$%^&*)
+          </label>
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={excludeSimilar}
+              onChange={(e) => setExcludeSimilar(e.target.checked)}
+              className="rounded"
+            />
+            Exclude Similar Characters (i, l, 1, L, o, 0, O)
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function calculateLocalStrength(pw: string) {
+  if (!pw) return { score: 0, label: "Empty", color: "text-muted-foreground", barColor: "bg-muted" };
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 14) score++;
+  if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) score++;
+  if (/\d/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+
+  if (score <= 1) return { score: 0, label: "Very Weak", color: "text-red-500", barColor: "bg-red-500" };
+  if (score === 2) return { score: 1, label: "Weak", color: "text-orange-500", barColor: "bg-orange-500" };
+  if (score === 3) return { score: 2, label: "Fair", color: "text-yellow-500", barColor: "bg-yellow-500" };
+  if (score === 4) return { score: 3, label: "Strong", color: "text-blue-500", barColor: "bg-blue-500" };
+  return { score: 4, label: "Very Strong", color: "text-green-500", barColor: "bg-green-500" };
+}
+
+function EpochConverterPanel() {
+  const [currentEpoch, setCurrentEpoch] = useState(() => Math.floor(Date.now() / 1000));
+  const [inputVal, setInputVal] = useState(() => String(Math.floor(Date.now() / 1000)));
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentEpoch(Math.floor(Date.now() / 1000));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const [res, setRes] = useState<{
+    seconds: number;
+    milliseconds: number;
+    utcDate: string;
+    localDate: string;
+    iso8601: string;
+    relative: string;
+  } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void (async () => {
+      const { parseToTimestamp } = await import("@/tools/epoch-converter/logic");
+      const r = parseToTimestamp(inputVal);
+      if (active) setRes(r);
+    })();
+    return () => {
+      active = false;
+    };
+  }, [inputVal]);
+
+  const copy = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 1500);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between p-4 bg-muted/40 rounded border">
+        <div>
+          <span className="text-xs uppercase text-muted-foreground font-semibold">Current Unix Epoch</span>
+          <p className="text-2xl font-mono font-bold">{currentEpoch}</p>
+        </div>
+        <button
+          type="button"
+          className="px-3 py-1.5 border rounded text-xs font-medium hover:bg-muted"
+          onClick={() => setInputVal(String(currentEpoch))}
+        >
+          Use Current
+        </button>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Timestamp or Date String</label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            placeholder="e.g. 1700000000 or 2026-01-01"
+            className="flex-1 p-2 font-mono rounded border bg-card text-sm"
+          />
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-muted border rounded text-xs font-medium hover:bg-muted/80"
+            onClick={() => setInputVal(String(Math.floor(Date.now() / 1000)))}
+          >
+            Now (sec)
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-muted border rounded text-xs font-medium hover:bg-muted/80"
+            onClick={() => setInputVal(String(Date.now()))}
+          >
+            Now (ms)
+          </button>
+        </div>
+      </div>
+
+      {res ? (
+        <div className="border rounded overflow-hidden divide-y divide-border text-sm">
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">Epoch Seconds</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-semibold">{res.seconds}</span>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs hover:bg-muted rounded"
+                onClick={() => copy(String(res.seconds), "sec")}
+              >
+                {copiedKey === "sec" ? "✓" : "Copy"}
+              </button>
+            </div>
+          </div>
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">Epoch Milliseconds</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-semibold">{res.milliseconds}</span>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs hover:bg-muted rounded"
+                onClick={() => copy(String(res.milliseconds), "ms")}
+              >
+                {copiedKey === "ms" ? "✓" : "Copy"}
+              </button>
+            </div>
+          </div>
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">ISO 8601</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono">{res.iso8601}</span>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs hover:bg-muted rounded"
+                onClick={() => copy(res.iso8601, "iso")}
+              >
+                {copiedKey === "iso" ? "✓" : "Copy"}
+              </button>
+            </div>
+          </div>
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">UTC Date</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono">{res.utcDate}</span>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs hover:bg-muted rounded"
+                onClick={() => copy(res.utcDate, "utc")}
+              >
+                {copiedKey === "utc" ? "✓" : "Copy"}
+              </button>
+            </div>
+          </div>
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">Local Time</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono">{res.localDate}</span>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs hover:bg-muted rounded"
+                onClick={() => copy(res.localDate, "local")}
+              >
+                {copiedKey === "local" ? "✓" : "Copy"}
+              </button>
+            </div>
+          </div>
+          <div className="p-3 flex items-center justify-between bg-card">
+            <span className="text-muted-foreground">Relative</span>
+            <span className="font-medium text-primary">{res.relative}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="p-4 border rounded text-center text-sm text-muted-foreground bg-card">
+          Invalid timestamp or date format. Enter an epoch number (e.g. 1700000000) or an ISO date.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function JsonFormatterPanel() {
+  const [input, setInput] = useState('{\n  "title": "Tulyro",\n  "status": "online",\n  "count": 42\n}');
+  const [output, setOutput] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [indent, setIndent] = useState(2);
+  const [copied, setCopied] = useState(false);
+  const [stats, setStats] = useState<{ charCount?: number; byteSize?: number } | null>(null);
+
+  const format = useCallback(async (min = false) => {
+    const { processJson } = await import("@/tools/json-formatter/logic");
+    const r = processJson(input, indent);
+    if (r.valid) {
+      setOutput(min ? (r.minified ?? "") : (r.formatted ?? ""));
+      setError(null);
+      setStats({ charCount: r.charCount, byteSize: r.byteSize });
+    } else {
+      setError(r.error ?? "Invalid JSON");
+      setOutput("");
+      setStats(null);
+    }
+  }, [input, indent]);
+
+  useEffect(() => {
+    void format(false);
+  }, [format]);
+
+  const copy = () => {
+    if (!output) return;
+    navigator.clipboard.writeText(output);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-primary text-primary-foreground rounded text-xs font-medium hover:opacity-90"
+            onClick={() => void format(false)}
+          >
+            Beautify
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1.5 border rounded text-xs font-medium hover:bg-muted"
+            onClick={() => void format(true)}
+          >
+            Minify
+          </button>
+          <select
+            value={indent}
+            onChange={(e) => setIndent(Number(e.target.value))}
+            className="text-xs p-1.5 rounded border bg-card"
+          >
+            <option value={2}>2 spaces</option>
+            <option value={4}>4 spaces</option>
+          </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {stats && (
+            <span className="text-xs text-muted-foreground">
+              {stats.charCount} chars | {stats.byteSize} bytes
+            </span>
+          )}
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-muted rounded text-xs font-medium hover:bg-muted/80"
+            onClick={() => setInput("")}
+          >
+            Clear
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-primary text-primary-foreground rounded text-xs font-medium hover:opacity-90 disabled:opacity-50"
+            onClick={copy}
+            disabled={!output}
+          >
+            {copied ? "Copied!" : "Copy Output"}
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            rows={14}
+            className="w-full p-3 font-mono text-xs rounded border bg-card focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="Paste your JSON here..."
+          />
+        </div>
+        <div>
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output</label>
+          {error ? (
+            <div className="p-4 rounded border border-red-300 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 font-mono text-xs h-[230px] overflow-auto">
+              <strong>JSON Syntax Error:</strong>
+              <p className="mt-2">{error}</p>
+            </div>
+          ) : (
+            <textarea
+              readOnly
+              value={output}
+              rows={14}
+              className="w-full p-3 font-mono text-xs rounded border bg-muted/40 focus:outline-none"
+              placeholder="Formatted output will appear here..."
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
@@ -4248,6 +4692,12 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <QrCodePanel />;
     case "income-tax-calculator":
       return <IncomeTaxPanel />;
+    case "password-generator":
+      return <PasswordGeneratorPanel />;
+    case "epoch-converter":
+      return <EpochConverterPanel />;
+    case "json-formatter":
+      return <JsonFormatterPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

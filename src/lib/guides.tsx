@@ -3180,6 +3180,90 @@ export const guides: Guide[] = [
     related: ["epoch-converter", "json-formatter", "base64-encoder-decoder"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
   },
+  {
+    slug: "json-formatting-and-validation-guide",
+    title: "Complete JSON Formatting & Validation Guide: RFC 8259, Errors & Minification",
+    seoTitle: "JSON Formatting & Validation Guide — Syntax Rules, Common Errors & Performance | Tulyro",
+    seoDescription:
+      "Understand RFC 8259 JSON standards, master beautification and minification, identify line-by-line syntax errors, and optimize payload sizes for web APIs.",
+    href: "/guides/json-formatting-and-validation-guide/",
+    intro: [
+      <>
+        JavaScript Object Notation (JSON) is the universal lingua franca of web communication, cloud APIs,
+        configuration files, and document databases. Standardized under RFC 8259 and ECMA-404, it provides a lightweight,
+        language-independent data interchange format.
+      </>,
+      <>
+        Despite its widespread simplicity, invalid JSON breaks production deployments daily. This guide covers
+        strict RFC syntax rules, common syntax errors like trailing commas, byte-size optimization via minification,
+        and safe client-side processing.
+      </>,
+    ],
+    cta: { label: "Format & Validate JSON", href: "/tools/json-formatter/" },
+    sections: [
+      {
+        heading: "Strict RFC 8259 JSON Syntax Rules",
+        body: [
+          <>
+            Unlike standard JavaScript object literals, JSON has strict syntactic constraints designed for universal parser compatibility:
+          </>,
+          <>
+            <strong>Double Quotes Only:</strong> All string literals and object keys MUST be enclosed in double quotes (<code>&quot;key&quot;</code>). Single quotes (<code>&apos;key&apos;</code>) are strictly forbidden and throw immediate parser syntax errors.
+          </>,
+          <>
+            <strong>No Trailing Commas:</strong> Commas must separate items in an array or properties in an object, but a trailing comma after the final element (<code>[1, 2, 3,]</code> or <code>&#123;&quot;a&quot;: 1,&#125;</code>) violates RFC specifications.
+          </>,
+          <>
+            <strong>Valid Data Types Only:</strong> JSON supports strings, numbers, booleans (<code>true</code> / <code>false</code>), <code>null</code>, arrays, and objects. Functions, <code>undefined</code>, symbols, and <code>NaN</code> cannot be represented in valid JSON.
+          </>,
+        ],
+      },
+      {
+        heading: "Beautification vs Minification: Performance Trade-offs",
+        body: [
+          <>
+            <strong>Formatting (Pretty Printing):</strong> Adds indentation (typically 2 or 4 spaces) and newlines to produce human-readable structures. While indispensable during debugging, logging, and code reviews, whitespace adds significant payload weight.
+          </>,
+          <>
+            <strong>Minification:</strong> Strips all non-essential whitespace, line breaks, and indentation without altering the underlying data graph. In high-throughput APIs, minified JSON reduces bandwidth by 20% to 45%, reducing latency and egress costs.
+          </>,
+        ],
+      },
+      {
+        heading: "Common JSON Errors & How to Fix Them",
+        body: [
+          <>
+            <strong>Unexpected Token / at Position:</strong> Usually indicates unquoted keys, single quotes, or invalid comments (JSON does not support double-slash or block comments).
+          </>,
+          <>
+            <strong>Unescaped Control Characters:</strong> Newlines inside string values must be escaped as <code>\n</code> rather than literal multiline line breaks.
+          </>,
+          <>
+            <strong>Client-Side Processing Security:</strong> Validating JSON via <code>JSON.parse()</code> inside your browser sandbox protects against data leakage. Never use <code>eval()</code> or insecure string execution on untrusted JSON strings.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does valid JSON allow comments?",
+        answer:
+          "Standard RFC 8259 JSON does not permit comments. While variations like JSONC or JSON5 allow comments, standard web APIs and JSON.parse will fail if comments are present.",
+      },
+      {
+        question: "Why does JSON reject undefined and functions?",
+        answer:
+          "JSON is a pure data interchange format, not an executable programming language. It is designed to be parsed safely and unambiguously across all languages, including Python, C++, Go, and Rust.",
+      },
+      {
+        question: "Does minifying JSON change the data?",
+        answer:
+          "No. Minification removes only structural whitespace and line breaks outside of string literals. Keys, values, and structural hierarchies remain identical.",
+      },
+    ],
+    related: ["json-formatter", "epoch-converter", "base64-encoder-decoder"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

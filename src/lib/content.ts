@@ -73,6 +73,7 @@ export const content: Record<string, ToolContent> = {
       { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
       { label: "How to Choose an EMI Calculator", href: "/guides/how-to-choose-emi-calculator/" },
       { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
+      { label: "EMI Prepayment Explained: How Paying Extra Early Saves Lakhs in Interest", href: "/guides/emi-prepayment-explained/" },
     ],
     faq: faq([
       { question: "What does EMI mean?", answer: "EMI means equated monthly instalment: the fixed amount you pay every month until a reducing-balance loan is repaid. Each payment covers that month's interest plus part of the principal, so the interest portion shrinks over time while the EMI itself stays the same for a fixed-rate loan." },
@@ -133,6 +134,7 @@ export const content: Record<string, ToolContent> = {
     ],
     guides: [
       { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+      { label: "The 75% College Attendance Rule: Criteria, Bunk Limits & Medical Condonation", href: "/guides/college-75-percent-attendance-rule-explained/" },
     ],
     faq: faq([
       { question: "How does the 75% attendance rule work?", answer: "Under university guidelines (such as AICTE, UGC, or VTU), students must attend at least 75 out of every 100 scheduled classes in each course. Failing this may lead to detention from sitting in final semester exams." },

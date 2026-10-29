@@ -18,11 +18,14 @@ export const metadata: Metadata = {
 };
 
 const TRENDING = [
+  { id: "password-generator", label: "Password Generator" },
+  { id: "json-formatter", label: "JSON Formatter" },
+  { id: "pdf-tools", label: "PDF Tools" },
+  { id: "qr-code-generator", label: "QR Code" },
+  { id: "income-tax-calculator", label: "Income Tax" },
+  { id: "epoch-converter", label: "Epoch Converter" },
   { id: "age-calculator", label: "Age Calculator" },
   { id: "emi-calculator", label: "EMI Calculator" },
-  { id: "word-counter", label: "Word Counter" },
-  { id: "base64-encoder-decoder", label: "Base64" },
-  { id: "fancy-text-generator", label: "Fancy Text" },
 ];
 const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", icon: "calculate", theme: "calculator" },
@@ -50,11 +53,11 @@ const MOBILE_STATS = [
   { value: "Instant", label: "In-Browser Compute", icon: "wifi_off" },
 ];
 const MOBILE_CATEGORIES = [
-  { label: "Calculators", sub: "Finance, Health & Math", href: "/calculators/", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { label: "Calculators", sub: "Finance, Tax & Health", href: "/calculators/", icon: "calculate", tint: "bg-primary-fixed text-primary-container" },
+  { label: "Developer Tools", sub: "JSON, Epoch & Passwords", href: "/dev/", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
+  { label: "Utilities & PDF", sub: "PDF converter & QR Code", href: "/tools/", icon: "auto_awesome", tint: "bg-primary-fixed text-primary-container" },
   { label: "Text Tools", sub: "Counting, styling & voice", href: "/text/", icon: "article", tint: "bg-secondary-fixed text-secondary" },
-  { label: "Developer Tools", sub: "Base64 encoding", href: "/dev/", icon: "terminal", tint: "bg-tertiary-fixed text-tertiary" },
-  { label: "Fun Tools", sub: "Mockups & entertainment", href: "/fun/", icon: "smile", tint: "bg-primary-fixed text-primary-container" },
-  { label: "All Tools", sub: "Every utility in one place", href: "/tools/", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
+  { label: "All Tools", sub: "Full catalogue in one place", href: "/tools/", icon: "apps", tint: "bg-secondary-fixed text-secondary" },
 ];
 
 function TrendingRow() {

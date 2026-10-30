@@ -100,6 +100,14 @@ export function Footer() {
             <div className="flex items-center gap-2 pt-1">
               <span className="rounded border border-white/10 bg-white/5 px-2 py-0.5 font-code-data text-[11px] text-primary-fixed">100% Client-Side</span>
               <span className="rounded border border-white/10 bg-white/5 px-2 py-0.5 font-code-data text-[11px] text-secondary-fixed">Zero Tracking</span>
+              <a
+                href="https://github.com/16sameerahmad/tool-empire"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded border border-white/10 bg-white/5 px-2 py-0.5 font-code-data text-[11px] text-tertiary-fixed hover:text-white transition"
+              >
+                GitHub Open Source
+              </a>
             </div>
           </div>
           <nav aria-label="Calculators">

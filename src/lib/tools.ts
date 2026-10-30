@@ -428,6 +428,51 @@ export const tools: ToolDefinition[] = [
     seoDescription:
       "Format, validate, beautify, and minify your JSON data instantly. Syntax error detection, line tracking, and byte size counter. 100% client-side.",
   },
+  {
+    id: "uuid-generator",
+    title: "UUID / GUID Generator",
+    cluster: "Dev",
+    href: "/tools/uuid-generator/",
+    locale: "en",
+    description: "Generate RFC 4122 version 4 UUIDs and GUIDs instantly. Single or bulk generation with uppercase and hyphen toggles.",
+    keywords: ["uuid generator", "guid generator", "random uuid", "v4 uuid online", "bulk uuid generator", "generate guid"],
+    related: ["json-formatter", "password-generator", "epoch-converter"],
+    live: true,
+    h1: "UUID / GUID Generator — RFC 4122 v4 Cryptographic Random",
+    seoTitle: "UUID / GUID Generator — Free Online RFC 4122 v4 Tool | Tulyro",
+    seoDescription:
+      "Generate cryptographically secure RFC 4122 version 4 UUIDs and GUIDs online. Bulk generate up to 100 UUIDs with custom formatting and uppercase toggles.",
+  },
+  {
+    id: "case-converter",
+    title: "Text Case Converter",
+    cluster: "Text",
+    href: "/tools/case-converter/",
+    locale: "en",
+    description: "Convert text between camelCase, PascalCase, snake_case, kebab-case, Title Case, and CONSTANT_CASE instantly.",
+    keywords: ["case converter", "camelcase converter", "snake case to camelcase", "text case converter", "kebab case generator", "pascalcase online"],
+    related: ["word-counter", "fancy-text-generator", "json-formatter"],
+    live: true,
+    h1: "Text Case Converter — camelCase, snake_case, PascalCase, kebab-case",
+    seoTitle: "Text Case Converter — Convert Text & Variable Cases Online | Tulyro",
+    seoDescription:
+      "Convert text between camelCase, snake_case, kebab-case, PascalCase, Title Case, and uppercase instantly in your browser. 100% private.",
+  },
+  {
+    id: "markdown-editor",
+    title: "Markdown Editor & Live Preview",
+    cluster: "Text",
+    href: "/tools/markdown-editor/",
+    locale: "en",
+    description: "Free online Markdown editor with instant live split-screen preview, syntax formatting, and HTML export. 100% client-side.",
+    keywords: ["markdown editor online", "markdown live preview", "convert markdown to html", "markdown viewer", "online md editor"],
+    related: ["word-counter", "case-converter", "json-formatter"],
+    live: true,
+    h1: "Online Markdown Editor & Live HTML Previewer",
+    seoTitle: "Markdown Editor & Live Preview — Free Online Markdown Tool | Tulyro",
+    seoDescription:
+      "Write, edit, and preview Markdown in real-time with instant side-by-side rendering. Download as .md or copy compiled HTML. Zero server uploads.",
+  },
 ];
 
 export const clusters: Cluster[] = ["Calculators", "Text", "Dev", "Fun", "Media"];

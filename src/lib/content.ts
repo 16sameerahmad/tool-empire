@@ -742,6 +742,66 @@ export const content: Record<string, ToolContent> = {
       { question: "Does it support large JSON files?", answer: "Yes, it can handle multi-megabyte JSON payloads with speed limited only by your browser's available memory." },
     ]),
   },
+  "uuid-generator": {
+    definition: "A UUID (Universally Unique Identifier) generator creates 128-bit identifiers conforming to RFC 4122 v4 standards, guaranteeing astronomical uniqueness without a central registry.",
+    intro: "Generate cryptographically secure random RFC 4122 v4 UUIDs and GUIDs instantly. Single or bulk generation with uppercase and hyphen toggles.",
+    howTo: [
+      "Select whether you want a single UUID or batch mode (1 to 100).",
+      "Toggle formatting options such as uppercase letters or omitting hyphens.",
+      "Click Generate UUIDs to create fresh cryptographic random identifiers.",
+      "Copy single UUIDs or the entire batch with one click.",
+    ],
+    content: [
+      "UUIDs (Universally Unique Identifiers) and GUIDs (Globally Unique Identifiers) are 128-bit labels used extensively in distributed software architecture, database primary keys, microservices, and transaction tracing.",
+      "Version 4 UUIDs rely on cryptographic pseudo-random number generators. The total number of possible v4 UUIDs is 2^122 (approximately 5.3 x 10^36), rendering the probability of generating a duplicate mathematically negligible.",
+      "This generator uses native browser crypto APIs (window.crypto.randomUUID) for secure randomness, ensuring identifiers meet production-grade cryptographic standards.",
+    ],
+    faq: faq([
+      { question: "What is an RFC 4122 v4 UUID?", answer: "Version 4 UUIDs are generated using cryptographically strong random numbers with specific version bits (4) and variant bits (8, 9, a, or b) embedded." },
+      { question: "Can two UUID v4 values ever collide?", answer: "The collision probability is so infinitesimally small that generating 1 billion UUIDs every second for 100 years carries virtually zero chance of collision." },
+      { question: "Is this generator secure for production tokens and keys?", answer: "Yes. It uses the operating system's native cryptographic entropy pool via Web Crypto API rather than insecure Math.random()." },
+      { question: "What is the difference between UUID and GUID?", answer: "GUID is Microsoft's implementation terminology for UUID. In practice, RFC 4122 v4 UUID and standard GUID refer to the exact same format." },
+    ]),
+  },
+  "case-converter": {
+    definition: "A text case converter transforms strings into specific casing conventions such as camelCase, PascalCase, snake_case, kebab-case, Title Case, and uppercase for code and writing.",
+    intro: "Convert any text, phrase, or variable name into developer and publication casing formats instantly in your browser.",
+    howTo: [
+      "Type or paste your text or variable name into the input box.",
+      "Instantly view the transformed text across all casing formats.",
+      "Click the Copy button next to any casing format to paste into your code or document.",
+    ],
+    content: [
+      "Software developers and technical writers constantly switch between naming conventions: camelCase in JavaScript and TypeScript, snake_case in Python and SQL databases, kebab-case in URLs and CSS classes, and PascalCase for React components and C# classes.",
+      "This converter automatically normalizes spaces, dashes, and underscores, transforming raw strings cleanly into standard programming conventions.",
+      "All conversions happen immediately on keystroke inside your browser without any network delays or telemetry.",
+    ],
+    faq: faq([
+      { question: "What is the difference between camelCase and PascalCase?", answer: "camelCase starts with a lowercase letter (myVariable), whereas PascalCase capitalizes the initial letter (MyVariable)." },
+      { question: "When should I use kebab-case vs snake_case?", answer: "kebab-case (my-slug) is standard for URLs, REST endpoints, and CSS classes. snake_case (my_column) is standard for Python variables and relational database column names." },
+      { question: "Does this tool store my text?", answer: "No. All text parsing runs 100% locally in your browser memory." },
+    ]),
+  },
+  "markdown-editor": {
+    definition: "A Markdown editor parses lightweight Markdown markup syntax into standard semantic HTML, providing a live real-time preview of formatting, tables, lists, and code blocks.",
+    intro: "Write and preview Markdown in real-time with dual-pane side-by-side rendering, instant HTML compilation, and one-click export.",
+    howTo: [
+      "Type or paste your Markdown content into the left editor pane.",
+      "View the rendered HTML output in real-time on the right preview pane.",
+      "Use formatting toolbar shortcuts for headings, bold, code, lists, and quotes.",
+      "Click Copy HTML or Download .md to save your formatted work.",
+    ],
+    content: [
+      "Markdown is the international standard for drafting technical documentation, README files, blog posts, and notes. Its lightweight syntax keeps writers focused on content rather than complex word processor interfaces.",
+      "Tulyro's live Markdown editor provides an instant split-screen preview so you can verify headings, lists, blockquotes, inline code, and links as you type.",
+      "The parser runs entirely on your client machine with HTML entity sanitization to protect against XSS, ensuring private documents and drafts never leave your device.",
+    ],
+    faq: faq([
+      { question: "Can I export my Markdown to HTML?", answer: "Yes, you can copy the compiled HTML with one click or download the raw Markdown file." },
+      { question: "Is my text uploaded to a server?", answer: "No. The editor runs entirely in-memory inside your browser tab without any backend calls." },
+      { question: "Does it support GitHub-flavored Markdown?", answer: "Yes, standard formatting including code blocks, inline code, blockquotes, links, and lists are fully supported." },
+    ]),
+  },
 };
 
 export function getContent(id: string): ToolContent {

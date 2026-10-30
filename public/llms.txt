@@ -9,6 +9,9 @@
 - Name: Tulyro
 - Website: https://tulyro.online/
 - Contact: Tulyrotools@gmail.com
+- Founder & Lead Developer: Sameer Ahmad (GitHub: https://github.com/16sameerahmad)
+- Source Code: https://github.com/16sameerahmad/tool-empire (Open Source MIT)
+- Trust & Verification: 100% Client-side browser execution. Zero telemetry, zero server-side storage, zero fees, zero account requirements. Inspectable via browser DevTools Network tab.
 - Model: free browser-only tools; no accounts, no backend, no database, no watermark, no popups.
 - Full detail: https://tulyro.online/llms-full.txt
 
@@ -36,6 +39,10 @@
 - [Base64 Encoder/Decoder](https://tulyro.online/dev/base64-encoder-decoder/): Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in the browser.
 - [Invoice Generator](https://tulyro.online/tools/invoice-generator/): Create a simple invoice in the browser and print or save it as PDF. No watermark.
 - [Fake Text Generator](https://tulyro.online/fun/fake-text-generator/): Make a generic chat mockup for sketches, presentations and entertainment. Export PNG.
+- [JSON Formatter & Validator](https://tulyro.online/tools/json-formatter/): Beautify, minify, and validate JSON data instantly in your browser with byte and character stats.
+- [UUID / GUID Generator](https://tulyro.online/tools/uuid-generator/): Generate cryptographically secure RFC 4122 v4 UUIDs in single or batch modes.
+- [Case Converter](https://tulyro.online/tools/case-converter/): Convert text between camelCase, PascalCase, snake_case, kebab-case, and Title Case.
+- [Markdown Editor & Live Preview](https://tulyro.online/tools/markdown-editor/): Real-time dual-pane Markdown drafting with instant safe HTML preview and .md export.
 
 ## Guides
 

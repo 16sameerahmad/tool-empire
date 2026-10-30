@@ -169,9 +169,18 @@ export function createWebSiteJsonLd() {
         alternateName: "Tulyro Tools",
         url: siteUrl,
         logo: `${siteUrl}/logo.svg`,
-        sameAs: ["https://www.producthunt.com/products/tulyro"],
+        sameAs: [
+          "https://www.producthunt.com/products/tulyro",
+          "https://github.com/16sameerahmad/tool-empire",
+        ],
         email: "Tulyrotools@gmail.com",
-        description: "Free browser-only tools. No signup. No watermark.",
+        description: "Open-source, free browser-only utility tools and calculators. Zero server uploads, zero tracking.",
+        founder: {
+          "@type": "Person",
+          name: "Sameer Ahmad",
+          jobTitle: "Founder & Lead Developer",
+          sameAs: ["https://github.com/16sameerahmad"],
+        },
       },
       {
         "@type": "ItemList",

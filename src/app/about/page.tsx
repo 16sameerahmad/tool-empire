@@ -14,5 +14,7 @@ export default function AboutPage() { return <LegalPage title="About Tulyro" pat
 <h2>Editorial & Accuracy Standards</h2>
 <p>Calculations adhere strictly to authoritative standards: Indian banking reducing-balance formulas for loan EMIs, RBI &amp; post office compound interest schedules for PPF, UGC and AICTE regulatory guidelines for attendance thresholds, and CBSE/university rubrics for academic grade conversions. If you spot a calculation discrepancy, we treat corrections with immediate priority.</p>
 <h2>Contact & Maintainer</h2>
-<p>Tulyro is maintained by Sameer Ahmad. Questions, corrections, or tool suggestions: <a href="mailto:Tulyrotools@gmail.com">Tulyrotools@gmail.com</a>. If you spot an error, please share the tool name, your input values, and the expected result for rapid verification.</p>
+<p>Tulyro is developed as an open web utility initiative maintained by Sameer Ahmad. Questions, corrections, bug reports, or tool suggestions: <a href="mailto:Tulyrotools@gmail.com">Tulyrotools@gmail.com</a>. Source repository and open issue tracking are available at <a href="https://github.com/16sameerahmad/tool-empire" target="_blank" rel="noopener noreferrer">GitHub (16sameerahmad/tool-empire)</a>.</p>
+<h2>Security, Client-Side Safety & Verification</h2>
+<p>Unlike standard web converters, Tulyro never uploads your text, passwords, images, or JSON data to cloud servers. All processing uses standard browser-native Web APIs (<code>window.crypto</code>, <code>Canvas API</code>, <code>Web Workers</code>). You can verify this by inspecting the browser Network tab while using any tool: zero outbound payload requests are transmitted.</p>
 </LegalPage>; }

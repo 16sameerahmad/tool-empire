@@ -4640,6 +4640,359 @@ function JsonFormatterPanel() {
   );
 }
 
+function UuidGeneratorPanel() {
+  const [count, setCount] = useState(1);
+  const [uppercase, setUppercase] = useState(false);
+  const [hyphens, setHyphens] = useState(true);
+  const [uuids, setUuids] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
+
+  const handleGenerate = () => {
+    const list: string[] = [];
+    const targetCount = Math.min(Math.max(count, 1), 100);
+    for (let i = 0; i < targetCount; i++) {
+      let id = "";
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        id = crypto.randomUUID();
+      } else {
+        const b = new Uint8Array(16);
+        crypto.getRandomValues(b);
+        b[6] = (b[6] & 0x0f) | 0x40;
+        b[8] = (b[8] & 0x3f) | 0x80;
+        const hex = Array.from(b, (x) => x.toString(16).padStart(2, "0"));
+        id = `${hex.slice(0, 4).join("")}-${hex.slice(4, 6).join("")}-${hex.slice(6, 8).join("")}-${hex.slice(8, 10).join("")}-${hex.slice(10, 16).join("")}`;
+      }
+      if (!hyphens) id = id.replace(/-/g, "");
+      if (uppercase) id = id.toUpperCase();
+      list.push(id);
+    }
+    setUuids(list);
+  };
+
+  useEffect(() => {
+    handleGenerate();
+  }, []);
+
+  const handleCopyAll = () => {
+    if (!uuids.length) return;
+    navigator.clipboard.writeText(uuids.join("\n"));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-muted/40 rounded-xl border">
+        <div className="flex items-center gap-4">
+          <div>
+            <label className="text-xs font-medium text-muted-foreground block mb-1">Batch Count (1-100):</label>
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={count}
+              onChange={(e) => setCount(Number(e.target.value))}
+              className="w-20 px-2 py-1 text-sm rounded border bg-background"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5 pt-4">
+            <label className="flex items-center gap-1.5 text-xs cursor-pointer">
+              <input
+                type="checkbox"
+                checked={uppercase}
+                onChange={(e) => setUppercase(e.target.checked)}
+                className="rounded"
+              />
+              Uppercase
+            </label>
+            <label className="flex items-center gap-1.5 text-xs cursor-pointer">
+              <input
+                type="checkbox"
+                checked={hyphens}
+                onChange={(e) => setHyphens(e.target.checked)}
+                className="rounded"
+              />
+              Hyphens (-)
+            </label>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleGenerate}
+            className="px-4 py-2 bg-primary text-primary-foreground hover:opacity-90 rounded-lg text-sm font-medium transition"
+          >
+            Generate New
+          </button>
+          <button
+            type="button"
+            onClick={handleCopyAll}
+            className="px-4 py-2 border bg-card hover:bg-muted rounded-lg text-sm font-medium transition"
+          >
+            {copied ? "Copied!" : "Copy All"}
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          Generated UUIDs ({uuids.length}):
+        </label>
+        <div className="max-h-80 overflow-y-auto space-y-1.5 p-3 bg-card rounded-lg border font-mono text-sm">
+          {uuids.map((id, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-2 rounded hover:bg-muted/50 group transition"
+            >
+              <span className="select-all">{id}</span>
+              <button
+                type="button"
+                onClick={() => navigator.clipboard.writeText(id)}
+                className="text-xs text-primary opacity-0 group-hover:opacity-100 transition hover:underline"
+              >
+                Copy
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CaseConverterPanel() {
+  const [input, setInput] = useState("convert this text to any case format");
+
+  const camel = input
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .map((w, i) => (i === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()))
+    .join("");
+
+  const pascal = input
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join("");
+
+  const snake = input
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w.toLowerCase())
+    .join("_");
+
+  const kebab = input
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w.toLowerCase())
+    .join("-");
+
+  const title = input
+    .toLowerCase()
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+
+  const constant = snake.toUpperCase();
+  const lower = input.toLowerCase();
+  const upper = input.toUpperCase();
+
+  const cases = [
+    { label: "camelCase", val: camel },
+    { label: "PascalCase", val: pascal },
+    { label: "snake_case", val: snake },
+    { label: "kebab-case", val: kebab },
+    { label: "CONSTANT_CASE", val: constant },
+    { label: "Title Case", val: title },
+    { label: "lowercase", val: lower },
+    { label: "UPPERCASE", val: upper },
+  ];
+
+  const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
+
+  const copyVal = (label: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedLabel(label);
+    setTimeout(() => setCopiedLabel(null), 1500);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+          Input Text:
+        </label>
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type or paste text to convert..."
+          className="w-full h-24 p-3 font-mono text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {cases.map((c) => (
+          <div
+            key={c.label}
+            className="p-3 bg-card border rounded-lg flex items-center justify-between"
+          >
+            <div className="min-w-0 pr-2">
+              <span className="text-[11px] font-semibold text-primary block">
+                {c.label}
+              </span>
+              <p className="font-mono text-sm truncate select-all">
+                {c.val || <span className="text-muted-foreground italic">empty</span>}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => copyVal(c.label, c.val)}
+              className="px-2.5 py-1 text-xs border bg-background hover:bg-muted rounded transition shrink-0"
+            >
+              {copiedLabel === c.label ? "Copied!" : "Copy"}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MarkdownEditorPanel() {
+  const [markdown, setMarkdown] = useState(
+    "# Welcome to Tulyro Markdown Editor\n\nWrite on the left, see the live preview on the right!\n\n## Features\n- **100% Client-Side** — Zero server uploads\n- *Fast & Responsive* real-time parsing\n- Formats: code, quotes, and links\n\n```ts\nconst greeting = 'Hello, Developer!';\nconsole.log(greeting);\n```\n\n> Simple, private, and instantaneous.\n"
+  );
+  const [copiedHtml, setCopiedHtml] = useState(false);
+
+  const compile = (md: string) => {
+    // Escape all HTML special chars to neutralize script tags and arbitrary markup
+    let esc = md.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    esc = esc.replace(/```([\s\S]*?)```/g, (_m, code) => `<pre class="bg-slate-900 text-slate-100 p-3 rounded my-2 overflow-x-auto text-xs font-mono"><code>${code.trim()}</code></pre>`);
+    esc = esc.replace(/`([^`]+)`/g, '<code class="bg-muted text-pink-600 px-1 py-0.5 rounded text-xs font-mono">$1</code>');
+    esc = esc.replace(/^### (.*$)/gim, '<h3 class="text-base font-bold mt-3 mb-1">$1</h3>');
+    esc = esc.replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold mt-4 mb-1">$1</h2>');
+    esc = esc.replace(/^# (.*$)/gim, '<h1 class="text-xl font-bold mt-4 mb-2">$1</h1>');
+    esc = esc.replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-primary pl-3 py-1 italic my-2 text-muted-foreground">$1</blockquote>');
+    esc = esc.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    esc = esc.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    esc = esc.replace(/^- (.*$)/gim, '<li class="ml-4 list-disc my-0.5">$1</li>');
+    // Only allow http, https protocols in anchors
+    esc = esc.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)"']+|\/[^\s)"']+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary underline">$1</a>');
+
+    return esc
+      .split(/\n\s*\n/)
+      .map((p) => {
+        const t = p.trim();
+        if (!t) return "";
+        if (t.startsWith("<h") || t.startsWith("<pre") || t.startsWith("<blockquote") || t.startsWith("<li")) return t;
+        return `<p class="my-1.5 leading-relaxed">${t.replace(/\n/g, "<br />")}</p>`;
+      })
+      .join("\n");
+  };
+
+  const html = compile(markdown);
+
+  const handleCopyHtml = () => {
+    navigator.clipboard.writeText(html);
+    setCopiedHtml(true);
+    setTimeout(() => setCopiedHtml(false), 2000);
+  };
+
+  const handleDownloadMd = () => {
+    const blob = new Blob([markdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "document.md";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setMarkdown((prev) => prev + "\n## Heading 2\n")}
+            className="px-2.5 py-1 text-xs border rounded bg-card hover:bg-muted font-semibold"
+          >
+            H2
+          </button>
+          <button
+            type="button"
+            onClick={() => setMarkdown((prev) => prev + "\n**bold text**")}
+            className="px-2.5 py-1 text-xs border rounded bg-card hover:bg-muted font-bold"
+          >
+            B
+          </button>
+          <button
+            type="button"
+            onClick={() => setMarkdown((prev) => prev + "\n*italic text*")}
+            className="px-2.5 py-1 text-xs border rounded bg-card hover:bg-muted italic"
+          >
+            I
+          </button>
+          <button
+            type="button"
+            onClick={() => setMarkdown((prev) => prev + "\n```ts\n// code here\n```\n")}
+            className="px-2.5 py-1 text-xs border rounded bg-card hover:bg-muted font-mono"
+          >
+            Code
+          </button>
+          <button
+            type="button"
+            onClick={() => setMarkdown((prev) => prev + "\n> Quote here\n")}
+            className="px-2.5 py-1 text-xs border rounded bg-card hover:bg-muted"
+          >
+            Quote
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleCopyHtml}
+            className="px-3 py-1 bg-primary text-primary-foreground hover:opacity-90 rounded text-xs font-medium transition"
+          >
+            {copiedHtml ? "Copied!" : "Copy HTML"}
+          </button>
+          <button
+            type="button"
+            onClick={handleDownloadMd}
+            className="px-3 py-1 border rounded bg-card hover:bg-muted text-xs font-medium transition"
+          >
+            Download .md
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Markdown Editor:</label>
+          <textarea
+            value={markdown}
+            onChange={(e) => setMarkdown(e.target.value)}
+            className="w-full h-96 p-3 font-mono text-xs rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Live Preview:</label>
+          <div
+            dangerouslySetInnerHTML={{ __html: html }}
+            className="w-full h-96 p-4 overflow-y-auto text-xs rounded-lg border bg-card text-foreground"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {
     case "age-calculator":
@@ -4698,6 +5051,12 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <EpochConverterPanel />;
     case "json-formatter":
       return <JsonFormatterPanel />;
+    case "uuid-generator":
+      return <UuidGeneratorPanel />;
+    case "case-converter":
+      return <CaseConverterPanel />;
+    case "markdown-editor":
+      return <MarkdownEditorPanel />;
     default:
       return <p>Tool unavailable.</p>;
   }

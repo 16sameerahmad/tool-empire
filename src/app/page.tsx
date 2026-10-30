@@ -20,12 +20,12 @@ export const metadata: Metadata = {
 const TRENDING = [
   { id: "password-generator", label: "Password Generator" },
   { id: "json-formatter", label: "JSON Formatter" },
+  { id: "uuid-generator", label: "UUID Generator" },
+  { id: "markdown-editor", label: "Markdown Editor" },
+  { id: "case-converter", label: "Case Converter" },
   { id: "pdf-tools", label: "PDF Tools" },
   { id: "qr-code-generator", label: "QR Code" },
-  { id: "income-tax-calculator", label: "Income Tax" },
   { id: "epoch-converter", label: "Epoch Converter" },
-  { id: "age-calculator", label: "Age Calculator" },
-  { id: "emi-calculator", label: "EMI Calculator" },
 ];
 const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", icon: "calculate", theme: "calculator" },

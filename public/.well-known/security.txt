@@ -1,0 +1,6 @@
+Contact: mailto:Tulyrotools@gmail.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en, hi
+Canonical: https://tulyro.online/.well-known/security.txt
+Policy: https://tulyro.online/terms/
+Acknowledgments: https://github.com/16sameerahmad/tool-empire

@@ -108,6 +108,7 @@ export const content: Record<string, ToolContent> = {
     guides: [
       { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
       { label: "EMI vs Mortgage Calculator Comparison", href: "/guides/emi-vs-mortgage-calculator/" },
+      { label: "SIP vs Lumpsum Investment: Which Generates Better Returns?", href: "/guides/sip-vs-lumpsum/" },
     ],
     faq: faq([
       { question: "What is an SIP?", answer: "An SIP (Systematic Investment Plan) is a convenient vehicle where an investor contributes a fixed sum periodically (usually monthly) into a designated mutual fund scheme rather than investing a lump sum all at once." },
@@ -380,7 +381,7 @@ export const content: Record<string, ToolContent> = {
       "Instantly export JPEG or WEBP files with exact byte size verification before downloading.",
     ],
     guides: [
-      { label: "How Browser Image Processing Protects Privacy", href: "/about/" },
+      { label: "Govt Exam Photo & Signature Size Guide: SSC, UPSC, IBPS, NTA", href: "/guides/photo-and-signature-size-guide-for-govt-exams/" },
     ],
     faq: faq([
       { question: "How can I reduce image size to 20KB or 50KB?", answer: "Upload your image, choose the 20KB or 50KB preset, and our client-side canvas engine automatically scales dimensions and adjusts compression quality to fit under the limit." },

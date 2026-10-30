@@ -4551,6 +4551,7 @@ function JsonFormatterPanel() {
   const copy = () => {
     if (!output) return;
     navigator.clipboard.writeText(output);
+    trackEvent("tool_copy_output", { tool_id: "json-formatter" });
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -4676,6 +4677,7 @@ function UuidGeneratorPanel() {
   const handleCopyAll = () => {
     if (!uuids.length) return;
     navigator.clipboard.writeText(uuids.join("\n"));
+    trackEvent("tool_copy_output", { tool_id: "uuid-generator" });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -4900,11 +4902,13 @@ function MarkdownEditorPanel() {
 
   const handleCopyHtml = () => {
     navigator.clipboard.writeText(html);
+    trackEvent("tool_copy_output", { tool_id: "markdown-editor", format: "html" });
     setCopiedHtml(true);
     setTimeout(() => setCopiedHtml(false), 2000);
   };
 
   const handleDownloadMd = () => {
+    trackEvent("tool_download_file", { tool_id: "markdown-editor", format: "markdown" });
     const blob = new Blob([markdown], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -4992,6 +4996,8 @@ function MarkdownEditorPanel() {
     </div>
   );
 }
+
+import { trackEvent } from "@/lib/analytics";
 
 export function ToolPanel({ kind }: { kind: string }) {
   switch (kind) {

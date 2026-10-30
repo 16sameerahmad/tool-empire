@@ -3264,6 +3264,372 @@ export const guides: Guide[] = [
     related: ["json-formatter", "epoch-converter", "base64-encoder-decoder"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
   },
+  {
+    slug: "uuid-v4-vs-v7-which-should-you-use",
+    title: "UUID v4 vs UUID v7: Differences, Database Index Performance & Which to Choose",
+    seoTitle: "UUID v4 vs v7: Database Performance, Index Fragmentation & Which to Use | Tulyro",
+    seoDescription:
+      "Compare UUID v4 and UUID v7: learn how random v4 causes B-Tree index fragmentation and why time-ordered v7 solves PostgreSQL, MySQL and distributed database bottlenecks.",
+    href: "/guides/uuid-v4-vs-v7-which-should-you-use/",
+    intro: [
+      <>
+        Universally Unique Identifiers (UUIDs) are 128-bit numbers used to identify records across
+        distributed architectures without central authority coordination. While UUID v4 (purely random)
+        has been the industry standard for decades, modern databases suffer severe write-amplification
+        and B-Tree page splits when indexing purely random keys. RFC 9562 formalised UUID v7 — a
+        timestamp-ordered variant designed specifically for database primary keys. Explore instant RFC 4122
+        generation with our{" "}
+        <Link href="/tools/uuid-generator/" className="text-primary underline">
+          client-side UUID Generator
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Generate Cryptographic UUIDs", href: "/tools/uuid-generator/" },
+    sections: [
+      {
+        heading: "How UUID v4 Works (And Why B-Tree Indexes Suffer)",
+        body: [
+          <>
+            A UUID v4 comprises 122 pseudo-random bits, 4 version bits, and 2 variant bits. Because
+            values are uniformly distributed across the 128-bit space, inserting sequential rows with
+            UUID v4 primary keys forces databases like PostgreSQL and MySQL InnoDB to write to random
+            disk pages.
+          </>,
+          <>
+            Once an index table grows larger than available RAM (buffer cache), every single insert
+            triggers costly random I/O reads to fetch index leaves, accompanied by frequent page
+            splits and severe storage fragmentation.
+          </>,
+        ],
+      },
+      {
+        heading: "Enter UUID v7: Timestamp-Ordered Monotonicity",
+        body: [
+          <>
+            UUID v7 embeds a 48-bit Unix timestamp (millisecond precision) in the leading bits,
+            followed by version bits, sub-millisecond sequencing, and random entropy. Because the most
+            significant bits increase monotonically over time, new rows append cleanly to the right-most
+            leaf of B-Tree indexes — achieving the write speed of auto-incrementing integers while preserving
+            the global uniqueness and decentralisation of UUIDs.
+          </>,
+        ],
+      },
+      {
+        heading: "UUID v4 vs UUID v7 Architecture Comparison",
+        body: [
+          <div key="uuid-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+              <thead>
+                <tr className="bg-surface-container-low">
+                  <th className="border border-outline-variant/60 p-3">Feature</th>
+                  <th className="border border-outline-variant/60 p-3">UUID v4 (RFC 4122)</th>
+                  <th className="border border-outline-variant/60 p-3">UUID v7 (RFC 9562)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Primary Structure</td>
+                  <td className="border border-outline-variant/60 p-3">122 random bits</td>
+                  <td className="border border-outline-variant/60 p-3">48-bit timestamp + 74 random/seq bits</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Ordering</td>
+                  <td className="border border-outline-variant/60 p-3">Completely random</td>
+                  <td className="border border-outline-variant/60 p-3">Naturally time-ordered (k-sortable)</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Database Impact</td>
+                  <td className="border border-outline-variant/60 p-3">Causes B-Tree page splits &amp; high I/O</td>
+                  <td className="border border-outline-variant/60 p-3">Append-friendly, compact index pages</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Information Leakage</td>
+                  <td className="border border-outline-variant/60 p-3">None (opaque)</td>
+                  <td className="border border-outline-variant/60 p-3">Creation timestamp is extractable</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "When to Use Each Version",
+        body: [
+          <>
+            <strong>Use UUID v7 when:</strong> generating primary keys in relational databases
+            (PostgreSQL, MySQL, SQLite), high-volume event streaming, and distributed logging systems
+            where index locality is crucial for performance.
+          </>,
+          <>
+            <strong>Use UUID v4 when:</strong> generating opaque tokens, session identifiers, password
+            reset keys, or public identifiers where exposing the generation timestamp poses a security
+            or business intelligence risk (e.g. leaking registration velocity).
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can two UUID v4 values ever collide?",
+        answer:
+          "The probability of collision in UUID v4 is negligible. You would need to generate approximately 2.71 quintillion UUIDs before having a one-in-a-billion chance of a duplicate.",
+      },
+      {
+        question: "Is UUID v7 supported natively in databases?",
+        answer:
+          "PostgreSQL 17+, SQLite 3.46+, and modern ORMs (such as Prisma, TypeORM, and Hibernate) have added native support or extensions for RFC 9562 UUID v7.",
+      },
+      {
+        question: "Does UUID v4 expose any sensitive machine data?",
+        answer:
+          "No. Unlike UUID v1 (which exposed MAC addresses) and UUID v7 (which exposes timestamps), UUID v4 contains only pseudo-random numbers with zero device or time metadata.",
+      },
+    ],
+    related: ["uuid-generator", "epoch-converter", "json-formatter"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
+  {
+    slug: "code-naming-conventions-camelcase-snake-case",
+    title: "Code Naming Conventions Explained: camelCase, PascalCase, snake_case & kebab-case",
+    seoTitle: "Code Naming Conventions: camelCase vs snake_case vs PascalCase | Tulyro",
+    seoDescription:
+      "Master programming naming styles across JavaScript, Python, Rust, Go, CSS, and SQL. Understand why different languages enforce specific casing standards.",
+    href: "/guides/code-naming-conventions-camelcase-snake-case/",
+    intro: [
+      <>
+        Naming things is one of the classic hard problems in computer science. Software ecosystems
+        have evolved strict casing conventions to ensure visual consistency, prevent parser ambiguities,
+        and communicate intent. For example, Python relies on snake_case (PEP 8), while JavaScript
+        and TypeScript standardize on camelCase. Convert any identifiers in real time using our{" "}
+        <Link href="/tools/case-converter/" className="text-primary underline">
+          client-side Case Converter
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Convert Text Cases Instantly", href: "/tools/case-converter/" },
+    sections: [
+      {
+        heading: "The Four Core Identifier Casings",
+        body: [
+          <>
+            Different programming languages and protocols standardize on specific separators or
+            capitalization rules to delineate word boundaries in variables, types, constants, and endpoints:
+          </>,
+          <div key="casing-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+              <thead>
+                <tr className="bg-surface-container-low">
+                  <th className="border border-outline-variant/60 p-3">Style</th>
+                  <th className="border border-outline-variant/60 p-3">Example</th>
+                  <th className="border border-outline-variant/60 p-3">Dominant Languages &amp; Contexts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">camelCase</td>
+                  <td className="border border-outline-variant/60 p-3"><code>userAccountId</code></td>
+                  <td className="border border-outline-variant/60 p-3">JavaScript, TypeScript, Java, Go, Swift (variables/functions)</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">PascalCase</td>
+                  <td className="border border-outline-variant/60 p-3"><code>UserProfileResponse</code></td>
+                  <td className="border border-outline-variant/60 p-3">C#, TypeScript classes/types, React components</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">snake_case</td>
+                  <td className="border border-outline-variant/60 p-3"><code>total_order_amount</code></td>
+                  <td className="border border-outline-variant/60 p-3">Python (PEP 8), Rust, Ruby, PostgreSQL columns</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">kebab-case</td>
+                  <td className="border border-outline-variant/60 p-3"><code>primary-nav-button</code></td>
+                  <td className="border border-outline-variant/60 p-3">CSS classes, HTML attributes, REST URL paths</td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">SCREAMING_SNAKE</td>
+                  <td className="border border-outline-variant/60 p-3"><code>MAX_RETRY_LIMIT</code></td>
+                  <td className="border border-outline-variant/60 p-3">Global constants, environment variables, enum variants</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "Why Doesn't JavaScript or Python Support kebab-case in Code?",
+        body: [
+          <>
+            In most programming languages, the hyphen character (<code>-</code>) is reserved as the
+            subtraction operator. Writing <code>const user-id = 10;</code> causes compilers and
+            interpreters to parse the statement as <code>user minus id</code>, triggering syntax errors.
+            Consequently, kebab-case is strictly confined to declarative contexts like CSS selectors,
+            file names, and URL slugs.
+          </>,
+        ],
+      },
+      {
+        heading: "Best Practices When Bridging Polyglot Backends and Frontends",
+        body: [
+          <>
+            A common friction point in full-stack engineering occurs when a Python or Go backend
+            returns JSON with <code>snake_case</code> keys, while frontend TypeScript conventions mandate{" "}
+            <code>camelCase</code>.
+          </>,
+          <>
+            Modern API design advocates transforming keys at serialization boundaries (e.g. using
+            Pydantic camel-case aliases or Axios response interceptors) to preserve language-native
+            conventions across each layer.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What is the difference between camelCase and PascalCase?",
+        answer:
+          "camelCase starts with a lowercase letter (e.g. userName), whereas PascalCase begins with an uppercase letter (e.g. UserName). PascalCase is primarily used for types, classes, and components.",
+      },
+      {
+        question: "Should REST API URLs use camelCase or kebab-case?",
+        answer:
+          "RFC 3986 and industry guidelines (Google, Microsoft API style guides) recommend kebab-case for URL paths (e.g. /api/v1/user-profiles) because URLs are often case-insensitive and hyphens serve as standard word delimiters in web search indexing.",
+      },
+      {
+        question: "Why does Python PEP 8 mandate snake_case?",
+        answer:
+          "Guido van Rossum and the Python core team chose snake_case for functions and variables because word spacing with underscores maximizes readability in indentation-delimited code.",
+      },
+    ],
+    related: ["case-converter", "markdown-editor", "word-counter"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
+  {
+    slug: "markdown-cheatsheet-and-formatting-guide",
+    title: "Complete Markdown Cheatsheet: Syntax, Formatting Rules & Safe Web Publishing",
+    seoTitle: "Markdown Cheatsheet & Formatting Guide: Syntax, Tables & Safe HTML | Tulyro",
+    seoDescription:
+      "A complete guide to Markdown formatting. Learn CommonMark and GFM syntax for headers, code blocks, lists, blockquotes, tables, and preventing XSS when compiling to HTML.",
+    href: "/guides/markdown-cheatsheet-and-formatting-guide/",
+    intro: [
+      <>
+        Created in 2004 by John Gruber and Aaron Swartz, Markdown is the universal lightweight
+        markup language for technical writing, README documentation, and static site content. It allows
+        writers to produce structured rich text using intuitive plain-text symbols. Explore dual-pane
+        drafting with safe HTML preview in our{" "}
+        <Link href="/tools/markdown-editor/" className="text-primary underline">
+          client-side Markdown Editor
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Open Markdown Live Editor", href: "/tools/markdown-editor/" },
+    sections: [
+      {
+        heading: "Essential Syntax Reference (CommonMark)",
+        body: [
+          <>
+            Markdown maps simple punctuation to semantic HTML elements:
+          </>,
+          <div key="md-syntax-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+              <thead>
+                <tr className="bg-surface-container-low">
+                  <th className="border border-outline-variant/60 p-3">Element</th>
+                  <th className="border border-outline-variant/60 p-3">Markdown Input</th>
+                  <th className="border border-outline-variant/60 p-3">Generated HTML</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Heading 1</td>
+                  <td className="border border-outline-variant/60 p-3"><code># Heading 1</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;h1&gt;Heading 1&lt;/h1&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Heading 2</td>
+                  <td className="border border-outline-variant/60 p-3"><code>## Heading 2</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;h2&gt;Heading 2&lt;/h2&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Bold</td>
+                  <td className="border border-outline-variant/60 p-3"><code>**bold text**</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;strong&gt;bold text&lt;/strong&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Italic</td>
+                  <td className="border border-outline-variant/60 p-3"><code>*italic text*</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;em&gt;italic text&lt;/em&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Inline Code</td>
+                  <td className="border border-outline-variant/60 p-3"><code>`const x = 1;`</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;code&gt;const x = 1;&lt;/code&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Blockquote</td>
+                  <td className="border border-outline-variant/60 p-3"><code>&gt; Quote text</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;blockquote&gt;Quote text&lt;/blockquote&gt;</code></td>
+                </tr>
+                <tr>
+                  <td className="border border-outline-variant/60 p-3 font-semibold">Hyperlink</td>
+                  <td className="border border-outline-variant/60 p-3"><code>[Tulyro](https://tulyro.online)</code></td>
+                  <td className="border border-outline-variant/60 p-3"><code>&lt;a href=&quot;...&quot;&gt;Tulyro&lt;/a&gt;</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>,
+        ],
+      },
+      {
+        heading: "GitHub Flavored Markdown (GFM) Enhancements",
+        body: [
+          <>
+            While CommonMark defines baseline Markdown, GitHub Flavored Markdown (GFM) adds
+            syntax for fenced code blocks with language highlighting, tables, and task list checkboxes:
+          </>,
+          <>
+            <code>```typescript</code> creates syntax-highlighted preformatted blocks, while pipe
+            characters (<code>|</code>) construct responsive HTML data tables without manual markup.
+          </>,
+        ],
+      },
+      {
+        heading: "Security: Sanitizing Markdown to Prevent Cross-Site Scripting (XSS)",
+        body: [
+          <>
+            Because standard Markdown parsers permit raw HTML passthrough, rendering untrusted user
+            Markdown can expose web applications to Cross-Site Scripting (XSS) via injected{" "}
+            <code>&lt;script&gt;</code> tags or <code>javascript:</code> anchor schemes.
+          </>,
+          <>
+            Always sanitize rendered output using robust DOM sanitizers (such as DOMPurify) or compile
+            Markdown with strict HTML entity encoding as implemented in Tulyro&apos;s client-side parser.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I use raw HTML inside Markdown documents?",
+        answer:
+          "Yes. CommonMark specifies that valid HTML blocks and inline tags pass through to the output, making it easy to embed elements like details/summary or iframe embeds.",
+      },
+      {
+        question: "What is the difference between CommonMark and GFM?",
+        answer:
+          "CommonMark is a formal specification resolving edge-case ambiguities in original Markdown. GFM is a superset of CommonMark that adds tables, autolinks, strikethrough, and task checklists.",
+      },
+      {
+        question: "How do I create a line break without starting a new paragraph?",
+        answer:
+          "End the line with two trailing spaces or use a backslash (\\) before hitting Enter.",
+      },
+    ],
+    related: ["markdown-editor", "case-converter", "word-counter"],
+    pillar: { label: "All Developer Tools", href: "/dev/" },
+  },
 ];
 
 export function getGuide(slug: string): Guide {

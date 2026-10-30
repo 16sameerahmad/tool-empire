@@ -117,6 +117,7 @@ function AttendancePanel() {
     }`;
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "attendance-calculator" });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -265,6 +266,7 @@ function PpfPanel() {
     const text = `PPF Investment Summary: ${format.format(Number(annualDeposit))}/year for ${tenureYears} years. Total Deposited: ${format.format(valid.investedAmount)}. Total Tax-Free Interest: ${format.format(valid.totalInterest)}. Expected Maturity Balance: ${format.format(valid.maturityAmount)}.`;
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "ppf-calculator" });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -441,6 +443,7 @@ function SgpaPanel() {
     const text = `SGPA to CGPA Result: Cumulative CGPA: ${valid.cgpa} across ${sems.length} semesters. Equivalent Percentage (CBSE/AICTE ×9.5): ${valid.percentageCbse}%. Equivalent Percentage (×10): ${valid.percentageStandard}%.`;
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "sgpa-to-cgpa" });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -581,6 +584,7 @@ function SipPanel() {
     const text = `SIP Investment Plan: ${format.format(Number(monthlyAmount))}/month for ${durationYears} years at ${returnRate}% expected return. Invested Amount: ${format.format(valid.investedAmount)}. Estimated Wealth Gain: ${format.format(valid.estimatedReturns)}. Expected Maturity Value: ${format.format(valid.totalValue)}. (Estimate only, subject to market fluctuations).`;
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "sip-calculator" });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -833,6 +837,7 @@ function EmiPanel({ mortgage = false }: { mortgage?: boolean }) {
     const text = `Monthly payment: ${format.format(valid.monthlyPayment)}. Total payment: ${format.format(valid.totalPayment)}. Total interest: ${format.format(valid.totalInterest)}. Estimate only; the lender's figure may differ slightly.`;
     try {
       await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: mortgage ? "mortgage-calculator" : "emi-calculator" });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -3971,6 +3976,7 @@ function QrCodePanel() {
   }, [ready, text, fgColor, bgColor, size]);
 
   function downloadQr(fmt: "png" | "svg") {
+    trackEvent("tool_download_file", { tool_id: "qr-code-generator", format: fmt });
     const container = document.getElementById("qr-render-target");
     const canvas = container?.querySelector("canvas");
     if (!canvas) return;
@@ -4227,6 +4233,7 @@ function PasswordGeneratorPanel() {
   const copyToClipboard = () => {
     if (!password) return;
     navigator.clipboard.writeText(password);
+    trackEvent("tool_copy_output", { tool_id: "password-generator" });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -4820,6 +4827,7 @@ function CaseConverterPanel() {
 
   const copyVal = (label: string, text: string) => {
     navigator.clipboard.writeText(text);
+    trackEvent("tool_copy_output", { tool_id: "case-converter", format: label });
     setCopiedLabel(label);
     setTimeout(() => setCopiedLabel(null), 1500);
   };

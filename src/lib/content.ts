@@ -700,6 +700,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the recommended password length?", answer: "A minimum of 16 characters with a combination of uppercase, lowercase, digits, and symbols is recommended for strong defense against modern offline hash-cracking." },
       { question: "What does 'Exclude Similar Characters' do?", answer: "It removes easily confused glyphs such as uppercase 'I', lowercase 'l', digit '1', digit '0', and letter 'O', making the password easy to read and manually type if needed." },
     ]),
+    guides: [{ label: "Password Entropy & Strength Guide: What Actually Makes a Password Secure", href: "/guides/password-entropy-and-security-guide/" }],
   },
   "epoch-converter": {
     definition: "An epoch converter translates Unix timestamps (the count of seconds or milliseconds elapsed since January 1, 1970 00:00:00 UTC) into human-readable calendar dates and vice versa.",
@@ -741,6 +742,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the difference between Beautify and Minify?", answer: "Beautify adds line breaks and indentation so developers can read the data easily. Minify removes all unnecessary spaces and line breaks to minimize payload size for production APIs." },
       { question: "Does it support large JSON files?", answer: "Yes, it can handle multi-megabyte JSON payloads with speed limited only by your browser's available memory." },
     ]),
+    guides: [{ label: "Complete JSON Formatting & Validation Guide: RFC 8259, Errors & Minification", href: "/guides/json-formatting-and-validation-guide/" }],
   },
   "uuid-generator": {
     definition: "A UUID (Universally Unique Identifier) generator creates 128-bit identifiers conforming to RFC 4122 v4 standards, guaranteeing astronomical uniqueness without a central registry.",

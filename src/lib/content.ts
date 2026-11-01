@@ -783,6 +783,7 @@ export const content: Record<string, ToolContent> = {
       { question: "When should I use kebab-case vs snake_case?", answer: "kebab-case (my-slug) is standard for URLs, REST endpoints, and CSS classes. snake_case (my_column) is standard for Python variables and relational database column names." },
       { question: "Does this tool store my text?", answer: "No. All text parsing runs 100% locally in your browser memory." },
     ]),
+    guides: [{ label: "Code Naming Conventions Explained: camelCase, PascalCase, snake_case & kebab-case", href: "/guides/code-naming-conventions-camelcase-snake-case/" }],
   },
   "markdown-editor": {
     definition: "A Markdown editor parses lightweight Markdown markup syntax into standard semantic HTML, providing a live real-time preview of formatting, tables, lists, and code blocks.",
@@ -803,6 +804,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Is my text uploaded to a server?", answer: "No. The editor runs entirely in-memory inside your browser tab without any backend calls." },
       { question: "Does it support GitHub-flavored Markdown?", answer: "Yes, standard formatting including code blocks, inline code, blockquotes, links, and lists are fully supported." },
     ]),
+    guides: [{ label: "Complete Markdown Cheatsheet: Syntax, Formatting Rules & Safe Web Publishing", href: "/guides/markdown-cheatsheet-and-formatting-guide/" }],
   },
 };
 

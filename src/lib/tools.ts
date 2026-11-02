@@ -30,7 +30,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["gst calculator", "gst calculator india", "inclusive gst calculator", "cgst sgst calculator"],
     related: ["invoice-generator", "percentage-calculator", "emi-calculator"],
     live: true,
-    seoTitle: "GST Calculator India — Inclusive & Exclusive CGST SGST | Tulyro",
+    seoTitle: "GST Calculator — Inclusive & Exclusive GST India | Tulyro",
     seoDescription:
       "Free GST calculator for India. Calculate inclusive and exclusive GST, 5%, 12%, 18%, 28% slabs with CGST and SGST tax breakdown instantly.",
   },
@@ -73,7 +73,7 @@ export const tools: ToolDefinition[] = [
     related: ["emi-calculator", "mortgage-calculator"],
     live: true,
     h1: "SIP Calculator — Mutual Fund Investment & Wealth Growth in ₹",
-    seoTitle: "SIP Calculator — Systematic Investment Plan Returns in ₹ | Tulyro",
+    seoTitle: "SIP Calculator — Mutual Fund Returns in ₹ | Tulyro",
     seoDescription:
       "Calculate your expected mutual fund returns with our free SIP calculator. Enter monthly investment, expected return rate, and time period in years. 100% private.",
   },
@@ -88,7 +88,7 @@ export const tools: ToolDefinition[] = [
     related: ["cgpa-to-percentage", "sgpa-to-cgpa"],
     live: true,
     h1: "75% Attendance Calculator — Safe Bunk & Shortage Planner",
-    seoTitle: "75% Attendance Calculator — Bunk & Shortage Planner for College | Tulyro",
+    seoTitle: "Attendance Calculator — 75% College Bunk Planner | Tulyro",
     seoDescription:
       "Find out exactly how many classes you can bunk or how many you must attend to maintain 75% attendance. Instant, free, and works offline.",
   },
@@ -103,7 +103,7 @@ export const tools: ToolDefinition[] = [
     related: ["sip-calculator", "emi-calculator"],
     live: true,
     h1: "PPF Calculator — Public Provident Fund Maturity & Interest in ₹",
-    seoTitle: "PPF Calculator — 15-Year Maturity & Interest Calculator in ₹ | Tulyro",
+    seoTitle: "PPF Calculator — Maturity & Interest in ₹ | Tulyro",
     seoDescription:
       "Calculate your PPF maturity amount and tax-free interest with year-by-year balance breakdown. Supports 15 to 50 years tenure at current 7.1% government rate.",
   },
@@ -118,7 +118,7 @@ export const tools: ToolDefinition[] = [
     related: ["cgpa-to-percentage", "attendance-calculator"],
     live: true,
     h1: "SGPA to CGPA Calculator — Semester to Cumulative GPA Converter",
-    seoTitle: "SGPA to CGPA Calculator — Convert All Semesters to CGPA & % | Tulyro",
+    seoTitle: "SGPA to CGPA Calculator — All Semesters to CGPA | Tulyro",
     seoDescription:
       "Convert multiple semester SGPA to cumulative CGPA and equivalent percentage. Supports credit-weighted calculation and standard equal weight.",
   },
@@ -133,7 +133,7 @@ export const tools: ToolDefinition[] = [
     related: ["sip-calculator", "ppf-calculator", "lumpsum-calculator"],
     live: true,
     h1: "SWP Calculator — Systematic Withdrawal Plan Returns & Balance in ₹",
-    seoTitle: "SWP Calculator — Systematic Withdrawal Plan Returns & Balance in ₹ | Tulyro",
+    seoTitle: "SWP Calculator — Withdrawal Plan Returns in ₹ | Tulyro",
     seoDescription:
       "Calculate your mutual fund SWP monthly income, total amount withdrawn, and remaining balance. Plan monthly retirement income with exact compounding math.",
   },
@@ -148,7 +148,7 @@ export const tools: ToolDefinition[] = [
     related: ["sip-calculator", "swp-calculator", "cagr-calculator"],
     live: true,
     h1: "Lumpsum Calculator — Mutual Fund One-Time Investment Returns in ₹",
-    seoTitle: "Lumpsum Calculator — Mutual Fund One-Time Investment Returns in ₹ | Tulyro",
+    seoTitle: "Lumpsum Calculator — One-Time Investment Returns | Tulyro",
     seoDescription:
       "Calculate wealth growth and maturity value of your one-time lumpsum mutual fund investment. Compare with SIP returns instantly.",
   },
@@ -163,7 +163,7 @@ export const tools: ToolDefinition[] = [
     related: ["lumpsum-calculator", "sip-calculator", "percentage-calculator"],
     live: true,
     h1: "CAGR Calculator — Compound Annual Growth Rate & Return Formula",
-    seoTitle: "CAGR Calculator — Compound Annual Growth Rate & Formula | Tulyro",
+    seoTitle: "CAGR Calculator — Growth Rate & Formula | Tulyro",
     seoDescription:
       "Find the exact Compound Annual Growth Rate (CAGR) of any stock, mutual fund, or business investment over time. Check annualized growth instantly.",
   },
@@ -178,7 +178,7 @@ export const tools: ToolDefinition[] = [
     related: ["cagr-calculator", "cgpa-to-percentage", "emi-calculator"],
     live: true,
     h1: "Percentage Calculator — Find % of Value, Change & Difference",
-    seoTitle: "Percentage Calculator — Quick % of Number, Increase & Decrease | Tulyro",
+    seoTitle: "Percentage Calculator — % Increase, Decrease & Of | Tulyro",
     seoDescription:
       "Calculate what is X% of Y, percentage increase or decrease, and what percentage X is of Y. Free, private, and works offline.",
   },
@@ -207,7 +207,7 @@ export const tools: ToolDefinition[] = [
     related: ["age-calculator", "cgpa-to-percentage"],
     live: true,
     h1: "BMI Calculator — Body Mass Index (WHO & Indian ICMR Scales)",
-    seoTitle: "BMI Calculator — WHO & Indian ICMR Scales, Metric & Imperial | Tulyro",
+    seoTitle: "BMI Calculator — Metric & Imperial, WHO Scale | Tulyro",
     seoDescription:
       "Check adult BMI from height and weight in metric or imperial units, with WHO and Indian/Asian ICMR screening cutoffs and a healthy weight range. Free, browser-only.",
   },
@@ -222,9 +222,9 @@ export const tools: ToolDefinition[] = [
     related: ["age-calculator", "word-counter"],
     live: true,
     h1: "CGPA to Percentage Calculator — CBSE 9.5, UGC 10-Point & Indian Universities",
-    seoTitle: "CGPA to Percentage Calculator — CBSE ×9.5, VTU, Mumbai & More | Tulyro",
+    seoTitle: "CGPA to Percentage — CBSE ×9.5 Formula | Tulyro",
     seoDescription:
-      "Convert a 10-point CGPA to an estimated percentage with CBSE ×9.5, UGC ×10, VTU, GTU/BPUT, and Mumbai University formulas. The result is an estimate — confirm your institution's rule. Free.",
+      "Convert 10-point CGPA to percentage with CBSE ×9.5, UGC, VTU and Mumbai University formulas. Free, instant, no signup.",
   },
   {
     id: "word-counter",
@@ -320,7 +320,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["remove background", "bg remover", "transparent background", "transparent png", "remove bg online"],
     related: ["invoice-generator", "base64-encoder-decoder"],
     live: true,
-    seoTitle: "Free Background Remover — Transparent PNG in Browser | Tulyro",
+    seoTitle: "Background Remover — Free Transparent PNG Online | Tulyro",
     seoDescription:
       "Remove image backgrounds instantly in your browser. Auto-detect backdrop, custom color eyedropper, feather edges, download high-res transparent PNG. Free & private.",
   },
@@ -334,7 +334,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["image resizer in kb", "reduce image size in kb", "resize image to 20kb", "image compressor online", "ssc photo resize"],
     related: ["remove-background", "base64-encoder-decoder"],
     live: true,
-    seoTitle: "Image Resizer in KB — Compress to 20KB, 50KB, 100KB Online | Tulyro",
+    seoTitle: "Image Resizer — Compress to Exact KB Size Online | Tulyro",
     seoDescription:
       "Resize and compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB) for online job portals and exam applications. 100% client-side & private.",
   },
@@ -379,7 +379,7 @@ export const tools: ToolDefinition[] = [
     related: ["gst-calculator", "emi-calculator", "percentage-calculator"],
     live: true,
     h1: "Income Tax Calculator India — Old vs New Regime FY 2025-26",
-    seoTitle: "Income Tax Calculator India — Old vs New Regime FY 2025-26 | Tulyro",
+    seoTitle: "Income Tax Calculator — Old vs New Regime 2025-26 | Tulyro",
     seoDescription:
       "Calculate your income tax under Old and New regime for FY 2025-26 (AY 2026-27). Compare tax savings with 80C, 80D, HRA deductions. Free, private, instant.",
   },
@@ -424,7 +424,7 @@ export const tools: ToolDefinition[] = [
     related: ["base64-encoder-decoder", "epoch-converter", "password-generator"],
     live: true,
     h1: "JSON Formatter, Validator & Beautifier — Free Online",
-    seoTitle: "JSON Formatter & Validator — Beautify and Minify JSON | Tulyro",
+    seoTitle: "JSON Formatter — Beautify, Validate & Minify | Tulyro",
     seoDescription:
       "Format, validate, beautify, and minify your JSON data instantly. Syntax error detection, line tracking, and byte size counter. 100% client-side.",
   },
@@ -439,7 +439,7 @@ export const tools: ToolDefinition[] = [
     related: ["json-formatter", "password-generator", "epoch-converter"],
     live: true,
     h1: "UUID / GUID Generator — RFC 4122 v4 Cryptographic Random",
-    seoTitle: "UUID / GUID Generator — Free Online RFC 4122 v4 Tool | Tulyro",
+    seoTitle: "UUID Generator — Free RFC 4122 v4 Online | Tulyro",
     seoDescription:
       "Generate cryptographically secure RFC 4122 version 4 UUIDs and GUIDs online. Bulk generate up to 100 UUIDs with custom formatting and uppercase toggles.",
   },
@@ -454,7 +454,7 @@ export const tools: ToolDefinition[] = [
     related: ["word-counter", "fancy-text-generator", "json-formatter"],
     live: true,
     h1: "Text Case Converter — camelCase, snake_case, PascalCase, kebab-case",
-    seoTitle: "Text Case Converter — Convert Text & Variable Cases Online | Tulyro",
+    seoTitle: "Case Converter — UPPER, lower, Camel & More | Tulyro",
     seoDescription:
       "Convert text between camelCase, snake_case, kebab-case, PascalCase, Title Case, and uppercase instantly in your browser. 100% private.",
   },
@@ -469,7 +469,7 @@ export const tools: ToolDefinition[] = [
     related: ["word-counter", "case-converter", "json-formatter"],
     live: true,
     h1: "Online Markdown Editor & Live HTML Previewer",
-    seoTitle: "Markdown Editor & Live Preview — Free Online Markdown Tool | Tulyro",
+    seoTitle: "Markdown Editor — Free Live Preview Online | Tulyro",
     seoDescription:
       "Write, edit, and preview Markdown in real-time with instant side-by-side rendering. Download as .md or copy compiled HTML. Zero server uploads.",
   },

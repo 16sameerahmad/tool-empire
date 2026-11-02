@@ -39,6 +39,62 @@ shorter (about/contact/privacy/terms) — acceptable for non-landing pages.
 5. FAQ answers: one expanded 40–60-word definitional answer per tool page (the
    "What is X?" / core-question answer); the other four stay concise.
 
+## 2026-11-01 — Monthly review update (new pages shipped after 2026-10-13)
+
+31 tool pages live (verified via live sitemap.xml 2026-11-01). The 20 new pages get
+one primary keyword each, same anti-cannibalization rules. Guides targeting the same
+root query are informational companions — the TOOL page is the primary for the
+transactional keyword, the GUIDE owns the question form. No two pages share a primary.
+
+| Target URL | Primary keyword | Guide companion (informational) |
+|---|---|---|
+| /calculators/sip-calculator/ | sip calculator | /guides/sip-vs-lumpsum/ |
+| /calculators/swp-calculator/ | swp calculator | /guides/swp-vs-fd-for-retirement-income/ |
+| /calculators/lumpsum-calculator/ | lumpsum calculator | /guides/sip-vs-lumpsum/ |
+| /calculators/cagr-calculator/ | cagr calculator | /guides/cagr-vs-xirr-in-mutual-funds/ |
+| /calculators/ppf-calculator/ | ppf calculator | — (guide gap: PPF guide candidate) |
+| /calculators/sgpa-to-cgpa/ | sgpa to cgpa | — (guide gap: SGPA guide candidate) |
+| /calculators/gst-calculator/ | gst calculator | /guides/how-to-create-gst-compliant-invoice-india/ |
+| /calculators/income-tax-calculator/ | income tax calculator india | — (guide gap: high-intent income-tax guide candidate) |
+| /calculators/percentage-calculator/ | percentage calculator | — (guide gap: percentage guide candidate) |
+| /calculators/attendance-calculator/ | attendance calculator | /guides/college-75-percent-attendance-rule-explained/ |
+| /tools/password-generator/ | password generator | /guides/password-entropy-and-security-guide/ |
+| /tools/json-formatter/ | json formatter | /guides/json-formatting-and-validation-guide/ |
+| /tools/epoch-converter/ | epoch converter | /guides/unix-epoch-timestamp-guide/ |
+| /tools/pdf-tools/ | pdf tools | — (guide gap: PDF tools guide candidate) |
+| /tools/qr-code-generator/ | qr code generator | — (guide gap: QR code guide candidate) |
+| /tools/image-resizer/ | image resizer | /guides/photo-and-signature-size-guide-for-govt-exams/ |
+| /tools/remove-background/ | background remover | — (guide gap: bg-remover guide candidate) |
+| /tools/uuid-generator/ | uuid generator | /guides/uuid-v4-vs-v7-which-should-you-use/ |
+| /tools/case-converter/ | case converter | /guides/code-naming-conventions-camelcase-snake-case/ |
+| /tools/markdown-editor/ | markdown editor | /guides/markdown-cheatsheet-and-formatting-guide/ |
+
+### Re-prioritized opportunities (opportunity × confidence ÷ effort, Nov 2026)
+
+Confidence is LOW wherever no GSC query data exists — only one row has a real GSC
+signal (marked). Everything else is opportunity-on-intent + competitor evidence,
+labeled as such.
+
+| Priority | Target | Why (evidence) | Confidence |
+|---|---|---|---|
+| 1 | "how to calculate emi manually" → EMI guide | **Real GSC:** 1 impression, pos 74 (27 Oct) — genuine near-miss. Add/strengthen FAQ answer, one contextual internal link. | **High (real GSC data)** |
+| 2 | "income tax calculator india" → tool + NEW guide | India-specific, high money intent; no guide exists; Indian tax-season seasonality. | Medium (intent + seasonal) |
+| 3 | Mortgage affordability (28/36 rule) guide | Competitor-verified pattern (rate.com, usatoday); biggest remaining content gap (R8). | Medium (competitor evidence) |
+| 4 | Brand term "tulyro" | 0 impressions (27 Oct). #1 target is achievable fast (zero competition); needs indexing + the pending-logo/linked mentions. | Medium (low competition) |
+| 5 | "pdf tools", "qr code generator", "background remover" | Zero-guide coverage today; strong transactional intent; guides requested-indexing 30 Oct. | Low (no GSC data) |
+| 6 | SGPA/PPF/Percentage guides | Fills thin coverage; lower intent than money calculators. | Low |
+
+### Cannibalization check (2026-11-01)
+
+- EMI vs Mortgage: still the only sanctioned pair (distinct keywords, distinct copy, hreflang).
+- SIP vs Lumpsum vs SWP vs CAGR: four pages, four primary keywords, four distinct
+  calculators — no shared primary. The two guides (`sip-vs-lumpsum`,
+  `cagr-vs-xirr-in-mutual-funds`) are informational; no primary-keyword overlap.
+- Guides vs tool pages: checked — no guide's target query matches a tool page's
+  primary keyword; question-form vs transactional split holds.
+- 301 redirects (commit `79d67a5`) consolidated legacy `/tools/<slug>` URLs into
+  cluster URLs — reduces, not creates, duplication risk.
+
 ## Gaps / next keyword work (not in this pass)
 
 - **CGPA + EMI (India):** no India-specific volume data. When GSC is live, use real

@@ -75,3 +75,21 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
   old vercel.app host ✓; secrets clean; headers S1–S3 live; npm audit still 403-blocked
   (S6 open); NEW Low finding: live HSTS lacks includeSubDomains/preload, contradicting
   security.md's table — next-run fix candidate. H3/H5 remain open hypotheses.
+
+## 2026-11-01 — Monthly run (docs-only, no code edits, no commits, no deploys)
+
+- **Scope:** read all 12 docs; live curl verification (homepage 200, 71 sitemap URLs,
+  enforcing CSP, full HSTS+preload, security.txt 200); GSC state from Sam's
+  27 Oct paste via memory (0 clicks / 4 impressions / pos 78.5; no newer GSC data).
+  No builds, no tests run, no code touched — per this run's docs-only constraint.
+- **Findings (measured):** domain tulyro.online live with 308 from vercel.app;
+  enforcing CSP + full HSTS resolve prior findings; 16 GSC indexing requests
+  confirmed 28–30 Oct (requested ≠ indexed); GA4 decision + E-E-A-T bylines resolved;
+  Bing verified 27 Oct; 2 backlinks in motion; 0 verified bugs; S6 + R30 + H3 + H5
+  still open; H6 new (CSP-enforcement smoke test missing).
+- **Files written (this run):** `docs/seo/monthly-performance.md` (created —
+  October→November monthly entry); `docs/seo/keyword-map.md` (20 new tool rows,
+  re-prioritized opportunities, cannibalization check); `docs/seo/content-roadmap.md`
+  (Batch 2 marked 6-of-8 shipped, November Batch 4 roadmap); `docs/website-audit/roadmap.md`
+  (status sweep: 13 items done/resolved, 8 still open); `docs/website-audit/bugs.md`
+  (H6 hypothesis + doc-drift pattern note).

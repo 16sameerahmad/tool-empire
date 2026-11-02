@@ -98,3 +98,24 @@ code. Real-device screenshot check still pending (H2 remains open on that point 
   live. Next-best fix candidate: set the full HSTS value in `vercel.json` headers.
 - No verified functional bugs found this run. H3 (TTS voice quality, Sam-side manual)
   and H5 (ToolPanel state resets, needs a verified repro first) remain OPEN.
+
+## 2026-11-01 — Monthly run entry (docs-only; no code edits, no commits)
+
+**Not re-verified this run (docs-only constraint):** calculation spot-checks, full
+route sweep, real-browser rendering. Re-run these in the next weekly run with builds
+allowed. Verified this run (live curl): homepage HTTP 200; sitemap 71 URLs;
+enforcing CSP + full HSTS + security.txt all live (see monthly-performance.md).
+
+**Hypothesis updates:**
+- H2: responsive code review still only code-level; real-device screenshot check
+  still pending → remains OPEN on that point.
+- H3: OPEN (Sam-side manual check). H5: OPEN (needs verified repro first).
+- **H6 NEW (Medium, hypothesis):** enforcing CSP (live since commit `756d375`) has no
+  documented full-page smoke test — the audit's own rule said "test every tool page
+  after" applying CSP (report-only was applied with that caveat; enforcing was not).
+  No breakage reported (tests 64/64 green 27 Oct, 0 user complaints), but page-level
+  evidence is missing. Next weekly run: Playwright screenshot pass desktop + mobile
+  across all tool pages, including the bg-remover (wasm-unsafe-eval path).
+
+**Recurring pattern:** doc-accuracy drift (docs describe 23–36 URLs; live is 71).
+No verified functional bugs in 18 days — the tests discipline is holding.

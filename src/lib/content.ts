@@ -764,6 +764,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Is this generator secure for production tokens and keys?", answer: "Yes. It uses the operating system's native cryptographic entropy pool via Web Crypto API rather than insecure Math.random()." },
       { question: "What is the difference between UUID and GUID?", answer: "GUID is Microsoft's implementation terminology for UUID. In practice, RFC 4122 v4 UUID and standard GUID refer to the exact same format." },
     ]),
+    guides: [{ label: "UUID v4 vs UUID v7: Differences, Database Index Performance & Which to Choose", href: "/guides/uuid-v4-vs-v7-which-should-you-use/" }],
   },
   "case-converter": {
     definition: "A text case converter transforms strings into specific casing conventions such as camelCase, PascalCase, snake_case, kebab-case, Title Case, and uppercase for code and writing.",

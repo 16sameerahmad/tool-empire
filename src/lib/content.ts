@@ -74,6 +74,7 @@ export const content: Record<string, ToolContent> = {
       { label: "How to Choose an EMI Calculator", href: "/guides/how-to-choose-emi-calculator/" },
       { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
       { label: "EMI Prepayment Explained: How Paying Extra Early Saves Lakhs in Interest", href: "/guides/emi-prepayment-explained/" },
+      { label: "EMI vs Flat Rate Interest: How Lenders Hide Real Loan Costs", href: "/guides/emi-vs-flat-rate-interest/" },
     ],
     faq: faq([
       { question: "What does EMI mean?", answer: "EMI means equated monthly instalment: the fixed amount you pay every month until a reducing-balance loan is repaid. Each payment covers that month's interest plus part of the principal, so the interest portion shrinks over time while the EMI itself stays the same for a fixed-rate loan." },
@@ -721,6 +722,7 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the Year 2038 problem?", answer: "On January 19, 2038, 32-bit signed integers will overflow past their maximum value (2,147,483,647 seconds). Modern 64-bit systems handle timestamps safely for hundreds of billions of years." },
       { question: "Does this handle my local timezone?", answer: "Yes, it displays both the universal standard UTC time and your exact local browser timezone simultaneously." },
     ]),
+    guides: [{ label: "Understanding Unix Epoch Timestamps: Seconds, Milliseconds & Year 2038", href: "/guides/unix-epoch-timestamp-guide/" }],
   },
   "json-formatter": {
     definition: "A JSON formatter parses JavaScript Object Notation data to validate structure, highlight syntax errors, beautify with indentation, or minify for network transport.",

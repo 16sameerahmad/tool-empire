@@ -13,4 +13,9 @@ describe("pdf-tools formatBytes", () => {
   it("formats megabytes", () => {
     expect(formatBytes(5 * 1024 * 1024)).toBe("5.00 MB");
   });
+
+  it("exports rotatePdf function", async () => {
+    const { rotatePdf } = await import("./logic");
+    expect(typeof rotatePdf).toBe("function");
+  });
 });

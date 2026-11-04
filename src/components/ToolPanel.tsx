@@ -3604,10 +3604,12 @@ function PercentagePanel() {
   );
 }
 
-function ImageConverterPanel({ initialMode }: { initialMode?: "heic" }) {
+function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-png" | "png-to-jpg" }) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [outputFormat, setOutputFormat] = useState<"png" | "jpeg" | "webp">("jpeg");
+  const [outputFormat, setOutputFormat] = useState<"png" | "jpeg" | "webp">(
+    initialMode === "jpg-to-png" ? "png" : "jpeg"
+  );
   const [quality, setQuality] = useState<number>(0.92);
   const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
   const [originalSize, setOriginalSize] = useState<number>(0);
@@ -4877,6 +4879,140 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+function RotatePdfPanel() {
+  const [file, setFile] = useState<File | null>(null);
+  const [rotation, setRotation] = useState<90 | 180 | 270>(90);
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [rotatedBlobUrl, setRotatedBlobUrl] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleRotate() {
+    if (!file) return;
+    setBusy(true);
+    setErrorMsg("");
+    setRotatedBlobUrl(null);
+    setProgress("Rotating PDF document...");
+
+    try {
+      const { rotatePdf } = await import("@/tools/pdf-tools/logic");
+      const buffer = await file.arrayBuffer();
+      const rotatedBlob = await rotatePdf(buffer, rotation);
+      const url = URL.createObjectURL(rotatedBlob);
+      setRotatedBlobUrl(url);
+      setProgress(`Done! Document rotated by ${rotation}°.`);
+    } catch (err) {
+      setErrorMsg(`Rotation failed: ${(err as Error).message}`);
+      setProgress("");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const outputFilename = file
+    ? file.name.replace(/\.pdf$/i, "") + `-rotated-${rotation}deg.pdf`
+    : "rotated.pdf";
+
+  return (
+    <div className="space-y-6">
+      <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:border-primary/50 transition">
+        <label className="cursor-pointer block">
+          <input
+            type="file"
+            accept=".pdf,application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) {
+                setFile(f);
+                setRotatedBlobUrl(null);
+                setErrorMsg("");
+                setProgress("");
+              }
+            }}
+          />
+          <div className="text-4xl mb-2">🔄</div>
+          <span className="font-medium text-foreground block">
+            {file ? file.name : "Select or Drop PDF File"}
+          </span>
+          <span className="text-xs text-muted-foreground mt-1 block">
+            {file ? `${(file.size / 1024).toFixed(1)} KB — Click to change` : "Permanently rotate upside-down or sideways pages • 100% Client-Side"}
+          </span>
+        </label>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-semibold text-muted-foreground block">
+          Rotation Angle
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {(
+            [
+              { deg: 90, label: "90° Right", icon: "↷" },
+              { deg: 180, label: "180° Flip", icon: "🔃" },
+              { deg: 270, label: "90° Left", icon: "↶" },
+            ] as const
+          ).map((item) => (
+            <button
+              key={item.deg}
+              type="button"
+              onClick={() => setRotation(item.deg)}
+              className={`p-3 rounded-lg border text-center transition text-xs flex flex-col items-center gap-1 ${
+                rotation === item.deg
+                  ? "border-primary bg-primary/10 text-primary font-medium"
+                  : "border-border hover:bg-card/50"
+              }`}
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className="font-bold">{item.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-muted-foreground bg-card/50 p-3 rounded-lg border border-border">
+        <span>🔒</span>
+        <span>
+          <strong>100% On-Device:</strong> Document stays in your local browser memory. Zero bytes sent to any cloud server.
+        </span>
+      </div>
+
+      {errorMsg && (
+        <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg">
+          {errorMsg}
+        </div>
+      )}
+
+      {progress && (
+        <div className="p-3 bg-primary/10 border border-primary/20 text-primary text-sm rounded-lg flex items-center gap-2">
+          {busy && <span className="inline-block animate-spin">⏳</span>}
+          <span>{progress}</span>
+        </div>
+      )}
+
+      <div className="flex gap-3">
+        <button
+          onClick={handleRotate}
+          disabled={!file || busy}
+          className="flex-1 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-50 transition"
+        >
+          {busy ? "Rotating..." : `Rotate PDF by ${rotation}°`}
+        </button>
+
+        {rotatedBlobUrl && (
+          <a
+            href={rotatedBlobUrl}
+            download={outputFilename}
+            className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 text-center transition flex items-center justify-center gap-2"
+          >
+            <span>⬇️</span> Download {outputFilename}
+          </a>
+        )}
+      </div>
     </div>
   );
 }
@@ -6293,10 +6429,16 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <ImageConverterPanel />;
     case "heic-to-jpg":
       return <ImageConverterPanel initialMode="heic" />;
+    case "jpg-to-png":
+      return <ImageConverterPanel initialMode="jpg-to-png" />;
+    case "png-to-jpg":
+      return <ImageConverterPanel initialMode="png-to-jpg" />;
     case "pdf-to-word":
       return <PdfToWordPanel />;
     case "mp4-to-mp3":
       return <Mp4ToMp3Panel />;
+    case "rotate-pdf":
+      return <RotatePdfPanel />;
     case "image-resizer":
       return <ImageResizerPanel />;
     case "gst-calculator":

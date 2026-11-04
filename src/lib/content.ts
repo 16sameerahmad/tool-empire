@@ -859,6 +859,69 @@ export const content: Record<string, ToolContent> = {
       { question: "What audio quality options are available?", answer: "128 kbps (compact, good for speech), 192 kbps (balanced, recommended), and 320 kbps (maximum quality, near-CD audio)." },
     ]),
   },
+  "jpg-to-png": {
+    definition: "A JPG to PNG converter transforms lossy JPEG images into lossless Portable Network Graphics (PNG) format with support for full RGB color precision and alpha transparency.",
+    intro: "Convert JPG and JPEG photos to crisp PNG format directly in your browser. 100% private, zero uploads, instant conversion.",
+    howTo: [
+      "Drop or upload your JPG or JPEG image file into the converter box.",
+      "Preview the original resolution and pixel dimensions.",
+      "Click Convert — native browser HTML5 canvas handles raster re-encoding instantly.",
+      "Download your lossless PNG image to your device.",
+    ],
+    content: [
+      "Converting JPG to PNG is searched over 650,000 times each month in India. Users frequently need PNG format to avoid repeated compression artifacts when editing photos in Canva or Photoshop, or when submitting graphics requiring lossless clarity.",
+      "Unlike ad-heavy conversion websites that upload your personal photographs to third-party server queues, Tulyro JPG to PNG processes images 100% client-side via hardware-accelerated OffscreenCanvas. Conversions take less than 100 milliseconds for a 12-megapixel photograph.",
+      "The output PNG retains full pixel resolution, accurate color profiles, and prepares your image for transparency layering, web design, or digital publishing.",
+    ],
+    faq: faq([
+      { question: "Will converting JPG to PNG improve image quality?", answer: "Converting from lossy JPG to PNG will not restore details already lost during JPEG compression, but it prevents any further quality loss during future edits and saves." },
+      { question: "Does this converter support JPEG and JFIF files?", answer: "Yes. All JPEG container variants including .jpg, .jpeg, and .jfif are fully supported." },
+      { question: "Are my photos uploaded to any server?", answer: "No. Your photo is converted directly in your browser's RAM memory using the HTML5 Canvas API. Zero network traffic leaves your computer or phone." },
+      { question: "Is there any file size limit?", answer: "No artificial limits. You can convert high-resolution DSLR photos or smartphone images of any size directly." },
+    ]),
+  },
+  "png-to-jpg": {
+    definition: "A PNG to JPG converter converts lossless PNG images into universally compatible JPEG format, applying an automatic white matte background to replace transparent regions and significantly reducing file size.",
+    intro: "Convert PNG images to lightweight JPG/JPEG format directly in your browser. Features automatic white background fill for transparency, zero uploads, and 100% privacy.",
+    howTo: [
+      "Select or drop your PNG file into the converter box.",
+      "Adjust output quality if needed (default 92% provides optimal balance between clarity and file size).",
+      "Click Convert — browser canvas replaces transparent pixels with a clean white matte.",
+      "Download your lightweight JPG image immediately.",
+    ],
+    content: [
+      "PNG to JPG conversion is searched over 550,000 times monthly in India. Government exam portals (UPSC, SSC, IBPS, State PSCs) and university admission forms strictly require .jpg/.jpeg formats and reject transparent PNG files with upload errors.",
+      "A common failure in naive online converters is that transparent PNG areas turn into pitch-black backgrounds when saved as JPG. Tulyro automatically composites an off-screen white background matte behind transparent areas, ensuring your logos, signatures, and portraits look immaculate.",
+      "Because conversion runs entirely on your local machine using the native Canvas 2D engine, your identity documents, marksheets, and personal photos remain 100% private and protected from cloud data leaks.",
+    ],
+    faq: faq([
+      { question: "Why do transparent PNGs turn black in other converters?", answer: "JPEG does not support transparency. If a converter doesn't render an opaque background first, transparent alpha channels default to black pixels. Tulyro automatically fills transparent areas with clean white." },
+      { question: "How much smaller will the JPG file be compared to PNG?", answer: "Typically 60% to 85% smaller, depending on the visual complexity and photographic content of the original image." },
+      { question: "Is this tool suitable for Sarkari / Govt exam forms?", answer: "Yes. The generated JPG is 100% compliant with standard requirements for SSC, UPSC, IBPS, NEET, and JEE application portals." },
+      { question: "Are my documents safe from server leaks?", answer: "Absolutely. Processing is 100% on-device. No files are ever transmitted across the internet." },
+    ]),
+  },
+  "rotate-pdf": {
+    definition: "A PDF rotator permanently modifies the orientation metadata of PDF pages by 90, 180, or 270 degrees clockwise or counter-clockwise so documents display correctly in all viewers.",
+    intro: "Permanently rotate upside-down or sideways PDF pages directly in your browser. 100% client-side, zero file uploads, unlimited pages.",
+    howTo: [
+      "Select or drop your PDF document into the rotator.",
+      "Choose your rotation angle: 90° Right (Clockwise), 180° Flip, or 90° Left (Counter-Clockwise).",
+      "Click Rotate PDF — client-side pdf-lib updates page orientation tags instantly.",
+      "Download your permanently rotated PDF file.",
+    ],
+    content: [
+      "Rotating PDF pages is searched over 450,000 times per month in India. Scanned documents from mobile scanner apps (CamScanner, Adobe Scan) or flatbed office scanners frequently end up sideways or upside down.",
+      "Standard PDF readers allow temporary rotation during viewing, but as soon as the file is shared, emailed, or uploaded to a portal, it reverts to the original crooked orientation. Tulyro rewrites the internal PDF page dictionary rotation angle permanently.",
+      "Powered by client-side WebAssembly and pdf-lib, multi-page PDFs are rotated in milliseconds without uploading your confidential contracts, financial statements, or Aadhaar scans to foreign cloud servers.",
+    ],
+    faq: faq([
+      { question: "Is the rotation permanent or just a preview?", answer: "It is permanent. The internal PDF metadata for every page is updated so it displays in the correct orientation across Adobe Acrobat, web browsers, and print previews." },
+      { question: "Can I rotate a multi-page PDF document?", answer: "Yes. The tool re-orients all pages in your document simultaneously." },
+      { question: "Will rotating reduce the text or image quality of the PDF?", answer: "No. Rotation only modifies the orientation angle in the document tree without re-compressing or rasterizing text and images." },
+      { question: "Is my confidential PDF uploaded to any server?", answer: "No. Processing takes place 100% on-device in your web browser. Zero bytes leave your computer." },
+    ]),
+  },
   "qr-code-generator": {
     definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
     intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",

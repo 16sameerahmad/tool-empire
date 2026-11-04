@@ -267,8 +267,34 @@ export async function compressPdf(
   return {
     blob,
     originalSize: pdfBuffer.byteLength,
-    compressedSize: blob.size,
+    compressedSize: outBytes.byteLength,
   };
+}
+
+/**
+ * Rotate PDF pages permanently by 90, 180, or 270 degrees.
+ * 100% client-side via pdf-lib. Zero server upload.
+ */
+export async function rotatePdf(
+  pdfBuffer: ArrayBuffer,
+  rotationDegrees: 90 | 180 | 270,
+  pageNumbers?: number[]
+): Promise<Blob> {
+  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+  // @ts-expect-error PDFLib is global from script
+  const { PDFDocument, degrees } = window.PDFLib;
+  const pdfDoc = await PDFDocument.load(pdfBuffer);
+  const pages = pdfDoc.getPages();
+
+  pages.forEach((page: { getRotation: () => { angle: number }; setRotation: (deg: unknown) => void }, idx: number) => {
+    if (!pageNumbers || pageNumbers.includes(idx + 1)) {
+      const current = page.getRotation().angle;
+      page.setRotation(degrees((current + rotationDegrees) % 360));
+    }
+  });
+
+  const pdfBytes = await pdfDoc.save();
+  return new Blob([pdfBytes], { type: "application/pdf" });
 }
 
 export function formatBytes(bytes: number): string {

@@ -3636,6 +3636,256 @@ export const guides: Guide[] = [
     related: ["markdown-editor", "case-converter", "word-counter"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
   },
+  {
+    slug: "text-to-speech-voices-guide",
+    title: "Text-to-Speech Voices Explained: How They're Made and How to Choose One",
+    seoTitle: "Text-to-Speech Voices Guide: Types, Quality & Choosing the Right Voice | Tulyro",
+    seoDescription:
+      "How TTS voices are made (formant, concatenative, neural), the five factors that decide voice quality, verified narration-time estimates, and a practical voice-selection checklist.",
+    href: "/guides/text-to-speech-voices-guide/",
+    intro: [
+      <>
+        A voice and a text-to-speech engine are not the same thing. The engine is the synthesis
+        technology; the voice is the specific trained persona you hear. That distinction is why the
+        same sentence can sound robotic in one app and almost human in another. This guide covers
+        how voices are actually made, the five things that decide whether one sounds good, how
+        long your script will take to read (with the math shown), and a checklist for picking a
+        voice for your project. You can test any of this hands-on with our{" "}
+        <Link href="/text/text-to-speech/" className="text-primary underline">
+          free Text-to-Speech Reader
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Text-to-Speech Reader", href: "/text/text-to-speech/" },
+    sections: [
+      {
+        heading: "The three generations of synthetic voices",
+        body: [
+          <>
+            Every TTS voice you have ever heard comes from one of three generations of technology,
+            and you can usually tell which by listening. Knowing the generation tells you what a
+            voice can and cannot do.
+          </>,
+          <>
+            <strong>Formant synthesis (1960s–1990s).</strong> No recordings at all. The voice is
+            built from rules plus a mathematical model of the human vocal tract — a set of
+            resonating filters excited by a buzz, roughly how your throat and mouth shape sound.
+            The classic example is DECtalk, the formant-based unit Stephen Hawking used for
+            decades. These voices are tiny, run on almost nothing, and sound unmistakably robotic,
+            because no human throat is actually involved.
+          </>,
+          <>
+            <strong>Concatenative / unit selection (1990s–2000s).</strong> Record a human reading
+            thousands of carefully chosen sentences, chop the recordings into tiny units (phones,
+            diphones, half-words), and stitch the best-matching units back together for each new
+            sentence. This powered early-2000s screen readers and GPS voices. Common phrases sound
+            genuinely human — they are, word for word — but rare combinations expose audible joins,
+            and the databases of recorded units were enormous for their time.
+          </>,
+          <>
+            <strong>Neural synthesis (2016 onward).</strong> Deep neural networks trained on hours
+            of a single speaker&apos;s recordings. The network learns to map text to a
+            spectrogram (a picture of how the sound&apos;s frequencies change over time), and a
+            second network — the vocoder — turns that picture into an actual waveform. WaveNet
+            (DeepMind, 2016) and Tacotron (Google, 2017) were the landmark papers. Neural voices
+            get the hardest part right: prosody, the rhythm, stress, and intonation that make
+            speech sound like someone means it. They also need far more compute than the older
+            generations, which is why most of them run on servers instead of your device.
+          </>,
+        ],
+      },
+      {
+        heading: "What 'neural voice' on a product page actually means",
+        body: [
+          <>
+            A neural voice is a model trained on recordings of one specific speaker. Its quality
+            depends on three unglamorous things: how much clean, well-directed training audio
+            existed for that speaker, how diverse the training sentences were, and how good the
+            vocoder is. A voice trained on two hours of audiobook narration will read bedtime
+            stories beautifully and struggle with a heated argument.
+          </>,
+          <>
+            One warning worth internalising: voice labels on product pages are marketing. A
+            service can call anything &ldquo;AI voice&rdquo; or &ldquo;neural&rdquo;, and some
+            labels are applied to older concatenative voices with a fresh coat of paint. Judge the
+            voice, not the label — section six below gives you a ten-minute test that exposes
+            the difference fast.
+          </>,
+        ],
+      },
+      {
+        heading: "The five things that decide whether a voice sounds good",
+        body: [
+          <>
+            <strong>1. Prosody.</strong> This is the big one. Getting every phoneme right is easy;
+            getting the rise and fall of a sentence right is hard. Listen for questions that
+            actually rise at the end, emphasis landing on the right word, and pauses that feel
+            like breathing rather than buffering. Prosody is what separates a voice you can
+            listen to for an hour from one you abandon in ninety seconds.
+          </>,
+          <>
+            <strong>2. Language and accent coverage.</strong> A voice trained mostly on American
+            English narration will read French names, Hindi words, or even British place names
+            with confident wrongness. Neural voices are only as multilingual as their training
+            data. If your content mixes languages, test the exact words you will actually use —
+            not the demo sentence on the product page.
+          </>,
+          <>
+            <strong>3. Pronunciation control.</strong> Good platforms let you correct the voice:
+            custom pronunciation dictionaries, or SSML (Speech Synthesis Markup Language, a W3C
+            recommendation) tags like <code>&lt;phoneme&gt;</code> for exact sounds,{" "}
+            <code>&lt;say-as&gt;</code> for dates and numbers, and <code>&lt;break&gt;</code> for
+            precise pauses. If a voice cannot be corrected, every mispronunciation in your
+            project is permanent.
+          </>,
+          <>
+            <strong>4. Consistency over long text.</strong> Some voices drift: energy fades by
+            paragraph three, or the emotional tone quietly changes chapter to chapter. Short
+            demos hide this. The ten-minute test below catches it.
+          </>,
+          <>
+            <strong>5. Latency versus quality.</strong> On-device voices (the ones in your
+            browser via the W3C Web Speech API, per MDN&apos;s SpeechSynthesis docs) start
+            instantly and work offline, but they are usually the smaller, older-generation
+            models. Cloud neural voices sound better and arrive after a server round-trip. For
+            interactive uses like screen readers, latency wins. For a finished video narration,
+            quality wins.
+          </>,
+        ],
+      },
+      {
+        heading: "How long your script will take to read",
+        body: [
+          <>
+            Most English narration lands between 130 and 180 words per minute; a comfortable
+            default is around 150 WPM. The table below is computed from those rates, so you can
+            plan recording time or check a quoted turnaround. (For page-length planning, pair
+            this with our{" "}
+            <Link href="/text/word-counter/" className="text-primary underline">
+              Word Counter &amp; Reading Time Estimator
+            </Link>
+            .)
+          </>,
+          <div key="tts-script-time-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Script length</th>
+                <th className="border border-outline-variant/60 p-3">130 WPM (slow)</th>
+                <th className="border border-outline-variant/60 p-3">150 WPM (default)</th>
+                <th className="border border-outline-variant/60 p-3">180 WPM (brisk)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">500 words</td><td className="border border-outline-variant/60 p-3">3m 51s</td><td className="border border-outline-variant/60 p-3">3m 20s</td><td className="border border-outline-variant/60 p-3">2m 47s</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">1,000 words</td><td className="border border-outline-variant/60 p-3">7m 42s</td><td className="border border-outline-variant/60 p-3">6m 40s</td><td className="border border-outline-variant/60 p-3">5m 33s</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">2,000 words</td><td className="border border-outline-variant/60 p-3">15m 23s</td><td className="border border-outline-variant/60 p-3">13m 20s</td><td className="border border-outline-variant/60 p-3">11m 7s</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">5,000 words</td><td className="border border-outline-variant/60 p-3">38m 28s</td><td className="border border-outline-variant/60 p-3">33m 20s</td><td className="border border-outline-variant/60 p-3">27m 47s</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            One more number worth having: a minute of finished audio is about 5 MB as
+            uncompressed 44.1 kHz 16-bit mono WAV, or roughly 0.9 MB as 128 kbps MP3. So a
+            33-minute narration of a 5,000-word script is on the order of 30 MB of MP3 — small
+            enough to host anywhere, which is part of why TTS narration took off for video
+            creators.
+          </>,
+        ],
+      },
+      {
+        heading: "Choosing a voice for your project",
+        body: [
+          <>
+            Start from the use case, not the voice. Different jobs punish different weaknesses:
+          </>,
+          <>
+            <strong>Proofreading your own writing.</strong> Any clear voice works — you are
+            listening for errors, not enjoying a performance. Slightly faster than normal
+            (around 1.25×) keeps you focused, and a literal reader exposes doubled words and
+            dropped prepositions your eyes skip.
+          </>,
+          <>
+            <strong>Video or podcast narration.</strong> This is where neural voices earn their
+            keep, and where the license matters most. Check the terms before you publish:
+            many free voices are licensed for personal use only, and commercial use needs a
+            paid tier. Never assume a voice you can hear for free is a voice you can monetise.
+          </>,
+          <>
+            <strong>Phone menus and IVR.</strong> Clarity beats warmth. Telephone audio has
+            historically been narrowband (8 kHz sampling, the old G.711 standard), which strips
+            the high frequencies that make voices sound rich — test your voice through that
+            bottleneck, not on studio headphones.
+          </>,
+          <>
+            <strong>Language learning.</strong> You need the correct accent and a voice that
+            stays intelligible at slow speeds. Slowing a concatenative voice down often
+            exposes its seams; neural voices usually degrade more gracefully.
+          </>,
+          <>
+            The short checklist, in order: does it pronounce the numbers, dates, names, and
+            abbreviations in <em>my</em> content correctly? Does the license cover my use?
+            Can I fix mispronunciations? Does it stay consistent for ten minutes straight?
+            And what does it cost per million characters at my volume?
+          </>,
+        ],
+      },
+      {
+        heading: "Test any voice in ten minutes",
+        body: [
+          <>
+            Demos are curated; your content is not. Paste this gauntlet into any TTS tool and
+            listen for the failure modes in brackets:
+          </>,
+          <>
+            &ldquo;Are you coming with us?&rdquo; [questions must rise, not fall].{" "}
+            &ldquo;The meeting is on 12/03/2024 and the budget is $1,234,567.&rdquo; [dates and
+            numbers: is 12/03 March or December?]. &ldquo;NASA launched the satellite, but the
+            N.A.S.A. budget was cut.&rdquo; [acronyms versus spelled-out letters].{" "}
+            &ldquo;I read the report yesterday, and I will read the update tomorrow.&rdquo;
+            [homographs: &ldquo;read&rdquo; changes sound with tense]. Then a URL, an
+            exclamation, and one long paragraph to check consistency. A voice that survives
+            this list will survive your project.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What is the difference between a TTS engine and a voice?",
+        answer:
+          "The engine is the synthesis technology — the browser's speechSynthesis API, a cloud service, an on-device framework. The voice is the specific trained persona running on that engine. The same engine can host many voices that sound nothing alike, and the same voice name on different platforms can be a different recording or model entirely.",
+      },
+      {
+        question: "Why do voices misread numbers, dates, and abbreviations?",
+        answer:
+          "Before synthesis, the engine runs text normalization: it guesses how to expand symbols into speakable words. Many expansions are ambiguous without context — 12/03 is March 12th in most of the world and December 3rd in the US, and St. can be Saint or Street. The fix is to spell things out yourself, or use SSML say-as tags on platforms that support them.",
+      },
+      {
+        question: "Can I use a free text-to-speech voice in a YouTube video or podcast?",
+        answer:
+          "It depends entirely on the license, not the price. Many free voices are licensed for personal or evaluation use only, and commercial use — including monetized videos — requires a paid plan or a separate license. Operating-system voices have their own terms that vary by vendor. Read the terms for the specific voice before you publish.",
+      },
+      {
+        question: "Why does a voice sound great in English but robotic in my language?",
+        answer:
+          "Neural voices are only as good as their training data, and vendors collect far more high-quality recordings for major languages than for smaller ones. A less-supported language may get an older-generation voice, a smaller model, or a voice trained on less diverse material. Test the exact language you need; English demos prove nothing about it.",
+      },
+      {
+        question: "How do I make a voice pause in the right places?",
+        answer:
+          "Punctuation does most of the work: periods, commas, and paragraph breaks map to pauses of different lengths. For exact control — a dramatic beat before a reveal, say — SSML break tags let you specify pause duration in seconds or milliseconds on platforms that support SSML.",
+      },
+      {
+        question: "Do neural voices work offline?",
+        answer:
+          "Usually not. Most neural voices run on the vendor's servers because the models are large and compute-hungry. On-device neural voices are appearing on newer phones and laptops, but availability varies by device. The voices built into your operating system and browser generally work fully offline once the page or app is open.",
+      },
+    ],
+    related: ["text-to-speech", "word-counter", "fancy-text-generator"],
+    pillar: { label: "All Text Tools", href: "/text/" },
+  }
 ];
 
 export function getGuide(slug: string): Guide {

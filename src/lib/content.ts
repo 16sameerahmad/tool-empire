@@ -926,7 +926,7 @@ export const content: Record<string, ToolContent> = {
     definition: "An Image to PDF converter bundles multiple raster or vector graphic files (JPG, PNG, WebP, SVG, GIF, BMP, AVIF) into a standardized multi-page PDF document.",
     intro: "Convert any picture or image format into a clean, print-ready PDF document directly in your browser. 100% client-side with zero file uploads.",
     howTo: [
-      "Click Select Images or drag and drop photos in any format (JPG, PNG, WebP, SVG, GIF, AVIF).",
+      "Click Choose Files or drag and drop photos in any format (JPG, PNG, WebP, SVG, GIF, AVIF).",
       "Confirm the selected images in your desired page order.",
       "Click Convert to PDF to generate a multi-page PDF on your device.",
       "Download your compiled PDF instantly.",

@@ -5225,7 +5225,7 @@ function Mp4ToMp3Panel() {
           </span>
           <span className="text-xs text-muted-foreground mt-1 block">
             {file
-              ? `${(file.size / (1024 * 1024)).toFixed(1)} MB — Click to change`
+              ? `${file.size >= 1048576 ? (file.size / (1024 * 1024)).toFixed(1) + " MB" : Math.max(1, Math.round(file.size / 1024)) + " KB"} — Click to change`
               : "MP4, MKV, AVI, MOV, WebM • 100% Client-Side FFmpeg"}
           </span>
         </label>

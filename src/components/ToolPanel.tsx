@@ -4881,6 +4881,289 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
   );
 }
 
+function PdfToWordPanel() {
+  const [file, setFile] = useState<File | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [docxBlobUrl, setDocxBlobUrl] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [extractedPages, setExtractedPages] = useState<number>(0);
+
+  async function handleConvert() {
+    if (!file) return;
+    setBusy(true);
+    setErrorMsg("");
+    setDocxBlobUrl(null);
+    setProgress("Reading PDF file...");
+
+    try {
+      const { extractPdfText, pdfTextToDocx } = await import("@/tools/pdf-to-word/logic");
+      const buffer = await file.arrayBuffer();
+
+      setProgress("Extracting text layer...");
+      const pages = await extractPdfText(buffer, (done, total) => {
+        setProgress(`Extracting text: page ${done} of ${total}...`);
+      });
+
+      setExtractedPages(pages.length);
+      setProgress("Generating Word document (.docx)...");
+
+      const docxBlob = await pdfTextToDocx(pages, (done, total) => {
+        setProgress(`Formatting DOCX: page ${done} of ${total}...`);
+      });
+
+      const url = URL.createObjectURL(docxBlob);
+      setDocxBlobUrl(url);
+      setProgress("Done! Document converted successfully.");
+    } catch (err) {
+      setErrorMsg(`Conversion failed: ${(err as Error).message}`);
+      setProgress("");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const outputFilename = file ? file.name.replace(/\.pdf$/i, ".docx") : "converted.docx";
+
+  return (
+    <div className="space-y-6">
+      <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:border-primary/50 transition">
+        <label className="cursor-pointer block">
+          <input
+            type="file"
+            accept=".pdf,application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) {
+                setFile(f);
+                setDocxBlobUrl(null);
+                setErrorMsg("");
+                setProgress("");
+              }
+            }}
+          />
+          <div className="text-4xl mb-2">📄</div>
+          <span className="font-medium text-foreground block">
+            {file ? file.name : "Select or Drop PDF File"}
+          </span>
+          <span className="text-xs text-muted-foreground mt-1 block">
+            {file ? `${(file.size / 1024).toFixed(1)} KB — Click to change` : "Digital PDFs with text layer • 100% Client-Side"}
+          </span>
+        </label>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-muted-foreground bg-card/50 p-3 rounded-lg border border-border">
+        <span>🔒</span>
+        <span>
+          <strong>100% Private:</strong> Your document is processed in browser memory and never uploaded to any server.
+        </span>
+      </div>
+
+      {errorMsg && (
+        <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg">
+          {errorMsg}
+        </div>
+      )}
+
+      {progress && (
+        <div className="p-3 bg-primary/10 border border-primary/20 text-primary text-sm rounded-lg flex items-center gap-2">
+          {busy && <span className="inline-block animate-spin">⏳</span>}
+          <span>{progress}</span>
+        </div>
+      )}
+
+      <div className="flex gap-3">
+        <button
+          onClick={handleConvert}
+          disabled={!file || busy}
+          className="flex-1 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-50 transition"
+        >
+          {busy ? "Converting..." : "Convert to Word (DOCX)"}
+        </button>
+
+        {docxBlobUrl && (
+          <a
+            href={docxBlobUrl}
+            download={outputFilename}
+            className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 text-center transition flex items-center justify-center gap-2"
+          >
+            <span>⬇️</span> Download {outputFilename}
+          </a>
+        )}
+      </div>
+
+      {extractedPages > 0 && (
+        <p className="text-xs text-muted-foreground text-center">
+          Extracted {extractedPages} page(s) into editable Microsoft Word (.docx) format.
+        </p>
+      )}
+    </div>
+  );
+}
+
+function Mp4ToMp3Panel() {
+  const [file, setFile] = useState<File | null>(null);
+  const [bitrate, setBitrate] = useState<"128k" | "192k" | "320k">("192k");
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [mp3BlobUrl, setMp3BlobUrl] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [progressPct, setProgressPct] = useState<number>(0);
+
+  async function handleConvert() {
+    if (!file) return;
+    setBusy(true);
+    setErrorMsg("");
+    setMp3BlobUrl(null);
+    setProgress("Loading FFmpeg WebAssembly engine...");
+    setProgressPct(5);
+
+    try {
+      const { videoToMp3 } = await import("@/tools/mp4-to-mp3/logic");
+
+      const mp3Blob = await videoToMp3(file, {
+        bitrate,
+        onProgress: (p) => {
+          const pct = Math.round(p.ratio * 100);
+          setProgressPct(pct);
+          setProgress(`Processing audio: ${pct}%`);
+        },
+      });
+
+      const url = URL.createObjectURL(mp3Blob);
+      setMp3BlobUrl(url);
+      setProgress("Done! Audio extracted successfully.");
+      setProgressPct(100);
+    } catch (err) {
+      setErrorMsg(`Extraction failed: ${(err as Error).message}`);
+      setProgress("");
+      setProgressPct(0);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const outputFilename = file
+    ? file.name.replace(/\.[^/.]+$/, "") + ".mp3"
+    : "audio.mp3";
+
+  return (
+    <div className="space-y-6">
+      <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:border-primary/50 transition">
+        <label className="cursor-pointer block">
+          <input
+            type="file"
+            accept="video/*,.mp4,.mkv,.avi,.mov,.webm"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) {
+                setFile(f);
+                setMp3BlobUrl(null);
+                setErrorMsg("");
+                setProgress("");
+                setProgressPct(0);
+              }
+            }}
+          />
+          <div className="text-4xl mb-2">🎬</div>
+          <span className="font-medium text-foreground block">
+            {file ? file.name : "Select or Drop Video File"}
+          </span>
+          <span className="text-xs text-muted-foreground mt-1 block">
+            {file
+              ? `${(file.size / (1024 * 1024)).toFixed(1)} MB — Click to change`
+              : "MP4, MKV, AVI, MOV, WebM • 100% Client-Side FFmpeg"}
+          </span>
+        </label>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-semibold text-muted-foreground block">
+          Audio Bitrate (Quality)
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {(
+            [
+              { id: "128k", label: "128 kbps", desc: "Compact size" },
+              { id: "192k", label: "192 kbps", desc: "Balanced (Recommended)" },
+              { id: "320k", label: "320 kbps", desc: "High quality" },
+            ] as const
+          ).map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setBitrate(item.id)}
+              className={`p-2.5 rounded-lg border text-left transition text-xs ${
+                bitrate === item.id
+                  ? "border-primary bg-primary/10 text-primary font-medium"
+                  : "border-border hover:bg-card/50"
+              }`}
+            >
+              <div className="font-bold">{item.label}</div>
+              <div className="text-muted-foreground">{item.desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-muted-foreground bg-card/50 p-3 rounded-lg border border-border">
+        <span>⚡</span>
+        <span>
+          <strong>WASM Powered:</strong> First run downloads the ~25MB FFmpeg engine once; browser caches it for instant offline conversions.
+        </span>
+      </div>
+
+      {errorMsg && (
+        <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg">
+          {errorMsg}
+        </div>
+      )}
+
+      {progress && (
+        <div className="space-y-1">
+          <div className="p-3 bg-primary/10 border border-primary/20 text-primary text-sm rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {busy && <span className="inline-block animate-spin">⏳</span>}
+              <span>{progress}</span>
+            </div>
+            {progressPct > 0 && <span className="font-mono text-xs">{progressPct}%</span>}
+          </div>
+          {busy && progressPct > 0 && (
+            <div className="w-full bg-border rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-primary h-full transition-all duration-300"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="flex gap-3">
+        <button
+          onClick={handleConvert}
+          disabled={!file || busy}
+          className="flex-1 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-50 transition"
+        >
+          {busy ? "Extracting..." : "Extract MP3 Audio"}
+        </button>
+
+        {mp3BlobUrl && (
+          <a
+            href={mp3BlobUrl}
+            download={outputFilename}
+            className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 text-center transition flex items-center justify-center gap-2"
+          >
+            <span>⬇️</span> Download {outputFilename}
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function QrCodePanel() {
   const [text, setText] = useState("https://tulyro.online");
   const [fgColor, setFgColor] = useState("#000000");
@@ -6010,6 +6293,10 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <ImageConverterPanel />;
     case "heic-to-jpg":
       return <ImageConverterPanel initialMode="heic" />;
+    case "pdf-to-word":
+      return <PdfToWordPanel />;
+    case "mp4-to-mp3":
+      return <Mp4ToMp3Panel />;
     case "image-resizer":
       return <ImageResizerPanel />;
     case "gst-calculator":

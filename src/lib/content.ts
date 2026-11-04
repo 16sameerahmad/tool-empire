@@ -817,6 +817,48 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I convert HEIC directly on my iPhone Safari browser?", answer: "Yes. Our tool is optimized for mobile browsers including Safari on iOS and Chrome on Android." },
     ]),
   },
+  "pdf-to-word": {
+    definition: "A PDF to Word converter extracts the text layer, formatting, and structure from PDF documents and reconstructs them into editable Microsoft Word DOCX files.",
+    intro: "Convert PDF files to editable Word DOCX documents directly in your browser. 100% client-side, no file uploads, unlimited free conversions.",
+    howTo: [
+      "Drop or select your PDF file from your device.",
+      "Wait for the client-side text extraction engine to process all pages.",
+      "Preview the extracted text structure and heading hierarchy.",
+      "Click Download DOCX to save the editable Word document to your device.",
+    ],
+    content: [
+      "Converting PDF to Word is the most searched document utility in India with over 6 million monthly queries. Students need to edit marksheets, job seekers modify resume PDFs, and government employees convert official circulars into editable formats.",
+      "Commercial converters like iLovePDF, Smallpdf, and Adobe Acrobat Online upload your sensitive documents (Aadhaar cards, bank statements, salary slips) to remote cloud servers, impose daily conversion limits, and paywall batch processing.",
+      "Tulyro PDF to Word runs 100% in your browser using Mozilla's open-source PDF.js text extraction engine combined with the docx library to build standards-compliant OOXML Word documents. Your files never leave your device RAM.",
+    ],
+    faq: faq([
+      { question: "Will my PDF layout be preserved exactly in the Word document?", answer: "Text content, font sizes, bold formatting, and heading hierarchy are preserved. Complex layouts with columns, tables, and overlapping elements may need minor adjustment in Word." },
+      { question: "Can this convert scanned image PDFs to Word?", answer: "Currently this tool extracts the text layer from digital PDFs. Scanned image-only PDFs without a text layer will show 'No extractable text' per page. OCR support is planned." },
+      { question: "Are my documents uploaded to any server?", answer: "No. PDF parsing and DOCX generation happen 100% in your browser memory. Your files never leave your device." },
+      { question: "Is there a file size or page limit?", answer: "No artificial limits. Processing speed depends on your device — most PDFs under 50 pages convert in under 5 seconds." },
+    ]),
+  },
+  "mp4-to-mp3": {
+    definition: "An MP4 to MP3 converter extracts the audio track from video container files and re-encodes it as a standalone high-quality MP3 audio file.",
+    intro: "Extract high-quality MP3 audio from MP4, MKV, AVI, and MOV videos directly in your browser. 100% private, zero uploads, unlimited conversions.",
+    howTo: [
+      "Drop or select your video file (MP4, MKV, AVI, MOV, or WebM).",
+      "Choose your preferred audio quality bitrate (128k, 192k, or 320k).",
+      "Click Convert — FFmpeg WebAssembly processes the video entirely in your browser.",
+      "Download the extracted MP3 audio file to your device.",
+    ],
+    content: [
+      "MP4 to MP3 conversion is one of the most searched media utilities in India with over 1.8 million monthly queries. Students extract lecture audio for offline listening, content creators isolate background music, and professionals convert meeting recordings to shareable audio files.",
+      "Existing converters like CloudConvert, FreeConvert, and Online-Convert upload your private video files to cloud processing queues, enforce strict daily limits (2-5 files free), and inject watermarks into premium-tier outputs.",
+      "Tulyro MP4 to MP3 runs FFmpeg compiled to WebAssembly directly in your browser sandbox. The ~25MB WASM engine downloads once and is cached permanently — subsequent conversions are instant with zero network traffic. Your videos never leave your device.",
+    ],
+    faq: faq([
+      { question: "Why does the first conversion take longer?", answer: "The FFmpeg WebAssembly engine (~25MB) downloads once on first use. Your browser caches it permanently, so all subsequent conversions start instantly." },
+      { question: "What video formats are supported?", answer: "MP4, MKV, AVI, MOV, WebM, and most standard video container formats. Any file FFmpeg can read is supported." },
+      { question: "Are my videos uploaded to any server?", answer: "No. FFmpeg runs entirely inside your browser's WebAssembly sandbox. Your video data never leaves your device." },
+      { question: "What audio quality options are available?", answer: "128 kbps (compact, good for speech), 192 kbps (balanced, recommended), and 320 kbps (maximum quality, near-CD audio)." },
+    ]),
+  },
   "qr-code-generator": {
     definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
     intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",

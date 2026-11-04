@@ -2329,6 +2329,9 @@ export const guides: Guide[] = [
           <>
             Choose a <strong>Lump Sum</strong> if you have received a windfall (annual bonus, property sale, inheritance) and your investment horizon exceeds 7 to 10 years, or route it via a Systematic Transfer Plan (STP) into equity over 6 to 12 months. Choose an <strong>SIP</strong> for monthly salary discipline, emergency liquidity protection, and volatile market peace of mind.
           </>,
+          <>
+            A fair comparison also needs the right yardstick: XIRR is the accurate way to measure staggered SIP returns, while CAGR suits a single lumpsum deposit. See <Link href="/guides/cagr-vs-xirr-in-mutual-funds/" className="text-primary underline">CAGR vs XIRR: when to use each metric for mutual fund returns</Link>.
+          </>,
         ],
       },
     ],
@@ -2632,6 +2635,9 @@ export const guides: Guide[] = [
             XIRR accounts for the exact transaction date of every individual cash inflow and outflow. It
             calculates the annualized internal rate of return across the entire series of cash flows using
             polynomial root-finding algorithms.
+          </>,
+          <>
+            If you are still deciding between SIP and lumpsum as the investment route itself, see <Link href="/guides/sip-vs-lumpsum/" className="text-primary underline">SIP vs Lumpsum: which generates better returns</Link> for a worked 10-year comparison.
           </>,
         ],
       },

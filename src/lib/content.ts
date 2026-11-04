@@ -132,6 +132,7 @@ export const content: Record<string, ToolContent> = {
       "Most Indian universities, engineering colleges, and professional institutions mandate a strict 75% minimum attendance requirement to appear in semester examinations. Falling below this threshold often leads to debarment, penalty assignments, or grade reductions.",
       "This calculator provides two crucial metrics: If your attendance is currently above 75%, it calculates your 'Bunk Buffer'—the maximum consecutive lectures you can miss without dropping below the threshold. If your attendance is below 75%, it solves for the exact number of consecutive upcoming classes you must attend to restore your percentage.",
       "The formula for bunkable lectures: Bunks = floor(Attended / TargetRate − Total). The formula for attendance recovery: Required = ceil((TargetRate × Total − Attended) / (1 − TargetRate)). All math runs in real-time.",
+      "Safe bunks at a glance (75% rule): with 50 classes held and 40 attended, you can safely bunk 3; with 100 held and 80 attended, 6 bunks; with 100 held and 85 attended, 13 bunks; with 150 held and 120 attended, 10 bunks; with 150 held and 135 attended, 30 bunks. Every figure comes from the bunk formula above — enter your own numbers in the calculator for the exact answer.",
       "Your attendance records and calculations remain completely private. All calculations occur inside your browser without logging in or sending data to third-party tracking services.",
     ],
     guides: [
@@ -140,6 +141,7 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "How does the 75% attendance rule work?", answer: "Under university guidelines (such as AICTE, UGC, or VTU), students must attend at least 75 out of every 100 scheduled classes in each course. Failing this may lead to detention from sitting in final semester exams." },
+      { question: "How is attendance percentage calculated?", answer: "Divide the number of classes you attended by the total classes held, then multiply by 100. For example, attending 80 out of 100 classes gives (80 ÷ 100) × 100 = 80%. Colleges compare this figure against the 75% minimum to decide exam eligibility." },
       { question: "How many classes can I bunk if my attendance is 80%?", answer: "It depends on total classes conducted. If 80 out of 100 classes were attended, you can bunk 6 consecutive classes. At that point, 80/106 = 75.47%, keeping you safe." },
       { question: "Can medical certificates compensate for low attendance?", answer: "Most colleges allow a relaxation of 5% to 10% (down to 65%) upon submitting verified medical certificates, subject to the approval of the head of department." },
     ]),

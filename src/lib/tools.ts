@@ -439,7 +439,7 @@ export const tools: ToolDefinition[] = [
     related: ["json-formatter", "password-generator", "epoch-converter"],
     live: true,
     h1: "UUID / GUID Generator — RFC 4122 v4 Cryptographic Random",
-    seoTitle: "UUID Generator — Free RFC 4122 v4 Online | Tulyro",
+    seoTitle: "UUID Generator — Free Online | Tulyro",
     seoDescription:
       "Generate cryptographically secure RFC 4122 version 4 UUIDs and GUIDs online. Bulk generate up to 100 UUIDs with custom formatting and uppercase toggles.",
   },

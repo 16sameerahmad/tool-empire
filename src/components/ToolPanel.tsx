@@ -3604,10 +3604,10 @@ function PercentagePanel() {
   );
 }
 
-function ImageConverterPanel() {
+function ImageConverterPanel({ initialMode }: { initialMode?: "heic" }) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [outputFormat, setOutputFormat] = useState<"png" | "jpeg" | "webp">("png");
+  const [outputFormat, setOutputFormat] = useState<"png" | "jpeg" | "webp">("jpeg");
   const [quality, setQuality] = useState<number>(0.92);
   const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
   const [originalSize, setOriginalSize] = useState<number>(0);
@@ -3624,6 +3624,13 @@ function ImageConverterPanel() {
     setFile(selected);
     setOriginalSize(selected.size);
 
+    const isTargetHeic = selected.name.toLowerCase().endsWith(".heic") || selected.name.toLowerCase().endsWith(".heif");
+    if (isTargetHeic) {
+      setPreviewUrl(null);
+      setDimensions({ width: 0, height: 0 });
+      return;
+    }
+
     const url = URL.createObjectURL(selected);
     setPreviewUrl(url);
 
@@ -3639,13 +3646,26 @@ function ImageConverterPanel() {
     setIsProcessing(true);
     setErrorMsg("");
     try {
-      const { convertImage } = await import("@/tools/image-converter/logic");
-      const result = await convertImage(file, {
-        format: outputFormat,
-        quality,
-      });
-      setConvertedSize(result.convertedSize);
-      setConvertedUrl(URL.createObjectURL(result.blob));
+      const { convertImage, convertHeic } = await import("@/tools/image-converter/logic");
+      const isTargetHeic = file.name.toLowerCase().endsWith(".heic") || file.name.toLowerCase().endsWith(".heif") || initialMode === "heic";
+
+      if (isTargetHeic) {
+        const convertedBlob = await convertHeic(file, {
+          format: outputFormat === "png" ? "png" : "jpeg",
+          quality,
+        });
+        setConvertedSize(convertedBlob.size);
+        const url = URL.createObjectURL(convertedBlob);
+        setConvertedUrl(url);
+        setPreviewUrl(url);
+      } else {
+        const result = await convertImage(file, {
+          format: outputFormat,
+          quality,
+        });
+        setConvertedSize(result.convertedSize);
+        setConvertedUrl(URL.createObjectURL(result.blob));
+      }
     } catch (err) {
       setErrorMsg((err as Error).message || "Failed to convert image");
     } finally {
@@ -3671,10 +3691,12 @@ function ImageConverterPanel() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Upload Image (JPG, PNG, WebP)</label>
+        <label className="block text-sm font-medium mb-1">
+          {initialMode === "heic" ? "Upload Apple iPhone Photo (.HEIC / .HEIF)" : "Upload Image (JPG, PNG, WebP, HEIC)"}
+        </label>
         <input
           type="file"
-          accept="image/jpeg,image/png,image/webp"
+          accept={initialMode === "heic" ? ".heic,.heif,image/heic,image/heif" : "image/jpeg,image/png,image/webp,.heic,.heif"}
           onChange={handleFileChange}
           className={inputClass}
           disabled={isProcessing}
@@ -5986,6 +6008,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <ImageCompressorPanel />;
     case "image-converter":
       return <ImageConverterPanel />;
+    case "heic-to-jpg":
+      return <ImageConverterPanel initialMode="heic" />;
     case "image-resizer":
       return <ImageResizerPanel />;
     case "gst-calculator":

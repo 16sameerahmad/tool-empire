@@ -796,6 +796,27 @@ export const content: Record<string, ToolContent> = {
       { question: "Is there a limit on how many images I can convert?", answer: "No, there are no limits, daily caps, or forced registrations." },
     ]),
   },
+  "heic-to-jpg": {
+    definition: "A HEIC to JPG converter decodes Apple High Efficiency Image Container (HEIC/HEIF) photographs and re-encodes them into widely compatible standard JPEG or PNG formats.",
+    intro: "Convert iPhone HEIC photos to JPG online for free. 100% private in-browser conversion with zero file uploads and instant download.",
+    howTo: [
+      "Select or drop your Apple iPhone .HEIC or .HEIF image file.",
+      "Choose your preferred export format: JPG for universal compatibility or PNG for lossless clarity.",
+      "Click Convert to decode the high-efficiency image container directly in your browser.",
+      "Download your converted JPG image ready for Windows, Android, and web submissions.",
+    ],
+    content: [
+      "Apple iPhones capture photos in High Efficiency Image Container (HEIC) format by default to cut file sizes in half while preserving 10-bit color. However, Indian government exam portals (SSC, UPSC, NTA), college admissions, and legacy Windows computers fail to open or accept HEIC files.",
+      "Most commercial converters (like CloudConvert, heictojpg.com, or FreeConvert) upload your personal camera roll photos and family snapshots to remote cloud queues with strict daily conversion caps.",
+      "Tulyro HEIC to JPG runs entirely in your local browser sandbox via WebAssembly. Your photos never leave your device, ensuring complete privacy, zero bandwidth waste, and instant conversions.",
+    ],
+    faq: faq([
+      { question: "Why won't my iPhone photo upload to government or college portals?", answer: "iPhones save photos in HEIC format by default. Most Indian websites and portals only accept standard JPG or PNG files. Converting with our tool makes the file universally accepted." },
+      { question: "Are my private personal photos uploaded to any server?", answer: "No. Conversion happens 100% locally on your phone or computer using WebAssembly. No data is ever transmitted across the internet." },
+      { question: "Does converting from HEIC to JPG reduce photo quality?", answer: "No noticeable quality loss occurs. Our engine renders full 100% original dimensions and encodes JPEG at optimal 90%+ quality settings." },
+      { question: "Can I convert HEIC directly on my iPhone Safari browser?", answer: "Yes. Our tool is optimized for mobile browsers including Safari on iOS and Chrome on Android." },
+    ]),
+  },
   "qr-code-generator": {
     definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
     intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",

@@ -121,3 +121,41 @@ export async function convertImage(
     outputFormat: format,
   };
 }
+
+/**
+ * Convert HEIC / HEIF file to JPEG or PNG directly in browser using heic2any.
+ */
+export async function convertHeic(
+  file: File | Blob,
+  options: { format?: "jpeg" | "png"; quality?: number } = {}
+): Promise<Blob> {
+  const { format = "jpeg", quality = 0.9 } = options;
+
+  if (typeof window === "undefined") {
+    throw new Error("HEIC conversion requires browser environment");
+  }
+
+  // Load heic2any from cdnjs if not already present
+  if (!(window as unknown as { heic2any?: unknown }).heic2any) {
+    await new Promise<void>((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load HEIC converter engine"));
+      document.head.appendChild(script);
+    });
+  }
+
+  const heic2any = (window as unknown as {
+    heic2any: (opts: { blob: Blob; toType: string; quality?: number }) => Promise<Blob | Blob[]>;
+  }).heic2any;
+
+  const toType = format === "png" ? "image/png" : "image/jpeg";
+  const result = await heic2any({
+    blob: file,
+    toType,
+    quality: format === "png" ? undefined : quality,
+  });
+
+  return Array.isArray(result) ? result[0] : result;
+}

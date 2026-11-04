@@ -28,4 +28,9 @@ describe("parsePageRanges", () => {
     expect(parsePageRanges("abc, 2-x, -5", 5)).toEqual([]);
     expect(parsePageRanges("2-4, foo", 5)).toEqual([2, 3, 4]);
   });
+
+  it("exports convertHeic function", async () => {
+    const { convertHeic } = await import("./logic");
+    expect(typeof convertHeic).toBe("function");
+  });
 });

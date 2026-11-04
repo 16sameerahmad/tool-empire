@@ -511,12 +511,36 @@ export const tools: ToolDefinition[] = [
       "png to jpg without black background",
       "convert photo to png online"
     ],
-    related: ["image-compressor", "image-resizer", "pdf-tools"],
+    related: ["image-compressor", "image-resizer", "pdf-tools", "heic-to-jpg"],
     live: true,
     h1: "JPG to PNG & Image Converter — Free, Fast, Client-Side",
     seoTitle: "JPG to PNG & PNG to JPG Converter — Free Online | Tulyro",
     seoDescription:
       "Convert JPG, PNG, and WebP images instantly in your browser. Transparent background support, high visual fidelity, 100% private, and zero file uploads.",
+  },
+  {
+    id: "heic-to-jpg",
+    title: "HEIC to JPG Converter — Convert Apple iPhone Photos Online Free",
+    cluster: "Media",
+    href: "/tools/heic-to-jpg/",
+    locale: "en",
+    description: "Convert Apple HEIC and HEIF photos to high-quality JPG or PNG images directly in your browser. 100% private, no file uploads.",
+    keywords: [
+      "heic to jpg",
+      "convert heic to jpg",
+      "iphone photo to jpg",
+      "heic to jpeg converter online",
+      "heic to png",
+      "apple photo converter",
+      "heic to jpg free no upload",
+      "open heic file online"
+    ],
+    related: ["image-converter", "image-compressor", "jpg-to-pdf", "image-resizer"],
+    live: true,
+    h1: "HEIC to JPG Converter — Convert iPhone Photos Online Free",
+    seoTitle: "HEIC to JPG Converter — Free Apple iPhone Photo Converter | Tulyro",
+    seoDescription:
+      "Convert HEIC and HEIF images from your iPhone to universal JPG or PNG format. 100% client-side WebAssembly conversion — private, secure, and zero file uploads.",
   },
   {
     id: "qr-code-generator",

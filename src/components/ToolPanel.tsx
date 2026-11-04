@@ -4838,26 +4838,31 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
       {mode === "pdf-to-img" && (
         <div className="space-y-4">
           <div className="flex gap-3 items-center">
-            <label className="text-sm font-medium">Format:</label>
+            <label className="text-sm font-medium">Output Image Format:</label>
             <select value={format} onChange={(e) => setFormat(e.target.value as "jpeg" | "png")}
               className={inputClass}>
-              <option value="jpeg">JPEG</option>
-              <option value="png">PNG</option>
+              <option value="jpeg">JPG / JPEG (Compact file size)</option>
+              <option value="png">PNG (High quality lossless)</option>
             </select>
           </div>
-          <input type="file" accept=".pdf" onChange={handlePdfUpload} disabled={busy} className={inputClass} />
+          <input type="file" accept=".pdf,application/pdf" onChange={handlePdfUpload} disabled={busy} className={inputClass} />
           {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
           {pages.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {pages.map((p) => (
-                <div key={p.pageNumber} className="border rounded p-2 text-center">
-                  <img src={p.dataUrl} alt={`Page ${p.pageNumber}`} className="max-h-48 mx-auto" />
-                  <a href={p.dataUrl} download={`page-${p.pageNumber}.${format}`}
-                    className={`${secondaryButtonClass} mt-2 inline-block text-xs`}>
-                    Download Page {p.pageNumber}
-                  </a>
-                </div>
-              ))}
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-muted-foreground">{pages.length} page(s) extracted</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {pages.map((p) => (
+                  <div key={p.pageNumber} className="border rounded p-2 text-center bg-card">
+                    <img src={p.dataUrl} alt={`Page ${p.pageNumber}`} className="max-h-48 mx-auto object-contain rounded" />
+                    <a href={p.dataUrl} download={`page-${p.pageNumber}.${format === "jpeg" ? "jpg" : "png"}`}
+                      className={`${secondaryButtonClass} mt-2 inline-block text-xs`}>
+                      Download Page {p.pageNumber}
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -4865,7 +4870,17 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
 
       {mode === "img-to-pdf" && (
         <div className="space-y-4">
-          <input type="file" accept="image/*" multiple onChange={handleImagesUpload} disabled={busy} className={inputClass} />
+          <div className="p-3 bg-muted/40 rounded-lg text-xs text-muted-foreground">
+            Supports all image formats: <strong>JPG, PNG, WebP, GIF, SVG, BMP, AVIF</strong>. Images are auto-fit into high-resolution PDF pages in browser.
+          </div>
+          <input
+            type="file"
+            accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.svg,.bmp,.avif"
+            multiple
+            onChange={handleImagesUpload}
+            disabled={busy}
+            className={inputClass}
+          />
           {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
           {pdfImages.length > 0 && !pdfBlob && (
             <button onClick={convertImagesToPdf} disabled={busy} className={buttonClass}>
@@ -4873,7 +4888,7 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
             </button>
           )}
           {pdfBlob && (
-            <a href={pdfBlob} download="combined.pdf" className={buttonClass}>
+            <a href={pdfBlob} download="converted.pdf" className={buttonClass}>
               Download PDF
             </a>
           )}
@@ -6451,8 +6466,10 @@ export function ToolPanel({ kind }: { kind: string }) {
     case "pdf-tools":
       return <PdfToolsPanel />;
     case "jpg-to-pdf":
+    case "image-to-pdf":
       return <PdfToolsPanel initialMode="img-to-pdf" />;
     case "pdf-to-jpg":
+    case "pdf-to-image":
       return <PdfToolsPanel initialMode="pdf-to-img" />;
     case "merge-pdf":
       return <PdfToolsPanel initialMode="merge-pdf" />;

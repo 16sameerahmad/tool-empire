@@ -922,6 +922,48 @@ export const content: Record<string, ToolContent> = {
       { question: "Is my confidential PDF uploaded to any server?", answer: "No. Processing takes place 100% on-device in your web browser. Zero bytes leave your computer." },
     ]),
   },
+  "image-to-pdf": {
+    definition: "An Image to PDF converter bundles multiple raster or vector graphic files (JPG, PNG, WebP, SVG, GIF, BMP, AVIF) into a standardized multi-page PDF document.",
+    intro: "Convert any picture or image format into a clean, print-ready PDF document directly in your browser. 100% client-side with zero file uploads.",
+    howTo: [
+      "Click Select Images or drag and drop photos in any format (JPG, PNG, WebP, SVG, GIF, AVIF).",
+      "Confirm the selected images in your desired page order.",
+      "Click Convert to PDF to generate a multi-page PDF on your device.",
+      "Download your compiled PDF instantly.",
+    ],
+    content: [
+      "Image to PDF conversion is one of the most frequently requested document tasks in India, with over 1.8M monthly searches. Applicants for government exams, passport renewal, bank KYC verification, and university portals frequently require multi-page PDF dossiers rather than standalone image attachments.",
+      "Tulyro accepts all major modern and legacy graphic formats including JPEG, PNG, WebP, SVG, GIF, BMP, and AVIF. Transparent backgrounds in PNG and WebP files are automatically matted with clean white backing to prevent black background artifacts.",
+      "Every conversion runs 100% client-side via WebAssembly and Canvas rasterization. No images or personal identification documents are uploaded to any server, guaranteeing total privacy.",
+    ],
+    faq: faq([
+      { question: "Which image formats are supported?", answer: "All standard web and photography formats: JPG, JPEG, PNG, WebP, SVG, GIF, BMP, and AVIF." },
+      { question: "Can I combine multiple pictures into a single PDF file?", answer: "Yes. Select multiple images at once and they will be compiled into an ordered multi-page PDF document." },
+      { question: "Will transparent PNG backgrounds turn black?", answer: "No. Our converter automatically draws a crisp white canvas backing before embedding to preserve legible documents and signatures." },
+      { question: "Are my uploaded photos sent to any server?", answer: "Never. The entire compilation happens locally in your browser memory." },
+    ]),
+  },
+  "pdf-to-image": {
+    definition: "A PDF to Image converter renders and extracts vector and raster pages from a PDF document into independent high-resolution image files (JPG or PNG).",
+    intro: "Convert PDF pages into crystal-clear JPG or PNG images directly in your browser. 100% private, client-side rendering with zero server uploads.",
+    howTo: [
+      "Upload or drop your PDF document.",
+      "Select your preferred output format: JPG (smaller file size) or PNG (crisp lossless detail).",
+      "Each page is rendered client-side onto high-definition canvas elements.",
+      "Click Download on any page to save it as an image.",
+    ],
+    content: [
+      "Extracting pages from PDF documents into images is searched over 800,000 times monthly across India. Users routinely need to convert invoice pages, receipts, scanned ID cards, and academic certificates into image files for online submission or social sharing.",
+      "Tulyro renders each PDF page using client-side PDF.js worker execution directly inside your browser. No server roundtrips or queue waiting times required.",
+      "Supports choosing between compact JPEG compression for file-size-restricted portals and lossless PNG for documents requiring razor-sharp typography and clean graphics.",
+    ],
+    faq: faq([
+      { question: "Can I choose between JPG and PNG output?", answer: "Yes. Use the format selector to pick JPG for compact file size or PNG for maximum fidelity." },
+      { question: "Can I download individual pages?", answer: "Yes. Every page is extracted with its own download button so you only save the exact pages you need." },
+      { question: "Is there a limit on how many pages I can convert?", answer: "No. Because conversion runs in your browser, there are no artificial paywalls or page quotas." },
+      { question: "Are my confidential PDF documents safe?", answer: "Completely safe. Your PDF file never leaves your device — zero bytes are uploaded to our servers." },
+    ]),
+  },
   "qr-code-generator": {
     definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
     intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",

@@ -77,62 +77,101 @@ export async function pdfToImages(
 }
 
 /**
- * Convert one or more images to a single PDF (client-side).
- * Uses jsPDF loaded lazily from CDN.
+ * Convert one or more images to a single PDF (100% client-side via pdf-lib).
+ * Supports ALL web image formats (JPEG, PNG, WebP, GIF, BMP, SVG, AVIF, etc.)
+ * by drawing into an off-screen canvas and embedding as high-quality JPEG/PNG.
  * Returns a Blob of the PDF.
  */
 export async function imagesToPdf(
   images: { dataUrl: string; width: number; height: number }[],
   opts: { pageSize?: "a4" | "letter" | "fit"; onProgress?: (done: number, total: number) => void } = {}
 ): Promise<Blob> {
+  if (images.length === 0) throw new Error("No images provided to convert");
   const { pageSize = "fit", onProgress } = opts;
 
-  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js");
+  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
 
-  // @ts-expect-error jspdf global
-  const { jsPDF } = window.jspdf;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let pdf: any = null;
+  // @ts-expect-error PDFLib global from script
+  const { PDFDocument, PageSizes } = window.PDFLib;
+  const pdfDoc = await PDFDocument.create();
 
   for (let i = 0; i < images.length; i++) {
-    const img = images[i];
-    const imgW = img.width;
-    const imgH = img.height;
+    const imgData = images[i];
+
+    // Convert any image dataUrl (including webp, svg, avif, etc.) to a clean JPEG arraybuffer
+    const jpegBytes = await new Promise<Uint8Array>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth || imgData.width;
+        canvas.height = img.naturalHeight || imgData.height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Canvas context unavailable"));
+          return;
+        }
+        // White background for transparent PNG/WebP/GIF/SVG
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          async (blob) => {
+            if (!blob) {
+              reject(new Error("Failed to rasterize image"));
+              return;
+            }
+            const buf = await blob.arrayBuffer();
+            resolve(new Uint8Array(buf));
+          },
+          "image/jpeg",
+          0.92
+        );
+      };
+      img.onerror = () => reject(new Error(`Failed to load image ${i + 1}`));
+      img.src = imgData.dataUrl;
+    });
+
+    const embeddedImage = await pdfDoc.embedJpg(jpegBytes);
+    const { width: imgW, height: imgH } = embeddedImage;
 
     if (pageSize === "fit") {
-      // Page sized to image (in pt, 1px ≈ 0.75pt)
-      const wPt = imgW * 0.75;
-      const hPt = imgH * 0.75;
-      if (i === 0) {
-        pdf = new jsPDF({ unit: "pt", format: [wPt, hPt] });
-      } else {
-        pdf!.addPage([wPt, hPt]);
-      }
-      pdf!.addImage(img.dataUrl, "JPEG", 0, 0, wPt, hPt);
+      // 1pt ≈ 1px * 0.75
+      const pageW = imgW * 0.75;
+      const pageH = imgH * 0.75;
+      const page = pdfDoc.addPage([pageW, pageH]);
+      page.drawImage(embeddedImage, {
+        x: 0,
+        y: 0,
+        width: pageW,
+        height: pageH,
+      });
     } else {
-      // Fixed page size, scale image to fit
-      if (i === 0) {
-        pdf = new jsPDF({ unit: "mm", format: pageSize });
-      } else {
-        pdf!.addPage(pageSize);
-      }
-      const pageW = pdf!.internal.pageSize.getWidth();
-      const pageH = pdf!.internal.pageSize.getHeight();
-      const margin = 10; // mm
-      const maxW = pageW - 2 * margin;
-      const maxH = pageH - 2 * margin;
-      const ratio = Math.min(maxW / (imgW * 0.264583), maxH / (imgH * 0.264583));
-      const w = imgW * 0.264583 * ratio;
-      const h = imgH * 0.264583 * ratio;
-      const x = (pageW - w) / 2;
-      const y = (pageH - h) / 2;
-      pdf!.addImage(img.dataUrl, "JPEG", x, y, w, h);
+      // Standard A4 or Letter
+      const targetSize = pageSize === "a4" ? PageSizes.A4 : PageSizes.Letter;
+      const page = pdfDoc.addPage(targetSize);
+      const [pageW, pageH] = targetSize;
+      const margin = 28; // ~10mm margin
+      const maxW = pageW - margin * 2;
+      const maxH = pageH - margin * 2;
+      const scale = Math.min(maxW / imgW, maxH / imgH);
+      const drawW = imgW * scale;
+      const drawH = imgH * scale;
+      const drawX = margin + (maxW - drawW) / 2;
+      const drawY = margin + (maxH - drawH) / 2;
+
+      page.drawImage(embeddedImage, {
+        x: drawX,
+        y: drawY,
+        width: drawW,
+        height: drawH,
+      });
     }
 
     onProgress?.(i + 1, images.length);
   }
 
-  return pdf!.output("blob") as Blob;
+  const pdfBytes = await pdfDoc.save();
+  return new Blob([pdfBytes], { type: "application/pdf" });
 }
 
 /**

@@ -663,6 +663,53 @@ export const tools: ToolDefinition[] = [
       "Rotate PDF pages permanently 90°, 180°, or 270° directly in your browser. 100% private client-side processing, no file upload limits, and completely free.",
   },
   {
+    id: "image-to-pdf",
+    title: "Image to PDF Converter — Convert Any Image to PDF Online Free",
+    cluster: "Media",
+    href: "/tools/image-to-pdf/",
+    locale: "en",
+    description: "Convert any image (JPG, PNG, WebP, GIF, SVG, BMP, AVIF) into a single PDF document. 100% client-side, no file uploads, private and free.",
+    keywords: [
+      "image to pdf",
+      "convert image to pdf",
+      "photos to pdf",
+      "picture to pdf converter",
+      "webp to pdf",
+      "png to pdf",
+      "image to pdf free online",
+      "combine photos into pdf"
+    ],
+    related: ["pdf-to-image", "jpg-to-pdf", "merge-pdf", "pdf-to-jpg"],
+    live: true,
+    h1: "Image to PDF Converter — Convert Any Image Format Online",
+    seoTitle: "Image to PDF Converter — Convert JPG, PNG, WebP to PDF Free | Tulyro",
+    seoDescription:
+      "Convert any photo or picture format (JPG, PNG, WebP, SVG, GIF, AVIF) to a high-quality PDF online. 100% client-side, private, and unlimited directly in your browser.",
+  },
+  {
+    id: "pdf-to-image",
+    title: "PDF to Image Converter — Extract PDF Pages to JPG or PNG Online",
+    cluster: "Media",
+    href: "/tools/pdf-to-image/",
+    locale: "en",
+    description: "Convert PDF documents to high-resolution JPG or PNG images online. Completely private browser rendering with zero server uploads.",
+    keywords: [
+      "pdf to image",
+      "pdf to image converter",
+      "convert pdf to pictures",
+      "pdf to png",
+      "pdf to picture converter",
+      "extract images from pdf",
+      "pdf to image high quality"
+    ],
+    related: ["image-to-pdf", "pdf-to-jpg", "jpg-to-pdf", "split-pdf"],
+    live: true,
+    h1: "PDF to Image Converter — Save PDF Pages as Images Online",
+    seoTitle: "PDF to Image Converter — Convert PDF to JPG or PNG Online Free | Tulyro",
+    seoDescription:
+      "Extract and convert PDF pages into high-definition JPG or PNG images directly in your browser. 100% client-side processing with zero file uploads and instant download.",
+  },
+  {
     id: "qr-code-generator",
     title: "QR Code Generator",
     cluster: "Media",

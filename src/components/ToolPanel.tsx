@@ -4315,14 +4315,18 @@ function ImageResizerPanel() {
   );
 }
 
-function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf" }) {
-  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf">(initialMode);
+function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf" | "compress-pdf" }) {
+  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf" | "compress-pdf">(initialMode);
   const [pages, setPages] = useState<{ pageNumber: number; dataUrl: string; width: number; height: number }[]>([]);
   const [pdfImages, setPdfImages] = useState<{ dataUrl: string; width: number; height: number }[]>([]);
   const [pdfFiles, setPdfFiles] = useState<{ name: string; buffer: ArrayBuffer; size: number }[]>([]);
   const [splitFile, setSplitFile] = useState<{ name: string; buffer: ArrayBuffer; size: number; totalPages: number } | null>(null);
   const [pageRangesInput, setPageRangesInput] = useState("");
   const [splitPdfBlob, setSplitPdfBlob] = useState<string | null>(null);
+  const [compressFile, setCompressFile] = useState<{ name: string; buffer: ArrayBuffer; size: number } | null>(null);
+  const [compressPreset, setCompressPreset] = useState<"strong" | "standard" | "minimal">("standard");
+  const [compressedPdfBlob, setCompressedPdfBlob] = useState<string | null>(null);
+  const [compressedPdfSize, setCompressedPdfSize] = useState<number>(0);
   const [progress, setProgress] = useState("");
   const [busy, setBusy] = useState(false);
   const [format, setFormat] = useState<"jpeg" | "png">("jpeg");
@@ -4475,9 +4479,58 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
     }
   }
 
+  async function handleCompressUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    setCompressedPdfBlob(null);
+    setProgress("Loading PDF for compression...");
+    try {
+      const buf = await file.arrayBuffer();
+      setCompressFile({ name: file.name, buffer: buf, size: file.size });
+      setProgress(`PDF loaded: ${(file.size / 1024).toFixed(1)} KB`);
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function runCompressPdf() {
+    if (!compressFile) return;
+    setBusy(true);
+    setCompressedPdfBlob(null);
+    setProgress("Compressing PDF in browser...");
+    try {
+      const { compressPdf } = await import("@/tools/pdf-tools/logic");
+      const scale = compressPreset === "strong" ? 0.9 : compressPreset === "standard" ? 1.2 : 1.5;
+      const quality = compressPreset === "strong" ? 0.45 : compressPreset === "standard" ? 0.65 : 0.85;
+
+      const result = await compressPdf(compressFile.buffer, {
+        scale,
+        quality,
+        onProgress: (done, total) => setProgress(`Processing page ${done}/${total}...`),
+      });
+
+      setCompressedPdfSize(result.compressedSize);
+      setCompressedPdfBlob(URL.createObjectURL(result.blob));
+      setProgress(
+        `Compressed from ${(result.originalSize / 1024).toFixed(1)} KB to ${(result.compressedSize / 1024).toFixed(1)} KB!`
+      );
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
+        <button onClick={() => { setMode("compress-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
+          className={mode === "compress-pdf" ? buttonClass : secondaryButtonClass}>
+          Compress PDF
+        </button>
         <button onClick={() => { setMode("split-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
           className={mode === "split-pdf" ? buttonClass : secondaryButtonClass}>
           Split PDF
@@ -4495,6 +4548,98 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           Images → PDF
         </button>
       </div>
+
+      {mode === "compress-pdf" && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl bg-surface-container-low p-3.5 text-xs text-on-surface-variant">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 font-bold">
+              ✓
+            </span>
+            <span>
+              <strong>100% Client-Side Compression:</strong> Documents are compressed locally via browser rendering. Zero data uploaded.
+            </span>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Upload PDF Document</label>
+            <input type="file" accept="application/pdf" onChange={handleCompressUpload} disabled={busy} className={inputClass} />
+          </div>
+
+          {compressFile && (
+            <div className="space-y-4 rounded-xl border border-border p-4 bg-surface-container-lowest">
+              <div className="flex justify-between items-center text-sm">
+                <span className="font-semibold truncate max-w-xs">{compressFile.name}</span>
+                <span className="text-xs text-muted-foreground">Original: {(compressFile.size / 1024).toFixed(1)} KB</span>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase text-muted-foreground mb-2">Compression Level</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCompressPreset("strong")}
+                    className={`p-3 rounded-lg border text-left transition ${
+                      compressPreset === "strong"
+                        ? "border-primary bg-primary/10 text-primary font-semibold"
+                        : "border-border hover:bg-surface-container-low"
+                    }`}
+                  >
+                    <div className="text-xs font-bold">Strong Compression</div>
+                    <div className="text-[11px] text-muted-foreground">Target &lt;100KB–200KB for exam forms</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCompressPreset("standard")}
+                    className={`p-3 rounded-lg border text-left transition ${
+                      compressPreset === "standard"
+                        ? "border-primary bg-primary/10 text-primary font-semibold"
+                        : "border-border hover:bg-surface-container-low"
+                    }`}
+                  >
+                    <div className="text-xs font-bold">Standard (Recommended)</div>
+                    <div className="text-[11px] text-muted-foreground">Balanced size and crisp readability</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCompressPreset("minimal")}
+                    className={`p-3 rounded-lg border text-left transition ${
+                      compressPreset === "minimal"
+                        ? "border-primary bg-primary/10 text-primary font-semibold"
+                        : "border-border hover:bg-surface-container-low"
+                    }`}
+                  >
+                    <div className="text-xs font-bold">Minimal (High Quality)</div>
+                    <div className="text-[11px] text-muted-foreground">Light compression for print & docs</div>
+                  </button>
+                </div>
+              </div>
+
+              <button onClick={runCompressPdf} disabled={busy} className={buttonClass}>
+                {busy ? "Compressing PDF..." : "Compress PDF"}
+              </button>
+
+              {compressedPdfBlob && (
+                <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-semibold text-emerald-800">Compression Completed!</p>
+                    <p className="text-xs text-muted-foreground">
+                      New size: {(compressedPdfSize / 1024).toFixed(1)} KB (
+                      {Math.round((1 - compressedPdfSize / compressFile.size) * 100)}% reduction)
+                    </p>
+                  </div>
+                  <a
+                    href={compressedPdfBlob}
+                    download={`compressed-${compressFile.name}`}
+                    className={buttonClass}
+                  >
+                    Download Compressed PDF
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {mode === "split-pdf" && (
         <div className="space-y-4">
@@ -5816,6 +5961,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <PdfToolsPanel initialMode="merge-pdf" />;
     case "split-pdf":
       return <PdfToolsPanel initialMode="split-pdf" />;
+    case "compress-pdf":
+      return <PdfToolsPanel initialMode="compress-pdf" />;
     case "qr-code-generator":
       return <QrCodePanel />;
     case "income-tax-calculator":

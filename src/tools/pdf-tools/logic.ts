@@ -198,6 +198,79 @@ export async function splitPdf(
   return new Blob([outBytes], { type: "application/pdf" });
 }
 
+/**
+ * Compress a PDF by re-encoding pages through Canvas at optimized resolution and JPEG quality.
+ * Client-side only with zero cloud uploads.
+ */
+export async function compressPdf(
+  pdfBuffer: ArrayBuffer,
+  options: {
+    scale?: number; // scale factor (e.g., 1.0 = standard, 1.25 = high, 0.75 = aggressive)
+    quality?: number; // 0.1 to 0.95
+    onProgress?: (done: number, total: number) => void;
+  } = {}
+): Promise<{ blob: Blob; originalSize: number; compressedSize: number }> {
+  const { scale = 1.2, quality = 0.65, onProgress } = options;
+
+  const pdfjsVersion = "3.11.174";
+  const cdnBase = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}`;
+  await loadScript(`${cdnBase}/pdf.min.js`);
+  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+
+  // @ts-expect-error pdfjsLib is global
+  const pdfjsLib = window.pdfjsLib;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `${cdnBase}/pdf.worker.min.js`;
+
+  // @ts-expect-error PDFLib global
+  const { PDFDocument } = window.PDFLib;
+
+  const loadingTask = pdfjsLib.getDocument({ data: pdfBuffer });
+  const srcDoc = await loadingTask.promise;
+  const totalPages = srcDoc.numPages;
+
+  const outDoc = await PDFDocument.create();
+
+  for (let i = 1; i <= totalPages; i++) {
+    const page = await srcDoc.getPage(i);
+    const viewport = page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d")!;
+    // Render white background
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    await page.render({ canvasContext: ctx, viewport }).promise;
+
+    const imgDataUrl = canvas.toDataURL("image/jpeg", quality);
+    const imgBytes = await fetch(imgDataUrl).then((r) => r.arrayBuffer());
+    const embeddedImg = await outDoc.embedJpg(imgBytes);
+
+    // Maintain standard PDF point dimensions (viewport at scale 1.0)
+    const baseViewport = page.getViewport({ scale: 1.0 });
+    const pdfPage = outDoc.addPage([baseViewport.width, baseViewport.height]);
+    pdfPage.drawImage(embeddedImg, {
+      x: 0,
+      y: 0,
+      width: baseViewport.width,
+      height: baseViewport.height,
+    });
+
+    onProgress?.(i, totalPages);
+  }
+
+  const outBytes = await outDoc.save();
+  const blob = new Blob([outBytes], { type: "application/pdf" });
+
+  return {
+    blob,
+    originalSize: pdfBuffer.byteLength,
+    compressedSize: blob.size,
+  };
+}
+
 export function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;

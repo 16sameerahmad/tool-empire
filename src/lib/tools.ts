@@ -401,6 +401,30 @@ export const tools: ToolDefinition[] = [
       "Merge multiple PDF documents into a single file directly in your browser. 100% private with zero file uploads to servers. Fast, secure, and free without limits.",
   },
   {
+    id: "compress-pdf",
+    title: "Compress PDF Online Free — Reduce PDF File Size",
+    cluster: "Media",
+    href: "/tools/compress-pdf/",
+    locale: "en",
+    description: "Compress and reduce PDF file size online to 100KB, 200KB, or 500KB. 100% client-side with zero file uploads.",
+    keywords: [
+      "compress pdf",
+      "pdf compressor",
+      "compress pdf to 100kb",
+      "compress pdf to 200kb",
+      "reduce pdf file size",
+      "compress pdf online free",
+      "reduce pdf size online",
+      "compress pdf without losing quality"
+    ],
+    related: ["merge-pdf", "split-pdf", "pdf-tools", "image-compressor"],
+    live: true,
+    h1: "Compress PDF Online Free — Reduce PDF Size Securely",
+    seoTitle: "Compress PDF Online Free — Reduce PDF File Size | Tulyro",
+    seoDescription:
+      "Reduce PDF size to 100KB, 200KB, or custom targets directly in your browser. 100% private, client-side WebAssembly, no file limits, and zero server uploads.",
+  },
+  {
     id: "split-pdf",
     title: "Split PDF Online Free — Extract Pages from PDF",
     cluster: "Media",

@@ -688,6 +688,27 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I use this on mobile phones (Android / iPhone)?", answer: "Yes, our client-side merge works on all modern mobile and desktop browsers including Chrome, Safari, Firefox, and Edge." },
     ]),
   },
+  "compress-pdf": {
+    definition: "A PDF compressor reduces the file size of PDF documents by downsampling scanned images, stripping extraneous metadata, and optimizing visual streams.",
+    intro: "Compress PDF files online to under 100KB, 200KB, or 500KB for government job portals, university admissions, and email attachments. 100% private and client-side.",
+    howTo: [
+      "Upload or drag and drop your PDF document.",
+      "Select your compression level: Strong (Max reduction for strict portal limits like 100KB), Standard (Balanced quality & size), or Minimal (High-res print preservation).",
+      "Click 'Compress PDF' to process the document entirely inside your browser.",
+      "Download your compressed PDF file instantly.",
+    ],
+    content: [
+      "Indian government exams and admission portals (including UPSC, SSC, NTA NEET, IBPS, and state PSCs) typically enforce strict file size ceilings of 100KB to 200KB for PDF certificates and marksheets.",
+      "Most commercial PDF compressors upload your sensitive documents to remote servers, risking data leaks. Our compressor operates 100% on your device using WebAssembly rendering, guaranteeing total privacy for Aadhaar cards, caste certificates, and academic records.",
+      "By intelligent page-level visual optimization and metadata trimming, our engine achieves up to 70-80% file size reduction without rendering text illegible.",
+    ],
+    faq: faq([
+      { question: "How do I compress a PDF to less than 100KB or 200KB for Indian exam portals?", answer: "Upload your document and choose the 'Strong Compression' preset. It optimizes page resolution and JPEG stream quality to fit strict portal thresholds." },
+      { question: "Is it safe to compress confidential marksheets and ID proofs here?", answer: "Yes. All processing happens 100% inside your browser. No files are uploaded to any server or cloud storage." },
+      { question: "Does compressing make text blurry?", answer: "Our algorithm balances resolution with file size. Text and signatures remain crisp and legible, while high-density background scan noise is compressed." },
+      { question: "Is there any file size limit or watermarking?", answer: "No limits and zero watermarks. You get clean, unadulterated PDF downloads for free." },
+    ]),
+  },
   "split-pdf": {
     definition: "A PDF splitter extracts chosen pages or customized page ranges from an existing PDF and generates a new, focused PDF document.",
     intro: "Split and extract specific pages from any PDF document online for free. Fast, private, and 100% browser-based with zero file uploads.",

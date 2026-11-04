@@ -4228,8 +4228,43 @@ function ImageResizerPanel() {
       ) : (
         <div className="space-y-6">
           <div className="space-y-4 rounded-xl bg-surface-container-low p-4">
-            <span className="text-xs text-on-surface-variant font-medium">Quick Target Presets</span>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-on-surface-variant font-medium">Exam & Target Presets (SSC / UPSC / NTA / Signatures)</span>
+            </div>
             <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMaxDimension(450);
+                  setQuality(75);
+                  setTargetKb(50);
+                }}
+                className={targetKb === 50 ? buttonClass : secondaryButtonClass}
+              >
+                SSC Photo (3.5x4.5cm &lt;50KB)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMaxDimension(350);
+                  setQuality(80);
+                  setTargetKb(100);
+                }}
+                className={targetKb === 100 ? buttonClass : secondaryButtonClass}
+              >
+                UPSC Photo (&lt;100KB)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMaxDimension(350);
+                  setQuality(60);
+                  setTargetKb(20);
+                }}
+                className={targetKb === 20 ? buttonClass : secondaryButtonClass}
+              >
+                Govt Signature (10-20KB)
+              </button>
               {[20, 50, 100, 200].map((kb) => (
                 <button
                   key={kb}
@@ -4539,13 +4574,13 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           className={mode === "merge-pdf" ? buttonClass : secondaryButtonClass}>
           Merge PDF
         </button>
-        <button onClick={() => { setMode("pdf-to-img"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
-          className={mode === "pdf-to-img" ? buttonClass : secondaryButtonClass}>
-          PDF → Images
-        </button>
         <button onClick={() => { setMode("img-to-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
           className={mode === "img-to-pdf" ? buttonClass : secondaryButtonClass}>
-          Images → PDF
+          JPG → PDF
+        </button>
+        <button onClick={() => { setMode("pdf-to-img"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
+          className={mode === "pdf-to-img" ? buttonClass : secondaryButtonClass}>
+          PDF → JPG
         </button>
       </div>
 
@@ -5957,6 +5992,10 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <GstPanel />;
     case "pdf-tools":
       return <PdfToolsPanel />;
+    case "jpg-to-pdf":
+      return <PdfToolsPanel initialMode="img-to-pdf" />;
+    case "pdf-to-jpg":
+      return <PdfToolsPanel initialMode="pdf-to-img" />;
     case "merge-pdf":
       return <PdfToolsPanel initialMode="merge-pdf" />;
     case "split-pdf":

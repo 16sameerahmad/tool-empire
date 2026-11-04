@@ -413,6 +413,9 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "How can I reduce image size to 20KB or 50KB?", answer: "Upload your image, choose the 20KB or 50KB preset, and our client-side canvas engine automatically scales dimensions and adjusts compression quality to fit under the limit." },
+      { question: "What are the exact photo dimensions for SSC CGL / CHSL?", answer: "SSC requires a scanned color passport photo of 3.5 cm x 4.5 cm (width x height) with a file size between 20 KB and 50 KB in JPEG format." },
+      { question: "What are the photo and signature size rules for UPSC online applications?", answer: "UPSC requires photograph dimensions between 350x350 to 1000x1000 pixels with file size between 20 KB and 300 KB, and signature between 20 KB and 100 KB." },
+      { question: "How do I resize my signature for IBPS and NTA exams?", answer: "Choose the 'Govt Signature' preset to compress your signature file between 10 KB and 20 KB with optimal contrast for clear document verification." },
       { question: "Is it safe to upload personal ID photos?", answer: "Yes. Processing is 100% client-side inside your browser. No files are uploaded to any server or cloud database." },
       { question: "Will my resized image have watermarks?", answer: "No. All downloads are clean, unbranded, and high resolution." },
     ]),
@@ -665,6 +668,48 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I convert multi-page PDFs?", answer: "Yes. Every page is individually rendered and you can download all pages as high-quality JPG or PNG images." },
       { question: "Is there a file size limit?", answer: "There is no server limit. The only restriction is the available RAM and browser processing memory on your local machine." },
       { question: "Does this preserve image quality?", answer: "Yes, pages are rendered at 2x retina scale by default to ensure crisp text and high-definition graphics." },
+    ]),
+  },
+  "jpg-to-pdf": {
+    definition: "A JPG to PDF converter converts digital photographs, scans, and graphic files (JPEG, PNG, WebP) into a standardized multi-page PDF document.",
+    intro: "Convert JPG and PNG photos into a single PDF file online. 100% private and client-side with instant download and zero file uploads.",
+    howTo: [
+      "Select or drag & drop multiple JPG, PNG, or WebP images.",
+      "Review the loaded images and their dimensions.",
+      "Click 'Generate PDF' to assemble your photos into a single document directly in your browser.",
+      "Download your finished PDF file instantly.",
+    ],
+    content: [
+      "JPG to PDF conversion is the highest-volume document utility query in India, critical for combining Aadhaar cards, PAN cards, college marksheets, and receipts into single submission documents for portal uploads.",
+      "Most commercial converters (like iLovePDF and Smallpdf) transmit your private IDs and photos to remote servers, queueing them behind download paywalls or rate limits. Our converter runs 100% on your device using HTML5 Canvas and client-side PDF synthesis.",
+      "Images are automatically scaled to standard document aspect ratios without pixel stretching. Zero data is stored, tracked, or sent across the network.",
+    ],
+    faq: faq([
+      { question: "How many images can I combine into a single PDF?", answer: "You can combine multiple images at once without restrictions. Your device's memory is the only natural ceiling." },
+      { question: "Are my private documents and ID scans safe?", answer: "Yes, completely. Processing occurs 100% locally in your browser memory. Files are never transmitted to any external server." },
+      { question: "Does it support PNG and WebP along with JPG?", answer: "Yes. Our tool automatically detects and normalizes JPEG, PNG, and WebP images into standard PDF streams." },
+      { question: "Is there any watermark on the output PDF?", answer: "None. The generated PDF is completely clean and unwatermarked." },
+    ]),
+  },
+  "pdf-to-jpg": {
+    definition: "A PDF to JPG converter extracts and renders vector-based PDF pages into high-resolution standalone raster image files (JPEG or PNG).",
+    intro: "Convert PDF pages into crystal-clear JPG or PNG images online. Completely free, private, and client-side with zero server uploads.",
+    howTo: [
+      "Upload or drop your PDF document.",
+      "Choose your preferred export format: JPG for standard file size or PNG for maximum lossless clarity.",
+      "Click 'Convert PDF to Images' to render pages using your browser's hardware-accelerated canvas.",
+      "Download individual page images or the entire set.",
+    ],
+    content: [
+      "Converting PDF pages to JPG images is necessary when application forms, government portals, or social platforms require single-image uploads instead of document files.",
+      "Our conversion engine utilizes Mozilla's WebAssembly-powered PDF rendering pipeline directly on your device. Every vector glyph and embedded diagram is rasterized at crisp retina resolution (up to 2x scale).",
+      "Because no server upload is required, large multi-page PDF documents convert in seconds with zero risk of sensitive document leakage.",
+    ],
+    faq: faq([
+      { question: "Can I convert multi-page PDFs to individual JPG images?", answer: "Yes. Every page in your PDF document is converted into an individual high-resolution image ready for one-click download." },
+      { question: "What is the difference between JPG and PNG output?", answer: "JPG provides smaller file sizes ideal for web submissions and email. PNG provides lossless compression with sharper text and transparent margins." },
+      { question: "Will my confidential PDF ever be stored on a server?", answer: "Never. The entire parsing and rendering process happens strictly within your browser's local sandbox." },
+      { question: "Does this tool work on mobile browsers?", answer: "Yes. It is fully compatible with Chrome, Safari, Firefox, and Samsung Internet on Android and iOS devices." },
     ]),
   },
   "merge-pdf": {

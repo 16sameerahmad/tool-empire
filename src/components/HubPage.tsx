@@ -12,6 +12,7 @@ const HUB_COPY: Record<string, { pill: string; blurb: string }> = {
   Dev: { pill: "Developer Utilities", blurb: "Free browser-only developer tools for encoding text." },
   Tools: { pill: "Everyday Work", blurb: "Free browser-only utilities for invoices and everyday work." },
   Fun: { pill: "Mockups & Entertainment", blurb: "Free browser-only mockup tools for sketches and entertainment." },
+  Media: { pill: "PDF, Image & Audio", blurb: "Free PDF, image, and audio tools for converting, compressing, and editing files." },
 };
 
 /** Short intro paragraph on the two indexable hubs (factual, no invented claims). */

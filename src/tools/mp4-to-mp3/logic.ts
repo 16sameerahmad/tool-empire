@@ -65,15 +65,26 @@ export async function videoToMp3(
     outputName,
   ]);
 
-  const data = await ffmpeg.readFile(outputName);
+  const data = await readOutput(ffmpeg, outputName);
   // Clean up
   await ffmpeg.deleteFile(inputName);
-  await ffmpeg.deleteFile(outputName);
+  await ffmpeg.deleteFile(outputName).catch(() => {});
   ffmpeg.terminate();
 
   // Create clean buffer to avoid SharedArrayBuffer type conflict
-  const buffer = typeof data === "string" ? new TextEncoder().encode(data) : new Uint8Array(data);
+  const buffer = typeof data === "string" ? new TextEncoder().encode(data) : new Uint8Array(data as Uint8Array);
+  if (buffer.length === 0) {
+    throw new Error("No audio track found in this file — nothing to extract.");
+  }
   return new Blob([buffer], { type: "audio/mpeg" });
+}
+
+async function readOutput(ffmpeg: { readFile: (name: string) => Promise<unknown> }, name: string): Promise<unknown> {
+  try {
+    return await ffmpeg.readFile(name);
+  } catch {
+    throw new Error("No audio track found in this file — extraction produced no output.");
+  }
 }
 
 function getExtension(filename: string): string {

@@ -5187,7 +5187,8 @@ function Mp4ToMp3Panel() {
       setProgress("Done! Audio extracted successfully.");
       setProgressPct(100);
     } catch (err) {
-      setErrorMsg(`Extraction failed: ${(err as Error).message}`);
+      const msg = err instanceof Error && err.message ? err.message : "unknown error — the file may have no audio track or be in an unsupported format.";
+      setErrorMsg(`Extraction failed: ${msg}`);
       setProgress("");
       setProgressPct(0);
     } finally {

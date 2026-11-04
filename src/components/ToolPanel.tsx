@@ -5741,11 +5741,16 @@ function calculateLocalStrength(pw: string) {
 }
 
 function EpochConverterPanel() {
-  const [currentEpoch, setCurrentEpoch] = useState(() => Math.floor(Date.now() / 1000));
-  const [inputVal, setInputVal] = useState(() => String(Math.floor(Date.now() / 1000)));
+  // NOTE: Date.now() must NOT run during render — server/client values differ
+  // and cause React hydration #418. Init with stable values, fill in on mount.
+  const [currentEpoch, setCurrentEpoch] = useState<number | null>(null);
+  const [inputVal, setInputVal] = useState("");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   useEffect(() => {
+    const now = Math.floor(Date.now() / 1000);
+    setCurrentEpoch(now);
+    setInputVal((v) => (v === "" ? String(now) : v));
     const timer = setInterval(() => {
       setCurrentEpoch(Math.floor(Date.now() / 1000));
     }, 1000);
@@ -5784,12 +5789,12 @@ function EpochConverterPanel() {
       <div className="flex items-center justify-between p-4 bg-muted/40 rounded border">
         <div>
           <span className="text-xs uppercase text-muted-foreground font-semibold">Current Unix Epoch</span>
-          <p className="text-2xl font-mono font-bold">{currentEpoch}</p>
+          <p className="text-2xl font-mono font-bold">{currentEpoch ?? "…"}</p>
         </div>
         <button
           type="button"
           className="px-3 py-1.5 border rounded text-xs font-medium hover:bg-muted"
-          onClick={() => setInputVal(String(currentEpoch))}
+          onClick={() => setInputVal(String(currentEpoch ?? Math.floor(Date.now() / 1000)))}
         >
           Use Current
         </button>

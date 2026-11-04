@@ -14,7 +14,7 @@ export type PdfPageImage = {
   height: number;
 };
 
-function loadScript(src: string): Promise<void> {
+export function loadScript(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
       resolve();
@@ -160,6 +160,42 @@ export async function mergePdfs(
 
   const mergedPdfBytes = await mergedPdf.save();
   return new Blob([mergedPdfBytes], { type: "application/pdf" });
+}
+
+/**
+ * Split a PDF file by extracting selected 1-based page numbers.
+ */
+export async function splitPdf(
+  pdfBuffer: ArrayBuffer,
+  selectedPages: number[],
+  onProgress?: (done: number, total: number) => void
+): Promise<Blob> {
+  if (selectedPages.length === 0) throw new Error("No pages selected to extract");
+  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+
+  // @ts-expect-error PDFLib global from script
+  const { PDFDocument } = window.PDFLib;
+  const srcDoc = await PDFDocument.load(pdfBuffer);
+  const outDoc = await PDFDocument.create();
+
+  const totalSrcPages = srcDoc.getPageCount();
+  // Filter valid 1-based pages and convert to 0-based indices
+  const zeroBasedIndices = selectedPages
+    .filter((p) => p >= 1 && p <= totalSrcPages)
+    .map((p) => p - 1);
+
+  if (zeroBasedIndices.length === 0) {
+    throw new Error("None of the specified page numbers exist in the PDF");
+  }
+
+  const copiedPages = await outDoc.copyPages(srcDoc, zeroBasedIndices);
+  for (let i = 0; i < copiedPages.length; i++) {
+    outDoc.addPage(copiedPages[i]);
+    onProgress?.(i + 1, copiedPages.length);
+  }
+
+  const outBytes = await outDoc.save();
+  return new Blob([outBytes], { type: "application/pdf" });
 }
 
 export function formatBytes(bytes: number): string {

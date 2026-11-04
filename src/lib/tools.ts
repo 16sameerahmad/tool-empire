@@ -401,6 +401,53 @@ export const tools: ToolDefinition[] = [
       "Merge multiple PDF documents into a single file directly in your browser. 100% private with zero file uploads to servers. Fast, secure, and free without limits.",
   },
   {
+    id: "split-pdf",
+    title: "Split PDF Online Free — Extract Pages from PDF",
+    cluster: "Media",
+    href: "/tools/split-pdf/",
+    locale: "en",
+    description: "Extract specific pages or page ranges from PDF files online. 100% private, free, and runs entirely in your browser.",
+    keywords: [
+      "split pdf",
+      "split pdf online",
+      "extract pdf pages",
+      "pdf splitter free",
+      "split pdf pages free",
+      "separate pdf pages online",
+      "extract first page of pdf"
+    ],
+    related: ["merge-pdf", "pdf-tools", "image-compressor"],
+    live: true,
+    h1: "Split PDF Online Free — Extract Specific Pages Securely",
+    seoTitle: "Split PDF Online Free — Extract Pages Client-Side | Tulyro",
+    seoDescription:
+      "Separate PDF pages or extract custom page ranges (e.g. 1-3, 5) directly in your browser. Fast, 100% private, no file uploads, and free without limits.",
+  },
+  {
+    id: "image-converter",
+    title: "JPG to PNG & Image Format Converter Online",
+    cluster: "Media",
+    href: "/tools/image-converter/",
+    locale: "en",
+    description: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side with zero quality loss.",
+    keywords: [
+      "jpg to png",
+      "png to jpg",
+      "convert jpg to png",
+      "convert png to jpg",
+      "image converter",
+      "image to webp",
+      "png to jpg without black background",
+      "convert photo to png online"
+    ],
+    related: ["image-compressor", "image-resizer", "pdf-tools"],
+    live: true,
+    h1: "JPG to PNG & Image Converter — Free, Fast, Client-Side",
+    seoTitle: "JPG to PNG & PNG to JPG Converter — Free Online | Tulyro",
+    seoDescription:
+      "Convert JPG, PNG, and WebP images instantly in your browser. Transparent background support, high visual fidelity, 100% private, and zero file uploads.",
+  },
+  {
     id: "qr-code-generator",
     title: "QR Code Generator",
     cluster: "Media",

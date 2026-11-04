@@ -3604,6 +3604,180 @@ function PercentagePanel() {
   );
 }
 
+function ImageConverterPanel() {
+  const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [outputFormat, setOutputFormat] = useState<"png" | "jpeg" | "webp">("png");
+  const [quality, setQuality] = useState<number>(0.92);
+  const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
+  const [originalSize, setOriginalSize] = useState<number>(0);
+  const [convertedSize, setConvertedSize] = useState<number>(0);
+  const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = e.target.files?.[0];
+    if (!selected) return;
+    setErrorMsg("");
+    setConvertedUrl(null);
+    setFile(selected);
+    setOriginalSize(selected.size);
+
+    const url = URL.createObjectURL(selected);
+    setPreviewUrl(url);
+
+    const img = new Image();
+    img.onload = () => {
+      setDimensions({ width: img.naturalWidth || img.width, height: img.naturalHeight || img.height });
+    };
+    img.src = url;
+  };
+
+  const handleConvert = async () => {
+    if (!file) return;
+    setIsProcessing(true);
+    setErrorMsg("");
+    try {
+      const { convertImage } = await import("@/tools/image-converter/logic");
+      const result = await convertImage(file, {
+        format: outputFormat,
+        quality,
+      });
+      setConvertedSize(result.convertedSize);
+      setConvertedUrl(URL.createObjectURL(result.blob));
+    } catch (err) {
+      setErrorMsg((err as Error).message || "Failed to convert image");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const getCleanFileName = () => {
+    if (!file) return `converted.${outputFormat === "jpeg" ? "jpg" : outputFormat}`;
+    const base = file.name.replace(/\.[^/.]+$/, "");
+    return `${base}.${outputFormat === "jpeg" ? "jpg" : outputFormat}`;
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-2 rounded-xl bg-surface-container-low p-3.5 text-xs text-on-surface-variant">
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 font-bold">
+          ✓
+        </span>
+        <span>
+          <strong>100% Client-Side Conversion:</strong> Runs entirely in your browser via HTML5 Canvas. Photos never leave your device.
+        </span>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1">Upload Image (JPG, PNG, WebP)</label>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={handleFileChange}
+          className={inputClass}
+          disabled={isProcessing}
+        />
+      </div>
+
+      {previewUrl && (
+        <div className="space-y-4 rounded-xl border border-border p-4 bg-surface-container-lowest">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold">{file?.name}</p>
+              <p className="text-xs text-muted-foreground">
+                Original: {dimensions.width}x{dimensions.height}px • {(originalSize / 1024).toFixed(1)} KB
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-muted-foreground uppercase">Format:</span>
+              <button
+                type="button"
+                onClick={() => setOutputFormat("png")}
+                className={`px-3 py-1 rounded text-xs font-semibold transition ${
+                  outputFormat === "png" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                PNG
+              </button>
+              <button
+                type="button"
+                onClick={() => setOutputFormat("jpeg")}
+                className={`px-3 py-1 rounded text-xs font-semibold transition ${
+                  outputFormat === "jpeg" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                JPG
+              </button>
+              <button
+                type="button"
+                onClick={() => setOutputFormat("webp")}
+                className={`px-3 py-1 rounded text-xs font-semibold transition ${
+                  outputFormat === "webp" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                WebP
+              </button>
+            </div>
+          </div>
+
+          {outputFormat !== "png" && (
+            <div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="font-medium">Output Quality</span>
+                <span className="text-muted-foreground">{Math.round(quality * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0.2"
+                max="1.0"
+                step="0.05"
+                value={quality}
+                onChange={(e) => setQuality(parseFloat(e.target.value))}
+                className="w-full accent-primary"
+              />
+            </div>
+          )}
+
+          <button
+            onClick={handleConvert}
+            disabled={isProcessing}
+            className={buttonClass}
+          >
+            {isProcessing ? "Converting..." : `Convert to ${outputFormat.toUpperCase()}`}
+          </button>
+
+          {errorMsg && <p className="text-xs text-destructive">{errorMsg}</p>}
+
+          {convertedUrl && (
+            <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-emerald-800">Ready for Download</p>
+                <p className="text-xs text-muted-foreground">
+                  New size: {(convertedSize / 1024).toFixed(1)} KB (
+                  {convertedSize > originalSize
+                    ? `+${((convertedSize - originalSize) / 1024).toFixed(1)} KB`
+                    : `-${((originalSize - convertedSize) / 1024).toFixed(1)} KB`}
+                  )
+                </p>
+              </div>
+              <a
+                href={convertedUrl}
+                download={getCleanFileName()}
+                className={buttonClass}
+              >
+                Download {outputFormat.toUpperCase()}
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ImageCompressorPanel() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [targetKb, setTargetKb] = useState<number>(50);
@@ -4141,11 +4315,14 @@ function ImageResizerPanel() {
   );
 }
 
-function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-img" | "img-to-pdf" | "merge-pdf" }) {
-  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf" | "merge-pdf">(initialMode);
+function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf" }) {
+  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf" | "merge-pdf" | "split-pdf">(initialMode);
   const [pages, setPages] = useState<{ pageNumber: number; dataUrl: string; width: number; height: number }[]>([]);
   const [pdfImages, setPdfImages] = useState<{ dataUrl: string; width: number; height: number }[]>([]);
   const [pdfFiles, setPdfFiles] = useState<{ name: string; buffer: ArrayBuffer; size: number }[]>([]);
+  const [splitFile, setSplitFile] = useState<{ name: string; buffer: ArrayBuffer; size: number; totalPages: number } | null>(null);
+  const [pageRangesInput, setPageRangesInput] = useState("");
+  const [splitPdfBlob, setSplitPdfBlob] = useState<string | null>(null);
   const [progress, setProgress] = useState("");
   const [busy, setBusy] = useState(false);
   const [format, setFormat] = useState<"jpeg" | "png">("jpeg");
@@ -4251,9 +4428,60 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
     }
   }
 
+  async function handleSplitPdfUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    setSplitPdfBlob(null);
+    setProgress("Loading PDF inspection...");
+    try {
+      const buf = await file.arrayBuffer();
+      const { loadScript } = await import("@/tools/pdf-tools/logic");
+      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+      // @ts-expect-error PDFLib global
+      const { PDFDocument } = window.PDFLib;
+      const doc = await PDFDocument.load(buf);
+      const totalPages = doc.getPageCount();
+      setSplitFile({ name: file.name, buffer: buf, size: file.size, totalPages });
+      setPageRangesInput(`1-${Math.min(totalPages, 3)}`);
+      setProgress(`PDF loaded: ${totalPages} page(s)`);
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function extractPdfPages() {
+    if (!splitFile) return;
+    setBusy(true);
+    setProgress("Extracting pages in browser...");
+    try {
+      const { splitPdf } = await import("@/tools/pdf-tools/logic");
+      const { parsePageRanges } = await import("@/tools/image-converter/logic");
+      const pagesToExtract = parsePageRanges(pageRangesInput, splitFile.totalPages);
+      if (pagesToExtract.length === 0) {
+        throw new Error("Please specify valid page numbers within the PDF's range");
+      }
+      const blob = await splitPdf(splitFile.buffer, pagesToExtract, (done, total) =>
+        setProgress(`Extracting page ${done}/${total}`)
+      );
+      setSplitPdfBlob(URL.createObjectURL(blob));
+      setProgress(`Extracted ${pagesToExtract.length} page(s) successfully!`);
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
+        <button onClick={() => { setMode("split-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
+          className={mode === "split-pdf" ? buttonClass : secondaryButtonClass}>
+          Split PDF
+        </button>
         <button onClick={() => { setMode("merge-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
           className={mode === "merge-pdf" ? buttonClass : secondaryButtonClass}>
           Merge PDF
@@ -4267,6 +4495,94 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           Images → PDF
         </button>
       </div>
+
+      {mode === "split-pdf" && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl bg-surface-container-low p-3.5 text-xs text-on-surface-variant">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 font-bold">
+              ✓
+            </span>
+            <span>
+              <strong>100% Client-Side Extraction:</strong> Your PDF pages are extracted locally inside your browser. No files are uploaded to any server.
+            </span>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Upload PDF to Split</label>
+            <input type="file" accept="application/pdf" onChange={handleSplitPdfUpload} disabled={busy} className={inputClass} />
+          </div>
+
+          {splitFile && (
+            <div className="space-y-3 rounded-lg border border-border p-4 bg-surface-container-lowest">
+              <div className="flex justify-between items-center text-sm">
+                <span className="font-medium truncate max-w-xs">{splitFile.name}</span>
+                <span className="text-muted-foreground">{splitFile.totalPages} total page(s)</span>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+                  Pages to Extract (e.g. 1-3, 5, 8)
+                </label>
+                <input
+                  type="text"
+                  value={pageRangesInput}
+                  onChange={(e) => setPageRangesInput(e.target.value)}
+                  placeholder={`1-${splitFile.totalPages}`}
+                  className={inputClass}
+                  disabled={busy}
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                <button
+                  onClick={() => setPageRangesInput("1")}
+                  className="text-xs px-2.5 py-1 rounded bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                >
+                  First Page Only
+                </button>
+                <button
+                  onClick={() => setPageRangesInput(`1-${Math.min(splitFile.totalPages, 5)}`)}
+                  className="text-xs px-2.5 py-1 rounded bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                >
+                  Pages 1–{Math.min(splitFile.totalPages, 5)}
+                </button>
+                <button
+                  onClick={() => setPageRangesInput(`1-${splitFile.totalPages}`)}
+                  className="text-xs px-2.5 py-1 rounded bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                >
+                  All Pages
+                </button>
+              </div>
+
+              <button
+                onClick={extractPdfPages}
+                disabled={busy || !pageRangesInput.trim()}
+                className={buttonClass}
+              >
+                {busy ? "Processing..." : "Extract Selected Pages"}
+              </button>
+            </div>
+          )}
+
+          {progress && <p className="text-sm font-medium text-primary">{progress}</p>}
+
+          {splitPdfBlob && (
+            <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-emerald-800">Split PDF Ready</p>
+                <p className="text-xs text-muted-foreground">Original pages extracted safely into new PDF.</p>
+              </div>
+              <a
+                href={splitPdfBlob}
+                download={splitFile ? `split-${splitFile.name}` : "split.pdf"}
+                className={buttonClass}
+              >
+                Download Split PDF
+              </a>
+            </div>
+          )}
+        </div>
+      )}
 
       {mode === "merge-pdf" && (
         <div className="space-y-4">
@@ -5488,6 +5804,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <RemoveBackgroundPanel />;
     case "image-compressor":
       return <ImageCompressorPanel />;
+    case "image-converter":
+      return <ImageConverterPanel />;
     case "image-resizer":
       return <ImageResizerPanel />;
     case "gst-calculator":
@@ -5496,6 +5814,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <PdfToolsPanel />;
     case "merge-pdf":
       return <PdfToolsPanel initialMode="merge-pdf" />;
+    case "split-pdf":
+      return <PdfToolsPanel initialMode="split-pdf" />;
     case "qr-code-generator":
       return <QrCodePanel />;
     case "income-tax-calculator":

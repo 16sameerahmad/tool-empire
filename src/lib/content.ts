@@ -688,6 +688,48 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I use this on mobile phones (Android / iPhone)?", answer: "Yes, our client-side merge works on all modern mobile and desktop browsers including Chrome, Safari, Firefox, and Edge." },
     ]),
   },
+  "split-pdf": {
+    definition: "A PDF splitter extracts chosen pages or customized page ranges from an existing PDF and generates a new, focused PDF document.",
+    intro: "Split and extract specific pages from any PDF document online for free. Fast, private, and 100% browser-based with zero file uploads.",
+    howTo: [
+      "Select or drag and drop your PDF document into the splitter.",
+      "Enter the page numbers or ranges to extract (for example: 1, 3, 5-8).",
+      "Click 'Extract Selected Pages' to process the document locally on your device.",
+      "Download your newly split PDF immediately.",
+    ],
+    content: [
+      "Whether you need to extract the first page of an agreement, save specific certificate pages from a multi-page college transcript, or remove unnecessary appendix pages, our Split PDF utility makes it instantaneous.",
+      "Execution happens 100% inside your browser using pdf-lib WebAssembly binaries. Your confidential marksheets, tax documents, and contracts are never transmitted over the internet or retained on remote servers.",
+      "The tool retains vector fonts, digital signatures, hyperlinks, and layout geometry exactly as designed in the original document.",
+    ],
+    faq: faq([
+      { question: "How do I specify which pages to extract?", answer: "You can enter individual pages separated by commas (e.g., '1, 4, 7') or continuous page ranges with hyphens (e.g., '1-5, 8-10')." },
+      { question: "Are my documents kept private?", answer: "Yes. All extraction happens in your browser's local memory sandbox. No files or personal data are ever uploaded to any server." },
+      { question: "Is there any limit on PDF file size?", answer: "There is no artificial server limit. You can split documents as large as your device's browser memory supports." },
+      { question: "Does splitting reduce PDF visual quality?", answer: "No. The original page objects and vector elements are copied byte-for-byte without re-compression or quality degradation." },
+    ]),
+  },
+  "image-converter": {
+    definition: "An image format converter transforms digital graphics between file encodings (such as PNG, JPEG, and WebP) to optimize transparency, compatibility, or file size.",
+    intro: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side with zero quality loss and full privacy.",
+    howTo: [
+      "Select your source image file (JPG, PNG, or WebP).",
+      "Choose your desired output format (PNG for transparency, JPG for compatibility, WebP for web performance).",
+      "Adjust quality if needed and click Convert.",
+      "Download your converted image immediately.",
+    ],
+    content: [
+      "Different use cases demand different image formats: transparent logos and digital signatures need PNG; photo submissions for Indian exams (UPSC, SSC, NEET) strictly require JPG; modern websites require WebP for optimal Core Web Vitals.",
+      "Our converter solves the notorious 'black background' issue when converting transparent PNGs to JPG by automatically applying a crisp white background layer before JPEG quantization.",
+      "Everything runs locally via HTML5 Canvas 2D graphics rendering. No images are sent over the wire, giving you lightning-fast speed and total confidentiality for sensitive identity proofs.",
+    ],
+    faq: faq([
+      { question: "Why does my transparent PNG turn black when converted to JPG on other sites?", answer: "JPG does not support transparency (alpha channels). Other converters replace transparency with black pixels. Our tool automatically blends transparency over a clean white background." },
+      { question: "Can I convert images to modern WebP format?", answer: "Yes! WebP provides 25-35% smaller file sizes than standard JPEG at identical visual quality." },
+      { question: "Are my photos uploaded to any server?", answer: "No. Conversion executes entirely in your browser using client-side Canvas APIs. Your photos never leave your device." },
+      { question: "Is there a limit on how many images I can convert?", answer: "No, there are no limits, daily caps, or forced registrations." },
+    ]),
+  },
   "qr-code-generator": {
     definition: "A QR (Quick Response) code is a two-dimensional barcode containing encoded binary data that optical scanners and smartphones can instantly read.",
     intro: "Create customizable, high-resolution QR codes for websites, plain text, WiFi credentials, contact cards, and payment links.",

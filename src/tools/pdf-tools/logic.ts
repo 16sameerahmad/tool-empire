@@ -135,6 +135,33 @@ export async function imagesToPdf(
   return pdf!.output("blob") as Blob;
 }
 
+/**
+ * Merge multiple PDF files into one single PDF (100% client-side via pdf-lib).
+ */
+export async function mergePdfs(
+  pdfBuffers: ArrayBuffer[],
+  onProgress?: (done: number, total: number) => void
+): Promise<Blob> {
+  if (pdfBuffers.length === 0) throw new Error("No PDFs provided to merge");
+  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+
+  // @ts-expect-error PDFLib global from script
+  const { PDFDocument } = window.PDFLib;
+  const mergedPdf = await PDFDocument.create();
+
+  for (let i = 0; i < pdfBuffers.length; i++) {
+    const srcDoc = await PDFDocument.load(pdfBuffers[i]);
+    const copiedPages = await mergedPdf.copyPages(srcDoc, srcDoc.getPageIndices());
+    for (const page of copiedPages) {
+      mergedPdf.addPage(page);
+    }
+    onProgress?.(i + 1, pdfBuffers.length);
+  }
+
+  const mergedPdfBytes = await mergedPdf.save();
+  return new Blob([mergedPdfBytes], { type: "application/pdf" });
+}
+
 export function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;

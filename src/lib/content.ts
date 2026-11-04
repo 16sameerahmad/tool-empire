@@ -368,6 +368,31 @@ export const content: Record<string, ToolContent> = {
       { question: "How do I calculate my exam percentage?", answer: "Divide your obtained total marks by the maximum possible marks, then multiply the result by 100." },
     ]),
   },
+  "image-compressor": {
+    definition: "An Image Compressor is an in-browser utility that reduces the file size of JPG, PNG, and WEBP photos to exact kilobyte limits (such as 20KB, 50KB, 100KB, and 200KB) without blurry distortion, specifically tuned for government recruitment exams and identity verification.",
+    intro: "Compress images to exact KB limits (20KB, 50KB, 100KB, 200KB) online. 100% private, client-side WebAssembly & Canvas processing, no file upload to any server.",
+    howTo: [
+      "Select or drag & drop your image (JPG, PNG, or WEBP).",
+      "Click an Indian exam preset button (e.g. UPSC Photo 20-50KB, SSC Signature 10-20KB, NEET 10-200KB) or enter a custom target KB.",
+      "The binary-search compression engine automatically calculates optimal quality and dimensions to hit your target under the limit.",
+      "Verify the exact output file size and preview, then click Download.",
+    ],
+    content: [
+      "Nearly every major government recruitment portal in India—including UPSC Civil Services, SSC CGL/CHSL, IBPS Bank Clerk/PO, State PSCs, Railway RRB, and NTA (NEET, JEE Mains)—strictly enforces stringent file size ceilings for candidate photographs and signatures.",
+      "Common official requirements include: Passport photo between 20KB and 50KB (UPSC/SSC), Signature between 10KB and 20KB (SSC/IBPS), and NEET/JEE Candidate Photo between 10KB and 200KB. Files exceeding these strict thresholds by even a single byte are automatically rejected by server-side validation during form submission.",
+      "Unlike conventional image compression websites that upload your sensitive identity documents and face photos to remote offshore cloud servers, Tulyro Image Compressor operates 100% locally within your web browser using HTML5 Canvas 2D and typed array memory. Your photos never leave your device.",
+      "The tool utilizes an iterative binary-search compression algorithm that fine-tunes the JPEG quantization tables and scales dimensions proportionally when needed. This guarantees that your final output hits the exact target kilobyte ceiling while retaining maximum facial clarity and legibility.",
+    ],
+    guides: [
+      { label: "Govt Exam Photo & Signature Size Guide: SSC, UPSC, IBPS, NTA", href: "/guides/photo-and-signature-size-guide-for-govt-exams/" },
+    ],
+    faq: faq([
+      { question: "How to compress an image to 20KB or 50KB for UPSC/SSC?", answer: "Upload your image, click the 'UPSC / SSC Photo (20KB - 50KB)' preset button, and the tool will automatically downscale and compress your photo to approximately 35KB-40KB, guaranteeing it falls within the required range." },
+      { question: "Why do exam portals reject compressed photos?", answer: "Exam portals reject images if the file size exceeds the ceiling (e.g. 50.1 KB), if the pixel dimensions violate the aspect ratio (e.g. 3.5cm x 4.5cm / 200x230px), or if excessive low-quality compression renders the candidate's face unrecognizable." },
+      { question: "Are my Aadhaar, PAN, or passport photos safe on this tool?", answer: "Yes, completely. Tulyro runs entirely in client-side JavaScript inside your browser. No files are uploaded to any server, database, or analytics endpoint." },
+      { question: "Can I compress PNG images to a target KB?", answer: "Yes. PNG images will be converted to optimized JPEG format during compression, which allows continuous quality scaling to achieve strict target file sizes." },
+    ]),
+  },
   "image-resizer": {
     definition: "An Image Resizer in KB is a browser-based utility that compresses and resizes photos and signatures to match exact file size thresholds (20KB, 50KB, 100KB) required by online application portals.",
     intro: "Resize and compress images to specific KB limits online. 100% private, free, and no watermark.",
@@ -640,6 +665,27 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I convert multi-page PDFs?", answer: "Yes. Every page is individually rendered and you can download all pages as high-quality JPG or PNG images." },
       { question: "Is there a file size limit?", answer: "There is no server limit. The only restriction is the available RAM and browser processing memory on your local machine." },
       { question: "Does this preserve image quality?", answer: "Yes, pages are rendered at 2x retina scale by default to ensure crisp text and high-definition graphics." },
+    ]),
+  },
+  "merge-pdf": {
+    definition: "A PDF merge tool combines two or more individual PDF files into a single unified document while preserving original text formatting, vector graphics, and embedded pages.",
+    intro: "Merge multiple PDF documents into one single file online. Fast, secure, and 100% client-side with zero server uploads.",
+    howTo: [
+      "Click Select Files or drag and drop 2 or more PDF documents into the merge area.",
+      "Review the list of uploaded PDFs in order.",
+      "Click 'Merge PDFs into Single File' to assemble the pages directly on your device.",
+      "Download your unified PDF immediately without waiting for cloud queues.",
+    ],
+    content: [
+      "Our Merge PDF tool runs completely inside your web browser via client-side WebAssembly binary parsers. When combining documents like marksheets, certificates, bank statements, or Aadhaar cards, no document bytes ever leave your device. This guarantees complete confidentiality and immunity against data breaches.",
+      "Unlike ad-heavy online PDF converters that impose arbitrary 2-file caps, daily quotas, or watermarks to force paid subscriptions, Tulyro provides completely unlimited PDF merging for free.",
+      "Page ordering and vector structures are maintained with bit-level fidelity. The output PDF remains searchable, crisp for printing, and compatible with all standard PDF readers including Adobe Acrobat, Apple Preview, and Google Chrome.",
+    ],
+    faq: faq([
+      { question: "Is it safe to merge confidential documents like Aadhaar or bank statements?", answer: "Yes, 100% safe. The merging process runs locally in your browser sandbox using pdf-lib. Your files are never uploaded to any remote server or third-party storage." },
+      { question: "How many PDF files can I combine at once?", answer: "There is no artificial limit. You can merge 2, 5, 10, or more PDF files simultaneously depending on your device's memory." },
+      { question: "Does this tool add any watermarks to the merged PDF?", answer: "No. The merged PDF is completely clean with zero watermarks, brand logos, or alterations." },
+      { question: "Can I use this on mobile phones (Android / iPhone)?", answer: "Yes, our client-side merge works on all modern mobile and desktop browsers including Chrome, Safari, Firefox, and Edge." },
     ]),
   },
   "qr-code-generator": {

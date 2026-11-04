@@ -35,6 +35,12 @@ import {
   calculatePercentOf,
 } from "@/tools/percentage/logic";
 import { computeAspectRatioFit, formatFileSize } from "@/tools/image-resizer/logic";
+import {
+  EXAM_PRESETS,
+  formatBytes,
+  calculateSavingsPercent,
+  type ExamPreset,
+} from "@/tools/image-compressor/logic";
 import { AgeWorkspace } from "@/components/AgeWorkspace";
 import { Icon } from "@/components/icons";
 import { MorphIcon } from "@/components/motion";
@@ -3598,6 +3604,349 @@ function PercentagePanel() {
   );
 }
 
+function ImageCompressorPanel() {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [targetKb, setTargetKb] = useState<number>(50);
+  const [customKb, setCustomKb] = useState<string>("50");
+  const [activePreset, setActivePreset] = useState<string>("upsc-photo");
+  const [compressedUrl, setCompressedUrl] = useState<string | null>(null);
+  const [currentBytes, setCurrentBytes] = useState<number>(0);
+  const [originalBytes, setOriginalBytes] = useState<number>(0);
+  const [origDimensions, setOrigDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+  const [outputDimensions, setOutputDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+  const [fileName, setFileName] = useState<string>("compressed-image");
+  const [isCompressing, setIsCompressing] = useState<boolean>(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setOriginalBytes(file.size);
+    setFileName(file.name.replace(/\.[^/.]+$/, ""));
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const src = ev.target?.result as string;
+      setImageSrc(src);
+
+      const img = new Image();
+      img.onload = () => {
+        imgRef.current = img;
+        setOrigDimensions({ width: img.naturalWidth || img.width, height: img.naturalHeight || img.height });
+        runBinarySearchCompress(img, targetKb);
+      };
+      img.src = src;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const runBinarySearchCompress = useCallback(
+    async (img: HTMLImageElement, target: number) => {
+      if (!img) return;
+      setIsCompressing(true);
+
+      const targetBytes = target * 1024;
+      const naturalW = img.naturalWidth || img.width;
+      const naturalH = img.naturalHeight || img.height;
+
+      // Iterative binary search over dimensions & quality
+      let bestBlob: Blob | null = null;
+      let bestDims = { width: naturalW, height: naturalH };
+
+      // Try dimension levels: 100%, 75%, 50%, 35%, 20%
+      const dimScales = [1.0, 0.8, 0.6, 0.45, 0.3, 0.2];
+
+      for (const scale of dimScales) {
+        const w = Math.max(100, Math.round(naturalW * scale));
+        const h = Math.max(100, Math.round(naturalH * scale));
+
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) continue;
+        ctx.drawImage(img, 0, 0, w, h);
+
+        // Binary search quality between 0.10 and 0.95
+        let lowQ = 0.1;
+        let highQ = 0.95;
+        let candidateBlob: Blob | null = null;
+
+        for (let iter = 0; iter < 7; iter++) {
+          const midQ = (lowQ + highQ) / 2;
+          const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob((b) => resolve(b), "image/jpeg", midQ)
+          );
+
+          if (!blob) break;
+
+          if (blob.size <= targetBytes) {
+            candidateBlob = blob;
+            lowQ = midQ; // try higher quality
+          } else {
+            highQ = midQ; // too big, lower quality
+          }
+        }
+
+        if (candidateBlob) {
+          bestBlob = candidateBlob;
+          bestDims = { width: w, height: h };
+          // If we hit target at high quality (>0.7), no need to downscale further
+          if (candidateBlob.size <= targetBytes && candidateBlob.size >= targetBytes * 0.7) {
+            break;
+          }
+        }
+      }
+
+      // Fallback: if all attempts exceeded targetBytes, take lowest possible quality & scale
+      if (!bestBlob) {
+        const w = Math.max(80, Math.round(naturalW * 0.2));
+        const h = Math.max(80, Math.round(naturalH * 0.2));
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, w, h);
+          bestBlob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob((b) => resolve(b), "image/jpeg", 0.1)
+          );
+          bestDims = { width: w, height: h };
+        }
+      }
+
+      if (bestBlob) {
+        setCurrentBytes(bestBlob.size);
+        setOutputDimensions(bestDims);
+        setCompressedUrl((prev) => {
+          revokeIfBlob(prev);
+          return URL.createObjectURL(bestBlob);
+        });
+      }
+
+      setIsCompressing(false);
+    },
+    []
+  );
+
+  const applyPreset = (preset: ExamPreset) => {
+    setActivePreset(preset.id);
+    setTargetKb(preset.defaultKb);
+    setCustomKb(String(preset.defaultKb));
+    if (imgRef.current) {
+      runBinarySearchCompress(imgRef.current, preset.defaultKb);
+    }
+  };
+
+  const applyQuickKb = (kb: number) => {
+    setActivePreset("");
+    setTargetKb(kb);
+    setCustomKb(String(kb));
+    if (imgRef.current) {
+      runBinarySearchCompress(imgRef.current, kb);
+    }
+  };
+
+  const handleCustomKbChange = (val: string) => {
+    setCustomKb(val);
+    const parsed = parseInt(val, 10);
+    if (!isNaN(parsed) && parsed >= 5 && parsed <= 5000) {
+      setActivePreset("");
+      setTargetKb(parsed);
+      if (imgRef.current) {
+        runBinarySearchCompress(imgRef.current, parsed);
+      }
+    }
+  };
+
+  const savings = calculateSavingsPercent(originalBytes, currentBytes);
+  const isUnderTarget = currentBytes <= targetKb * 1024;
+
+  return (
+    <div className="space-y-6">
+      {/* Privacy guarantee badge */}
+      <div className="flex items-center gap-2 rounded-xl bg-surface-container-low p-3.5 text-xs text-on-surface-variant">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 font-bold">
+          ✓
+        </span>
+        <span>
+          <strong>100% Client-Side & Private:</strong> Your photos are compressed directly in your browser using WebAssembly & Canvas. Files are never uploaded to any server.
+        </span>
+      </div>
+
+      {!imageSrc ? (
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-10 text-center transition hover:border-primary cursor-pointer"
+        >
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-white mb-4">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-on-surface">Select Photo or Signature</h3>
+          <p className="mt-1 text-sm text-on-surface-variant">Compress to exact 20KB, 50KB, 100KB, or 200KB limits for UPSC, SSC, NEET, and job portals.</p>
+          <button type="button" className={`${buttonClass} mt-5`}>
+            Choose File
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFile}
+            className="hidden"
+          />
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {/* Indian Exam Presets */}
+          <div className="space-y-3 rounded-xl bg-surface-container-low p-4">
+            <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+              Indian Exam & Govt Portal Presets
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {EXAM_PRESETS.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => applyPreset(p)}
+                  className={`text-left p-3 rounded-lg border transition ${
+                    activePreset === p.id
+                      ? "border-primary bg-primary-container/10 text-on-surface ring-1 ring-primary"
+                      : "border-outline-variant bg-surface-container-lowest hover:border-outline text-on-surface-variant"
+                  }`}
+                >
+                  <div className="font-medium text-sm text-on-surface">{p.name}</div>
+                  <div className="text-xs text-primary font-semibold mt-0.5">
+                    Target: {p.defaultKb} KB (Limit: {p.maxKb} KB)
+                  </div>
+                  <div className="text-[11px] text-on-surface-variant mt-1 leading-snug">{p.description}</div>
+                </button>
+              ))}
+            </div>
+
+            {/* Quick target buttons */}
+            <div className="pt-2 border-t border-outline-variant flex flex-wrap items-center gap-2">
+              <span className="text-xs text-on-surface-variant font-medium">Quick KB:</span>
+              {[20, 50, 100, 200].map((kb) => (
+                <button
+                  key={kb}
+                  type="button"
+                  onClick={() => applyQuickKb(kb)}
+                  className={targetKb === kb && !activePreset ? buttonClass : secondaryButtonClass}
+                >
+                  Under {kb} KB
+                </button>
+              ))}
+
+              <div className="ml-auto flex items-center gap-2">
+                <span className="text-xs text-on-surface-variant">Custom KB:</span>
+                <input
+                  type="number"
+                  min="5"
+                  max="5000"
+                  value={customKb}
+                  onChange={(e) => handleCustomKbChange(e.target.value)}
+                  className="w-20 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-center text-on-surface font-semibold"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Before & After Comparison Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Original Card */}
+            <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Original File</span>
+                <div className="text-xl font-bold text-on-surface mt-1">{formatBytes(originalBytes)}</div>
+                <div className="text-xs text-on-surface-variant mt-0.5">
+                  Dimensions: {origDimensions.width} × {origDimensions.height} px
+                </div>
+              </div>
+              <div className="mt-4 flex items-center justify-center bg-surface-container rounded-lg p-2 h-48 overflow-hidden">
+                <img
+                  src={imageSrc}
+                  alt="Original"
+                  className="max-h-full max-w-full object-contain rounded"
+                />
+              </div>
+            </div>
+
+            {/* Compressed Card */}
+            <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Compressed File</span>
+                  {savings > 0 && (
+                    <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
+                      -{savings}% Reduced
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className={`text-xl font-bold ${isUnderTarget ? "text-emerald-600" : "text-amber-600"}`}>
+                    {formatBytes(currentBytes)}
+                  </span>
+                  <span className="text-xs text-on-surface-variant">
+                    (Target: ≤ {targetKb} KB)
+                  </span>
+                </div>
+                <div className="text-xs text-on-surface-variant mt-0.5">
+                  Dimensions: {outputDimensions.width} × {outputDimensions.height} px
+                </div>
+              </div>
+
+              <div className="mt-4 flex items-center justify-center bg-surface-container rounded-lg p-2 h-48 overflow-hidden relative">
+                {isCompressing && (
+                  <div className="absolute inset-0 bg-surface/80 flex items-center justify-center">
+                    <span className="text-xs font-semibold text-primary animate-pulse">Calculating optimal size...</span>
+                  </div>
+                )}
+                {compressedUrl && (
+                  <img
+                    src={compressedUrl}
+                    alt="Compressed Preview"
+                    className="max-h-full max-w-full object-contain rounded"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                setImageSrc(null);
+                setCompressedUrl(null);
+                if (fileInputRef.current) fileInputRef.current.value = "";
+              }}
+              className={secondaryButtonClass}
+            >
+              Upload Another Photo
+            </button>
+
+            {compressedUrl && (
+              <a
+                href={compressedUrl}
+                download={`${fileName}-${targetKb}kb.jpg`}
+                className={`${buttonClass} text-base px-6 py-3 font-semibold`}
+              >
+                Download Compressed JPG ({formatBytes(currentBytes)})
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ImageResizerPanel() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [targetKb, setTargetKb] = useState<number>(50);
@@ -3792,10 +4141,11 @@ function ImageResizerPanel() {
   );
 }
 
-function PdfToolsPanel() {
-  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf">("pdf-to-img");
+function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-img" | "img-to-pdf" | "merge-pdf" }) {
+  const [mode, setMode] = useState<"pdf-to-img" | "img-to-pdf" | "merge-pdf">(initialMode);
   const [pages, setPages] = useState<{ pageNumber: number; dataUrl: string; width: number; height: number }[]>([]);
   const [pdfImages, setPdfImages] = useState<{ dataUrl: string; width: number; height: number }[]>([]);
+  const [pdfFiles, setPdfFiles] = useState<{ name: string; buffer: ArrayBuffer; size: number }[]>([]);
   const [progress, setProgress] = useState("");
   const [busy, setBusy] = useState(false);
   const [format, setFormat] = useState<"jpeg" | "png">("jpeg");
@@ -3865,18 +4215,105 @@ function PdfToolsPanel() {
     }
   }
 
+  async function handleMergePdfUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setBusy(true);
+    setPdfBlob(null);
+    setProgress("Reading PDF files...");
+    const list: { name: string; buffer: ArrayBuffer; size: number }[] = [];
+    for (const f of Array.from(files)) {
+      const buf = await f.arrayBuffer();
+      list.push({ name: f.name, buffer: buf, size: f.size });
+    }
+    setPdfFiles(list);
+    setProgress(`${list.length} PDF(s) loaded. Click 'Merge PDFs' to combine.`);
+    setBusy(false);
+  }
+
+  async function mergePdfFiles() {
+    if (pdfFiles.length < 2) {
+      setProgress("Please select at least 2 PDF files to merge.");
+      return;
+    }
+    setBusy(true);
+    setProgress("Merging PDF files in browser...");
+    try {
+      const { mergePdfs } = await import("@/tools/pdf-tools/logic");
+      const buffers = pdfFiles.map((p) => p.buffer);
+      const blob = await mergePdfs(buffers, (done, total) => setProgress(`Merging document ${done}/${total}`));
+      setPdfBlob(URL.createObjectURL(blob));
+      setProgress("PDFs merged successfully — click Download");
+    } catch (err) {
+      setProgress(`Error: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
-      <div className="flex gap-2">
-        <button onClick={() => { setMode("pdf-to-img"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
+      <div className="flex flex-wrap gap-2">
+        <button onClick={() => { setMode("merge-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
+          className={mode === "merge-pdf" ? buttonClass : secondaryButtonClass}>
+          Merge PDF
+        </button>
+        <button onClick={() => { setMode("pdf-to-img"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
           className={mode === "pdf-to-img" ? buttonClass : secondaryButtonClass}>
           PDF → Images
         </button>
-        <button onClick={() => { setMode("img-to-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setProgress(""); }}
+        <button onClick={() => { setMode("img-to-pdf"); setPages([]); setPdfBlob(null); setPdfImages([]); setPdfFiles([]); setProgress(""); }}
           className={mode === "img-to-pdf" ? buttonClass : secondaryButtonClass}>
           Images → PDF
         </button>
       </div>
+
+      {mode === "merge-pdf" && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl bg-surface-container-low p-3.5 text-xs text-on-surface-variant">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 font-bold">
+              ✓
+            </span>
+            <span>
+              <strong>100% Client-Side:</strong> Your PDF files are merged directly on your device. Zero server upload, complete privacy for certificates, marksheets, and Aadhaar.
+            </span>
+          </div>
+
+          <label className={labelClass}>Select 2 or more PDF files to combine:</label>
+          <input type="file" accept=".pdf" multiple onChange={handleMergePdfUpload} disabled={busy} className={inputClass} />
+          {progress && <p className="text-sm font-medium text-on-surface-variant">{progress}</p>}
+
+          {pdfFiles.length > 0 && (
+            <div className="space-y-2 rounded-xl border border-outline-variant bg-surface-container-lowest p-4">
+              <span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">
+                Files to Merge ({pdfFiles.length}):
+              </span>
+              <ul className="divide-y divide-outline-variant text-sm">
+                {pdfFiles.map((f, idx) => (
+                  <li key={idx} className="py-1.5 flex justify-between items-center text-on-surface">
+                    <span className="truncate max-w-xs">{idx + 1}. {f.name}</span>
+                    <span className="text-xs text-on-surface-variant">{(f.size / 1024).toFixed(1)} KB</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {pdfFiles.length >= 2 && !pdfBlob && (
+            <button onClick={mergePdfFiles} disabled={busy} className={`${buttonClass} w-full py-3 text-base`}>
+              Merge {pdfFiles.length} PDFs into Single File
+            </button>
+          )}
+
+          {pdfBlob && (
+            <div className="pt-2">
+              <a href={pdfBlob} download="merged-document.pdf" className={`${buttonClass} w-full py-3 text-base font-semibold`}>
+                Download Merged PDF
+              </a>
+            </div>
+          )}
+        </div>
+      )}
 
       {mode === "pdf-to-img" && (
         <div className="space-y-4">
@@ -5049,12 +5486,16 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <FakePanel />;
     case "remove-background":
       return <RemoveBackgroundPanel />;
+    case "image-compressor":
+      return <ImageCompressorPanel />;
     case "image-resizer":
       return <ImageResizerPanel />;
     case "gst-calculator":
       return <GstPanel />;
     case "pdf-tools":
       return <PdfToolsPanel />;
+    case "merge-pdf":
+      return <PdfToolsPanel initialMode="merge-pdf" />;
     case "qr-code-generator":
       return <QrCodePanel />;
     case "income-tax-calculator":

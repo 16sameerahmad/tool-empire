@@ -325,6 +325,30 @@ export const tools: ToolDefinition[] = [
       "Remove image backgrounds instantly in your browser. Auto-detect backdrop, custom color eyedropper, feather edges, download high-res transparent PNG. Free & private.",
   },
   {
+    id: "image-compressor",
+    title: "Image Compressor to 20KB, 50KB, 100KB",
+    cluster: "Media",
+    href: "/tools/image-compressor/",
+    locale: "en-IN",
+    description: "Compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB, 200KB) for UPSC, SSC, NEET, IBPS job forms and KYC portals.",
+    keywords: [
+      "image compressor",
+      "compress image to 20kb",
+      "compress image to 50kb",
+      "compress image to 100kb",
+      "reduce image size in kb",
+      "upsc photo compressor",
+      "ssc photo resize 20kb",
+      "image compressor online free",
+    ],
+    related: ["image-resizer", "remove-background", "pdf-tools"],
+    live: true,
+    h1: "Image Compressor — Reduce Image Size to 20KB, 50KB, 100KB Online",
+    seoTitle: "Image Compressor to 20KB, 50KB, 100KB Online Free | Tulyro",
+    seoDescription:
+      "Compress images to exact KB limits (20KB, 50KB, 100KB, 200KB) for UPSC, SSC, NEET and job forms. 100% private in-browser, no upload, zero blur.",
+  },
+  {
     id: "image-resizer",
     title: "Image Resizer in KB",
     cluster: "Fun",
@@ -352,6 +376,29 @@ export const tools: ToolDefinition[] = [
     seoTitle: "PDF to JPG & Image to PDF Converter — Free Online | Tulyro",
     seoDescription:
       "Convert PDF pages to high-quality JPG/PNG images or combine multiple images into one PDF. Runs entirely in your browser — no file uploads, no signup.",
+  },
+  {
+    id: "merge-pdf",
+    title: "Merge PDF Online Free — Combine Multiple PDF Files",
+    cluster: "Media",
+    href: "/tools/merge-pdf/",
+    locale: "en",
+    description: "Combine multiple PDF files into one document in your browser. 100% private, free, and zero server upload.",
+    keywords: [
+      "merge pdf",
+      "combine pdf files online",
+      "pdf joiner free",
+      "merge pdf 100 client side",
+      "combine marksheet and aadhaar pdf",
+      "join pdf files",
+      "merge pdf free without limit"
+    ],
+    related: ["pdf-tools", "image-compressor", "image-resizer"],
+    live: true,
+    h1: "Merge PDF Online Free — Combine Multiple PDF Files Securely",
+    seoTitle: "Merge PDF Online Free — Combine PDF Files Client-Side | Tulyro",
+    seoDescription:
+      "Merge multiple PDF documents into a single file directly in your browser. 100% private with zero file uploads to servers. Fast, secure, and free without limits.",
   },
   {
     id: "qr-code-generator",

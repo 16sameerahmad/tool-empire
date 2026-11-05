@@ -3750,7 +3750,11 @@ export const guides: Guide[] = [
             instantly and work offline, but they are usually the smaller, older-generation
             models. Cloud neural voices sound better and arrive after a server round-trip. For
             interactive uses like screen readers, latency wins. For a finished video narration,
-            quality wins.
+            quality wins. For how that browser engine works under the hood, see our{" "}
+            <Link href="/guides/how-browser-text-to-speech-web-speech-api-works/" className="text-primary underline">
+              How Browser Text-to-Speech Works
+            </Link>
+            .
           </>,
         ],
       },

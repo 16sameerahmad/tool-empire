@@ -557,6 +557,7 @@ export const content: Record<string, ToolContent> = {
     ]),
     guides: [
       { label: "How Browser Text-to-Speech Works (Web Speech API Guide & Pacing)", href: "/guides/how-browser-text-to-speech-web-speech-api-works/" },
+      { label: "Text-to-Speech Voices Explained: How They're Made and How to Choose One", href: "/guides/text-to-speech-voices-guide/" },
       { label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" },
     ],
   },

@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tulyro",
     description: "Browser-only tools with no signup and no watermark.",
+    url: "https://tulyro.online/",
     siteName: "Tulyro",
     type: "website",
     images: [

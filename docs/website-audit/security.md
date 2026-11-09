@@ -142,3 +142,30 @@ Incident response: no formal plan exists; for a static site the recovery path is
 - **S5 → still INFO.** Egress proxy performs TLS interception, so the origin certificate's
   real expiry is not observable from this VM. Vercel auto-renews; confirmation stays
   Sam-side in the Vercel dashboard.
+
+## 2026-11-09 — Weekly re-check (Day 27)
+
+- **S1/S2/S3 → still FIXED, verified live.** Enforcing CSP (same policy as
+  2026-10-19, now enforcing, not report-only), `X-Frame-Options: DENY`,
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy:
+  strict-origin-when-cross-origin`, `Permissions-Policy: camera=(),
+  microphone=(), geolocation=(), payment=(), usb=()`. Homepage HTTP 200.
+- **HSTS finding (26 Oct) → CLOSED.** Live `Strict-Transport-Security` is now
+  `max-age=63072000; includeSubDomains; preload` — matches the "Verified clean"
+  table. Fix landed via `vercel.json` and confirmed live this run.
+- **Secrets re-check → clean.** Working-tree grep for key/secret/token/private-key
+  patterns across `src/`, `public/`, `vercel.json`, `next.config.ts`: no hits.
+  The GSC verification token in `src/app/layout.tsx` remains required-by-Google,
+  not a leak; its value is never reproduced in reports.
+- **S6 → still UNVERIFIED.** `npm audit` still fails with egress-proxy 403
+  `policy_denied` (same as 2026-10-14/19/26) — the audit-endpoint POST is blocked
+  by policy `zz_managed_internal_spaces_package_registries`. Production
+  dependency surface is still 3 packages (next, react, react-dom). Do NOT claim
+  "no vulnerabilities" until a scan actually runs.
+- **NEW (Info):** `Access-Control-Allow-Origin: *` is present on homepage HTML
+  responses though `vercel.json` scopes it to `/tulyro-logo-200.png` only. No
+  credentials/cookies exist on the site, so there is no cross-origin credential
+  risk; recorded, no action.
+- **S5 → still INFO.** The egress proxy performs TLS interception, so the origin
+  certificate's real expiry is not observable from this VM. Vercel auto-renews;
+  confirmation stays Sam-side in the Vercel dashboard.

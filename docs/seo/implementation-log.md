@@ -107,3 +107,29 @@
 - **Live:** commit `f1f8c5a`, pushed to `main`; Vercel auto-deploy verified
   2026-10-26 ~10:45 IST — curl on `https://tulyro.online/guides/how-to-calculate-emi/`
   returns HTTP 200 with the new heading and table values present.
+
+## 2026-11-09 — Mortgage affordability guide: 28/36 rule (weekly run, Day 27)
+
+- **Change:** New guide `/guides/how-much-house-can-you-afford/` (R8 — biggest
+  remaining content gap): 28/36 rule explainer, $120,000 worked example (max
+  loan $363,884.88, home $454,856.11, down $90,971.22), 5-row salary table
+  ($50k–$150k), rate-sensitivity table (5.5/6.5/7.5%), DTI/lender-cap explainer
+  (34.5% worked DTI, conventional ~43–45%), 25% take-home alternative,
+  hidden-costs section, 6 FAQs. Reciprocal link from the Mortgage Calculator
+  tool page (`content.ts` guides array); `llms.txt` + `llms-full.txt` updated.
+  Sitemap auto-includes the guide (87 → 88 URLs).
+- **Verification:** every figure recomputed independently (node): worked-example
+  round-trip exact ($2,300 P&I → $363,884.88 loan → $454,856.11 home);
+  salary-table rows recomputed with the same $500/mo tax+insurance assumption
+  as the worked example (consistency caught + fixed pre-commit — an initial
+  $420 assumption would have contradicted the $120k example); rate table +
+  3–4× cross-check ($454,856 inside the $360k–$480k band) + maintenance range
+  ($4,549–$9,097/yr) all verified. Gates all green: `tsc --noEmit` ✓,
+  `eslint .` ✓ (0 errors, 9 pre-existing ToolPanel warnings), vitest 117/117
+  ✓, `next build` ✓. Built HTML contains the title + all key figures; the
+  guides index + mortgage tool page link to it.
+- **Live:** commit `b6e75fd`, pushed to `main`; Vercel auto-deploy verified
+  2026-11-09 ~10:49 IST — curl on
+  `https://tulyro.online/guides/how-much-house-can-you-afford/` returns HTTP
+  200 with the title and figures present; live sitemap 88 URLs including the
+  new guide.

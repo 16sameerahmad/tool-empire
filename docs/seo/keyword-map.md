@@ -79,7 +79,7 @@ labeled as such.
 |---|---|---|---|
 | 1 | "how to calculate emi manually" → EMI guide | **Real GSC:** 1 impression, pos 74 (27 Oct) — genuine near-miss. Add/strengthen FAQ answer, one contextual internal link. | **High (real GSC data)** |
 | 2 | "income tax calculator india" → tool + NEW guide | India-specific, high money intent; no guide exists; Indian tax-season seasonality. | Medium (intent + seasonal) |
-| 3 | Mortgage affordability (28/36 rule) guide | Competitor-verified pattern (rate.com, usatoday); biggest remaining content gap (R8). | Medium (competitor evidence) |
+| 3 | Mortgage affordability (28/36 rule) guide | **DONE 2026-11-09** — guide shipped (commit `b6e75fd`), verified live. Was: competitor-verified pattern (rate.com, usatoday); biggest remaining content gap (R8). | Medium (competitor evidence) |
 | 4 | Brand term "tulyro" | 0 impressions (27 Oct). #1 target is achievable fast (zero competition); needs indexing + the pending-logo/linked mentions. | Medium (low competition) |
 | 5 | "pdf tools", "qr code generator", "background remover" | Zero-guide coverage today; strong transactional intent; guides requested-indexing 30 Oct. | Low (no GSC data) |
 | 6 | SGPA/PPF/Percentage guides | Fills thin coverage; lower intent than money calculators. | Low |

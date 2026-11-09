@@ -205,3 +205,74 @@ insufficient data — no fresh GSC paste.
    headers + correct the stale HSTS row in `docs/website-audit/security.md`; verify
    live with `curl -I`. Owner: weekly run. (Sam-side: paste fresh GSC data when
    available so the next weekly entry can compare real numbers.)
+
+## Week of 2026-11-09 (Day 27) — GSC data pending (Sam has not pasted fresh GSC data)
+
+**Measured facts only.** No fresh GSC paste this run, so all GSC rows are
+"insufficient data" — nothing is invented. Last known GSC state (8 Nov read,
+data 22 Oct–6 Nov): **5 clicks / 606 impressions / CTR 0.8% / avg position
+53.3**; top queries unix timestamp 21, attendance 12, web speech 10, epoch
+converter 10, epoch timestamp 8; brand query "tulyro" still 0 impressions.
+That read is NOT this week's data — no week-over-week comparison is made.
+
+| Metric | This week | Previous week | Delta | Note |
+|---|---|---|---|---|
+| GSC clicks | insufficient data | 5 (8 Nov read, data to 6 Nov) | — | No fresh GSC paste this run |
+| GSC impressions | insufficient data | 606 (8 Nov read, data to 6 Nov) | — | No fresh GSC paste this run |
+| Average CTR | insufficient data | 0.8% (8 Nov read) | — | No data |
+| Average position | insufficient data | 53.3 (8 Nov read) | — | No data |
+| Indexed pages (GSC) | insufficient data | unknown | — | Re-check needed once fresh GSC data lands |
+| Sitemap URLs submitted | 88 live | 36 (2026-10-26) | +52 | Mostly Hermes PDF/media tools + guides since 26 Oct; +1 this run |
+
+### Top queries (week of 2026-11-09)
+
+insufficient data — no fresh GSC paste. Last known (8 Nov read): unix timestamp
+21 imp, attendance 12, web speech 10, epoch converter 10, epoch timestamp 8.
+
+### Top pages (week of 2026-11-09)
+
+insufficient data — no fresh GSC paste.
+
+### Countries (week of 2026-11-09)
+
+insufficient data — no fresh GSC paste.
+
+### Competitor-change notes (week of 2026-11-09)
+
+- Public SERP check 2026-11-09 ("how much house can I afford 28/36 rule",
+  verified-public): top results are wisemoneylife.com, investormint.com,
+  mortgagepal.co, capstag.com, ponderloop.com. Pattern: 28/36 explainer +
+  income-level tables + worked examples + DTI caps + conservative alternatives
+  (25% take-home). Tulyro had no page for this query; this run shipped the
+  affordability guide (commit `b6e75fd`) with our own independently computed
+  numbers. Whether it moves rankings is unproven until GSC shows impressions
+  (correlation-only).
+- Public SERP check 2026-11-09 ("epoch converter", verified-public): top
+  results are induwara.lk, toolbelt.khadirullah.com, thetoolskit.co,
+  timecnv.com, at-use.com, edarabia.com. Tulyro is not in the top 6 for the
+  generic query; our GSC shows 10 impressions for "epoch converter" (8 Nov
+  read), so we rank somewhere below page 1. Pattern among rankers: multi-unit
+  support (s/ms/µs/ns), live clock, code samples, Year-2038 explainers. Our
+  epoch tool + guide already cover seconds/ms + 2038; µs/ns support is a
+  future candidate, not committed.
+
+### Wins / losses diagnosis (week of 2026-11-09)
+
+- Win: R8 closed — mortgage affordability guide live (commit `b6e75fd`),
+  verified HTTP 200 with all computed figures present; sitemap 88. Evidence
+  for the change is the live page itself; any ranking effect is
+  correlation-only until GSC data arrives.
+- Win: 26 Oct HSTS finding closed — full HSTS (`includeSubDomains; preload`)
+  verified live by curl.
+- Loss: none measured — no GSC data to show a loss.
+- Open: `npm audit` still proxy-blocked (S6); H6 CSP smoke test still unrun;
+  H3/H5 open.
+
+### Next action (week of 2026-11-09)
+
+1. Sam-side: paste fresh GSC data when available so the next weekly entry can
+   compare real numbers (especially whether the affordability guide and the
+   epoch/BMI depth work earned impressions).
+2. Next weekly run: H6 CSP smoke test via local-serve + screenshot pass
+   (scripted Chromium cannot reach the internet on this VM — serve the built
+   `out/` locally instead).

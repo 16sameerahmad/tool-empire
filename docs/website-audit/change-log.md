@@ -93,3 +93,24 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
   (Batch 2 marked 6-of-8 shipped, November Batch 4 roadmap); `docs/website-audit/roadmap.md`
   (status sweep: 13 items done/resolved, 8 still open); `docs/website-audit/bugs.md`
   (H6 hypothesis + doc-drift pattern note).
+
+## 2026-11-09 — Weekly run (Day 27, full audit + fix)
+
+- **Change:** new mortgage affordability guide (R8) — see implementation-log.md
+  for full detail. Commit `b6e75fd`.
+- **Verification:** `tsc --noEmit` ✓ · `eslint .` ✓ (0 errors) · vitest 117/117
+  ✓ · `next build` ✓ (all green, no revert needed). Built HTML verified (title
+  + all key figures); guides index + mortgage tool page link verified in build
+  output.
+- **Live:** commit `b6e75fd`, verified 2026-11-09 ~10:49 IST — curl on
+  `https://tulyro.online/guides/how-much-house-can-you-afford/` returns HTTP
+  200 with the title + figures; live sitemap 88 URLs.
+- **Audit findings this run (read-only):** calc spot-checks ✓ (EMI 8,884.88 /
+  BMI 22.9 / Age 9,809 days); 11/11 sampled routes → 200; sitemap 88 URLs; 308
+  redirect from old vercel.app host ✓; secrets clean; headers S1–S3 live +
+  HSTS finding CLOSED; `npm audit` still 403-blocked (S6 open); NEW Info:
+  `Access-Control-Allow-Origin: *` on homepage HTML (harmless, no action); NEW
+  Low: doc sitemap counts stale (36/71 vs live 88). H3/H5/H6 remain open.
+  Competitor re-sweep: affordability SERP top 5 noted (guide shipped in
+  response); epoch-converter SERP top 6 noted (Tulyro below page 1; µs/ns
+  support a future candidate).

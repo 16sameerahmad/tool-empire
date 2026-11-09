@@ -91,7 +91,7 @@ but original asks unclosed; OPEN = not done.
 
 | # | Action | Status 2026-11-01 |
 |---|---|---|
-| R8 | Mortgage affordability guide (28/36 rule) | **STILL OPEN** — biggest remaining content gap; N5 in Batch 4 |
+| R8 | Mortgage affordability guide (28/36 rule) | **DONE 2026-11-09** — guide shipped (commit `b6e75fd`): 28/36 rule, $120k worked example, salary + rate tables, 6 FAQs; verified live, sitemap 88 |
 | R9 | EMI prepayment + amortisation explainer | **DONE** — guide shipped 28 Oct (commit `39ab39d`), amortisation table 26 Oct |
 | R10 | CGPA university-formulas comparison (one page) + conversion table | **PARTIAL** — conversion table DONE (26 Oct, 11 rows); university-comparison guide still OPEN |
 | R11 | BMI chart + healthy-weight-range guide | **DONE** — "is-bmi-accurate" + "how-to-calculate-bmi" guides shipped |

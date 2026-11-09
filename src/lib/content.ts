@@ -435,6 +435,7 @@ export const content: Record<string, ToolContent> = {
     sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
     guides: [
       { label: "How Mortgage Amortization Works: Principal vs. Interest Explained", href: "/guides/how-mortgage-amortization-works/" },
+      { label: "How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers", href: "/guides/how-much-house-can-you-afford/" },
       { label: "EMI Calculator vs Mortgage Calculator: Which One to Use", href: "/guides/emi-vs-mortgage-calculator/" },
     ],
     faq: faq([

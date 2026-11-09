@@ -3889,6 +3889,241 @@ export const guides: Guide[] = [
     ],
     related: ["text-to-speech", "word-counter", "fancy-text-generator"],
     pillar: { label: "All Text Tools", href: "/text/" },
+  },
+  {
+    slug: "how-much-house-can-you-afford",
+    title: "How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers",
+    seoTitle: "How Much House Can You Afford? The 28/36 Rule Explained | Tulyro",
+    seoDescription:
+      "Work out how much house you can afford with the 28/36 rule: real numbers for a $120,000 income, salary tables, and what lenders actually allow.",
+    href: "/guides/how-much-house-can-you-afford/",
+    intro: [
+      <>
+        Lenders will approve you for more house than you should buy. Their maths
+        answers “can this person repay without defaulting”, not “can this person
+        live comfortably while repaying”. The 28/36 rule is the guardrail that
+        sits between those two questions: housing costs at or below 28% of gross
+        monthly income, and all debts combined at or below 36%. This guide works
+        the rule through a real $120,000 household, turns it into a salary table,
+        and shows how the interest rate moves the answer. Check your own numbers
+        on our{" "}
+        <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
+          free Mortgage Calculator
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Mortgage Calculator", href: "/calculators/mortgage-calculator/" },
+    sections: [
+      {
+        heading: "The 28/36 Rule in One Paragraph",
+        body: [
+          <>
+            The rule has two ratios, and both use gross income — pay before tax.
+            The front-end ratio says total housing costs (principal, interest,
+            property taxes, homeowners insurance, plus HOA dues and mortgage
+            insurance where they apply — together called PITI) should not exceed
+            28% of gross monthly income. The back-end ratio says all monthly debt
+            payments — housing plus car loans, student loans, credit-card minimums
+            and any other debt — should not exceed 36% of gross monthly income.
+            Whichever limit is lower is the one that binds.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked Example: $120,000 Income With $650 of Other Debt",
+        body: [
+          <>
+            A household earning $120,000 a year, paying $650 a month on a car loan
+            and cards, buying with a 30-year fixed mortgage at 6.5% and 20% down,
+            with property tax of $350 a month and homeowners insurance of $150 a
+            month. Every figure below is computed with the reducing-balance
+            mortgage formula:
+          </>,
+          <div key="affordability-worked-example-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Step</th>
+                <th className="border border-outline-variant/60 p-3">Calculation</th>
+                <th className="border border-outline-variant/60 p-3">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Gross monthly income</td><td className="border border-outline-variant/60 p-3">$120,000 ÷ 12</td><td className="border border-outline-variant/60 p-3">$10,000.00</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">28% housing cap</td><td className="border border-outline-variant/60 p-3">$10,000 × 0.28</td><td className="border border-outline-variant/60 p-3">$2,800.00</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">36% total-debt cap</td><td className="border border-outline-variant/60 p-3">$10,000 × 0.36 = $3,600, minus $650 other debt</td><td className="border border-outline-variant/60 p-3">$2,950.00</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Binding limit</td><td className="border border-outline-variant/60 p-3">Lower of $2,800 and $2,950</td><td className="border border-outline-variant/60 p-3">$2,800.00</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Left for principal + interest</td><td className="border border-outline-variant/60 p-3">$2,800 − $350 tax − $150 insurance</td><td className="border border-outline-variant/60 p-3">$2,300.00</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Maximum loan at 6.5%, 30 years</td><td className="border border-outline-variant/60 p-3">$2,300 a month supports</td><td className="border border-outline-variant/60 p-3">$363,884.88</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Maximum home price, 20% down</td><td className="border border-outline-variant/60 p-3">$363,884.88 ÷ 0.80</td><td className="border border-outline-variant/60 p-3">$454,856.11</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The down payment on that home is $90,971.22 — 20% of $454,856.11. Note
+            which ratio bound the answer: the 28% front-end rule, not the 36%
+            back-end rule. With more other debt, the 36% rule takes over — at
+            $1,000 of other monthly debt, the back-end cap would fall to $2,600
+            and bind instead. Check it: $10,000 × 0.36 = $3,600, and $3,600 −
+            $1,000 = $2,600, below the $2,800 front-end cap.
+          </>,
+        ],
+      },
+      {
+        heading: "How Much House by Income: Salary Table",
+        body: [
+          <>
+            The same maths, run for five incomes. Assumptions for every row: 6.5%
+            on a 30-year fixed mortgage, 20% down, $500 a month combined for
+            property tax and homeowners insurance, and no other debt — so the 28%
+            rule binds in each case. Your taxes, insurance and debts will differ;
+            the table shows the shape, not your exact ceiling:
+          </>,
+          <div key="affordability-salary-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Annual income</th>
+                <th className="border border-outline-variant/60 p-3">Monthly gross</th>
+                <th className="border border-outline-variant/60 p-3">Max housing (28%)</th>
+                <th className="border border-outline-variant/60 p-3">Max loan</th>
+                <th className="border border-outline-variant/60 p-3">Max home price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">$50,000</td><td className="border border-outline-variant/60 p-3">$4,167</td><td className="border border-outline-variant/60 p-3">$1,167</td><td className="border border-outline-variant/60 p-3">$105,474</td><td className="border border-outline-variant/60 p-3">$131,842</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">$75,000</td><td className="border border-outline-variant/60 p-3">$6,250</td><td className="border border-outline-variant/60 p-3">$1,750</td><td className="border border-outline-variant/60 p-3">$197,764</td><td className="border border-outline-variant/60 p-3">$247,204</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">$100,000</td><td className="border border-outline-variant/60 p-3">$8,333</td><td className="border border-outline-variant/60 p-3">$2,333</td><td className="border border-outline-variant/60 p-3">$290,053</td><td className="border border-outline-variant/60 p-3">$362,566</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">$125,000</td><td className="border border-outline-variant/60 p-3">$10,417</td><td className="border border-outline-variant/60 p-3">$2,917</td><td className="border border-outline-variant/60 p-3">$382,343</td><td className="border border-outline-variant/60 p-3">$477,929</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">$150,000</td><td className="border border-outline-variant/60 p-3">$12,500</td><td className="border border-outline-variant/60 p-3">$3,500</td><td className="border border-outline-variant/60 p-3">$474,632</td><td className="border border-outline-variant/60 p-3">$593,291</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Read the $100,000 row against the worked example above: the same
+            $2,800-a-month household from the $120,000 example lands on a
+            $454,856 home, while a $100,000 household lands near $363,000. A
+            $25,000 pay rise moves the ceiling by roughly $115,000 of home price
+            at this rate — income is the biggest lever you have.
+          </>,
+        ],
+      },
+      {
+        heading: "Why the Interest Rate Moves Your Budget More Than the Price",
+        body: [
+          <>
+            Hold the payment fixed at $2,300 of principal and interest and change
+            only the rate. The loan the same monthly payment supports — and with
+            it the home price — swings by tens of thousands:
+          </>,
+          <div key="affordability-rate-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Rate (30-year fixed)</th>
+                <th className="border border-outline-variant/60 p-3">Max loan</th>
+                <th className="border border-outline-variant/60 p-3">Max home price (20% down)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">5.5%</td><td className="border border-outline-variant/60 p-3">$405,080</td><td className="border border-outline-variant/60 p-3">$506,350</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">6.5%</td><td className="border border-outline-variant/60 p-3">$363,885</td><td className="border border-outline-variant/60 p-3">$454,856</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">7.5%</td><td className="border border-outline-variant/60 p-3">$328,941</td><td className="border border-outline-variant/60 p-3">$411,176</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            One percentage point — 6.5% to 7.5% — costs about $43,680 of home
+            price on this household. That is why shopping the rate, improving the
+            credit score before applying, and considering a larger down payment
+            matter more than haggling over a few thousand on the asking price.
+            A 15-year loan flips the trade: the payment is higher, so the same
+            28% ceiling supports a smaller loan — but the total interest paid is
+            far lower. Run both terms on the{" "}
+            <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
+              Mortgage Calculator
+            </Link>{" "}
+            before deciding.
+          </>,
+        ],
+      },
+      {
+        heading: "What Lenders Actually Allow — and Why Approval Is Not Affordability",
+        body: [
+          <>
+            Lenders judge you by debt-to-income ratio (DTI): total monthly debt
+            payments divided by gross monthly income, times 100. In the worked
+            example, at the binding limit the household pays $2,800 housing plus
+            $650 other debt on $10,000 gross — a back-end DTI of 34.5%, inside
+            the 36% guideline. But conventional lenders commonly approve back-end
+            DTI up to about 43–45% with automated underwriting, and FHA loans can
+            go higher still. Approval is a lender risk decision, not a
+            recommendation that the payment will feel comfortable.
+          </>,
+          <>
+            Two rough cross-checks keep the rule honest. The 3–4× income rule of
+            thumb says a $120,000 household can afford a $360,000–$480,000 home —
+            and the 28/36 answer of $454,856 sits inside that band, so two
+            independent methods agree. The stricter check is 25% of take-home pay:
+            if take-home is about 75% of gross, that is $7,500 a month, and 25%
+            of it is $1,875 for housing — well below the $2,800 ceiling. If the
+            28% number feels tight, the take-home version is the budget to live
+            by.
+          </>,
+        ],
+      },
+      {
+        heading: "The Costs the 28/36 Rule Misses",
+        body: [
+          <>
+            The rule counts PITI and debts. It does not count the rest of owning a
+            home. Budget 1–2% of the home value a year for maintenance and
+            repairs — on a $454,856 home that is $4,549–$9,097 a year, roughly
+            $379–$758 a month — plus HOA dues where they apply, utilities, and
+            closing costs at purchase. A down payment below 20% adds private
+            mortgage insurance to the monthly housing cost on a conventional loan,
+            which shrinks the loan the 28% ceiling supports. Treat the 28/36
+            answer as the outer boundary, then subtract the costs above before
+            deciding what to offer.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What is the 28/36 rule?",
+        answer:
+          "Housing costs at or below 28% of gross monthly income, and all monthly debts combined at or below 36% of gross monthly income. Both ratios use pay before tax, and the lower of the two limits is the one that binds.",
+      },
+      {
+        question: "How much house can I afford on $100,000 a year?",
+        answer:
+          "Under the 28/36 rule with no other debt, about $2,333 a month for housing. At 6.5% on a 30-year loan with 20% down and $500 a month for tax and insurance, that supports roughly a $363,000 home. Existing debt, local taxes and the actual rate move the number.",
+      },
+      {
+        question: "Does the 28/36 rule use gross or take-home pay?",
+        answer:
+          "Gross pay — before tax. That is why the ceiling can feel tight in practice: tax takes a share first. Planners who want a comfort margin use 25% of take-home pay instead.",
+      },
+      {
+        question: "What counts as housing cost in the 28%?",
+        answer:
+          "Principal and interest, property taxes, homeowners insurance, and HOA dues or mortgage insurance where they apply — the PITI payment. Utilities, maintenance and commuting are not in the ratio, which is one reason the rule understates the true cost.",
+      },
+      {
+        question: "Can I get a mortgage above the 36% back-end ratio?",
+        answer:
+          "Often, yes. Conventional lenders commonly approve back-end DTI up to about 43–45% with automated underwriting, and FHA loans can go higher. Approval is a lender risk decision, not a recommendation that the payment will feel comfortable.",
+      },
+      {
+        question: "How does a bigger down payment change what I can afford?",
+        answer:
+          "It shrinks the loan, which shrinks the monthly payment, so the same 28% ceiling supports a more expensive home. On a conventional loan, 20% down also removes private mortgage insurance, which otherwise adds to the monthly housing cost.",
+      },
+    ],
+    related: ["mortgage-calculator", "emi-calculator", "percentage-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
   }
 ];
 

@@ -146,6 +146,7 @@ present them as real.
 - How to Create a GST-Compliant Invoice in India — https://tulyro.online/guides/how-to-create-gst-compliant-invoice-india/
   All 16 mandatory fields under CGST Rule 46, CGST/SGST vs IGST splits, and a worked ₹50,000 example.
 - How Mortgage Amortization Works — https://tulyro.online/guides/how-mortgage-amortization-works/
+- How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers — https://tulyro.online/guides/how-much-house-can-you-afford/
   Why most early payments go to interest, a worked $300,000 example, and a 15-year vs 30-year comparison.
 - What Is Base64 Encoding, and When to Use It — https://tulyro.online/guides/what-is-base64-encoding-and-when-to-use-it/
   The 24-bit maths behind Base64, why it adds 33% size, padding, and why it is not encryption.

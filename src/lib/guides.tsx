@@ -1806,7 +1806,12 @@ export const guides: Guide[] = [
             The 30-year loan lowers the monthly payment by about 27%, but more than doubles the
             interest. The 15-year loan builds equity 2.6 times faster from the very first payment.
             Which one is right depends on your cash flow — but the price of the lower payment should
-            be a conscious choice, not a surprise at year 20.
+            be a conscious choice, not a surprise at year 20. Before choosing a term, check what
+            payment your income actually supports in our guide to{" "}
+            <Link href="/guides/how-much-house-can-you-afford/" className="text-primary underline">
+              How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers
+            </Link>
+            .
           </>,
         ],
       },
@@ -4044,7 +4049,12 @@ export const guides: Guide[] = [
             <Link href="/calculators/mortgage-calculator/" className="text-primary underline">
               Mortgage Calculator
             </Link>{" "}
-            before deciding.
+            before deciding. To see why the shorter term pays so much less
+            interest, read our guide to{" "}
+            <Link href="/guides/how-mortgage-amortization-works/" className="text-primary underline">
+              How Mortgage Amortization Works: Principal vs. Interest Explained
+            </Link>
+            .
           </>,
         ],
       },

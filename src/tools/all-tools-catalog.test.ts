@@ -5,8 +5,8 @@ import * as fs from "fs";
 import * as path from "path";
 
 describe("All Tools Integrity Test", () => {
-  it("should have exactly 51 registered tools", () => {
-    expect(tools.length).toBe(51);
+  it("should have exactly 52 registered tools", () => {
+    expect(tools.length).toBe(52);
   });
 
   it("every tool has non-empty unique id and valid metadata", () => {

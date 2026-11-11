@@ -6777,6 +6777,143 @@ function EpochConverterPanel() {
   );
 }
 
+function JsonToCsvPanel() {
+  const [input, setInput] = useState(
+    '[\n  {\n    "name": "Asha",\n    "city": "Delhi",\n    "age": 28\n  },\n  {\n    "name": "Rohan",\n    "city": "Mumbai",\n    "age": 31\n  }\n]'
+  );
+  const [output, setOutput] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [delimiter, setDelimiter] = useState<"," | ";" | "\t">(",");
+  const [includeHeader, setIncludeHeader] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const [stats, setStats] = useState<{ rows?: number; columns?: string[] } | null>(null);
+
+  const convert = useCallback(async () => {
+    const { jsonToCsv } = await import("@/tools/json-to-csv-converter/logic");
+    const r = jsonToCsv(input, { delimiter, includeHeader });
+    if (r.valid) {
+      setOutput(r.csv ?? "");
+      setError(null);
+      setStats({ rows: r.rows, columns: r.columns });
+    } else {
+      setError(r.error ?? "Invalid JSON");
+      setOutput("");
+      setStats(null);
+    }
+  }, [input, delimiter, includeHeader]);
+
+  useEffect(() => {
+    void convert();
+  }, [convert]);
+
+  const copy = () => {
+    if (!output) return;
+    navigator.clipboard.writeText(output);
+    trackEvent("tool_copy_output", { tool_id: "json-to-csv-converter" });
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  const download = () => {
+    if (!output) return;
+    trackEvent("tool_download_file", { tool_id: "json-to-csv-converter", format: "csv" });
+    const blob = new Blob([output], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.download = "data.csv";
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <select
+            value={delimiter}
+            onChange={(e) => setDelimiter(e.target.value as "," | ";" | "\t")}
+            className="text-xs p-1.5 rounded border bg-card"
+            aria-label="CSV delimiter"
+          >
+            <option value=",">Comma (,)</option>
+            <option value=";">Semicolon (;)</option>
+            <option value={"\t"}>Tab</option>
+          </select>
+          <label className="flex items-center gap-1.5 text-xs font-medium">
+            <input
+              type="checkbox"
+              checked={includeHeader}
+              onChange={(e) => setIncludeHeader(e.target.checked)}
+            />
+            Header row
+          </label>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {stats && (
+            <span className="text-xs text-muted-foreground">
+              {stats.rows} rows × {stats.columns?.length ?? 0} columns
+            </span>
+          )}
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-muted rounded text-xs font-medium hover:bg-muted/80"
+            onClick={() => setInput("")}
+          >
+            Clear
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1.5 bg-primary text-primary-foreground rounded text-xs font-medium hover:opacity-90 disabled:opacity-50"
+            onClick={copy}
+            disabled={!output}
+          >
+            {copied ? "Copied!" : "Copy CSV"}
+          </button>
+          <button
+            type="button"
+            className="px-3 py-1.5 border rounded text-xs font-medium hover:bg-muted disabled:opacity-50"
+            onClick={download}
+            disabled={!output}
+          >
+            Download .csv
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            rows={14}
+            className="w-full p-3 font-mono text-xs rounded border bg-card focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="Paste a JSON array of objects here..."
+          />
+        </div>
+        <div>
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output CSV</label>
+          {error ? (
+            <div className="p-4 rounded border border-red-300 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 font-mono text-xs h-[230px] overflow-auto">
+              <strong>Conversion Error:</strong>
+              <p className="mt-2">{error}</p>
+            </div>
+          ) : (
+            <textarea
+              readOnly
+              value={output}
+              rows={14}
+              className="w-full p-3 font-mono text-xs rounded border bg-muted/40 focus:outline-none"
+              placeholder="CSV output will appear here..."
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function JsonFormatterPanel() {
   const [input, setInput] = useState('{\n  "title": "Tulyro",\n  "status": "online",\n  "count": 42\n}');
   const [output, setOutput] = useState("");
@@ -7351,6 +7488,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <EpochConverterPanel />;
     case "json-formatter":
       return <JsonFormatterPanel />;
+    case "json-to-csv-converter":
+      return <JsonToCsvPanel />;
     case "uuid-generator":
       return <UuidGeneratorPanel />;
     case "case-converter":

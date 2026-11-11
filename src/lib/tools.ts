@@ -860,6 +860,21 @@ export const tools: ToolDefinition[] = [
       "Format, validate, beautify, and minify your JSON data instantly. Syntax error detection, line tracking, and byte size counter. 100% client-side.",
   },
   {
+    id: "json-to-csv-converter",
+    title: "JSON to CSV Converter",
+    cluster: "Dev",
+    href: "/dev/json-to-csv-converter/",
+    locale: "en",
+    description: "Convert JSON arrays of objects to CSV instantly — RFC 4180 quoting, delimiter choice, and one-click download.",
+    keywords: ["json to csv", "convert json to csv", "json to csv converter", "json to csv online", "json to excel", "json to spreadsheet", "json array to csv"],
+    related: ["json-formatter", "base64-encoder-decoder", "case-converter"],
+    live: true,
+    h1: "JSON to CSV Converter — Convert JSON Arrays to CSV Online",
+    seoTitle: "JSON to CSV Converter — Convert JSON to CSV Free | Tulyro",
+    seoDescription:
+      "Convert JSON arrays to CSV online — free and instant in your browser. Nested values, commas and quotes handled correctly. Copy or download the CSV.",
+  },
+  {
     id: "uuid-generator",
     title: "UUID / GUID Generator",
     cluster: "Dev",

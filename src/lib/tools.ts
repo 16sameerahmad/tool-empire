@@ -168,6 +168,21 @@ export const tools: ToolDefinition[] = [
       "Calculate your gratuity payout under the Payment of Gratuity Act, 1972. Enter last-drawn Basic + DA and years of service — free, instant, private.",
   },
   {
+    id: "sleep-calculator",
+    title: "Sleep Calculator",
+    cluster: "Calculators",
+    href: "/calculators/sleep-calculator/",
+    locale: "en-IN",
+    description: "Find the best bedtime for your wake-up time — or the best time to wake up — using 90-minute sleep cycles.",
+    keywords: ["sleep calculator", "best time to sleep", "sleep cycle calculator", "what time should I go to bed", "wake up time calculator", "90 minute sleep cycles"],
+    related: ["bmi-calculator", "age-calculator", "percentage-calculator"],
+    live: true,
+    h1: "Sleep Calculator — Best Time to Sleep & Wake Up (90-Minute Cycles)",
+    seoTitle: "Sleep Calculator — Best Bedtime & Wake-Up Time | Tulyro",
+    seoDescription:
+      "Find the best bedtime for your wake-up time — or the best time to wake up — using 90-minute sleep cycles. Free, instant, private.",
+  },
+  {
     id: "swp-calculator",
     title: "SWP Calculator",
     cluster: "Calculators",

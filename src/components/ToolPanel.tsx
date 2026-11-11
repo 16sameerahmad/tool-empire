@@ -12,6 +12,7 @@ import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculato
 import { calculateFuelCost, type MileageUnit } from "@/tools/fuel-cost-calculator/logic";
 import { calculateGratuity } from "@/tools/gratuity-calculator/logic";
 import { hashAll, HASH_ALGORITHMS, HASH_HEX_LENGTH, type HashAlgorithm } from "@/tools/hash-generator/logic";
+import { sleepOptions, type SleepMode } from "@/tools/sleep-calculator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -1267,6 +1268,149 @@ function HashGeneratorPanel() {
               <p className="font-body-sm text-xs text-on-surface-variant">
                 MD5 and SHA-1 are shown for checksums and legacy compatibility — use SHA-256 or SHA-512 when security matters.
               </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SleepPanel() {
+  const [mode, setMode] = useState<SleepMode>("wake");
+  const [time, setTime] = useState("07:00");
+  const [copied, setCopied] = useState(false);
+
+  const res = sleepOptions(mode, time);
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const changeMode = (next: SleepMode) => {
+    setMode(next);
+    setTime(next === "wake" ? "07:00" : "23:00");
+  };
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const best = valid.find((o) => o.recommended);
+    const text = best
+      ? `Sleep Plan: ${mode === "wake" ? `wake up at ${time}` : `go to bed at ${time}`}. Best option: ${best.timeLabel} (${best.cycles} cycles, ${best.sleepLabel} of sleep).`
+      : "Sleep Plan";
+    try {
+      await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "sleep-calculator" });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-headline-sm text-on-surface">I want to…</span>
+            <div className="pt-1">
+              <Segmented
+                value={mode === "wake" ? "Wake up at" : "Go to bed at"}
+                options={["Wake up at", "Go to bed at"]}
+                onChange={(v) => changeMode(v === "Wake up at" ? "wake" : "bed")}
+                ariaLabel="Sleep calculation mode"
+              />
+            </div>
+            <span className="block font-body-sm text-xs text-on-surface-variant">
+              {mode === "wake" ? "Find the best bedtime for your alarm." : "Find the best alarm time for your bedtime."}
+            </span>
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <label htmlFor="sleep-time" className="font-display font-headline-sm text-headline-sm text-on-surface">
+              {mode === "wake" ? "Wake-Up Time" : "Bedtime"}
+            </label>
+            <input
+              id="sleep-time"
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className={`${inputClass} mt-0 font-code-data`}
+            />
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {(mode === "wake" ? ["05:00", "06:00", "07:00", "08:00"] : ["21:00", "22:00", "23:00", "00:00"]).map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setTime(preset)}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    time === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-sm font-semibold text-on-surface">How It Works</span>
+            <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+              Sleep runs in ~90-minute cycles. Waking between cycles feels far better than waking mid-cycle, so each
+              option below is a whole number of cycles plus 15 minutes to fall asleep. Adults need 7–9 hours — 5 to 6
+              cycles — a night.
+            </span>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">
+                {mode === "wake" ? "Best Bedtimes" : "Best Wake-Up Times"}
+              </h3>
+              <div className="space-y-3">
+                {valid?.map((option) => (
+                  <div
+                    key={option.cycles}
+                    className={`rounded-xl p-4 ${
+                      option.recommended
+                        ? "bg-primary-container/10 border border-primary-container/20"
+                        : "bg-surface-container-low"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-code-data text-2xl font-black text-on-surface">{option.timeLabel}</span>
+                      {option.recommended && (
+                        <span className="rounded-full bg-primary-container px-2.5 py-0.5 font-label-sm text-xs font-semibold text-white">
+                          Recommended
+                        </span>
+                      )}
+                    </div>
+                    <span className="mt-1 block font-body-md text-body-md text-on-surface-variant">
+                      {option.cycles} cycles · {option.sleepLabel} of sleep
+                      {mode === "wake"
+                        ? option.dayOffset === -1
+                          ? " · the night before"
+                          : " · after midnight"
+                        : " · next morning"}
+                    </span>
+                  </div>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Plan copied!" : "Copy Sleep Plan"}
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -7129,6 +7273,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <GratuityPanel />;
     case "hash-generator":
       return <HashGeneratorPanel />;
+    case "sleep-calculator":
+      return <SleepPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "swp-calculator":

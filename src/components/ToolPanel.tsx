@@ -10,6 +10,7 @@ import { ppf } from "@/tools/ppf/logic";
 import { sgpaToCgpa } from "@/tools/sgpa/logic";
 import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculator/logic";
 import { calculateFuelCost, type MileageUnit } from "@/tools/fuel-cost-calculator/logic";
+import { calculateGratuity } from "@/tools/gratuity-calculator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -918,6 +919,177 @@ function FuelCostPanel() {
                   <span className="block font-label-md text-label-md text-on-surface-variant">Cost Per Person</span>
                   <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
                     {valid ? `₹${valid.costPerPerson.toLocaleString("en-IN")}` : "₹ 0"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Summary copied!" : "Copy Summary"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GratuityPanel() {
+  const [basicDA, setBasicDA] = useState("60000");
+  const [years, setYears] = useState("12");
+  const [months, setMonths] = useState("8");
+  const [copied, setCopied] = useState(false);
+
+  const res = calculateGratuity({
+    basicDA: Number(basicDA),
+    years: Number(years),
+    months: Number(months),
+  });
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `Gratuity Estimate: Last-drawn Basic + DA ₹${Number(basicDA).toLocaleString("en-IN")}/month, ${valid.completedYears} completed years of service. Gratuity payable: ₹${valid.gratuity.toLocaleString("en-IN")}${valid.capped ? " (capped at ₹20 lakh)" : ""}. Tax-free up to ₹20 lakh.`;
+    try {
+      await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "gratuity-calculator" });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="grat-basic" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Last-Drawn Basic + DA (₹ / month)
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Basic + Dearness Allowance</span>
+            </div>
+            <div className="relative flex items-center">
+              <span className="absolute left-3 font-code-data font-semibold text-on-surface-variant">₹</span>
+              <input
+                id="grat-basic"
+                type="number"
+                min="1"
+                value={basicDA}
+                onChange={(e) => setBasicDA(e.target.value)}
+                className={`${inputClass} mt-0 pl-8 font-code-data`}
+              />
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {[25000, 50000, 75000, 100000].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setBasicDA(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    Number(basicDA) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  ₹{preset.toLocaleString("en-IN")}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+              <label htmlFor="grat-years" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Years of Service
+              </label>
+              <input
+                id="grat-years"
+                type="number"
+                min="0"
+                max="50"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                className={`${inputClass} mt-0 font-code-data`}
+              />
+            </div>
+            <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+              <label htmlFor="grat-months" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Extra Months (0–11)
+              </label>
+              <input
+                id="grat-months"
+                type="number"
+                min="0"
+                max="11"
+                value={months}
+                onChange={(e) => setMonths(e.target.value)}
+                className={`${inputClass} mt-0 font-code-data`}
+              />
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-sm font-semibold text-on-surface">The 15/26 Formula</span>
+            <p className="mt-1 font-mono text-center text-lg font-bold tracking-wide text-on-surface">
+              Gratuity = (15 ÷ 26) × Monthly Basic + DA × Completed Years
+            </p>
+            <span className="mt-2 block font-body-sm text-xs text-on-surface-variant">
+              15 days&apos; wages for every completed year of service (a month counts as 26 working days). 6 months or more in the final year counts as a full year. Payout capped at ₹20 lakh.
+            </span>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : valid && !valid.eligible ? (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Not Yet Eligible</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                Gratuity needs 5 years of continuous service. With {valid.completedYears} completed{" "}
+                {valid.completedYears === 1 ? "year" : "years"}, you need {valid.monthsToEligibility} more{" "}
+                {valid.monthsToEligibility === 1 ? "month" : "months"} of service to qualify (except in case of
+                death or disablement, where the 5-year rule does not apply).
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Gratuity Payable</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Gratuity Amount</span>
+                  <span className="mt-1 block font-code-data text-4xl font-black text-on-surface">
+                    {valid ? `₹${valid.gratuity.toLocaleString("en-IN")}` : "₹ 0"}
+                  </span>
+                  <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+                    {valid ? `${valid.completedYears} completed years of service` : ""}
+                  </span>
+                </div>
+                {valid && valid.capped && (
+                  <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+                    <span className="block font-label-md text-label-md font-semibold text-amber-700">Capped at ₹20 Lakh</span>
+                    <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                      Uncapped amount was ₹{valid.uncapped.toLocaleString("en-IN")}. The Payment of Gratuity Act caps the payout at ₹20,00,000.
+                    </span>
+                  </div>
+                )}
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Tax-Free Amount</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `₹${valid.taxFree.toLocaleString("en-IN")}` : "₹ 0"}
+                  </span>
+                  <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+                    Exempt up to ₹20 lakh for private-sector employees.
                   </span>
                 </div>
 
@@ -6789,6 +6961,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <SgpaCalculatorPanel />;
     case "fuel-cost-calculator":
       return <FuelCostPanel />;
+    case "gratuity-calculator":
+      return <GratuityPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "swp-calculator":

@@ -153,6 +153,21 @@ export const tools: ToolDefinition[] = [
       "Calculate your trip fuel cost from distance, mileage, and petrol or diesel price. Supports km/L, L/100km, and mpg, with round-trip and split options.",
   },
   {
+    id: "gratuity-calculator",
+    title: "Gratuity Calculator",
+    cluster: "Calculators",
+    href: "/calculators/gratuity-calculator/",
+    locale: "en-IN",
+    description: "Calculate your gratuity payout under the Payment of Gratuity Act, 1972, with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.",
+    keywords: ["gratuity calculator", "gratuity calculator india", "payment of gratuity act", "gratuity formula", "15/26 gratuity", "gratuity tax exemption"],
+    related: ["income-tax-calculator", "emi-calculator", "percentage-calculator"],
+    live: true,
+    h1: "Gratuity Calculator — India Payout, 15/26 Formula & ₹20 Lakh Cap",
+    seoTitle: "Gratuity Calculator India — 15/26 Formula | Tulyro",
+    seoDescription:
+      "Calculate your gratuity payout under the Payment of Gratuity Act, 1972. Enter last-drawn Basic + DA and years of service — free, instant, private.",
+  },
+  {
     id: "swp-calculator",
     title: "SWP Calculator",
     cluster: "Calculators",

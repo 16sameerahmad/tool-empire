@@ -11,6 +11,7 @@ import { sgpaToCgpa } from "@/tools/sgpa/logic";
 import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculator/logic";
 import { calculateFuelCost, type MileageUnit } from "@/tools/fuel-cost-calculator/logic";
 import { calculateGratuity } from "@/tools/gratuity-calculator/logic";
+import { hashAll, HASH_ALGORITHMS, HASH_HEX_LENGTH, type HashAlgorithm } from "@/tools/hash-generator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -1103,6 +1104,169 @@ function GratuityPanel() {
                   {copied ? "Summary copied!" : "Copy Summary"}
                 </button>
               </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HashGeneratorPanel() {
+  const [mode, setMode] = useState<"text" | "file">("text");
+  const [text, setText] = useState("hello");
+  const [fileName, setFileName] = useState("");
+  const [hashes, setHashes] = useState<Record<HashAlgorithm, string> | null>(null);
+  const [computing, setComputing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      setComputing(true);
+      setError(null);
+      try {
+        const data = new TextEncoder().encode(text);
+        const result = await hashAll(data);
+        if (!cancelled) setHashes(result);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Could not compute hashes.");
+      } finally {
+        if (!cancelled) setComputing(false);
+      }
+    }, 150);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [text]);
+
+  const handleFile = async (file: File | undefined) => {
+    if (!file) return;
+    setMode("file");
+    setFileName(file.name);
+    setComputing(true);
+    setError(null);
+    try {
+      const buffer = await file.arrayBuffer();
+      const result = await hashAll(new Uint8Array(buffer));
+      setHashes(result);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not compute hashes for this file.");
+    } finally {
+      setComputing(false);
+    }
+  };
+
+  const copyHash = async (algorithm: HashAlgorithm) => {
+    if (!hashes) return;
+    try {
+      await navigator.clipboard.writeText(hashes[algorithm]);
+      trackEvent("hash_copy", { tool_id: "hash-generator", algorithm });
+      setCopied(algorithm);
+      window.setTimeout(() => setCopied(null), 2000);
+    } catch {
+      setCopied(null);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="flex items-center gap-2">
+            <Segmented value={mode} options={["text", "file"]} onChange={(v) => setMode(v as "text" | "file")} ariaLabel="Hash input mode" />
+          </div>
+
+          {mode === "text" ? (
+            <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+              <label htmlFor="hash-text" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Text to Hash
+              </label>
+              <textarea
+                id="hash-text"
+                rows={4}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Type or paste text here — hashes update as you type."
+                className="mt-1 min-h-24 w-full resize-y rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 font-mono text-base text-on-surface"
+              />
+              <span className="block font-body-sm text-xs text-on-surface-variant">
+                UTF-8 encoded. Nothing is uploaded — all hashing happens in your browser.
+              </span>
+            </div>
+          ) : (
+            <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+              <span className="font-display font-headline-sm text-headline-sm text-on-surface">File to Hash</span>
+              <label
+                htmlFor="hash-file"
+                className="mt-1 flex min-h-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-outline-variant bg-surface-container-lowest px-3 py-4 text-center"
+              >
+                <span className="font-body-md text-body-md font-medium text-on-surface">
+                  {fileName || "Click to choose a file"}
+                </span>
+                <span className="font-body-sm text-xs text-on-surface-variant">
+                  The file is read only to compute its hashes — it never leaves your device.
+                </span>
+                <input
+                  id="hash-file"
+                  type="file"
+                  className="sr-only"
+                  onChange={(e) => void handleFile(e.target.files?.[0])}
+                />
+              </label>
+              {fileName && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("text");
+                    setFileName("");
+                  }}
+                  className="btn-chip rounded px-2.5 py-1 text-xs font-medium bg-surface-container text-on-surface"
+                >
+                  Back to text mode
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-3 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <div className="flex items-center justify-between">
+                <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Hashes</h3>
+                {computing && <span className="font-body-sm text-xs text-on-surface-variant">Computing…</span>}
+              </div>
+              {HASH_ALGORITHMS.map((algorithm) => (
+                <div key={algorithm} className="rounded-xl bg-surface-container-low p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-md text-label-md font-semibold text-on-surface">
+                      {algorithm} <span className="font-normal text-on-surface-variant">({HASH_HEX_LENGTH[algorithm]} hex chars)</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => void copyHash(algorithm)}
+                      disabled={!hashes}
+                      className="btn-chip flex items-center gap-1 rounded bg-primary-container px-2.5 py-1 text-xs text-white disabled:opacity-50"
+                    >
+                      <Icon name={copied === algorithm ? "check" : "content_copy"} className="h-3.5 w-3.5" />
+                      {copied === algorithm ? "Copied!" : "Copy"}
+                    </button>
+                  </div>
+                  <span className="mt-2 block break-all font-mono text-sm leading-relaxed text-on-surface">
+                    {hashes ? hashes[algorithm] : "—"}
+                  </span>
+                </div>
+              ))}
+              <p className="font-body-sm text-xs text-on-surface-variant">
+                MD5 and SHA-1 are shown for checksums and legacy compatibility — use SHA-256 or SHA-512 when security matters.
+              </p>
             </div>
           )}
         </div>
@@ -6963,6 +7127,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <FuelCostPanel />;
     case "gratuity-calculator":
       return <GratuityPanel />;
+    case "hash-generator":
+      return <HashGeneratorPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "swp-calculator":

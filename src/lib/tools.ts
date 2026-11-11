@@ -328,6 +328,21 @@ export const tools: ToolDefinition[] = [
       "Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in your browser. Handles emoji and non-Latin scripts. Free, private. Try it now.",
   },
   {
+    id: "hash-generator",
+    title: "Hash Generator",
+    cluster: "Dev",
+    href: "/dev/hash-generator/",
+    locale: "en",
+    description: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes for text or files entirely in your browser.",
+    keywords: ["hash generator", "md5 generator", "sha-256 generator", "sha256 online", "hash text online", "checksum generator"],
+    related: ["base64-encoder-decoder", "json-formatter", "password-generator"],
+    live: true,
+    h1: "Hash Generator — MD5, SHA-1, SHA-256 & SHA-512 Hashes Online",
+    seoTitle: "Hash Generator — MD5, SHA-1, SHA-256, SHA-512 | Tulyro",
+    seoDescription:
+      "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes for text or files in your browser. Free, instant, private — nothing is uploaded.",
+  },
+  {
     id: "invoice-generator",
     title: "Invoice Generator",
     cluster: "Fun",

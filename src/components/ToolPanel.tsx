@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
@@ -12,6 +12,7 @@ import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculato
 import { calculateFuelCost, type MileageUnit } from "@/tools/fuel-cost-calculator/logic";
 import { calculateGratuity } from "@/tools/gratuity-calculator/logic";
 import { hashAll, HASH_ALGORITHMS, HASH_HEX_LENGTH, type HashAlgorithm } from "@/tools/hash-generator/logic";
+import type { BarcodeFormat, BarcodeResult } from "@/tools/barcode-generator/logic";
 import { sleepOptions, type SleepMode } from "@/tools/sleep-calculator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
@@ -6169,6 +6170,199 @@ function Mp4ToMp3Panel() {
   );
 }
 
+function BarcodePanel() {
+  const [format, setFormat] = useState<BarcodeFormat>("ean13");
+  const [text, setText] = useState("590123412345");
+  const [barHeight, setBarHeight] = useState(100);
+  const [narrow, setNarrow] = useState(2);
+  const [fgColor, setFgColor] = useState("#000000");
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<BarcodeResult | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const QUIET = 10; // quiet-zone width in narrow units, each side
+
+  useEffect(() => {
+    void (async () => {
+      const { encodeBarcode } = await import("@/tools/barcode-generator/logic");
+      const r = encodeBarcode(text, format);
+      if (r.valid) {
+        setResult(r);
+        setError(null);
+      } else {
+        setResult(null);
+        setError(r.error ?? "Could not generate barcode.");
+      }
+    })();
+  }, [text, format]);
+
+  const totalUnits = useMemo(() => {
+    if (!result?.bars) return 0;
+    return result.bars.reduce((sum, b) => sum + b.units, 0) + QUIET * 2;
+  }, [result]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !result?.bars) return;
+    const width = Math.max(1, totalUnits * narrow);
+    const height = barHeight;
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = fgColor;
+    let x = QUIET * narrow;
+    for (const el of result.bars) {
+      const w = el.units * narrow;
+      if (el.bar) ctx.fillRect(x, 0, w, height);
+      x += w;
+    }
+  }, [result, totalUnits, narrow, barHeight, fgColor, bgColor]);
+
+  const downloadPng = () => {
+    const canvas = canvasRef.current;
+    if (!canvas || !result) return;
+    trackEvent("tool_download_file", { tool_id: "barcode-generator", format: "png" });
+    const a = document.createElement("a");
+    a.download = "barcode.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  };
+
+  const downloadSvg = () => {
+    if (!result?.bars) return;
+    trackEvent("tool_download_file", { tool_id: "barcode-generator", format: "svg" });
+    const width = totalUnits * narrow;
+    const height = barHeight + 24;
+    let x = QUIET * narrow;
+    let rects = `<rect width="${width}" height="${height}" fill="${bgColor}"/>`;
+    for (const el of result.bars) {
+      const w = el.units * narrow;
+      if (el.bar) rects += `<rect x="${x}" y="0" width="${w}" height="${barHeight}" fill="${fgColor}"/>`;
+      x += w;
+    }
+    const label = result.humanText ?? "";
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${rects}<text x="${width / 2}" y="${barHeight + 18}" font-family="monospace" font-size="14" text-anchor="middle" fill="${fgColor}">${label}</text></svg>`;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const a = document.createElement("a");
+    a.download = "barcode.svg";
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  const placeholder =
+    format === "code39" ? "e.g. TULYRO-123" : format === "ean13" ? "e.g. 590123412345" : "e.g. 03600029145";
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-end gap-3">
+        <div>
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Format</label>
+          <select
+            value={format}
+            onChange={(e) => {
+              const f = e.target.value as BarcodeFormat;
+              setFormat(f);
+              setText(f === "code39" ? "TULYRO-123" : f === "ean13" ? "590123412345" : "03600029145");
+            }}
+            className="text-xs p-2 rounded border bg-card"
+          >
+            <option value="code39">Code 39 (text &amp; labels)</option>
+            <option value="ean13">EAN-13 (retail)</option>
+            <option value="upca">UPC-A (US retail)</option>
+          </select>
+        </div>
+        <div className="flex-1 min-w-52">
+          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">
+            {format === "code39" ? "Text" : "Digits"}
+          </label>
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full p-2 font-mono text-sm rounded border bg-card focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder={placeholder}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div>
+          <label className="text-xs text-muted-foreground">Bar height (px)</label>
+          <input
+            type="number"
+            value={barHeight}
+            onChange={(e) => setBarHeight(Math.min(200, Math.max(40, Number(e.target.value) || 100)))}
+            min={40}
+            max={200}
+            className="w-full p-2 rounded border bg-card text-sm"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Narrow bar (px)</label>
+          <input
+            type="number"
+            value={narrow}
+            onChange={(e) => setNarrow(Math.min(4, Math.max(1, Number(e.target.value) || 2)))}
+            min={1}
+            max={4}
+            className="w-full p-2 rounded border bg-card text-sm"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Bar color</label>
+          <input
+            type="color"
+            value={fgColor}
+            onChange={(e) => setFgColor(e.target.value)}
+            className="w-full h-10 cursor-pointer rounded"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Background</label>
+          <input
+            type="color"
+            value={bgColor}
+            onChange={(e) => setBgColor(e.target.value)}
+            className="w-full h-10 cursor-pointer rounded"
+          />
+        </div>
+      </div>
+
+      {error ? (
+        <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+          {error}
+        </div>
+      ) : (
+        <div className="space-y-3 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+          <div className="flex justify-center overflow-x-auto bg-white rounded-lg p-4">
+            <canvas ref={canvasRef} className="max-w-full" style={{ imageRendering: "pixelated" }} />
+          </div>
+          {result?.humanText && (
+            <p className="text-center font-mono text-sm tracking-[0.3em] text-on-surface">{result.humanText}</p>
+          )}
+          <div className="flex justify-center gap-2">
+            <button type="button" onClick={downloadPng} className="px-3 py-1.5 bg-primary text-primary-foreground rounded text-xs font-medium hover:opacity-90">
+              Download PNG
+            </button>
+            <button type="button" onClick={downloadSvg} className="px-3 py-1.5 border rounded text-xs font-medium hover:bg-muted">
+              Download SVG
+            </button>
+          </div>
+          <p className="text-center font-body-sm text-xs text-on-surface-variant">
+            {format === "code39"
+              ? "Code 39 encodes A–Z, 0–9 and - . space $ / + %. Leave a blank quiet zone on both sides when printing."
+              : "Check digit calculated automatically. Print at least 2 cm tall with a clear quiet zone on both sides."}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function QrCodePanel() {
   const [text, setText] = useState("https://tulyro.online");
   const [fgColor, setFgColor] = useState("#000000");
@@ -7480,6 +7674,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <PdfToolsPanel initialMode="compress-pdf" />;
     case "qr-code-generator":
       return <QrCodePanel />;
+    case "barcode-generator":
+      return <BarcodePanel />;
     case "income-tax-calculator":
       return <IncomeTaxPanel />;
     case "password-generator":

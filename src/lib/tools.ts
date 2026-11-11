@@ -800,6 +800,21 @@ export const tools: ToolDefinition[] = [
       "Create free QR codes for URLs, text, WiFi, and vCards with optional logo overlay. Customize colors, download as PNG or SVG. No signup, works offline.",
   },
   {
+    id: "barcode-generator",
+    title: "Barcode Generator",
+    cluster: "Media",
+    href: "/tools/barcode-generator/",
+    locale: "en",
+    description: "Generate Code 39, EAN-13, and UPC-A barcodes in your browser — with check digits, custom sizes, and PNG/SVG download.",
+    keywords: ["barcode generator", "free barcode generator", "ean-13 barcode generator", "code 39 barcode", "upc-a barcode generator", "create barcode online", "barcode maker"],
+    related: ["qr-code-generator", "image-converter", "invoice-generator"],
+    live: true,
+    h1: "Barcode Generator — Code 39, EAN-13 & UPC-A Barcodes Online",
+    seoTitle: "Barcode Generator — Free Code 39 & EAN-13 | Tulyro",
+    seoDescription:
+      "Create Code 39, EAN-13, and UPC-A barcodes free in your browser. Check digits calculated automatically. Download as PNG or SVG — no signup, no upload.",
+  },
+  {
     id: "income-tax-calculator",
     title: "Income Tax Calculator (India)",
     cluster: "Calculators",

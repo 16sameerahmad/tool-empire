@@ -9,6 +9,7 @@ import { attendance } from "@/tools/attendance/logic";
 import { ppf } from "@/tools/ppf/logic";
 import { sgpaToCgpa } from "@/tools/sgpa/logic";
 import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculator/logic";
+import { calculateFuelCost, type MileageUnit } from "@/tools/fuel-cost-calculator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -730,6 +731,204 @@ function SgpaCalculatorPanel() {
                 >
                   <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
                   {copied ? "Results copied!" : "Copy Results"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FuelCostPanel() {
+  const [distance, setDistance] = useState("280");
+  const [mileage, setMileage] = useState("15");
+  const [price, setPrice] = useState("100");
+  const [unit, setUnit] = useState<MileageUnit>("kmpl");
+  const [roundTrip, setRoundTrip] = useState(false);
+  const [passengers, setPassengers] = useState("1");
+  const [copied, setCopied] = useState(false);
+
+  const isMpg = unit === "mpg";
+  const res = calculateFuelCost({
+    distance: Number(distance),
+    mileage: Number(mileage),
+    price: Number(price),
+    unit,
+    roundTrip,
+    passengers: Number(passengers),
+  });
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `Fuel Cost: ${distance} ${valid.distanceUnit}${roundTrip ? " round trip" : " one way"} at ${mileage} ${unit === "kmpl" ? "km/L" : unit === "l100km" ? "L/100km" : "mpg"}. Fuel needed: ${valid.fuelNeeded} ${valid.fuelUnit}. Total cost: ₹${valid.totalCost.toLocaleString("en-IN")}. Per person: ₹${valid.costPerPerson.toLocaleString("en-IN")}.`;
+    try {
+      await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "fuel-cost-calculator" });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="fuel-distance" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Trip Distance ({isMpg ? "miles" : "km"})
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">One-way distance</span>
+            </div>
+            <input
+              id="fuel-distance"
+              type="number"
+              min="1"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
+              className={`${inputClass} mt-0 font-code-data`}
+            />
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {[50, 100, 280, 500].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setDistance(String(preset))}
+                  className={`btn-chip rounded px-2.5 py-1 text-xs font-medium ${
+                    Number(distance) === preset ? "bg-primary-container text-white" : "bg-surface-container text-on-surface"
+                  }`}
+                >
+                  {preset} {isMpg ? "mi" : "km"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-headline-sm text-on-surface">Mileage Unit</span>
+            <div className="pt-1">
+              <Segmented
+                value={unit}
+                options={["kmpl", "l100km", "mpg"]}
+                onChange={(v) => setUnit(v as MileageUnit)}
+                ariaLabel="Mileage unit"
+              />
+            </div>
+            <div className="flex items-center gap-2 pt-1">
+              <label htmlFor="fuel-mileage" className="sr-only">Mileage</label>
+              <input
+                id="fuel-mileage"
+                type="number"
+                min="1"
+                step="0.1"
+                value={mileage}
+                onChange={(e) => setMileage(e.target.value)}
+                className={`${inputClass} mt-0 font-code-data`}
+              />
+              <span className="shrink-0 font-code-data font-semibold text-on-surface-variant">
+                {unit === "kmpl" ? "km/L" : unit === "l100km" ? "L/100km" : "mpg"}
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="fuel-price" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Fuel Price (₹ per {isMpg ? "gallon" : "litre"})
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Petrol or diesel</span>
+            </div>
+            <div className="relative flex items-center">
+              <span className="absolute left-3 font-code-data font-semibold text-on-surface-variant">₹</span>
+              <input
+                id="fuel-price"
+                type="number"
+                min="1"
+                step="0.1"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className={`${inputClass} mt-0 pl-8 font-code-data`}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 rounded-xl bg-surface-container-low/50 p-4">
+            <label className="flex cursor-pointer items-center gap-2 font-body-md text-body-md text-on-surface">
+              <input
+                type="checkbox"
+                checked={roundTrip}
+                onChange={(e) => setRoundTrip(e.target.checked)}
+                className="h-5 w-5 accent-primary-container"
+              />
+              Round trip (there and back)
+            </label>
+            <div className="flex items-center gap-2">
+              <label htmlFor="fuel-passengers" className="font-body-md text-body-md text-on-surface">
+                Passengers
+              </label>
+              <input
+                id="fuel-passengers"
+                type="number"
+                min="1"
+                max="20"
+                value={passengers}
+                onChange={(e) => setPassengers(e.target.value)}
+                className="w-20 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-center font-code-data"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Trip Fuel Cost</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Total Fuel Cost</span>
+                  <span className="mt-1 block font-code-data text-4xl font-black text-on-surface">
+                    {valid ? `₹${valid.totalCost.toLocaleString("en-IN")}` : "₹ 0"}
+                  </span>
+                  <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+                    {valid ? `${valid.fuelNeeded} ${valid.fuelUnit} of fuel · ₹${valid.costPerDistance} per ${valid.distanceUnit}` : ""}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Fuel Needed</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `${valid.fuelNeeded} ${valid.fuelUnit}` : "0"}
+                  </span>
+                  {valid && valid.litresPer100Km !== null && (
+                    <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+                      {valid.litresPer100Km} L per 100 km
+                    </span>
+                  )}
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Cost Per Person</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `₹${valid.costPerPerson.toLocaleString("en-IN")}` : "₹ 0"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Summary copied!" : "Copy Summary"}
                 </button>
               </div>
             </div>
@@ -6588,6 +6787,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <SgpaPanel />;
     case "sgpa-calculator":
       return <SgpaCalculatorPanel />;
+    case "fuel-cost-calculator":
+      return <FuelCostPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "swp-calculator":

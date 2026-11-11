@@ -138,6 +138,21 @@ export const tools: ToolDefinition[] = [
       "Calculate your SGPA from subject credits and letter grades on the 10-point scale. Free, instant, and private — no signup, runs in your browser.",
   },
   {
+    id: "fuel-cost-calculator",
+    title: "Fuel Cost Calculator",
+    cluster: "Calculators",
+    href: "/calculators/fuel-cost-calculator/",
+    locale: "en-IN",
+    description: "Calculate trip fuel cost from distance, mileage, and fuel price. Supports km/L, L/100km, and mpg, with round-trip and per-person split.",
+    keywords: ["fuel cost calculator", "trip fuel cost", "petrol cost calculator", "diesel cost calculator", "mileage calculator", "fuel price calculator"],
+    related: ["emi-calculator", "percentage-calculator", "sip-calculator"],
+    live: true,
+    h1: "Fuel Cost Calculator — Trip Petrol & Diesel Cost in ₹",
+    seoTitle: "Fuel Cost Calculator — Trip Petrol & Diesel Cost | Tulyro",
+    seoDescription:
+      "Calculate your trip fuel cost from distance, mileage, and petrol or diesel price. Supports km/L, L/100km, and mpg, with round-trip and split options.",
+  },
+  {
     id: "swp-calculator",
     title: "SWP Calculator",
     cluster: "Calculators",

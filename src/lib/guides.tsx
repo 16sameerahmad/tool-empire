@@ -4134,6 +4134,253 @@ export const guides: Guide[] = [
     ],
     related: ["mortgage-calculator", "emi-calculator", "percentage-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
+  },
+  {
+    slug: "how-to-calculate-percentage",
+    title: "How to Calculate Percentage: The Three Formulas That Cover Every Case",
+    seoTitle: "How to Calculate Percentage — Formulas & Worked Examples | Tulyro",
+    seoDescription:
+      "Three percentage formulas cover every case: find the part, find the percent, find the whole. Worked examples: 25% of 200 is 50, 15% off ₹1,200, a 15% pay rise.",
+    href: "/guides/how-to-calculate-percentage/",
+    intro: [
+      <>
+        A percentage is a number out of 100. The word gives it away: per cent means per hundred. So
+        25% is 25 out of every 100, which is the same as 25 ÷ 100, which is 0.25. Everything in this
+        guide follows from that one fact. There are only three percentage questions anyone ever asks —
+        find the part, find the percent, find the whole — and each has one short formula. Learn the
+        three, and discounts, exam marks, pay rises, tips and GST all become the same five-second
+        calculation. Check your answers on our{" "}
+        <Link href="/calculators/percentage-calculator/" className="text-primary underline">
+          free Percentage Calculator
+        </Link>
+        .
+      </>,
+    ],
+    cta: { label: "Try the Percentage Calculator", href: "/calculators/percentage-calculator/" },
+    sections: [
+      {
+        heading: "What a percentage actually is",
+        body: [
+          <>
+            A percentage is a fraction with 100 as the denominator, written more compactly. 25% =
+            25/100 = 1/4 = 0.25. All three forms say the same thing, and switching between them is
+            the whole skill. To turn a percentage into a decimal, divide by 100 — move the decimal
+            point two places left. 25% becomes 0.25, 6.5% becomes 0.065, 150% becomes 1.5. To turn a
+            decimal into a percentage, multiply by 100. 0.84 becomes 84%.
+          </>,
+          <>
+            Percentages above 100% are normal, not a mistake. 150% of 200 is 300 — one and a half
+            times the number. And a percentage always needs a base: 25% of 200 is 50, but 25% of 400
+            is 100. The percent alone means nothing until you know what it is a percent of. Most
+            percentage errors in real life are base errors, not arithmetic errors.
+          </>,
+        ],
+      },
+      {
+        heading: "The three questions — and the three formulas",
+        body: [
+          <>
+            Every percentage problem is one of three questions. Work out which one you are asking,
+            and the formula is obvious.
+          </>,
+          <div key="percentage-three-formulas-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Question</th>
+                <th className="border border-outline-variant/60 p-3">Formula</th>
+                <th className="border border-outline-variant/60 p-3">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">What is X% of Y?</td><td className="border border-outline-variant/60 p-3">Y × (X ÷ 100)</td><td className="border border-outline-variant/60 p-3">25% of 200 = 50</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">What percent is A of B?</td><td className="border border-outline-variant/60 p-3">(A ÷ B) × 100</td><td className="border border-outline-variant/60 p-3">45 out of 60 = 75%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">X is Y% of what number?</td><td className="border border-outline-variant/60 p-3">X ÷ (Y ÷ 100)</td><td className="border border-outline-variant/60 p-3">18 is 12% of 150</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Type 1, find the part: 25% of 200. Turn 25% into 0.25, multiply: 200 × 0.25 = 50. Another:
+            35% of 180 is 180 × 0.35 = 63. Type 2, find the percent: 45 marks out of 60. Divide first,
+            then multiply by 100: 45 ÷ 60 = 0.75, and 0.75 × 100 = 75%. Exam marks work the same way:
+            420 out of 500 is 420 ÷ 500 × 100 = 84%. Type 3, find the whole: 18 is 12% of what
+            number? Divide the part by the percent as a decimal: 18 ÷ 0.12 = 150. Check it backwards:
+            12% of 150 is 18. Correct. Another: 45 is 15% of 300, because 45 ÷ 0.15 = 300.
+          </>,
+        ],
+      },
+      {
+        heading: "Worked example: a 15% discount on a ₹1,200 item",
+        body: [
+          <>
+            A jacket costs ₹1,200 and the shop offers 15% off. First find the discount: 15% of ₹1,200
+            is 1,200 × 0.15 = ₹180. Subtract it from the price: ₹1,200 − ₹180 = ₹1,020. That is what
+            you pay.
+          </>,
+          <>
+            There is a faster way. Paying 100% minus 15% means paying 85% of the price: ₹1,200 × 0.85
+            = ₹1,020. Same answer, one step. Use whichever you find easier — the two-step version when
+            you want to see the discount, the one-step version when you only care about the final
+            price.
+          </>,
+          <>
+            Tax works the same way in reverse. GST of 18% on a ₹1,000 item adds ₹180 (1,000 × 0.18),
+            so the total is ₹1,180. If you are working out tax on a bill rather than a discount, run
+            it through the{" "}
+            <Link href="/calculators/gst-calculator/" className="text-primary underline">
+              GST Calculator
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        heading: "Percentage increase and decrease",
+        body: [
+          <>
+            A pay rise, a price cut, a score improving — all the same formula. Percentage change =
+            (new value − old value) ÷ old value × 100. The one rule that matters: always divide by the
+            old, starting number.
+          </>,
+          <>
+            A salary rises from ₹40,000 to ₹46,000 a month. The rise is ₹6,000. Divide by the old
+            salary: 6,000 ÷ 40,000 = 0.15, so the rise is 15%. A price falls from ₹80 to ₹60. The drop
+            is ₹20, and 20 ÷ 80 = 0.25, so the price fell 25%. If the result is negative, the value
+            fell; if positive, it rose.
+          </>,
+          <>
+            Going the other way is a single multiplication. A quantity of 250 increased by 12% becomes
+            250 × 1.12 = 280. A quantity of 900 decreased by 20% becomes 900 × 0.80 = 720. The
+            multiplier is 1 plus the percent for an increase, 1 minus the percent for a decrease.
+          </>,
+        ],
+      },
+      {
+        heading: "Percentage points vs percent — the trap",
+        body: [
+          <>
+            This is where news headlines, bank notices and exam discussions go wrong. A rate moving
+            from 8% to 10% has risen by 2 percentage points — but it has risen by 25% in relative
+            terms, because 2 ÷ 8 = 0.25. Both numbers are true. They answer different questions.
+          </>,
+          <>
+            Use percentage points when you are talking about the arithmetic difference between two
+            percentages: interest rates, pass marks, vote shares. Use percent when you are talking
+            about how much something changed relative to where it started. If a lender says your rate
+            rose by 2%, ask whether they mean 2 percentage points or a 2% relative rise — on an 8%
+            loan those are very different things.
+          </>,
+        ],
+      },
+      {
+        heading: "Mental-math shortcuts for the common percentages",
+        body: [
+          <>
+            A few percentages come up so often that they are worth doing without a calculator. 10% of
+            anything is the number divided by 10. 50% is half. 25% is a quarter — divide by 4. 75% is
+            three quarters: find 25% and triple it. 1% is the number divided by 100, which is the
+            building block for anything else: 6% is six times 1%, 13% is thirteen times 1%.
+          </>,
+          <div key="percentage-shortcuts-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Percent</th>
+                <th className="border border-outline-variant/60 p-3">Shortcut</th>
+                <th className="border border-outline-variant/60 p-3">Of 240</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">10%</td><td className="border border-outline-variant/60 p-3">Divide by 10</td><td className="border border-outline-variant/60 p-3">24</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">25%</td><td className="border border-outline-variant/60 p-3">Divide by 4</td><td className="border border-outline-variant/60 p-3">60</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">50%</td><td className="border border-outline-variant/60 p-3">Halve it</td><td className="border border-outline-variant/60 p-3">120</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">75%</td><td className="border border-outline-variant/60 p-3">25% × 3</td><td className="border border-outline-variant/60 p-3">180</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            A 20% restaurant tip is another everyday one. A bill of ₹850: 10% is ₹85, double it for
+            20%, and the tip is ₹170. The same doubling trick works for any even percentage — find 10%,
+            then scale.
+          </>,
+        ],
+      },
+      {
+        heading: "Three mistakes that produce wrong answers",
+        body: [
+          <>
+            First, dividing by the new number instead of the old one in a percentage change. A salary
+            of ₹40,000 rising to ₹46,000 is a 15% rise (6,000 ÷ 40,000). Dividing by 46,000 instead
+            gives 13%, which is wrong — the rise is measured against where you started.
+          </>,
+          <>
+            Second, adding percentages that apply to different bases. A price cut by 10% and then
+            raised by 10% does not return to the start. ₹100 cut by 10% is ₹90, and ₹90 raised by 10%
+            is ₹99 — 1% below where it began. The second 10% is taken from a smaller number, so it
+            is worth less.
+          </>,
+          <>
+            Third, confusing &quot;increase by 200%&quot; with &quot;increase to 200%&quot;. An
+            increase by 200% adds twice the original amount, so the result is three times the original.
+            An increase to 200% means the result is twice the original. The words by and to carry the
+            whole difference.
+          </>,
+        ],
+      },
+      {
+        heading: "When to use a calculator",
+        body: [
+          <>
+            Once the three formulas feel natural, the hand math is only worth doing when the numbers
+            are round. Comparing loan offers, working out GST on a mixed bill, or checking a lender&apos;s
+            figure all deserve a tool. Run them through the{" "}
+            <Link href="/calculators/percentage-calculator/" className="text-primary underline">
+              Percentage Calculator
+            </Link>
+            , and if the question is really about what a loan costs each month rather than a
+            percentage, read{" "}
+            <Link href="/guides/how-to-calculate-emi/" className="text-primary underline">
+              How to Calculate EMI by Hand
+            </Link>
+            . The percentage is the input there; the EMI formula is what it feeds.
+          </>,
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How do I calculate a percentage of a number?",
+        answer:
+          "Multiply the number by the percentage divided by 100. 25% of 200 is 200 × 0.25 = 50. 35% of 180 is 180 × 0.35 = 63.",
+      },
+      {
+        question: "How do I find what percentage one number is of another?",
+        answer:
+          "Divide the first number by the second, then multiply by 100. 45 out of 60 is 45 ÷ 60 × 100 = 75%. 420 out of 500 is 84%.",
+      },
+      {
+        question: "How do you calculate percentage increase?",
+        answer:
+          "Subtract the old value from the new value, divide by the old value, and multiply by 100. A salary rising from ₹40,000 to ₹46,000 is (6,000 ÷ 40,000) × 100 = 15%.",
+      },
+      {
+        question: "What is the difference between percent and percentage points?",
+        answer:
+          "Percentage points are the arithmetic difference between two percentages; percent is the relative change. A rate moving from 8% to 10% rises 2 percentage points, which is a 25% relative increase.",
+      },
+      {
+        question: "How do I reverse a percentage to find the whole number?",
+        answer:
+          "Divide the part by the percentage as a decimal. If 18 is 12% of some number, that number is 18 ÷ 0.12 = 150.",
+      },
+      {
+        question: "How do I calculate a discount price?",
+        answer:
+          "Find the discount (price × percent ÷ 100) and subtract it, or multiply the price by 1 minus the percent. A ₹1,200 item at 15% off costs ₹1,200 × 0.85 = ₹1,020.",
+      },
+    ],
+    related: ["percentage-calculator", "gst-calculator", "emi-calculator"],
+    pillar: { label: "All Calculators", href: "/calculators/" },
   }
 ];
 

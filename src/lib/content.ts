@@ -107,8 +107,8 @@ export const content: Record<string, ToolContent> = {
       "For long-term financial planning, disciplined consistency typically outweighs short-term market timing. Increasing your monthly SIP by a small percentage each year or extending your investment horizon can drastically accelerate total wealth generation due to the exponential nature of compound interest.",
     ],
     guides: [
-      { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
-      { label: "EMI vs Mortgage Calculator Comparison", href: "/guides/emi-vs-mortgage-calculator/" },
+      { label: "CAGR vs XIRR: Differences, Formulas, and When to Use Which", href: "/guides/cagr-vs-xirr-in-mutual-funds/" },
+      { label: "SWP vs Fixed Deposit: Which is Better for Regular Monthly Income?", href: "/guides/swp-vs-fd-for-retirement-income/" },
       { label: "SIP vs Lumpsum Investment: Which Generates Better Returns?", href: "/guides/sip-vs-lumpsum/" },
     ],
     faq: faq([
@@ -160,9 +160,6 @@ export const content: Record<string, ToolContent> = {
       "PPF operates on a 15-year lock-in cycle with annual compounding. To maximize interest income, deposits should ideally be credited on or before the 5th of each calendar month, as interest is calculated on the lowest balance between the close of the 5th day and the end of the month.",
       "After the mandatory 15-year completion, an account holder can extend the PPF facility in blocks of 5 years indefinitely, either with continuing contributions or without additional deposits while earning compounded returns.",
       "All projections are processed strictly client-side. No financial figures are stored or transmitted.",
-    ],
-    guides: [
-      { label: "How to Calculate EMI by Hand", href: "/guides/how-to-calculate-emi/" },
     ],
     faq: faq([
       { question: "What is the maximum amount I can deposit in PPF per financial year?", answer: "The maximum limit is ₹1,50,000 per financial year across all PPF accounts held by an individual (including minor accounts). Any excess deposit does not earn interest or qualify for tax benefits." },
@@ -477,7 +474,7 @@ export const content: Record<string, ToolContent> = {
       "Calculations update on every keystroke with complete mathematical accuracy and privacy.",
     ],
     guides: [
-      { label: "CGPA to Percentage Conversion Rule", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
+      { label: "How to Calculate Percentage: The Three Formulas That Cover Every Case", href: "/guides/how-to-calculate-percentage/" },
     ],
     faq: faq([
       { question: "How do I calculate percentage increase?", answer: "Subtract the original value from the new value, divide the difference by the original value, and multiply by 100." },
@@ -629,7 +626,6 @@ export const content: Record<string, ToolContent> = {
     ]),
     guides: [
       { label: "CGPA to Percentage: The CBSE ×9.5 Rule, Explained", href: "/guides/cgpa-to-percentage-cbse-9-5-rule/" },
-      { label: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts", href: "/guides/how-many-words-per-page/" },
     ],
   },
   "word-counter": {

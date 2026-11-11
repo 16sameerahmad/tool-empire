@@ -238,7 +238,7 @@ export const tools: ToolDefinition[] = [
     related: ["cagr-calculator", "cgpa-to-percentage", "emi-calculator"],
     live: true,
     h1: "Percentage Calculator — Find % of Value, Change & Difference",
-    seoTitle: "Percentage Calculator — % Increase, Decrease & Of | Tulyro",
+    seoTitle: "Percentage Calculator — % Of, Increase & Decrease | Tulyro",
     seoDescription:
       "Calculate what is X% of Y, percentage increase or decrease, and what percentage X is of Y. Free, private, and works offline.",
   },
@@ -472,7 +472,7 @@ export const tools: ToolDefinition[] = [
     related: ["pdf-to-jpg", "merge-pdf", "compress-pdf", "image-compressor"],
     live: true,
     h1: "JPG to PDF Converter — Convert Images to PDF Online Free",
-    seoTitle: "JPG to PDF Converter — Convert Images to PDF Online Free | Tulyro",
+    seoTitle: "JPG to PDF Converter — Convert Images to PDF Free | Tulyro",
     seoDescription:
       "Convert JPG, PNG, and WebP images to PDF online for free. Arrange pages and combine multiple photos into one document directly in your browser with 100% privacy.",
   },
@@ -495,7 +495,7 @@ export const tools: ToolDefinition[] = [
     related: ["jpg-to-pdf", "split-pdf", "compress-pdf", "image-converter"],
     live: true,
     h1: "PDF to JPG Converter — Convert PDF Pages to Images Online Free",
-    seoTitle: "PDF to JPG Converter — Convert PDF Pages to Images Online Free | Tulyro",
+    seoTitle: "PDF to JPG Converter — PDF Pages to JPG Images | Tulyro",
     seoDescription:
       "Convert every PDF page to crisp, high-resolution JPG or PNG images directly in your browser. No file size limits, no waiting, 100% secure with zero server upload.",
   },
@@ -518,7 +518,7 @@ export const tools: ToolDefinition[] = [
     related: ["pdf-tools", "image-compressor", "image-resizer"],
     live: true,
     h1: "Merge PDF Online Free — Combine Multiple PDF Files Securely",
-    seoTitle: "Merge PDF Online Free — Combine PDF Files Client-Side | Tulyro",
+    seoTitle: "Merge PDF Online — Combine PDF Files Free | Tulyro",
     seoDescription:
       "Merge multiple PDF documents into a single file directly in your browser. 100% private with zero file uploads to servers. Fast, secure, and free without limits.",
   },
@@ -613,7 +613,7 @@ export const tools: ToolDefinition[] = [
     related: ["image-converter", "image-compressor", "jpg-to-pdf", "image-resizer"],
     live: true,
     h1: "HEIC to JPG Converter — Convert iPhone Photos Online Free",
-    seoTitle: "HEIC to JPG Converter — Free Apple iPhone Photo Converter | Tulyro",
+    seoTitle: "HEIC to JPG Converter — Convert iPhone Photos Free | Tulyro",
     seoDescription:
       "Convert HEIC and HEIF images from your iPhone to universal JPG or PNG format. 100% client-side WebAssembly conversion — private, secure, and zero file uploads.",
   },
@@ -637,7 +637,7 @@ export const tools: ToolDefinition[] = [
     related: ["compress-pdf", "merge-pdf", "split-pdf", "jpg-to-pdf"],
     live: true,
     h1: "PDF to Word Converter — Free Online, No Upload",
-    seoTitle: "PDF to Word (DOCX) Converter — Free Online, No Upload | Tulyro",
+    seoTitle: "PDF to Word Converter — Free Online, No Upload | Tulyro",
     seoDescription:
       "Convert PDF to editable Word DOCX documents instantly in your browser. Zero file uploads, no registration, unlimited conversions. 100% private client-side conversion.",
   },
@@ -661,7 +661,7 @@ export const tools: ToolDefinition[] = [
     related: ["image-compressor", "image-converter", "compress-pdf"],
     live: true,
     h1: "MP4 to MP3 Converter — Extract Audio from Video Free",
-    seoTitle: "MP4 to MP3 Converter — Free Video to Audio Extractor | Tulyro",
+    seoTitle: "MP4 to MP3 Converter — Free Video to Audio | Tulyro",
     seoDescription:
       "Convert MP4 and video files to crystal-clear MP3 audio directly in your browser using WebAssembly FFmpeg. Zero uploads, 100% private and free.",
   },
@@ -685,7 +685,7 @@ export const tools: ToolDefinition[] = [
     related: ["png-to-jpg", "image-converter", "image-compressor", "image-resizer"],
     live: true,
     h1: "JPG to PNG Converter — Free High Quality Online",
-    seoTitle: "JPG to PNG Converter — Free Lossless Online Converter | Tulyro",
+    seoTitle: "JPG to PNG Converter — Free Lossless Converter | Tulyro",
     seoDescription:
       "Convert JPG and JPEG photos to high quality PNG format online for free. 100% client-side HTML5 canvas processing — instant download and zero file uploads.",
   },
@@ -709,7 +709,7 @@ export const tools: ToolDefinition[] = [
     related: ["jpg-to-png", "image-converter", "image-compressor", "image-resizer"],
     live: true,
     h1: "PNG to JPG Converter — Convert PNG to JPEG Free",
-    seoTitle: "PNG to JPG Converter — Convert PNG to JPEG Online Free | Tulyro",
+    seoTitle: "PNG to JPG Converter — Convert PNG to JPEG Free | Tulyro",
     seoDescription:
       "Convert PNG graphics to high quality JPG format online for free. Clean white background fill, zero quality loss, and 100% client-side privacy.",
   },
@@ -733,7 +733,7 @@ export const tools: ToolDefinition[] = [
     related: ["merge-pdf", "split-pdf", "compress-pdf", "pdf-to-word"],
     live: true,
     h1: "Rotate PDF Online — Permanently Rotate Pages Free",
-    seoTitle: "Rotate PDF Pages Online — Free Permanent PDF Rotator | Tulyro",
+    seoTitle: "Rotate PDF Online — Free Permanent PDF Rotator | Tulyro",
     seoDescription:
       "Rotate PDF pages permanently 90°, 180°, or 270° directly in your browser. 100% private client-side processing, no file upload limits, and completely free.",
   },
@@ -757,7 +757,7 @@ export const tools: ToolDefinition[] = [
     related: ["pdf-to-image", "jpg-to-pdf", "merge-pdf", "pdf-to-jpg"],
     live: true,
     h1: "Image to PDF Converter — Convert Any Image Format Online",
-    seoTitle: "Image to PDF Converter — Convert JPG, PNG, WebP to PDF Free | Tulyro",
+    seoTitle: "Image to PDF Converter — JPG, PNG, WebP to PDF | Tulyro",
     seoDescription:
       "Convert any photo or picture format (JPG, PNG, WebP, SVG, GIF, AVIF) to a high-quality PDF online. 100% client-side, private, and unlimited directly in your browser.",
   },
@@ -780,7 +780,7 @@ export const tools: ToolDefinition[] = [
     related: ["image-to-pdf", "pdf-to-jpg", "jpg-to-pdf", "split-pdf"],
     live: true,
     h1: "PDF to Image Converter — Save PDF Pages as Images Online",
-    seoTitle: "PDF to Image Converter — Convert PDF to JPG or PNG Online Free | Tulyro",
+    seoTitle: "PDF to Image Converter — PDF to JPG or PNG Free | Tulyro",
     seoDescription:
       "Extract and convert PDF pages into high-definition JPG or PNG images directly in your browser. 100% client-side processing with zero file uploads and instant download.",
   },
@@ -825,7 +825,7 @@ export const tools: ToolDefinition[] = [
     related: ["qr-code-generator", "base64-encoder-decoder", "json-formatter"],
     live: true,
     h1: "Secure Random Password Generator — Strong, Private, Client-Side",
-    seoTitle: "Secure Password Generator — Strong Random Passwords | Tulyro",
+    seoTitle: "Secure Password Generator — Strong & Random | Tulyro",
     seoDescription:
       "Generate cryptographically strong random passwords instantly in your browser. Customize length, uppercase, lowercase, numbers, and symbols. 100% private.",
   },
@@ -870,7 +870,7 @@ export const tools: ToolDefinition[] = [
     related: ["json-formatter", "password-generator", "epoch-converter"],
     live: true,
     h1: "UUID / GUID Generator — RFC 4122 v4 Cryptographic Random",
-    seoTitle: "UUID Generator — Free Online | Tulyro",
+    seoTitle: "UUID Generator — Free RFC 4122 v4 UUIDs | Tulyro",
     seoDescription:
       "Generate cryptographically secure RFC 4122 version 4 UUIDs and GUIDs online. Bulk generate up to 100 UUIDs with custom formatting and uppercase toggles.",
   },

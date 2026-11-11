@@ -8,6 +8,7 @@ import { sip } from "@/tools/sip/logic";
 import { attendance } from "@/tools/attendance/logic";
 import { ppf } from "@/tools/ppf/logic";
 import { sgpaToCgpa } from "@/tools/sgpa/logic";
+import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculator/logic";
 import { invoiceTotals, type InvoiceItem } from "@/tools/invoice/logic";
 import { styleText, type Style } from "@/tools/fancy-text/logic";
 import { decodeB64, encodeB64 } from "@/tools/base64/logic";
@@ -545,6 +546,179 @@ function SgpaPanel() {
                   <span className="block font-label-md text-label-md text-on-surface-variant">Equivalent Marks (Standard ×10)</span>
                   <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
                     {valid ? `${valid.percentageStandard}%` : "0%"}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copySummary}
+                  disabled={!valid}
+                  className="btn-press flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-3 py-2.5 font-label-md text-label-md text-white transition-colors hover:bg-primary disabled:opacity-50"
+                >
+                  <Icon name={copied ? "check" : "content_copy"} className="h-4 w-4" />
+                  {copied ? "Results copied!" : "Copy Results"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SgpaCalculatorPanel() {
+  const [subjects, setSubjects] = useState<Array<{ credits: string; grade: string }>>([
+    { credits: "4", grade: "A" },
+    { credits: "4", grade: "A+" },
+    { credits: "3", grade: "O" },
+    { credits: "3", grade: "B+" },
+    { credits: "2", grade: "A" },
+  ]);
+  const [copied, setCopied] = useState(false);
+
+  const parsed = subjects.map((s) => ({ credits: Number(s.credits) || 0, grade: s.grade }));
+  const res = calculateSgpa(parsed);
+  const error = res && "error" in res ? res.error : null;
+  const valid = res && !("error" in res) ? res : null;
+
+  const updateSubject = (idx: number, field: "credits" | "grade", val: string) => {
+    setSubjects((prev) => {
+      const next = [...prev];
+      next[idx] = { ...next[idx], [field]: val };
+      return next;
+    });
+  };
+
+  const addSubject = () => {
+    if (subjects.length < 10) {
+      setSubjects((prev) => [...prev, { credits: "3", grade: "A" }]);
+    }
+  };
+
+  const removeSubject = (idx: number) => {
+    if (subjects.length > 1) {
+      setSubjects((prev) => prev.filter((_, i) => i !== idx));
+    }
+  };
+
+  const copySummary = async () => {
+    if (!valid) return;
+    const text = `SGPA Result: ${valid.sgpa} across ${subjects.length} subjects (${valid.totalCredits} credits, ${valid.totalPoints} grade points). Equivalent Percentage (×10): ${valid.percentageStandard}%. Equivalent Percentage (CBSE/AICTE ×9.5): ${valid.percentageCbse}%.`;
+    try {
+      await navigator.clipboard.writeText(text);
+      trackEvent("calculator_copy_summary", { tool_id: "sgpa-calculator" });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-12">
+        <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
+          <div className="flex items-center justify-between pb-2">
+            <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Subjects, Credits &amp; Grades</h3>
+            {subjects.length < 10 && (
+              <button
+                type="button"
+                onClick={addSubject}
+                className="btn-chip flex items-center gap-1 rounded bg-primary-container px-2.5 py-1 text-xs text-white"
+              >
+                + Add Subject
+              </button>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            {subjects.map((subject, idx) => (
+              <div key={idx} className="flex items-center gap-3 rounded-lg bg-surface-container-low/50 p-3">
+                <span className="w-20 shrink-0 font-label-md text-sm font-semibold text-on-surface">Subject {idx + 1}</span>
+                <div className="w-24 shrink-0">
+                  <label htmlFor={`sgpa-cr-${idx}`} className="sr-only">Credits</label>
+                  <input
+                    id={`sgpa-cr-${idx}`}
+                    type="number"
+                    min="1"
+                    max="10"
+                    placeholder="Credits"
+                    value={subject.credits}
+                    onChange={(e) => updateSubject(idx, "credits", e.target.value)}
+                    className={`${inputClass} mt-0`}
+                  />
+                </div>
+                <div className="flex-1">
+                  <label htmlFor={`sgpa-grade-${idx}`} className="sr-only">Grade</label>
+                  <select
+                    id={`sgpa-grade-${idx}`}
+                    value={subject.grade}
+                    onChange={(e) => updateSubject(idx, "grade", e.target.value)}
+                    className={inputClass}
+                  >
+                    {GRADE_ORDER.map((g) => (
+                      <option key={g} value={g}>
+                        {g} — {GRADE_POINTS[g]} points
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {subjects.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSubject(idx)}
+                    className="grid h-8 w-8 shrink-0 place-items-center rounded text-error hover:bg-error/10"
+                    aria-label={`Remove subject ${idx + 1}`}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-xl bg-surface-container-low/50 p-4">
+            <span className="font-display font-headline-sm text-sm font-semibold text-on-surface">10-Point Grade Scale</span>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {GRADE_ORDER.map((g) => (
+                <span key={g} className="rounded bg-surface-container px-2 py-1 font-code-data text-xs text-on-surface">
+                  {g} = {GRADE_POINTS[g]}
+                </span>
+              ))}
+            </div>
+            <span className="mt-2 block font-body-sm text-xs text-on-surface-variant">O Outstanding, A+ Excellent, A Very Good, B+ Good, B Above Average, C Average, P Pass, F Fail.</span>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {error ? (
+            <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+              {error}
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
+              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Your SGPA</h3>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
+                  <span className="block font-label-md text-label-md text-primary">Semester Grade Point Average</span>
+                  <span className="mt-1 block font-code-data text-4xl font-black text-on-surface">
+                    {valid ? valid.sgpa.toFixed(2) : "0.00"}
+                  </span>
+                  <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
+                    {valid ? `${valid.totalPoints} grade points across ${valid.totalCredits} credits` : ""}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Equivalent Percentage (Standard ×10)</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `${valid.percentageStandard}%` : "0%"}
+                  </span>
+                </div>
+                <div className="rounded-xl bg-surface-container-low p-4">
+                  <span className="block font-label-md text-label-md text-on-surface-variant">Equivalent Percentage (CBSE / AICTE ×9.5)</span>
+                  <span className="mt-1 block font-code-data text-2xl font-bold text-on-surface">
+                    {valid ? `${valid.percentageCbse}%` : "0%"}
                   </span>
                 </div>
 
@@ -6412,6 +6586,8 @@ export function ToolPanel({ kind }: { kind: string }) {
       return <PpfPanel />;
     case "sgpa-to-cgpa":
       return <SgpaPanel />;
+    case "sgpa-calculator":
+      return <SgpaCalculatorPanel />;
     case "sip-calculator":
       return <SipPanel />;
     case "swp-calculator":

@@ -123,6 +123,21 @@ export const tools: ToolDefinition[] = [
       "Convert multiple semester SGPA to cumulative CGPA and equivalent percentage. Supports credit-weighted calculation and standard equal weight.",
   },
   {
+    id: "sgpa-calculator",
+    title: "SGPA Calculator",
+    cluster: "Calculators",
+    href: "/calculators/sgpa-calculator/",
+    locale: "en-IN",
+    description: "Calculate your semester SGPA from subject credits and letter grades on the 10-point scale, with percentage conversion.",
+    keywords: ["sgpa calculator", "calculate sgpa", "semester gpa calculator", "sgpa from grades", "vtu sgpa calculator", "grade point calculator"],
+    related: ["sgpa-to-cgpa", "cgpa-to-percentage", "attendance-calculator"],
+    live: true,
+    h1: "SGPA Calculator — Semester Grade Point Average from Credits & Grades",
+    seoTitle: "SGPA Calculator — Semester GPA from Grades | Tulyro",
+    seoDescription:
+      "Calculate your SGPA from subject credits and letter grades on the 10-point scale. Free, instant, and private — no signup, runs in your browser.",
+  },
+  {
     id: "swp-calculator",
     title: "SWP Calculator",
     cluster: "Calculators",

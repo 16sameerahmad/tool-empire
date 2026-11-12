@@ -1,4 +1,4 @@
-/** Maximum gratuity payable under the Payment of Gratuity Act, 1972 (as amended 2018). */
+/** Maximum gratuity payable: ₹20 lakh ceiling carried forward under the Code on Social Security, 2020 (Section 53; raised from ₹10 lakh by the 2018 amendment). */
 export const GRATUITY_CAP = 2000000;
 
 /** Minimum continuous service (in completed years) to qualify for gratuity. */

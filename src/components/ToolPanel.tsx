@@ -209,7 +209,7 @@ function AttendancePanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Attendance Status</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Attendance Status</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-surface-container-low p-4">
                   <span className="block font-label-md text-label-md text-on-surface-variant">Current Attendance</span>
@@ -373,7 +373,7 @@ function PpfPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Maturity Summary</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Maturity Summary</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-surface-container-low p-4">
                   <span className="block font-label-md text-label-md text-on-surface-variant">Total Invested</span>
@@ -468,7 +468,7 @@ function SgpaPanel() {
       <div className="grid items-start gap-6 lg:grid-cols-12">
         <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
           <div className="flex items-center justify-between pb-2">
-            <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Semester SGPAs</h3>
+            <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Semester SGPAs</h2>
             {sems.length < 8 && (
               <button
                 type="button"
@@ -533,7 +533,7 @@ function SgpaPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Cumulative Results</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Cumulative Results</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
                   <span className="block font-label-md text-label-md text-primary">Cumulative CGPA</span>
@@ -625,7 +625,7 @@ function SgpaCalculatorPanel() {
       <div className="grid items-start gap-6 lg:grid-cols-12">
         <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card lg:col-span-7">
           <div className="flex items-center justify-between pb-2">
-            <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Subjects, Credits &amp; Grades</h3>
+            <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Enter Subjects, Credits &amp; Grades</h2>
             {subjects.length < 10 && (
               <button
                 type="button"
@@ -703,7 +703,7 @@ function SgpaCalculatorPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Your SGPA</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Your SGPA</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
                   <span className="block font-label-md text-label-md text-primary">Semester Grade Point Average</span>
@@ -896,7 +896,7 @@ function FuelCostPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Trip Fuel Cost</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Trip Fuel Cost</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
                   <span className="block font-label-md text-label-md text-primary">Total Fuel Cost</span>
@@ -1057,7 +1057,7 @@ function GratuityPanel() {
             </div>
           ) : valid && !valid.eligible ? (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Not Yet Eligible</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Not Yet Eligible</h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
                 Gratuity needs 5 years of continuous service. With {valid.completedYears} completed{" "}
                 {valid.completedYears === 1 ? "year" : "years"}, you need {valid.monthsToEligibility} more{" "}
@@ -1067,7 +1067,7 @@ function GratuityPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Gratuity Payable</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Gratuity Payable</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-primary-container/10 border border-primary-container/20 p-4">
                   <span className="block font-label-md text-label-md text-primary">Gratuity Amount</span>
@@ -1082,7 +1082,7 @@ function GratuityPanel() {
                   <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
                     <span className="block font-label-md text-label-md font-semibold text-amber-700">Capped at ₹20 Lakh</span>
                     <span className="mt-1 block font-body-md text-body-md text-on-surface">
-                      Uncapped amount was ₹{valid.uncapped.toLocaleString("en-IN")}. The Payment of Gratuity Act caps the payout at ₹20,00,000.
+                      Uncapped amount was ₹{valid.uncapped.toLocaleString("en-IN")}. The Code on Social Security, 2020 caps the payout at ₹20,00,000.
                     </span>
                   </div>
                 )}
@@ -1370,9 +1370,9 @@ function SleepPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">
                 {mode === "wake" ? "Best Bedtimes" : "Best Wake-Up Times"}
-              </h3>
+              </h2>
               <div className="space-y-3">
                 {valid?.map((option) => (
                   <div
@@ -3552,7 +3552,7 @@ function RemoveBackgroundPanel() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">Upload an Image</h3>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">Upload an Image</h2>
             <p className="mt-2 text-sm sm:text-base text-on-surface-variant max-w-lg">
               100% Automatically and <span className="font-bold text-primary">Free</span>. Drop any image here or click to browse.
             </p>
@@ -3564,6 +3564,7 @@ function RemoveBackgroundPanel() {
               type="file"
               accept="image/png,image/jpeg,image/webp"
               onChange={handleFileChange}
+              aria-label="Upload an image to remove its background"
               className="hidden"
             />
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-on-surface-variant">
@@ -3589,7 +3590,7 @@ function RemoveBackgroundPanel() {
                     onClick={() => loadSample(sample.url, sample.name)}
                     className="flex items-center gap-2.5 rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-xs font-semibold text-on-surface hover:border-primary hover:bg-surface-container transition shadow-sm"
                   >
-                    <img src={sample.url} alt={sample.name} className="h-9 w-9 rounded-lg object-cover border border-outline-variant" />
+                    <img src={sample.url} alt={sample.name} width={36} height={36} className="h-9 w-9 rounded-lg object-cover border border-outline-variant" />
                     <span>{sample.name}</span>
                   </button>
                 ))}
@@ -3679,6 +3680,7 @@ function RemoveBackgroundPanel() {
                   setCustomBgColor(e.target.value);
                   setBgChoice("custom");
                 }}
+                aria-label="Pick custom backdrop color"
                 className="h-7 w-7 rounded cursor-pointer border border-outline-variant bg-transparent p-0"
                 title="Pick custom backdrop color"
               />
@@ -3727,9 +3729,10 @@ function RemoveBackgroundPanel() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-xl bg-surface-container-low p-4">
               <div>
-                <label className={labelClass}>Target Background Color</label>
+                <label htmlFor="rb-target-color" className={labelClass}>Target Background Color</label>
                 <div className="mt-2 flex items-center gap-3">
                   <input
+                    id="rb-target-color"
                     type="color"
                     value={targetColor}
                     onChange={(e) => setTargetColor(e.target.value)}
@@ -3739,6 +3742,7 @@ function RemoveBackgroundPanel() {
                     type="text"
                     value={targetColor}
                     onChange={(e) => setTargetColor(e.target.value)}
+                    aria-label="Target background color hex value"
                     className="w-24 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-on-surface"
                   />
                 </div>
@@ -3746,10 +3750,11 @@ function RemoveBackgroundPanel() {
 
               <div>
                 <div className="flex justify-between">
-                  <label className={labelClass}>Tolerance</label>
+                  <label htmlFor="rb-tolerance" className={labelClass}>Tolerance</label>
                   <span className="text-xs text-on-surface-variant font-medium">{tolerance}%</span>
                 </div>
                 <input
+                  id="rb-tolerance"
                   type="range"
                   min="1"
                   max="85"
@@ -3761,10 +3766,11 @@ function RemoveBackgroundPanel() {
 
               <div>
                 <div className="flex justify-between">
-                  <label className={labelClass}>Edge Feathering</label>
+                  <label htmlFor="rb-feather" className={labelClass}>Edge Feathering</label>
                   <span className="text-xs text-on-surface-variant font-medium">{feather}%</span>
                 </div>
                 <input
+                  id="rb-feather"
                   type="range"
                   min="0"
                   max="50"
@@ -3847,6 +3853,7 @@ function RemoveBackgroundPanel() {
                   max="100"
                   value={sliderPos}
                   onChange={(e) => setSliderPos(Number(e.target.value))}
+                  aria-label="Compare original and processed image"
                   className="absolute inset-0 h-full w-full opacity-0 cursor-ew-resize z-20"
                 />
 
@@ -3979,10 +3986,11 @@ function GstPanel() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>
+          <label className={labelClass} htmlFor="gst-amount">
             {type === "exclusive" ? "Initial Net Amount (₹)" : "Total Gross Amount (₹)"}
           </label>
           <input
+            id="gst-amount"
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -3991,9 +3999,9 @@ function GstPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>GST Rate (%)</label>
+          <label className={labelClass} htmlFor="gst-rate">GST Rate (%)</label>
           <div className="flex flex-wrap gap-2 mt-1">
-            {["5", "12", "18", "28"].map((r) => (
+            {["0", "5", "18", "40"].map((r) => (
               <button
                 key={r}
                 type="button"
@@ -4008,7 +4016,27 @@ function GstPanel() {
               </button>
             ))}
           </div>
+          <p className="text-xs text-on-surface-variant mt-2">
+            Current GST 2.0 slabs since 22 September 2025. Legacy (pre-22 Sep 2025 invoices) only:
+          </p>
+          <div className="flex flex-wrap gap-2 mt-1">
+            {["12", "28"].map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRate(r)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
+                  rate === r
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
+                }`}
+              >
+                {r}% legacy
+              </button>
+            ))}
+          </div>
           <input
+            id="gst-rate"
             type="number"
             value={rate}
             onChange={(e) => setRate(e.target.value)}
@@ -4083,8 +4111,9 @@ function SwpPanel() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Total Investment (₹)</label>
+          <label htmlFor="swp-investment" className={labelClass}>Total Investment (₹)</label>
           <input
+            id="swp-investment"
             type="number"
             value={investment}
             onChange={(e) => setInvestment(e.target.value)}
@@ -4093,8 +4122,9 @@ function SwpPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Monthly Withdrawal (₹)</label>
+          <label htmlFor="swp-withdrawal" className={labelClass}>Monthly Withdrawal (₹)</label>
           <input
+            id="swp-withdrawal"
             type="number"
             value={withdrawal}
             onChange={(e) => setWithdrawal(e.target.value)}
@@ -4103,8 +4133,9 @@ function SwpPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Expected Return Rate (p.a %)</label>
+          <label htmlFor="swp-rate" className={labelClass}>Expected Return Rate (p.a %)</label>
           <input
+            id="swp-rate"
             type="number"
             value={rate}
             onChange={(e) => setRate(e.target.value)}
@@ -4113,8 +4144,9 @@ function SwpPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Tenure (Years)</label>
+          <label htmlFor="swp-years" className={labelClass}>Tenure (Years)</label>
           <input
+            id="swp-years"
             type="number"
             value={years}
             onChange={(e) => setYears(e.target.value)}
@@ -4182,8 +4214,9 @@ function LumpsumPanel() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className={labelClass}>Total Investment (₹)</label>
+          <label htmlFor="lump-investment" className={labelClass}>Total Investment (₹)</label>
           <input
+            id="lump-investment"
             type="number"
             value={investment}
             onChange={(e) => setInvestment(e.target.value)}
@@ -4192,8 +4225,9 @@ function LumpsumPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Expected Return Rate (p.a %)</label>
+          <label htmlFor="lump-rate" className={labelClass}>Expected Return Rate (p.a %)</label>
           <input
+            id="lump-rate"
             type="number"
             value={rate}
             onChange={(e) => setRate(e.target.value)}
@@ -4202,8 +4236,9 @@ function LumpsumPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Tenure (Years)</label>
+          <label htmlFor="lump-years" className={labelClass}>Tenure (Years)</label>
           <input
+            id="lump-years"
             type="number"
             value={years}
             onChange={(e) => setYears(e.target.value)}
@@ -4263,8 +4298,9 @@ function CagrPanel() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className={labelClass}>Initial Investment Value</label>
+          <label htmlFor="cagr-initial" className={labelClass}>Initial Investment Value</label>
           <input
+            id="cagr-initial"
             type="number"
             value={initial}
             onChange={(e) => setInitial(e.target.value)}
@@ -4273,8 +4309,9 @@ function CagrPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Final Maturity Value</label>
+          <label htmlFor="cagr-final" className={labelClass}>Final Maturity Value</label>
           <input
+            id="cagr-final"
             type="number"
             value={finalVal}
             onChange={(e) => setFinalVal(e.target.value)}
@@ -4283,8 +4320,9 @@ function CagrPanel() {
           />
         </div>
         <div>
-          <label className={labelClass}>Duration (Years)</label>
+          <label htmlFor="cagr-years" className={labelClass}>Duration (Years)</label>
           <input
+            id="cagr-years"
             type="number"
             value={years}
             onChange={(e) => setYears(e.target.value)}
@@ -4365,8 +4403,9 @@ function PercentagePanel() {
         <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Percentage (%)</label>
+              <label htmlFor="pct-percent" className={labelClass}>Percentage (%)</label>
               <input
+                id="pct-percent"
                 type="number"
                 value={pct1}
                 onChange={(e) => setPct1(e.target.value)}
@@ -4374,8 +4413,9 @@ function PercentagePanel() {
               />
             </div>
             <div>
-              <label className={labelClass}>Total Value</label>
+              <label htmlFor="pct-total" className={labelClass}>Total Value</label>
               <input
+                id="pct-total"
                 type="number"
                 value={val1}
                 onChange={(e) => setVal1(e.target.value)}
@@ -4396,8 +4436,9 @@ function PercentagePanel() {
         <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Part Value (X)</label>
+              <label htmlFor="pct-part" className={labelClass}>Part Value (X)</label>
               <input
+                id="pct-part"
                 type="number"
                 value={num2}
                 onChange={(e) => setNum2(e.target.value)}
@@ -4405,8 +4446,9 @@ function PercentagePanel() {
               />
             </div>
             <div>
-              <label className={labelClass}>Total Value (Y)</label>
+              <label htmlFor="pct-total2" className={labelClass}>Total Value (Y)</label>
               <input
+                id="pct-total2"
                 type="number"
                 value={total2}
                 onChange={(e) => setTotal2(e.target.value)}
@@ -4427,8 +4469,9 @@ function PercentagePanel() {
         <div className="space-y-4 rounded-xl bg-surface-container-low p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Initial Value</label>
+              <label htmlFor="pct-initial" className={labelClass}>Initial Value</label>
               <input
+                id="pct-initial"
                 type="number"
                 value={oldVal3}
                 onChange={(e) => setOldVal3(e.target.value)}
@@ -4436,8 +4479,9 @@ function PercentagePanel() {
               />
             </div>
             <div>
-              <label className={labelClass}>New Value</label>
+              <label htmlFor="pct-new" className={labelClass}>New Value</label>
               <input
+                id="pct-new"
                 type="number"
                 value={newVal3}
                 onChange={(e) => setNewVal3(e.target.value)}
@@ -4547,10 +4591,11 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">
+        <label htmlFor="imgconv-upload" className="block text-sm font-medium mb-1">
           {initialMode === "heic" ? "Upload Apple iPhone Photo (.HEIC / .HEIF)" : "Upload Image (JPG, PNG, WebP, HEIC)"}
         </label>
         <input
+          id="imgconv-upload"
           type="file"
           accept={initialMode === "heic" ? ".heic,.heif,image/heic,image/heif" : "image/jpeg,image/png,image/webp,.heic,.heif"}
           onChange={handleFileChange}
@@ -4614,6 +4659,7 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
                 step="0.05"
                 value={quality}
                 onChange={(e) => setQuality(parseFloat(e.target.value))}
+                aria-label="Output quality"
                 className="w-full accent-primary"
               />
             </div>
@@ -4839,7 +4885,7 @@ function ImageCompressorPanel() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-on-surface">Select Photo or Signature</h3>
+          <h2 className="text-lg font-semibold text-on-surface">Select Photo or Signature</h2>
           <p className="mt-1 text-sm text-on-surface-variant">Compress to exact 20KB, 50KB, 100KB, or 200KB limits for UPSC, SSC, NEET, and job portals.</p>
           <button type="button" className={`${buttonClass} mt-5`}>
             Choose File
@@ -4849,6 +4895,7 @@ function ImageCompressorPanel() {
             type="file"
             accept="image/*"
             onChange={handleFile}
+            aria-label="Choose a file to compress"
             className="hidden"
           />
         </div>
@@ -4902,6 +4949,7 @@ function ImageCompressorPanel() {
                   max="5000"
                   value={customKb}
                   onChange={(e) => handleCustomKbChange(e.target.value)}
+                  aria-label="Custom KB"
                   className="w-20 rounded-lg border border-outline-variant bg-surface-container-lowest px-2 py-1.5 text-sm text-center text-on-surface font-semibold"
                 />
               </div>
@@ -5090,7 +5138,7 @@ function ImageResizerPanel() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-on-surface">Upload photo or signature</h3>
+          <h2 className="text-lg font-semibold text-on-surface">Upload photo or signature</h2>
           <p className="mt-1 text-sm text-on-surface-variant">Compress to 20KB, 50KB, or 100KB for exam forms. 100% private in browser.</p>
           <button type="button" className={`${buttonClass} mt-5`}>
             Select Image
@@ -5100,6 +5148,7 @@ function ImageResizerPanel() {
             type="file"
             accept="image/*"
             onChange={handleFile}
+            aria-label="Select an image to resize"
             className="hidden"
           />
         </div>
@@ -5158,10 +5207,11 @@ function ImageResizerPanel() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
                 <div className="flex justify-between">
-                  <label className={labelClass}>Quality</label>
+                  <label htmlFor="resizer-quality" className={labelClass}>Quality</label>
                   <span className="text-xs text-on-surface-variant font-medium">{quality}%</span>
                 </div>
                 <input
+                  id="resizer-quality"
                   type="range"
                   min="10"
                   max="100"
@@ -5172,10 +5222,11 @@ function ImageResizerPanel() {
               </div>
               <div>
                 <div className="flex justify-between">
-                  <label className={labelClass}>Max Resolution</label>
+                  <label htmlFor="resizer-max-dimension" className={labelClass}>Max Resolution</label>
                   <span className="text-xs text-on-surface-variant font-medium">{maxDimension}px</span>
                 </div>
                 <input
+                  id="resizer-max-dimension"
                   type="range"
                   min="300"
                   max="2000"
@@ -5474,8 +5525,8 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Upload PDF Document</label>
-            <input type="file" accept="application/pdf" onChange={handleCompressUpload} disabled={busy} className={inputClass} />
+            <label htmlFor="pdf-compress-upload" className="block text-sm font-medium mb-1">Upload PDF Document</label>
+            <input id="pdf-compress-upload" type="file" accept="application/pdf" onChange={handleCompressUpload} disabled={busy} className={inputClass} />
           </div>
 
           {compressFile && (
@@ -5486,7 +5537,7 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase text-muted-foreground mb-2">Compression Level</label>
+                <p className="block text-xs font-semibold uppercase text-muted-foreground mb-2">Compression Level</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <button
                     type="button"
@@ -5566,8 +5617,8 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Upload PDF to Split</label>
-            <input type="file" accept="application/pdf" onChange={handleSplitPdfUpload} disabled={busy} className={inputClass} />
+            <label htmlFor="pdf-split-upload" className="block text-sm font-medium mb-1">Upload PDF to Split</label>
+            <input id="pdf-split-upload" type="file" accept="application/pdf" onChange={handleSplitPdfUpload} disabled={busy} className={inputClass} />
           </div>
 
           {splitFile && (
@@ -5578,10 +5629,11 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+                <label htmlFor="pdf-split-ranges" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
                   Pages to Extract (e.g. 1-3, 5, 8)
                 </label>
                 <input
+                  id="pdf-split-ranges"
                   type="text"
                   value={pageRangesInput}
                   onChange={(e) => setPageRangesInput(e.target.value)}
@@ -5653,8 +5705,8 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
             </span>
           </div>
 
-          <label className={labelClass}>Select 2 or more PDF files to combine:</label>
-          <input type="file" accept=".pdf" multiple onChange={handleMergePdfUpload} disabled={busy} className={inputClass} />
+          <label htmlFor="pdf-merge-upload" className={labelClass}>Select 2 or more PDF files to combine:</label>
+          <input id="pdf-merge-upload" type="file" accept=".pdf" multiple onChange={handleMergePdfUpload} disabled={busy} className={inputClass} />
           {progress && <p className="text-sm font-medium text-on-surface-variant">{progress}</p>}
 
           {pdfFiles.length > 0 && (
@@ -5692,14 +5744,14 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
       {mode === "pdf-to-img" && (
         <div className="space-y-4">
           <div className="flex gap-3 items-center">
-            <label className="text-sm font-medium">Output Image Format:</label>
-            <select value={format} onChange={(e) => setFormat(e.target.value as "jpeg" | "png")}
+            <label htmlFor="pdf-format" className="text-sm font-medium">Output Image Format:</label>
+            <select id="pdf-format" value={format} onChange={(e) => setFormat(e.target.value as "jpeg" | "png")}
               className={inputClass}>
               <option value="jpeg">JPG / JPEG (Compact file size)</option>
               <option value="png">PNG (High quality lossless)</option>
             </select>
           </div>
-          <input type="file" accept=".pdf,application/pdf" onChange={handlePdfUpload} disabled={busy} className={inputClass} />
+          <input type="file" accept=".pdf,application/pdf" onChange={handlePdfUpload} disabled={busy} aria-label="Upload a PDF to convert to images" className={inputClass} />
           {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
           {pages.length > 0 && (
             <div className="space-y-3">
@@ -5733,6 +5785,7 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
             multiple
             onChange={handleImagesUpload}
             disabled={busy}
+            aria-label="Upload images to combine into a PDF"
             className={inputClass}
           />
           {progress && <p className="text-sm text-muted-foreground">{progress}</p>}
@@ -5815,9 +5868,9 @@ function RotatePdfPanel() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-semibold text-muted-foreground block">
+        <p className="text-xs font-semibold text-muted-foreground block">
           Rotation Angle
-        </label>
+        </p>
         <div className="grid grid-cols-3 gap-2">
           {(
             [
@@ -6086,9 +6139,9 @@ function Mp4ToMp3Panel() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-semibold text-muted-foreground block">
+        <p className="text-xs font-semibold text-muted-foreground block">
           Audio Bitrate (Quality)
-        </label>
+        </p>
         <div className="grid grid-cols-3 gap-2">
           {(
             [
@@ -6261,8 +6314,9 @@ function BarcodePanel() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-end gap-3">
         <div>
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Format</label>
+          <label htmlFor="barcode-format" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Format</label>
           <select
+            id="barcode-format"
             value={format}
             onChange={(e) => {
               const f = e.target.value as BarcodeFormat;
@@ -6277,10 +6331,11 @@ function BarcodePanel() {
           </select>
         </div>
         <div className="flex-1 min-w-52">
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">
+          <label htmlFor="barcode-text" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">
             {format === "code39" ? "Text" : "Digits"}
           </label>
           <input
+            id="barcode-text"
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="w-full p-2 font-mono text-sm rounded border bg-card focus:outline-none focus:ring-1 focus:ring-primary"
@@ -6291,8 +6346,9 @@ function BarcodePanel() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div>
-          <label className="text-xs text-muted-foreground">Bar height (px)</label>
+          <label htmlFor="barcode-height" className="text-xs text-muted-foreground">Bar height (px)</label>
           <input
+            id="barcode-height"
             type="number"
             value={barHeight}
             onChange={(e) => setBarHeight(Math.min(200, Math.max(40, Number(e.target.value) || 100)))}
@@ -6302,8 +6358,9 @@ function BarcodePanel() {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground">Narrow bar (px)</label>
+          <label htmlFor="barcode-narrow" className="text-xs text-muted-foreground">Narrow bar (px)</label>
           <input
+            id="barcode-narrow"
             type="number"
             value={narrow}
             onChange={(e) => setNarrow(Math.min(4, Math.max(1, Number(e.target.value) || 2)))}
@@ -6313,8 +6370,9 @@ function BarcodePanel() {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground">Bar color</label>
+          <label htmlFor="barcode-fg" className="text-xs text-muted-foreground">Bar color</label>
           <input
+            id="barcode-fg"
             type="color"
             value={fgColor}
             onChange={(e) => setFgColor(e.target.value)}
@@ -6322,8 +6380,9 @@ function BarcodePanel() {
           />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground">Background</label>
+          <label htmlFor="barcode-bg" className="text-xs text-muted-foreground">Background</label>
           <input
+            id="barcode-bg"
             type="color"
             value={bgColor}
             onChange={(e) => setBgColor(e.target.value)}
@@ -6450,25 +6509,25 @@ function QrCodePanel() {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <label className="text-sm font-medium">Content (URL, text, WiFi, etc.)</label>
-        <textarea value={text} onChange={(e) => setText(e.target.value)}
+        <label htmlFor="qr-content" className="text-sm font-medium">Content (URL, text, WiFi, etc.)</label>
+        <textarea id="qr-content" value={text} onChange={(e) => setText(e.target.value)}
           rows={3} className={inputClass} placeholder="https://example.com" />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div>
-          <label className="text-xs text-muted-foreground">Foreground</label>
-          <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)}
+          <label htmlFor="qr-fg" className="text-xs text-muted-foreground">Foreground</label>
+          <input id="qr-fg" type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)}
             className="w-full h-10 cursor-pointer rounded" />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground">Background</label>
-          <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)}
+          <label htmlFor="qr-bg" className="text-xs text-muted-foreground">Background</label>
+          <input id="qr-bg" type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)}
             className="w-full h-10 cursor-pointer rounded" />
         </div>
         <div>
-          <label className="text-xs text-muted-foreground">Size (px)</label>
-          <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))}
+          <label htmlFor="qr-size" className="text-xs text-muted-foreground">Size (px)</label>
+          <input id="qr-size" type="number" value={size} onChange={(e) => setSize(Number(e.target.value))}
             min={64} max={1024} step={32} className={inputClass} />
         </div>
       </div>
@@ -6575,13 +6634,13 @@ function IncomeTaxPanel() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="text-sm font-medium">Gross Annual Income</label>
-          <input type="number" value={income} onChange={(e) => setIncome(Number(e.target.value))}
+          <label htmlFor="tax-income" className="text-sm font-medium">Gross Annual Income</label>
+          <input id="tax-income" type="number" value={income} onChange={(e) => setIncome(Number(e.target.value))}
             min={0} step={10000} className={inputClass} />
         </div>
         <div>
-          <label className="text-sm font-medium">Age Group</label>
-          <select value={age} onChange={(e) => setAge(e.target.value as typeof age)} className={inputClass}>
+          <label htmlFor="tax-age" className="text-sm font-medium">Age Group</label>
+          <select id="tax-age" value={age} onChange={(e) => setAge(e.target.value as typeof age)} className={inputClass}>
             <option value="below60">Below 60</option>
             <option value="60to80">60 – 80 (Senior)</option>
             <option value="above80">Above 80 (Super Senior)</option>
@@ -6593,23 +6652,23 @@ function IncomeTaxPanel() {
         <summary className="cursor-pointer text-sm font-medium">Old Regime Deductions</summary>
         <div className="grid grid-cols-2 gap-3 mt-3">
           <div>
-            <label className="text-xs text-muted-foreground">80C (max ₹1.5L)</label>
-            <input type="number" value={ded80c} onChange={(e) => setDed80c(Math.min(150000, Number(e.target.value)))}
+            <label htmlFor="tax-80c" className="text-xs text-muted-foreground">80C (max ₹1.5L)</label>
+            <input id="tax-80c" type="number" value={ded80c} onChange={(e) => setDed80c(Math.min(150000, Number(e.target.value)))}
               min={0} max={150000} className={inputClass} />
           </div>
           <div>
-            <label className="text-xs text-muted-foreground">80D Health Insurance</label>
-            <input type="number" value={ded80d} onChange={(e) => setDed80d(Number(e.target.value))}
+            <label htmlFor="tax-80d" className="text-xs text-muted-foreground">80D Health Insurance</label>
+            <input id="tax-80d" type="number" value={ded80d} onChange={(e) => setDed80d(Number(e.target.value))}
               min={0} className={inputClass} />
           </div>
           <div>
-            <label className="text-xs text-muted-foreground">HRA Exemption</label>
-            <input type="number" value={hra} onChange={(e) => setHra(Number(e.target.value))}
+            <label htmlFor="tax-hra" className="text-xs text-muted-foreground">HRA Exemption</label>
+            <input id="tax-hra" type="number" value={hra} onChange={(e) => setHra(Number(e.target.value))}
               min={0} className={inputClass} />
           </div>
           <div>
-            <label className="text-xs text-muted-foreground">Other Deductions (80E, 80G, etc.)</label>
-            <input type="number" value={otherDed} onChange={(e) => setOtherDed(Number(e.target.value))}
+            <label htmlFor="tax-other" className="text-xs text-muted-foreground">Other Deductions (80E, 80G, etc.)</label>
+            <input id="tax-other" type="number" value={otherDed} onChange={(e) => setOtherDed(Number(e.target.value))}
               min={0} className={inputClass} />
           </div>
         </div>
@@ -6617,13 +6676,13 @@ function IncomeTaxPanel() {
 
       <div className="grid grid-cols-2 gap-4">
         <div className={`border rounded p-4 ${better === "Old" ? "ring-2 ring-green-500" : ""}`}>
-          <h3 className="font-semibold text-lg">Old Regime</h3>
+          <h2 className="font-semibold text-lg">Old Regime</h2>
           <p className="text-sm text-muted-foreground mt-1">Tax: {fmt(oldTax)}</p>
           <p className="text-sm text-muted-foreground">Cess (4%): {fmt(oldCess)}</p>
           <p className="text-xl font-bold mt-2">{fmt(oldTotal)}</p>
         </div>
         <div className={`border rounded p-4 ${better === "New" ? "ring-2 ring-green-500" : ""}`}>
-          <h3 className="font-semibold text-lg">New Regime</h3>
+          <h2 className="font-semibold text-lg">New Regime</h2>
           <p className="text-sm text-muted-foreground mt-1">Tax: {fmt(newTax)}</p>
           <p className="text-sm text-muted-foreground">Cess (4%): {fmt(newCess)}</p>
           <p className="text-xl font-bold mt-2">{fmt(newTotal)}</p>
@@ -6684,6 +6743,7 @@ function PasswordGeneratorPanel() {
           type="text"
           readOnly
           value={password}
+          aria-label="Generated password"
           className="w-full font-mono text-lg p-4 pr-24 rounded border bg-card tracking-wider font-semibold"
           placeholder="Generating password..."
         />
@@ -6721,11 +6781,12 @@ function PasswordGeneratorPanel() {
 
       <div className="space-y-4 pt-2">
         <div>
-          <label className="text-sm font-medium flex justify-between">
+          <label htmlFor="pw-length" className="text-sm font-medium flex justify-between">
             <span>Password Length</span>
             <span className="font-mono font-bold">{length}</span>
           </label>
           <input
+            id="pw-length"
             type="range"
             min={6}
             max={64}
@@ -6864,9 +6925,10 @@ function EpochConverterPanel() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Timestamp or Date String</label>
+        <label htmlFor="epoch-input" className="text-sm font-medium">Timestamp or Date String</label>
         <div className="flex gap-2">
           <input
+            id="epoch-input"
             type="text"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
@@ -7077,8 +7139,9 @@ function JsonToCsvPanel() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
+          <label htmlFor="json-csv-input" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
           <textarea
+            id="json-csv-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={14}
@@ -7087,7 +7150,7 @@ function JsonToCsvPanel() {
           />
         </div>
         <div>
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output CSV</label>
+          <label htmlFor="json-csv-output" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output CSV</label>
           {error ? (
             <div className="p-4 rounded border border-red-300 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 font-mono text-xs h-[230px] overflow-auto">
               <strong>Conversion Error:</strong>
@@ -7095,6 +7158,7 @@ function JsonToCsvPanel() {
             </div>
           ) : (
             <textarea
+              id="json-csv-output"
               readOnly
               value={output}
               rows={14}
@@ -7163,6 +7227,7 @@ function JsonFormatterPanel() {
           <select
             value={indent}
             onChange={(e) => setIndent(Number(e.target.value))}
+            aria-label="Indentation"
             className="text-xs p-1.5 rounded border bg-card"
           >
             <option value={2}>2 spaces</option>
@@ -7196,8 +7261,9 @@ function JsonFormatterPanel() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
+          <label htmlFor="json-input" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Input JSON</label>
           <textarea
+            id="json-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={14}
@@ -7206,7 +7272,7 @@ function JsonFormatterPanel() {
           />
         </div>
         <div>
-          <label className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output</label>
+          <label htmlFor="json-output" className="text-xs font-semibold uppercase text-muted-foreground mb-1 block">Output</label>
           {error ? (
             <div className="p-4 rounded border border-red-300 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 font-mono text-xs h-[230px] overflow-auto">
               <strong>JSON Syntax Error:</strong>
@@ -7214,6 +7280,7 @@ function JsonFormatterPanel() {
             </div>
           ) : (
             <textarea
+              id="json-output"
               readOnly
               value={output}
               rows={14}
@@ -7273,8 +7340,9 @@ function UuidGeneratorPanel() {
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-muted/40 rounded-xl border">
         <div className="flex items-center gap-4">
           <div>
-            <label className="text-xs font-medium text-muted-foreground block mb-1">Batch Count (1-100):</label>
+            <label htmlFor="uuid-count" className="text-xs font-medium text-muted-foreground block mb-1">Batch Count (1-100):</label>
             <input
+              id="uuid-count"
               type="number"
               min={1}
               max={100}
@@ -7323,9 +7391,9 @@ function UuidGeneratorPanel() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
           Generated UUIDs ({uuids.length}):
-        </label>
+        </p>
         <div className="max-h-80 overflow-y-auto space-y-1.5 p-3 bg-card rounded-lg border font-mono text-sm">
           {uuids.map((id, index) => (
             <div
@@ -7414,10 +7482,11 @@ function CaseConverterPanel() {
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+        <label htmlFor="case-input" className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
           Input Text:
         </label>
         <textarea
+          id="case-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type or paste text to convert..."
@@ -7565,15 +7634,16 @@ function MarkdownEditorPanel() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-muted-foreground mb-1">Markdown Editor:</label>
+          <label htmlFor="md-editor" className="block text-xs font-medium text-muted-foreground mb-1">Markdown Editor:</label>
           <textarea
+            id="md-editor"
             value={markdown}
             onChange={(e) => setMarkdown(e.target.value)}
             className="w-full h-96 p-3 font-mono text-xs rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-muted-foreground mb-1">Live Preview:</label>
+          <p className="block text-xs font-medium text-muted-foreground mb-1">Live Preview:</p>
           <div
             dangerouslySetInnerHTML={{ __html: html }}
             className="w-full h-96 p-4 overflow-y-auto text-xs rounded-lg border bg-card text-foreground"

@@ -5,22 +5,24 @@ import { getToolsByCluster } from "@/lib/tools";
 
 const linkClass = "rounded font-body-sm text-body-sm text-tertiary-fixed-dim transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container";
 
-/** Footer site directory — Argon Day 1 (1C): tools grouped by topical silo + top guides. */
+/** Footer site directory — Argon Day 1 (1C): flagship tools grouped by topical silo + top guides. */
 const DIRECTORY: { heading: string; links: { label: string; href: string }[] }[] = [
   {
     heading: "Finance & Business Tools",
     links: [
       { label: "Loan EMI Calculator (₹)", href: "/calculators/emi-calculator/" },
-      { label: "Mortgage Calculator", href: "/calculators/mortgage-calculator/" },
+      { label: "Income Tax Calculator (FY 2025-26)", href: "/calculators/income-tax-calculator/" },
+      { label: "SIP Calculator", href: "/calculators/sip-calculator/" },
       { label: "Free Invoice Generator", href: "/tools/invoice-generator/" },
     ],
   },
   {
-    heading: "Academic, Health & Date",
+    heading: "PDF & Media Tools",
     links: [
-      { label: "CGPA to Percentage Calculator", href: "/calculators/cgpa-to-percentage/" },
-      { label: "BMI Calculator (Metric & Imperial)", href: "/calculators/bmi-calculator/" },
-      { label: "Exact Age Calculator", href: "/calculators/age-calculator/" },
+      { label: "Merge PDF Online Free", href: "/tools/merge-pdf/" },
+      { label: "PDF to JPG Converter", href: "/tools/pdf-to-jpg/" },
+      { label: "Image Compressor to Exact KB", href: "/tools/image-compressor/" },
+      { label: "QR Code Generator with Logo", href: "/tools/qr-code-generator/" },
     ],
   },
   {
@@ -28,9 +30,9 @@ const DIRECTORY: { heading: string; links: { label: string; href: string }[] }[]
     links: [
       { label: "Word & Character Counter", href: "/text/word-counter/" },
       { label: "Browser Text-to-Speech", href: "/text/text-to-speech/" },
-      { label: "Fancy Text Font Generator", href: "/text/fancy-text-generator/" },
-      { label: "Base64 Encoder & Decoder", href: "/dev/base64-encoder-decoder/" },
-      { label: "Fake Text Message Generator", href: "/fun/fake-text-generator/" },
+      { label: "Unix Timestamp to Date Converter", href: "/tools/epoch-converter/" },
+      { label: "Password Generator", href: "/tools/password-generator/" },
+      { label: "JSON Formatter & Validator", href: "/tools/json-formatter/" },
     ],
   },
 ];
@@ -50,7 +52,7 @@ export function Footer() {
       {/* Blend the light content above into the midnight footer — no hard edge. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface to-transparent" />
       <div className="mx-auto max-w-shell px-6">
-        {/* Site directory — every tool one click from the footer, on every page. */}
+        {/* Site directory — flagship tools per silo, on every page. */}
         <nav aria-label="All tools directory" className="mb-space-xl border-b border-white/10 pb-space-lg">
           <h2 className="font-headline-sm text-headline-sm text-white">Browse All Tools</h2>
           <div className="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -138,6 +140,11 @@ export function Footer() {
               <li>
                 <Link className={linkClass} href="/dev/">
                   Developer Tools
+                </Link>
+              </li>
+              <li>
+                <Link className={linkClass} href="/media/">
+                  Media Tools
                 </Link>
               </li>
               <li>

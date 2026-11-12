@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
+// Robots gate: index/follow only on Vercel production deploys. Vercel sets
+// VERCEL_ENV=production for production deployments only, so preview
+// deployments and local builds serve noindex,nofollow and can never leak
+// into the index. Do not remove this gate without enabling Vercel
+// Deployment Protection for previews first — and never promote a
+// non-production build to production, or the whole site would deindex.
+// Guarded (source-level only) by src/tools/layout-robots-guard.test.ts;
+// the served production HTML still needs a post-deploy check for
+// `index, follow`.
 const isProductionDeployment = process.env.VERCEL_ENV === "production";
 const GA_MEASUREMENT_ID = "G-V4TWQ2FWSX";
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter", weight: ["400", "500", "600", "700"] });

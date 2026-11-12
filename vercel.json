@@ -4,12 +4,12 @@
     "redirects": [
         {
           "source": "/(.*)\\.(php|asp|aspx|jsp|env|git|cgi)$",
-          "destination": "/404",
+          "destination": "/404/",
           "permanent": false
         },
         {
           "source": "/(wp-admin|wp-login|wp-content|xmlrpc|phpmyadmin|pma|adminer|cgi-bin|\\.aws|\\.ssh|actuator|swagger)(.*)",
-          "destination": "/404",
+          "destination": "/404/",
           "permanent": false
         },
         {

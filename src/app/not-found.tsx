@@ -6,10 +6,9 @@ import { Icon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Page not found | Tulyro",
-  // Single robots directive for the 404 page. Next.js merges robots metadata
-  // across segments, so the layout's index,follow tag would otherwise render
-  // alongside the framework's 404 noindex tag (conflicting directives).
-  robots: { index: false, follow: false },
+  // No robots metadata here on purpose: Next.js emits its own noindex tag
+  // for the 404 page, and a custom robots object would render a second,
+  // conflicting robots tag alongside it.
 };
 
 export default function NotFound() {

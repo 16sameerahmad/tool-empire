@@ -17,7 +17,7 @@
 
 ## Tools
 
-- [GST Calculator (India)](https://tulyro.online/calculators/gst-calculator/): Calculate inclusive and exclusive Goods and Services Tax with 5%, 12%, 18%, and 28% slabs and CGST/SGST breakdowns.
+- [GST Calculator (India)](https://tulyro.online/calculators/gst-calculator/): Calculate inclusive and exclusive Goods and Services Tax with the current 0%, 5%, 18% and 40% slabs (plus legacy 12% and 28% for pre-22 September 2025 invoices) and CGST/SGST breakdowns.
 - [SWP Calculator](https://tulyro.online/calculators/swp-calculator/): Calculate monthly systematic withdrawal payouts, final corpus balance, and capital exhaustion from mutual funds.
 - [Lumpsum Calculator](https://tulyro.online/calculators/lumpsum-calculator/): Compute total maturity value and wealth gains on one-time mutual fund investments using compound interest.
 - [CAGR Calculator](https://tulyro.online/calculators/cagr-calculator/): Determine true annualized Compound Annual Growth Rate and total returns across multi-year investments.
@@ -45,7 +45,7 @@
 - [Markdown Editor & Live Preview](https://tulyro.online/tools/markdown-editor/): Real-time dual-pane Markdown drafting with instant safe HTML preview and .md export.
 - [SGPA Calculator](https://tulyro.online/calculators/sgpa-calculator/): Calculate your semester SGPA from subject credits and letter grades on the 10-point scale, with percentage conversion.
 - [Fuel Cost Calculator](https://tulyro.online/calculators/fuel-cost-calculator/): Calculate trip fuel cost from distance, mileage, and fuel price. Supports km/L, L/100km, and mpg, with round-trip and per-person split.
-- [Gratuity Calculator](https://tulyro.online/calculators/gratuity-calculator/): Calculate your gratuity payout under the Payment of Gratuity Act, 1972, with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.
+- [Gratuity Calculator](https://tulyro.online/calculators/gratuity-calculator/): Calculate your gratuity payout under the Code on Social Security, 2020 (Section 53), with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.
 - [Sleep Calculator](https://tulyro.online/calculators/sleep-calculator/): Find the best bedtime for your wake-up time — or the best time to wake up — using 90-minute sleep cycles.
 - [Hash Generator](https://tulyro.online/dev/hash-generator/): Generate MD5, SHA-1, SHA-256, and SHA-512 hashes for text or files entirely in your browser.
 - [Image Compressor to 20KB, 50KB, 100KB](https://tulyro.online/tools/image-compressor/): Compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB, 200KB) for UPSC, SSC, NEET, IBPS job forms and KYC portals.

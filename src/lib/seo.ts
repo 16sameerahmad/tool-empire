@@ -10,7 +10,7 @@ export const siteUrl = "https://tulyro.online";
  * Never auto-generate per build — a dateModified that moves on every
  * deploy without a content change is dishonest.
  */
-export const contentUpdated = "2026-11-12";
+export const contentUpdated = "2026-11-13";
 
 const ogImage = {
   url: `${siteUrl}/og-image.png`,
@@ -166,6 +166,67 @@ export function createArticleJsonLd(article: { headline: string; description: st
   };
 }
 
+/** AboutPage JSON-LD. The page content is the Organization's about text. */
+export function createAboutPageJsonLd() {
+  const url = `${siteUrl}/about/`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": url,
+    url,
+    name: "About Tulyro",
+    mainEntity: { "@id": `${siteUrl}/#organization` },
+  };
+}
+
+/** ContactPage JSON-LD. Email only — the site has no phone, address, or contact form. */
+export function createContactPageJsonLd() {
+  const url = `${siteUrl}/contact/`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": url,
+    url,
+    name: "Contact Tulyro",
+    mainEntity: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      email: "Tulyrotools@gmail.com",
+    },
+  };
+}
+
+/** CollectionPage + ItemList JSON-LD for hub, directory, and guide-index pages.
+ *  Items are generated from the live catalogue / guide list so the list cannot
+ *  go stale. Same `item` pattern as the homepage ItemList. */
+export function createCollectionPageJsonLd(page: {
+  path: string;
+  name: string;
+  items: { name: string; url: string; type: string }[];
+}) {
+  const url = `${siteUrl}${page.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name: page.name,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: page.items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": item.type,
+          "@id": item.url,
+          name: item.name,
+          url: item.url,
+        },
+      })),
+    },
+  };
+}
+
 /** WebSite + Organization entity info for the homepage. No invented contact details. */
 export function createWebSiteJsonLd() {
   return {
@@ -190,6 +251,7 @@ export function createWebSiteJsonLd() {
         sameAs: [
           "https://www.producthunt.com/products/tulyro",
           "https://github.com/16sameerahmad/tool-empire",
+          "https://dev.to/tulyro",
         ],
         email: "Tulyrotools@gmail.com",
         description: "Open-source, free browser-only utility tools and calculators. Zero server uploads, zero tracking.",

@@ -26,13 +26,13 @@ export const tools: ToolDefinition[] = [
     href: "/calculators/gst-calculator/",
     locale: "en",
     description:
-      "Calculate Goods and Services Tax (GST) for India instantly. Supports 5%, 12%, 18%, and 28% tax slabs with inclusive, exclusive, and CGST/SGST splits.",
+      "Calculate Goods and Services Tax (GST) for India instantly. Supports the current 0%, 5%, 18% and 40% slabs with inclusive, exclusive, and CGST/SGST splits, plus legacy 12% and 28% rates for pre-22 September 2025 invoices.",
     keywords: ["gst calculator", "gst calculator india", "inclusive gst calculator", "cgst sgst calculator"],
     related: ["invoice-generator", "percentage-calculator", "emi-calculator"],
     live: true,
     seoTitle: "GST Calculator — Inclusive & Exclusive GST India | Tulyro",
     seoDescription:
-      "Free GST calculator for India. Calculate inclusive and exclusive GST, 5%, 12%, 18%, 28% slabs with CGST and SGST tax breakdown instantly.",
+      "Free GST calculator for India. Calculate inclusive and exclusive GST at the current 0%, 5%, 18% and 40% slabs with CGST and SGST tax breakdown instantly.",
   },
   {
     id: "age-calculator",
@@ -44,6 +44,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["age", "birthday", "date of birth"],
     related: ["emi-calculator", "bmi-calculator"],
     live: true,
+    h1: "Age Calculator — Exact Age in Years, Months & Days",
     seoTitle: "Age Calculator — Exact Age in Years, Months & Days | Tulyro",
     seoDescription:
       "Calculate your exact age in years, months and days from your date of birth. See total days lived and your next birthday. Free, browser-only, no signup.",
@@ -58,6 +59,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["emi", "loan", "interest", "monthly payment"],
     related: ["mortgage-calculator", "age-calculator"],
     live: true,
+    h1: "EMI Calculator — Monthly Loan EMI & Total Interest in ₹",
     seoTitle: "EMI Calculator — Monthly Loan EMI in ₹, India | Tulyro",
     seoDescription:
       "Estimate your monthly EMI, total interest and total payment for an Indian loan. Enter amount, rate and tenure. Try it free in your browser — no signup.",
@@ -75,7 +77,7 @@ export const tools: ToolDefinition[] = [
     h1: "SIP Calculator — Mutual Fund Investment & Wealth Growth in ₹",
     seoTitle: "SIP Calculator — Mutual Fund Returns in ₹ | Tulyro",
     seoDescription:
-      "Calculate your expected mutual fund returns with our free SIP calculator. Enter monthly investment, expected return rate, and time period in years. 100% private.",
+      "Free SIP calculator: estimate mutual fund returns from monthly investment, return rate and years invested. Instant results, 100% private in your browser.",
   },
   {
     id: "attendance-calculator",
@@ -105,7 +107,7 @@ export const tools: ToolDefinition[] = [
     h1: "PPF Calculator — Public Provident Fund Maturity & Interest in ₹",
     seoTitle: "PPF Calculator — Maturity & Interest in ₹ | Tulyro",
     seoDescription:
-      "Calculate your PPF maturity amount and tax-free interest with year-by-year balance breakdown. Supports 15 to 50 years tenure at current 7.1% government rate.",
+      "Free PPF calculator: maturity amount and tax-free interest with a year-by-year breakdown. Tenure 15 to 50 years at the current 7.1% government rate.",
   },
   {
     id: "sgpa-to-cgpa",
@@ -120,7 +122,7 @@ export const tools: ToolDefinition[] = [
     h1: "SGPA to CGPA Calculator — Semester to Cumulative GPA Converter",
     seoTitle: "SGPA to CGPA Calculator — All Semesters to CGPA | Tulyro",
     seoDescription:
-      "Convert multiple semester SGPA to cumulative CGPA and equivalent percentage. Supports credit-weighted calculation and standard equal weight.",
+      "Free SGPA to CGPA converter: convert multiple semester SGPA scores to cumulative CGPA and equivalent percentage. Credit-weighted and equal-weight options.",
   },
   {
     id: "sgpa-calculator",
@@ -150,7 +152,7 @@ export const tools: ToolDefinition[] = [
     h1: "Fuel Cost Calculator — Trip Petrol & Diesel Cost in ₹",
     seoTitle: "Fuel Cost Calculator — Trip Petrol & Diesel Cost | Tulyro",
     seoDescription:
-      "Calculate your trip fuel cost from distance, mileage, and petrol or diesel price. Supports km/L, L/100km, and mpg, with round-trip and split options.",
+      "Free fuel cost calculator: work out trip fuel cost from distance, mileage and petrol or diesel price. Supports km/L, L/100km and mpg, round-trip and split.",
   },
   {
     id: "gratuity-calculator",
@@ -158,14 +160,14 @@ export const tools: ToolDefinition[] = [
     cluster: "Calculators",
     href: "/calculators/gratuity-calculator/",
     locale: "en-IN",
-    description: "Calculate your gratuity payout under the Payment of Gratuity Act, 1972, with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.",
+    description: "Calculate your gratuity payout under the Code on Social Security, 2020 (Section 53), with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.",
     keywords: ["gratuity calculator", "gratuity calculator india", "payment of gratuity act", "gratuity formula", "15/26 gratuity", "gratuity tax exemption"],
     related: ["income-tax-calculator", "emi-calculator", "percentage-calculator"],
     live: true,
     h1: "Gratuity Calculator — India Payout, 15/26 Formula & ₹20 Lakh Cap",
     seoTitle: "Gratuity Calculator India — 15/26 Formula | Tulyro",
     seoDescription:
-      "Calculate your gratuity payout under the Payment of Gratuity Act, 1972. Enter last-drawn Basic + DA and years of service — free, instant, private.",
+      "Calculate your gratuity payout under the Code on Social Security, 2020. Enter last-drawn Basic + DA and years of service — free, instant, private.",
   },
   {
     id: "sleep-calculator",
@@ -195,7 +197,7 @@ export const tools: ToolDefinition[] = [
     h1: "SWP Calculator — Systematic Withdrawal Plan Returns & Balance in ₹",
     seoTitle: "SWP Calculator — Withdrawal Plan Returns in ₹ | Tulyro",
     seoDescription:
-      "Calculate your mutual fund SWP monthly income, total amount withdrawn, and remaining balance. Plan monthly retirement income with exact compounding math.",
+      "Free SWP calculator: calculate mutual fund monthly income, total withdrawn and remaining balance. Plan retirement income with exact compounding math.",
   },
   {
     id: "lumpsum-calculator",
@@ -210,7 +212,7 @@ export const tools: ToolDefinition[] = [
     h1: "Lumpsum Calculator — Mutual Fund One-Time Investment Returns in ₹",
     seoTitle: "Lumpsum Calculator — One-Time Investment Returns | Tulyro",
     seoDescription:
-      "Calculate wealth growth and maturity value of your one-time lumpsum mutual fund investment. Compare with SIP returns instantly.",
+      "Free lumpsum calculator: wealth growth and maturity value of a one-time mutual fund investment, in your browser. Compare with SIP returns instantly.",
   },
   {
     id: "cagr-calculator",
@@ -225,7 +227,7 @@ export const tools: ToolDefinition[] = [
     h1: "CAGR Calculator — Compound Annual Growth Rate & Return Formula",
     seoTitle: "CAGR Calculator — Growth Rate & Formula | Tulyro",
     seoDescription:
-      "Find the exact Compound Annual Growth Rate (CAGR) of any stock, mutual fund, or business investment over time. Check annualized growth instantly.",
+      "Free CAGR calculator: find the exact Compound Annual Growth Rate (CAGR) of a stock, mutual fund or business investment. Instant, private, no signup.",
   },
   {
     id: "percentage-calculator",
@@ -252,6 +254,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["mortgage", "home loan", "loan payment", "interest"],
     related: ["emi-calculator", "bmi-calculator"],
     live: true,
+    h1: "Mortgage Calculator — Monthly US Home Loan Payment",
     seoTitle: "Mortgage Calculator — Monthly Home Loan Payment | Tulyro",
     seoDescription:
       "Estimate a US mortgage payment with total interest and total payment. Enter loan amount, rate and term to compare scenarios. Free, browser-only.",
@@ -269,7 +272,7 @@ export const tools: ToolDefinition[] = [
     h1: "BMI Calculator — Body Mass Index (WHO & Indian ICMR Scales)",
     seoTitle: "BMI Calculator — Metric & Imperial, WHO Scale | Tulyro",
     seoDescription:
-      "Check adult BMI from height and weight in metric or imperial units, with WHO and Indian/Asian ICMR screening cutoffs and a healthy weight range. Free, browser-only.",
+      "Free BMI calculator: check adult BMI from height and weight in metric or imperial units, with WHO and Indian ICMR cutoffs and a healthy weight range.",
   },
   {
     id: "cgpa-to-percentage",
@@ -284,7 +287,7 @@ export const tools: ToolDefinition[] = [
     h1: "CGPA to Percentage Calculator — CBSE 9.5, UGC 10-Point & Indian Universities",
     seoTitle: "CGPA to Percentage — CBSE ×9.5 Formula | Tulyro",
     seoDescription:
-      "Convert 10-point CGPA to percentage with CBSE ×9.5, UGC, VTU and Mumbai University formulas. Free, instant, no signup.",
+      "Convert 10-point CGPA to percentage with CBSE ×9.5, UGC, VTU and Mumbai University formulas. Free, instant, private — no signup, results in your browser.",
   },
   {
     id: "word-counter",
@@ -296,6 +299,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["word count", "character count", "writing", "reading time"],
     related: ["fancy-text-generator", "text-to-speech"],
     live: true,
+    h1: "Word Counter — Words, Characters & Reading Time Live",
     seoTitle: "Word Counter — Words, Characters & Reading Time | Tulyro",
     seoDescription:
       "Count words, characters, sentences and reading time as you type. Grapheme-aware character counts, live results. Free, browser-only — no signup. Try it now.",
@@ -310,6 +314,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["text to speech", "tts", "read aloud", "voice"],
     related: ["word-counter", "fancy-text-generator"],
     live: true,
+    h1: "Text to Speech — Read Text Aloud in Your Browser",
     seoTitle: "Text to Speech — Read Text Aloud in Your Browser | Tulyro",
     seoDescription:
       "Listen to text read aloud with voices already in your browser. Adjust speed, pause and resume, up to 10,000 characters. Free — no signup, no download.",
@@ -324,6 +329,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["fancy text", "unicode text", "stylish text", "font"],
     related: ["word-counter", "base64-encoder-decoder"],
     live: true,
+    h1: "Fancy Text Generator — Stylish Unicode Text Styles",
     seoTitle: "Fancy Text Generator — Stylish Unicode Text | Tulyro",
     seoDescription:
       "Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more. Paste into bios, posts and messages. Free, browser-only.",
@@ -338,6 +344,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["base64", "encode", "decode", "utf-8", "developer"],
     related: ["word-counter", "fancy-text-generator"],
     live: true,
+    h1: "Base64 Encoder/Decoder — UTF-8 Text Encode & Decode",
     seoTitle: "Base64 Encoder / Decoder — Encode & Decode Text | Tulyro",
     seoDescription:
       "Encode UTF-8 text to Base64 or decode Base64 back to text, entirely in your browser. Handles emoji and non-Latin scripts. Free, private. Try it now.",
@@ -367,6 +374,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["invoice", "bill", "receipt", "print invoice"],
     related: ["fake-text-generator", "emi-calculator"],
     live: true,
+    h1: "Invoice Generator — Free Invoices, No Watermark",
     seoTitle: "Invoice Generator — Free, No Watermark, Print PDF | Tulyro",
     seoDescription:
       "Create a simple invoice in your browser and print or save it as PDF — no watermark, no signup. Line items, tax and ₹/$ currency. Try it free — no download.",
@@ -381,6 +389,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["fake text", "chat mockup", "message screenshot", "conversation"],
     related: ["invoice-generator", "fancy-text-generator"],
     live: true,
+    h1: "Fake Text Generator — Chat Mockups & Screenshots",
     seoTitle: "Fake Text Generator — Chat Mockup & Screenshots | Tulyro",
     seoDescription:
       "Make a generic chat mockup for sketches, presentations and entertainment. Add messages, preview, export PNG. No watermark — free, no signup. Try it now.",
@@ -395,9 +404,10 @@ export const tools: ToolDefinition[] = [
     keywords: ["remove background", "bg remover", "transparent background", "transparent png", "remove bg online"],
     related: ["invoice-generator", "base64-encoder-decoder"],
     live: true,
+    h1: "Background Remover — Free Transparent PNG, No Upload",
     seoTitle: "Background Remover — Free Transparent PNG Online | Tulyro",
     seoDescription:
-      "Remove image backgrounds instantly in your browser. Auto-detect backdrop, custom color eyedropper, feather edges, download high-res transparent PNG. Free & private.",
+      "Free background remover: remove image backgrounds instantly in your browser. Auto-detect backdrop, color eyedropper, feathered edges, transparent PNG.",
   },
   {
     id: "image-compressor",
@@ -419,7 +429,7 @@ export const tools: ToolDefinition[] = [
     related: ["image-resizer", "remove-background", "pdf-tools"],
     live: true,
     h1: "Image Compressor — Reduce Image Size to 20KB, 50KB, 100KB Online",
-    seoTitle: "Image Compressor to 20KB, 50KB, 100KB Online Free | Tulyro",
+    seoTitle: "Image Compressor — Compress to 20KB, 50KB, 100KB | Tulyro",
     seoDescription:
       "Compress images to exact KB limits (20KB, 50KB, 100KB, 200KB) for UPSC, SSC, NEET and job forms. 100% private in-browser, no upload, zero blur.",
   },
@@ -433,6 +443,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["image resizer in kb", "reduce image size in kb", "resize image to 20kb", "image compressor online", "ssc photo resize"],
     related: ["remove-background", "base64-encoder-decoder"],
     live: true,
+    h1: "Image Resizer — Resize & Compress Images to Exact KB",
     seoTitle: "Image Resizer — Compress to Exact KB Size Online | Tulyro",
     seoDescription:
       "Resize and compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB) for online job portals and exam applications. 100% client-side & private.",
@@ -474,7 +485,7 @@ export const tools: ToolDefinition[] = [
     h1: "JPG to PDF Converter — Convert Images to PDF Online Free",
     seoTitle: "JPG to PDF Converter — Convert Images to PDF Free | Tulyro",
     seoDescription:
-      "Convert JPG, PNG, and WebP images to PDF online for free. Arrange pages and combine multiple photos into one document directly in your browser with 100% privacy.",
+      "Free JPG to PDF converter: turn JPG, PNG and WebP images into one PDF in your browser. Arrange pages, combine photos, download instantly — 100% private.",
   },
   {
     id: "pdf-to-jpg",
@@ -497,7 +508,7 @@ export const tools: ToolDefinition[] = [
     h1: "PDF to JPG Converter — Convert PDF Pages to Images Online Free",
     seoTitle: "PDF to JPG Converter — PDF Pages to JPG Images | Tulyro",
     seoDescription:
-      "Convert every PDF page to crisp, high-resolution JPG or PNG images directly in your browser. No file size limits, no waiting, 100% secure with zero server upload.",
+      "Free PDF to JPG converter: turn every PDF page into crisp, high-resolution JPG or PNG images in your browser. Zero server upload, no signup.",
   },
   {
     id: "merge-pdf",
@@ -520,7 +531,7 @@ export const tools: ToolDefinition[] = [
     h1: "Merge PDF Online Free — Combine Multiple PDF Files Securely",
     seoTitle: "Merge PDF Online — Combine PDF Files Free | Tulyro",
     seoDescription:
-      "Merge multiple PDF documents into a single file directly in your browser. 100% private with zero file uploads to servers. Fast, secure, and free without limits.",
+      "Free PDF merger: combine multiple PDF files into one document in your browser. Zero file uploads, 100% private, fast and secure — no signup needed.",
   },
   {
     id: "compress-pdf",
@@ -544,7 +555,7 @@ export const tools: ToolDefinition[] = [
     h1: "Compress PDF Online Free — Reduce PDF Size Securely",
     seoTitle: "Compress PDF Online Free — Reduce PDF File Size | Tulyro",
     seoDescription:
-      "Reduce PDF size to 100KB, 200KB, or custom targets directly in your browser. 100% private, client-side WebAssembly, no file limits, and zero server uploads.",
+      "Free PDF compressor: reduce PDF size to 100KB, 200KB or a custom target in your browser. Private client-side compression, zero server uploads, no signup.",
   },
   {
     id: "split-pdf",
@@ -615,7 +626,7 @@ export const tools: ToolDefinition[] = [
     h1: "HEIC to JPG Converter — Convert iPhone Photos Online Free",
     seoTitle: "HEIC to JPG Converter — Convert iPhone Photos Free | Tulyro",
     seoDescription:
-      "Convert HEIC and HEIF images from your iPhone to universal JPG or PNG format. 100% client-side WebAssembly conversion — private, secure, and zero file uploads.",
+      "Free HEIC to JPG converter: turn iPhone HEIC and HEIF photos into JPG or PNG in your browser. Private client-side conversion, zero file uploads, no signup.",
   },
   {
     id: "pdf-to-word",
@@ -639,7 +650,7 @@ export const tools: ToolDefinition[] = [
     h1: "PDF to Word Converter — Free Online, No Upload",
     seoTitle: "PDF to Word Converter — Free Online, No Upload | Tulyro",
     seoDescription:
-      "Convert PDF to editable Word DOCX documents instantly in your browser. Zero file uploads, no registration, unlimited conversions. 100% private client-side conversion.",
+      "Free PDF to Word converter: turn PDF files into editable Word DOCX documents in your browser. Zero file uploads, no signup, 100% private.",
   },
   {
     id: "mp4-to-mp3",
@@ -759,7 +770,7 @@ export const tools: ToolDefinition[] = [
     h1: "Image to PDF Converter — Convert Any Image Format Online",
     seoTitle: "Image to PDF Converter — JPG, PNG, WebP to PDF | Tulyro",
     seoDescription:
-      "Convert any photo or picture format (JPG, PNG, WebP, SVG, GIF, AVIF) to a high-quality PDF online. 100% client-side, private, and unlimited directly in your browser.",
+      "Free image to PDF converter: turn JPG, PNG, WebP, SVG, GIF or AVIF photos into a high-quality PDF in your browser. 100% private, no upload, no signup.",
   },
   {
     id: "pdf-to-image",
@@ -782,7 +793,7 @@ export const tools: ToolDefinition[] = [
     h1: "PDF to Image Converter — Save PDF Pages as Images Online",
     seoTitle: "PDF to Image Converter — PDF to JPG or PNG Free | Tulyro",
     seoDescription:
-      "Extract and convert PDF pages into high-definition JPG or PNG images directly in your browser. 100% client-side processing with zero file uploads and instant download.",
+      "Free PDF to image converter: extract PDF pages as high-definition JPG or PNG images in your browser. 100% client-side, zero file uploads, instant download.",
   },
   {
     id: "qr-code-generator",
@@ -840,7 +851,7 @@ export const tools: ToolDefinition[] = [
     related: ["qr-code-generator", "base64-encoder-decoder", "json-formatter"],
     live: true,
     h1: "Secure Random Password Generator — Strong, Private, Client-Side",
-    seoTitle: "Secure Password Generator — Strong & Random | Tulyro",
+    seoTitle: "Password Generator — Strong, Secure & Random | Tulyro",
     seoDescription:
       "Generate cryptographically strong random passwords instantly in your browser. Customize length, uppercase, lowercase, numbers, and symbols. 100% private.",
   },
@@ -857,7 +868,7 @@ export const tools: ToolDefinition[] = [
     h1: "Unix Timestamp to Date — Epoch Converter, Seconds & Milliseconds",
     seoTitle: "Unix Timestamp to Date — Epoch Converter | Tulyro",
     seoDescription:
-      "Convert Unix timestamps in seconds or milliseconds to human-readable UTC and local date formats. Live epoch clock and date-to-timestamp converter.",
+      "Free epoch converter: convert Unix timestamps in seconds or milliseconds to human-readable UTC and local dates. Live epoch clock, private in your browser.",
   },
   {
     id: "json-formatter",
@@ -902,7 +913,7 @@ export const tools: ToolDefinition[] = [
     h1: "UUID / GUID Generator — RFC 4122 v4 Cryptographic Random",
     seoTitle: "UUID Generator — Free RFC 4122 v4 UUIDs | Tulyro",
     seoDescription:
-      "Generate cryptographically secure RFC 4122 version 4 UUIDs and GUIDs online. Bulk generate up to 100 UUIDs with custom formatting and uppercase toggles.",
+      "Free UUID generator: cryptographically secure RFC 4122 v4 UUIDs and GUIDs in your browser. Bulk-generate up to 100 with formatting and uppercase toggles.",
   },
   {
     id: "case-converter",

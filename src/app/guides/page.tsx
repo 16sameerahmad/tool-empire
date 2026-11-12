@@ -4,17 +4,17 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Icon } from "@/components/icons";
 import { guides } from "@/lib/guides";
-import { createSimpleBreadcrumbJsonLd, siteUrl } from "@/lib/seo";
+import { createCollectionPageJsonLd, createSimpleBreadcrumbJsonLd, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Guides — How Things Work, With Real Numbers | Tulyro",
   description:
-    "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
+    "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified.",
   alternates: { canonical: `${siteUrl}/guides/` },
   openGraph: {
     title: "Guides — How Things Work, With Real Numbers | Tulyro",
     description:
-      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
+      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified.",
     url: `${siteUrl}/guides/`,
     siteName: "Tulyro",
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Guides — How Things Work, With Real Numbers | Tulyro",
     description:
-      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified against the matching tool.",
+      "Plain-language guides with worked examples: EMI by hand, choosing an EMI calculator, age in Excel, BMI accuracy, and more. Every number verified.",
     images: [`${siteUrl}/og-image.png`],
   },
 };
@@ -34,14 +34,29 @@ export default function GuidesIndexPage() {
     { name: "Home", path: "/" },
     { name: "Guides", path: "/guides/" },
   ]);
+  const collectionJsonLd = createCollectionPageJsonLd({
+    path: "/guides/",
+    name: "Guides",
+    items: guides.map((guide) => ({ name: guide.title, url: `${siteUrl}${guide.href}`, type: "Article" })),
+  });
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
       <Header />
       <main className="w-full bg-background">
         <section className="relative w-full overflow-hidden bg-midnight px-6 py-10 text-white shadow-md">
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-shell">
+            <nav className="mb-4 flex items-center gap-1.5 font-label-sm text-label-sm text-tertiary-fixed-dim" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-white">
+                Home
+              </Link>
+              <Icon name="chevron_right" className="h-3 w-3" />
+              <span aria-current="page" className="font-semibold text-white">
+                Guides
+              </span>
+            </nav>
             <h1 className="font-display font-headline-lg text-headline-lg-mobile tracking-tight text-white md:text-headline-lg">
               Guides
             </h1>

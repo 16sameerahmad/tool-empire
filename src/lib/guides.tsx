@@ -36,7 +36,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the EMI Calculator", href: "/calculators/emi-calculator/" },
     sections: [
       {
-        heading: "What the formula actually does",
+        heading: "How does the EMI formula work?",
         body: [
           <>
             Most people meet EMI as a number on a bank page. The formula looks worse than it is. It
@@ -145,7 +145,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The zero-interest case",
+        heading: "What if the interest rate is zero?",
         body: [
           <>
             At 0% interest the formula breaks. It divides by zero, which is maths telling you the formula
@@ -160,7 +160,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What the formula leaves out",
+        heading: "What does the formula leave out?",
         body: [
           <>
             Your hand calculation is the pure loan maths. A lender quote adds the rest: processing fees,
@@ -175,7 +175,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "When to skip the hand math",
+        heading: "When should you skip the hand math?",
         body: [
           <>
             Once you have done it by hand, use a calculator for the rest. Comparing five offers, checking
@@ -292,7 +292,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Why dividing by 365.25 fails",
+        heading: "Why does dividing by 365.25 give the wrong age?",
         body: [
           <>
             The shortcut everyone tries is 9,132 ÷ 365.25. It gives 25.0021, not 25. Close, but wrong.
@@ -306,7 +306,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The 29 February problem",
+        heading: "What if you were born on 29 February?",
         body: [
           <>
             Born on 29 February? In non-leap years there is no birthday to count to. Our calculator
@@ -403,7 +403,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the CGPA Calculator", href: "/calculators/cgpa-to-percentage/" },
     sections: [
       {
-        heading: "The formula",
+        heading: "What is the CGPA to percentage formula?",
         body: [
           <>
             Percentage = CGPA × 9.5. One multiplication. It applies to the 10-point CGPA scale, and it
@@ -462,7 +462,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Where 9.5 came from",
+        heading: "Where did 9.5 come from?",
         body: [
           <>
             CBSE used ×9.5 to map CGPA to an indicative percentage for its grading system. It was a
@@ -473,7 +473,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Why it is only an estimate",
+        heading: "Why is it only an estimate?",
         body: [
           <>
             A CGPA hides detail by design. A grade point covers a band of marks, not one exact score.
@@ -488,7 +488,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "When your institution disagrees",
+        heading: "What if your institution disagrees?",
         body: [
           <>
             Some institutions use ×10. Some use (CGPA − 0.5) × 10. Some publish their own table. None
@@ -499,7 +499,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What 9.5 gets wrong at the edges",
+        heading: "What does 9.5 get wrong at the edges?",
         body: [
           <>
             Run the formula at the top of the scale and something odd appears. A CGPA of 10 gives 95%.
@@ -526,7 +526,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What to submit with an application",
+        heading: "What should you submit with an application?",
         body: [
           <>
             Give the original CGPA, the conversion rule you used, and the word estimated where the form
@@ -653,7 +653,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What both leave out",
+        heading: "What do both leave out?",
         body: [
           <>
             Neither page includes property tax, insurance, processing fees, prepayment, or floating-rate
@@ -669,7 +669,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The decision rule",
+        heading: "Which calculator should you use?",
         body: [
           <>
             If the loan is in rupees, use the EMI calculator. If it is a US-dollar mortgage, use the
@@ -764,9 +764,9 @@ export const guides: Guide[] = [
   {
     slug: "how-to-choose-emi-calculator",
     title: "How to Choose an EMI Calculator",
-    seoTitle: "Which EMI Calculator Is Best? 5 Checks Before You Trust One | Tulyro",
+    seoTitle: "EMI Calculator Checks — 5 Tests Before Trusting One | Tulyro",
     seoDescription:
-      "Every EMI calculator runs the same formula. What differs: total interest display, amortization view, prepayment, currency. Five checks that separate honest tools from traps.",
+      "Same formula everywhere — what differs is total interest, amortization view and prepayment. Five checks that separate honest EMI calculators from traps.",
     href: "/guides/how-to-choose-emi-calculator/",
     intro: [
       <>
@@ -924,9 +924,9 @@ export const guides: Guide[] = [
   {
     slug: "calculate-age-in-excel",
     title: "Calculate Age in Excel: 3 Formulas That Work",
-    seoTitle: "Calculate Age in Excel — DATEDIF, YEARFRAC & Quick Method | Tulyro",
+    seoTitle: "Calculate Age in Excel — DATEDIF & YEARFRAC | Tulyro",
     seoDescription:
-      "DATEDIF gives exact years, months and days: =DATEDIF(A2,TODAY(),\"Y\"). YEARFRAC gives decimals. Plus the 30-second rough method and the errors everyone hits.",
+      "DATEDIF gives exact years, months and days: =DATEDIF(A2,TODAY(),\"Y\"). YEARFRAC gives decimals. Plus the 30-second rough method and common errors.",
     href: "/guides/calculate-age-in-excel/",
     intro: [
       <>
@@ -1075,9 +1075,9 @@ export const guides: Guide[] = [
   {
     slug: "is-bmi-accurate",
     title: "Is BMI Accurate? What the Number Can't Tell You",
-    seoTitle: "Is BMI Accurate? Limitations & What Doctors Use Instead | Tulyro",
+    seoTitle: "Is BMI Accurate? Limits & Better Checks | Tulyro",
     seoDescription:
-      "BMI is a screening tool, not a diagnosis. It misreads athletes, older adults, and muscular builds. What it gets right, where it fails, and what doctors check instead.",
+      "BMI is a screening tool, not a diagnosis. It misreads athletes, older adults and muscular builds. What it gets right, where it fails, and better checks.",
     href: "/guides/is-bmi-accurate/",
     intro: [
       <>
@@ -1095,7 +1095,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
     sections: [
       {
-        heading: "What the number means",
+        heading: "What does the number mean?",
         body: [
           <>
             BMI = weight (kg) ÷ height (m)². A person who weighs 70 kg at 1.75 m: 1.75² = 3.0625, and
@@ -1116,7 +1116,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What BMI gets right",
+        heading: "What does BMI get right?",
         body: [
           <>
             It is cheap, instant, and needs nothing but a scale and a tape measure. Across populations,
@@ -1162,7 +1162,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What doctors actually check",
+        heading: "What do doctors actually check?",
         body: [
           <>
             When a doctor looks past BMI, the next measurement is usually the waist. Belly fat is the
@@ -1233,7 +1233,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-calculate-bmi",
     title: "How to Calculate BMI by Hand: Formula, Examples, Metric and Imperial",
-    seoTitle: "How to Calculate BMI Manually (kg/m² & lb/in) With Examples | Tulyro",
+    seoTitle: "How to Calculate BMI — Metric & Imperial | Tulyro",
     seoDescription:
       "BMI = weight ÷ height². Worked examples in kilograms and pounds, the WHO bands explained, and the mistakes that give wrong numbers.",
     href: "/guides/how-to-calculate-bmi/",
@@ -1252,7 +1252,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the BMI Calculator", href: "/calculators/bmi-calculator/" },
     sections: [
       {
-        heading: "The formula",
+        heading: "What is the BMI formula?",
         body: [
           <>
             In metric: BMI = weight in kilograms ÷ (height in metres)². In imperial: BMI = 703 ×
@@ -1291,7 +1291,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Reading the result",
+        heading: "How do I read the result?",
         body: [
           <>
             The World Health Organization bands: below 18.5 is underweight, 18.5–24.9 is normal,
@@ -1302,6 +1302,35 @@ export const guides: Guide[] = [
               Is BMI Accurate? What the Number Can&apos;t Tell You
             </Link>
             .
+          </>,
+          <div key="bmi-bands-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Category</th>
+                <th className="border border-outline-variant/60 p-3">WHO global bands</th>
+                <th className="border border-outline-variant/60 p-3">Indian / Asian (ICMR) bands</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Underweight</td><td className="border border-outline-variant/60 p-3">Below 18.5</td><td className="border border-outline-variant/60 p-3">Below 18.5</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Normal</td><td className="border border-outline-variant/60 p-3">18.5–24.9</td><td className="border border-outline-variant/60 p-3">18.5–22.9</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Overweight</td><td className="border border-outline-variant/60 p-3">25.0–29.9</td><td className="border border-outline-variant/60 p-3">23.0–24.9</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Obese</td><td className="border border-outline-variant/60 p-3">30.0 and above</td><td className="border border-outline-variant/60 p-3">25.0 and above</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            The Indian/Asian scale exists because health risks in Asian populations tend to rise at
+            lower BMI values than in European populations, so the action thresholds sit lower. The
+            worked examples above — 22.9 and 22.7 — are normal on both scales, but a BMI of 24
+            would be normal on the WHO scale and overweight on the Indian/Asian scale. The{" "}
+            <Link href="/calculators/bmi-calculator/" className="text-primary underline">
+              BMI Calculator
+            </Link>{" "}
+            lets you switch scales to see both readings. Whichever scale you use, mention it when
+            discussing the result with a health professional rather than reinterpreting the
+            category yourself.
           </>,
           <>
             Common mistakes that skew the number: weighing yourself after a meal or in heavy
@@ -1344,9 +1373,9 @@ export const guides: Guide[] = [
   {
     slug: "how-many-words-per-page",
     title: "How Many Words Fit on a Page?",
-    seoTitle: "How Many Words Fit on a Page? — Single vs Double-Spaced Counts | Tulyro",
+    seoTitle: "How Many Words Per Page? Spacing Counts | Tulyro",
     seoDescription:
-      "About 500 words on a single-spaced page, about 250 double-spaced (12pt type, 1-inch margins). See the line-by-line math, font differences, and the manuscript standard.",
+      "About 500 words fill a single-spaced page, about 250 double-spaced (12pt, 1-inch margins). Line-by-line math, font differences and the manuscript standard.",
     href: "/guides/how-many-words-per-page/",
     intro: [
       <>
@@ -1386,7 +1415,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Where 500 and 250 come from",
+        heading: "Where do 500 and 250 come from?",
         body: [
           <>
             Take a US Letter page with 1-inch margins. The printable area is 6.5 inches wide by 9
@@ -1405,7 +1434,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What moves the number",
+        heading: "What moves the number?",
         body: [
           <>
             Font matters more than most people expect. A narrow font like Times New Roman packs about
@@ -1537,9 +1566,9 @@ export const guides: Guide[] = [
   {
     slug: "how-to-create-gst-compliant-invoice-india",
     title: "How to Create a GST-Compliant Invoice in India (Mandatory Fields & Format)",
-    seoTitle: "How to Create a GST-Compliant Invoice in India (Rule 46 Checklist) | Tulyro",
+    seoTitle: "GST Invoice in India — Rule 46 Checklist | Tulyro",
     seoDescription:
-      "Learn all 16 mandatory fields required under CGST Rule 46 for a valid Indian GST tax invoice, how to split CGST/SGST vs IGST, and generate free client-side invoices.",
+      "All 16 mandatory fields under CGST Rule 46 for a valid GST tax invoice, how to split CGST/SGST vs IGST, and a worked ₹50,000 invoice example.",
     href: "/guides/how-to-create-gst-compliant-invoice-india/",
     intro: [
       <>
@@ -1583,7 +1612,7 @@ export const guides: Guide[] = [
               <tr><td className="border border-outline-variant/60 p-3">8</td><td className="border border-outline-variant/60 p-3">HSN / SAC code</td><td className="border border-outline-variant/60 p-3">4 digits when turnover is up to ₹5 crore (B2B; optional for B2C), 6 digits above ₹5 crore — Notification 78/2020</td></tr>
               <tr><td className="border border-outline-variant/60 p-3">9</td><td className="border border-outline-variant/60 p-3">Item description &amp; quantity</td><td className="border border-outline-variant/60 p-3">Description plus quantity with its Unique Quantity Code (UQC) for goods</td></tr>
               <tr><td className="border border-outline-variant/60 p-3">10</td><td className="border border-outline-variant/60 p-3">Total &amp; taxable value</td><td className="border border-outline-variant/60 p-3">Gross value and net taxable value after discounts</td></tr>
-              <tr><td className="border border-outline-variant/60 p-3">11</td><td className="border border-outline-variant/60 p-3">GST rate</td><td className="border border-outline-variant/60 p-3">Rate % — 5%, 12%, 18% or 28%; IT, design and consulting services are typically 18%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">11</td><td className="border border-outline-variant/60 p-3">GST rate</td><td className="border border-outline-variant/60 p-3">Rate % — 0%, 5%, 18% or 40% since 22 September 2025 (GST 2.0); IT, design and consulting services are typically 18%</td></tr>
               <tr><td className="border border-outline-variant/60 p-3">12</td><td className="border border-outline-variant/60 p-3">Tax split CGST / SGST vs IGST</td><td className="border border-outline-variant/60 p-3">Exact rupee amounts for each tax head (see the split below)</td></tr>
               <tr><td className="border border-outline-variant/60 p-3">13</td><td className="border border-outline-variant/60 p-3">Reverse charge indicator</td><td className="border border-outline-variant/60 p-3">Yes/No — whether tax is payable under reverse charge (RCM)</td></tr>
               <tr><td className="border border-outline-variant/60 p-3">14</td><td className="border border-outline-variant/60 p-3">Shipping address</td><td className="border border-outline-variant/60 p-3">If different from the billing address</td></tr>
@@ -1595,7 +1624,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "CGST + SGST vs. IGST",
+        heading: "Should I charge CGST + SGST or IGST?",
         body: [
           <>
             The split depends on where the buyer is. Intra-state supply — same state on both sides,
@@ -1688,6 +1717,11 @@ export const guides: Guide[] = [
         answer:
           "Server-based tools can store your client data. Tulyro's Invoice Generator is 100% client-side: the invoice is built in your browser and nothing is uploaded or stored.",
       },
+      {
+        question: "When do I charge CGST + SGST instead of IGST?",
+        answer:
+          "When supplier and buyer are in the same state, split the tax: 18% becomes 9% CGST + 9% SGST. When they are in different states, charge a single 18% IGST instead. The place of supply on the invoice decides which applies; the rate itself is the same either way.",
+      },
     ],
     related: ["invoice-generator", "emi-calculator", "mortgage-calculator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
@@ -1695,9 +1729,9 @@ export const guides: Guide[] = [
   {
     slug: "how-mortgage-amortization-works",
     title: "How Mortgage Amortization Works: Why Your Loan Balance Falls So Slowly at First",
-    seoTitle: "How Mortgage Amortization Works: Principal vs. Interest Explained | Tulyro",
+    seoTitle: "Mortgage Amortization — Principal vs Interest | Tulyro",
     seoDescription:
-      "Understand why 70% to 80% of early mortgage payments go toward interest, how monthly amortization schedules are calculated, and compare 15-year vs 30-year loans.",
+      "Why most early mortgage payments go to interest: the two-step monthly formula, a worked $300,000 example, and a 15-year vs 30-year comparison.",
     href: "/guides/how-mortgage-amortization-works/",
     intro: [
       <>
@@ -1816,7 +1850,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "How Extra Principal Prepayments Short-Circuit the Curve",
+        heading: "How do extra principal payments change the schedule?",
         body: [
           <>
             An extra payment goes 100% to principal, and it kills all the future compound interest
@@ -1847,6 +1881,16 @@ export const guides: Guide[] = [
         answer:
           "Yes. Twenty-six half-payments a year add up to 13 full monthly payments instead of 12, and the extra payment goes straight to principal. On a typical 30-year mortgage that shaves roughly 4–5 years off the term.",
       },
+      {
+        question: "When does the principal portion overtake the interest portion?",
+        answer:
+          "On the $300,000, 6.5%, 30-year example in this guide, month 233 — year 19, month 5. Before that, every payment is majority interest. Shorter terms and lower rates move the tipping point much earlier: on a 15-year loan at the same rate, principal is 37.8% of the very first payment.",
+      },
+      {
+        question: "Does refinancing restart the amortization schedule?",
+        answer:
+          "Yes. A refinance pays off the old loan and starts a new one, so the new schedule begins again with interest-heavy early payments. That is worth weighing against the rate saving: refinancing late in a loan's life can mean paying mostly interest all over again, even at a lower rate.",
+      },
     ],
     related: ["mortgage-calculator", "emi-calculator", "invoice-generator"],
     pillar: { label: "All Calculators", href: "/calculators/" },
@@ -1854,9 +1898,9 @@ export const guides: Guide[] = [
   {
     slug: "what-is-base64-encoding-and-when-to-use-it",
     title: "What Is Base64 Encoding, Why Does It Increase Size by 33%, and When Should You Use It?",
-    seoTitle: "What Is Base64 Encoding, Why Does It Add 33% Size & When to Use It | Tulyro",
+    seoTitle: "What Is Base64 Encoding? Size & Uses | Tulyro",
     seoDescription:
-      "Learn how Base64 converts 3 bytes (24 bits) into 4 ASCII characters, why it increases payload size by 33%, how = padding works, and how to decode strings locally.",
+      "Base64 turns 3 bytes into 4 ASCII characters — a 33% size increase. How the 24-bit math works, what = padding means, and when to use it.",
     href: "/guides/what-is-base64-encoding-and-when-to-use-it/",
     intro: [
       <>
@@ -1874,7 +1918,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the Base64 Encoder & Decoder", href: "/dev/base64-encoder-decoder/" },
     sections: [
       {
-        heading: "Why Base64 Exists: Solving the Binary Transport Problem",
+        heading: "Why does Base64 exist?",
         body: [
           <>
             SMTP, HTTP headers, XML, and JSON are text protocols. Raw binary bytes — a 0x00 null, a
@@ -1885,7 +1929,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "How the 24-Bit Math Works (And Why Base64 Adds 33% Overhead)",
+        heading: "How does the 24-bit math work?",
         body: [
           <>
             64 equals 2<sup>6</sup>, so each Base64 character carries 6 bits, while a byte carries 8
@@ -1897,6 +1941,12 @@ export const guides: Guide[] = [
               Word Counter
             </Link>
             .
+          </>,
+          <>
+            The 33% figure scales exactly: 300 bytes become 400 characters, and 1 MiB (1,048,576
+            bytes) becomes 1,398,101 characters before any line wrapping. That is why Base64 is a
+            transport compromise, not a storage format — you pay a third more space for the
+            privilege of travelling through text-only systems.
           </>,
         ],
       },
@@ -1940,6 +1990,44 @@ export const guides: Guide[] = [
           </>,
         ],
       },
+      {
+        heading: "When should I use Base64 — and when not?",
+        body: [
+          <>
+            Base64 is the right tool when the channel only carries text. When the channel can carry
+            bytes, sending bytes is smaller and faster. The table is the decision in one place.
+          </>,
+          <div key="base64-use-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Situation</th>
+                <th className="border border-outline-variant/60 p-3">Use Base64?</th>
+                <th className="border border-outline-variant/60 p-3">Better alternative</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Email attachment (MIME)</td><td className="border border-outline-variant/60 p-3">Yes — the standard</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Small image in a data URL</td><td className="border border-outline-variant/60 p-3">Yes, under ~2 KB</td><td className="border border-outline-variant/60 p-3">Separate file for larger images</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Binary field inside JSON</td><td className="border border-outline-variant/60 p-3">Yes</td><td className="border border-outline-variant/60 p-3">Multipart upload for large files</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">JWT header / payload</td><td className="border border-outline-variant/60 p-3">Yes — Base64URL variant</td><td className="border border-outline-variant/60 p-3">—</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">File upload from a form</td><td className="border border-outline-variant/60 p-3">No</td><td className="border border-outline-variant/60 p-3">multipart/form-data sends raw bytes</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Storing files in a database</td><td className="border border-outline-variant/60 p-3">No</td><td className="border border-outline-variant/60 p-3">Binary column or object storage</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Hiding a password or secret</td><td className="border border-outline-variant/60 p-3">Never</td><td className="border border-outline-variant/60 p-3">Hashing for passwords, encryption for secrets</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            One variant deserves its own paragraph. Base64URL replaces <code>+</code> with{" "}
+            <code>-</code> and <code>/</code> with <code>_</code>, and usually drops the{" "}
+            <code>=</code> padding, so the output is safe inside URLs and filenames without
+            percent-encoding. JWTs use Base64URL for all three of their segments. Standard and URL
+            variants are not interchangeable: feeding a Base64URL string to a standard decoder
+            fails on the <code>-</code> and <code>_</code> characters, so check which alphabet your
+            input uses before decoding.
+          </>,
+        ],
+      },
     ],
     faq: [
       {
@@ -1952,6 +2040,16 @@ export const guides: Guide[] = [
         answer:
           "For tiny icons under about 2 KB, inlining saves an HTTP request. Avoid it for large photos — the 33% size bloat plus no independent caching makes the page slower, not faster.",
       },
+      {
+        question: "What is Base64URL and how is it different?",
+        answer:
+          "Base64URL is the URL-safe variant: it replaces + with - and / with _, and usually omits the = padding, so the output can sit in a URL or filename without percent-encoding. JWTs use it. Standard and URL variants are not interchangeable — decode with the matching alphabet.",
+      },
+      {
+        question: "Can Base64 encode Unicode text like Hindi or emoji?",
+        answer:
+          "Yes, but encode the text to UTF-8 bytes first, then Base64-encode the bytes. JavaScript's btoa() only handles Latin-1 characters and throws on characters outside that range, so convert with TextEncoder (or encodeURIComponent) before calling btoa, and reverse the steps when decoding.",
+      },
     ],
     related: ["base64-encoder-decoder", "word-counter", "invoice-generator"],
     pillar: { label: "All Tools", href: "/tools/" },
@@ -1959,7 +2057,7 @@ export const guides: Guide[] = [
   {
     slug: "how-browser-text-to-speech-web-speech-api-works",
     title: "How Browser Text-to-Speech Works: Unlimited Reading Without Cloud Paywalls",
-    seoTitle: "How Browser Text-to-Speech Works (Web Speech API Guide & Pacing) | Tulyro",
+    seoTitle: "Browser Text-to-Speech — How It Works | Tulyro",
     seoDescription:
       "Discover how native browser text-to-speech reads unlimited words offline without cloud paywalls, optimal WPM listening speeds, and how to proofread by ear.",
     href: "/guides/how-browser-text-to-speech-web-speech-api-works/",
@@ -1979,7 +2077,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the Text-to-Speech Reader", href: "/text/text-to-speech/" },
     sections: [
       {
-        heading: "How Client-Side Speech Synthesis Works Under the Hood",
+        heading: "How does client-side speech synthesis work?",
         body: [
           <>
             The browser invokes the operating system&apos;s speech engine locally. Windows 10 and 11
@@ -1987,6 +2085,17 @@ export const guides: Guide[] = [
             macOS and iOS use AVSpeechSynthesizer (Samantha, Daniel, Rishi); Android and ChromeOS use
             Google Speech Services. The text never leaves your device for local voices, there is no
             character count to pay for, and playback starts instantly.
+          </>,
+          <>
+            In code, the moving parts are small. The page creates a <code>SpeechSynthesisUtterance</code>
+            holding the text plus three controls — <code>rate</code>, <code>pitch</code>, and{" "}
+            <code>volume</code> — picks a voice from <code>speechSynthesis.getVoices()</code>, and
+            calls <code>speechSynthesis.speak()</code>. The voice list loads asynchronously in some
+            browsers, so reliable code waits for the <code>voiceschanged</code> event before
+            choosing a voice; reading the list too early returns an empty array in Chrome. Long
+            documents work best split into paragraph-sized utterances queued in order: a single
+            giant utterance is more likely to stall or stop partway through in some browsers, and
+            paragraph chunks make pause, resume, and &ldquo;start from here&rdquo; straightforward.
           </>,
         ],
       },
@@ -2018,7 +2127,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Why Proofreading With TTS Catches More Errors",
+        heading: "Why does proofreading with TTS catch more errors?",
         body: [
           <>
             Silent reading is predictive: your brain auto-corrects and shows you the words you
@@ -2038,6 +2147,26 @@ export const guides: Guide[] = [
           </>,
         ],
       },
+      {
+        heading: "How long will my text take to listen to?",
+        body: [
+          <>
+            Divide the word count by the listening speed: minutes = words ÷ WPM. An 800-word article
+            at the default 160 WPM takes exactly 5 minutes. A 1,500-word essay takes 10 minutes at
+            150 WPM, 8 minutes 20 seconds at 180 WPM, 7 minutes 30 seconds at 200 WPM, and 6 minutes
+            at 250 WPM. Numbers, abbreviations, and code slow the effective rate down — a voice
+            spells out or expands them — so treat the result as a floor for technical text, not a
+            promise.
+          </>,
+          <>
+            Speed is a comprehension trade-off, not a free win. Most listeners follow familiar
+            material comfortably up to about 1.5×, but dense or unfamiliar material needs the
+            default rate or slower. If you find yourself rewinding, you are past your speed, not
+            behind on the material. For study notes, a useful pattern is one pass at 1.5× to find
+            the structure, then a second pass at 1.0× on the sections that matter.
+          </>,
+        ],
+      },
     ],
     faq: [
       {
@@ -2050,6 +2179,16 @@ export const guides: Guide[] = [
         answer:
           "Yes. OS-native local voices work fully offline once the page is open. Some browser voices are provided online and need a connection — the tool tells you which voices are local.",
       },
+      {
+        question: "How do I change the voice?",
+        answer:
+          "Voices come from your operating system, so the list depends on your device. In the reader, open the voice picker and try each voice on a sentence or two — names differ between Windows, macOS, Android, and Chrome. If a voice you want is missing, install it in your OS language settings; the browser picks up newly installed voices after a restart.",
+      },
+      {
+        question: "Why does playback stop in the middle of a long document?",
+        answer:
+          "Some browsers pause or drop very long utterances, and mobile browsers may stop speech when the tab goes to background or the screen locks. The reliable fix is to split the text into paragraph-sized chunks and queue them, and to keep the tab in the foreground while listening. Shorter chunks also make it easy to resume from where you stopped.",
+      },
     ],
     related: ["text-to-speech", "word-counter", "fancy-text-generator"],
     pillar: { label: "All Text Tools", href: "/text/" },
@@ -2057,7 +2196,7 @@ export const guides: Guide[] = [
   {
     slug: "how-unicode-fancy-text-fonts-work-on-social-media",
     title: "How Unicode Fancy Text Works: Why You Can Copy-Paste Bold & Cursive into Plain Text",
-    seoTitle: "How Unicode Fancy Text Fonts Work on Instagram, LinkedIn & X | Tulyro",
+    seoTitle: "Unicode Fancy Text — How Copy-Paste Fonts Work | Tulyro",
     seoDescription:
       "Learn why copy-paste fancy text fonts work in plain-text social media bios using Unicode Mathematical Alphanumeric Symbols, plus key accessibility rules.",
     href: "/guides/how-unicode-fancy-text-fonts-work-on-social-media/",
@@ -2077,7 +2216,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the Fancy Text Generator", href: "/text/fancy-text-generator/" },
     sections: [
       {
-        heading: "Fonts vs. Unicode Characters",
+        heading: "Are fancy fonts actually fonts?",
         body: [
           <>
             In Word or Google Docs, bold is the ASCII letter A (U+0041) plus a &lt;strong&gt; tag.
@@ -2087,6 +2226,16 @@ export const guides: Guide[] = [
             mathematicians could distinguish a scalar A, a vector A, and a set A in plain text. The
             styled symbols travel inside the string itself — no CSS, no font file, no formatting to
             lose.
+          </>,
+          <>
+            The substitution is one character for one character: A becomes 𝐀 (bold), 𝐴 (italic),
+            𝒜 (script), 𝔄 (fraktur), or 𝔸 (double-struck), depending on the style. Digits and
+            Greek letters have styled variants in the same block, and some styles also exist in
+            other blocks — circled letters, full-width forms, and small caps come from elsewhere in
+            Unicode. Because each styled letter is a different code point from the plain letter, a
+            search for &ldquo;Tulyro&rdquo; does not match &ldquo;𝐓𝐮𝐥𝐲𝐫𝐨&rdquo; unless the
+            platform normalises the text first. That single fact drives most of the rules in this
+            guide.
           </>,
         ],
       },
@@ -2132,6 +2281,37 @@ export const guides: Guide[] = [
           </>,
         ],
       },
+      {
+        heading: "Where does fancy text break?",
+        body: [
+          <>
+            <strong>In links and addresses.</strong> A styled character in a URL, email address, or
+            username is a different character from the plain one, so the link breaks or points
+            nowhere. Keep every functional string — URLs, handles, hashtags, email addresses — in
+            plain ASCII, and style only the display text around it.
+          </>,
+          <>
+            <strong>In search.</strong> Platform search indexes the literal code points. A bio that
+            says only &ldquo;𝐃𝐢𝐠𝐢𝐭𝐚𝐥 𝐌𝐚𝐫𝐤𝐞𝐭𝐞𝐫&rdquo; may not surface for a search
+            for &ldquo;Digital Marketer&rdquo;. The safe pattern is one styled hook line plus the
+            same keywords in plain text elsewhere in the bio.
+          </>,
+          <>
+            <strong>In screen readers.</strong> Some readers announce each styled letter by its
+            Unicode name — &ldquo;mathematical bold capital T&rdquo; — which turns a styled
+            sentence into an unusable stream. Others skip the characters entirely. Either way, a
+            long styled paragraph is inaccessible. Short hooks (a name, a headline) are the
+            compromise most accessibility-conscious creators settle on.
+          </>,
+          <>
+            <strong>On old devices.</strong> A device whose fonts lack the U+1D400 block shows
+            empty boxes (&ldquo;tofu&rdquo;) instead of letters. Modern phones and computers cover
+            the block, but older TVs, some e-readers, and stripped-down embedded displays do not.
+            If your audience skews older hardware, test the bio on a second device before
+            publishing.
+          </>,
+        ],
+      },
     ],
     faq: [
       {
@@ -2144,6 +2324,16 @@ export const guides: Guide[] = [
         answer:
           "No — one to three short styled headers can improve dwell time. But putting core keywords only in Unicode can block exact-keyword search, so keep searchable terms in plain ASCII.",
       },
+      {
+        question: "Can I use fancy text in a URL, email address or username?",
+        answer:
+          "No. Styled letters are different Unicode code points from plain letters, so a styled URL does not resolve and a styled username is a different username. Keep all functional strings in plain ASCII and style only display text.",
+      },
+      {
+        question: "Why does fancy text use more of my character limit?",
+        answer:
+          "Characters above U+FFFF are stored as two UTF-16 code units (a surrogate pair), so platforms that count UTF-16 units — including X — charge two characters for one visible fancy letter. They also take 4 bytes each in UTF-8 versus 1 byte for ASCII. Check the exact count in a word counter before posting.",
+      },
     ],
     related: ["fancy-text-generator", "fake-text-generator", "word-counter"],
     pillar: { label: "All Text Tools", href: "/text/" },
@@ -2151,9 +2341,9 @@ export const guides: Guide[] = [
   {
     slug: "how-to-create-chat-mockups-for-presentations-and-ui",
     title: "How to Create Clean Chat Mockups for Video Editing, Presentations & UI Design",
-    seoTitle: "How to Create Realistic Chat Mockups for Videos, UI & Decks (No Watermark) | Tulyro",
+    seoTitle: "Chat Mockups — Realistic Screenshots, No Watermark | Tulyro",
     seoDescription:
-      "Learn how video editors, educators, and UI designers create crisp, watermark-free chat message screenshots for Reels, Shorts, and slide decks in the browser.",
+      "Crisp, watermark-free chat screenshots for Reels, Shorts and slide decks. Design specs, authentic dialogue tips and the ethics of fake chats.",
     href: "/guides/how-to-create-chat-mockups-for-presentations-and-ui/",
     intro: [
       <>
@@ -2226,6 +2416,36 @@ export const guides: Guide[] = [
             </Link>{" "}
             first, then paste it into the mockup builder.
           </>,
+          <>
+            Two more details sell realism. First, typing indicators and read receipts: a
+            &ldquo;typing…&rdquo; bubble before a reply, or a read time under the last message,
+            signals a live conversation rather than a static graphic. Use them once per exchange —
+            every bubble with a receipt looks staged. Second, message length rhythm: real chats
+            alternate short reactions (&ldquo;haha&rdquo;, &ldquo;wait really?&rdquo;) with longer
+            explanations. A mockup where every bubble is the same length reads as written copy, not
+            conversation, even when the words are natural.
+          </>,
+        ],
+      },
+      {
+        heading: "How do I export a mockup for video?",
+        body: [
+          <>
+            Export the mockup as a transparent PNG at the size your timeline needs, then animate it
+            in your editor rather than baking motion into the image. The usual pattern: the chat
+            card slides or pops in bubble by bubble, each bubble appearing on a beat, with the
+            previous bubbles staying visible. Keep the card large enough to read on a phone — text
+            that is legible at full screen on a laptop is often unreadable at phone width, which is
+            why the spec table caps words per bubble by format.
+          </>,
+          <>
+            If the mockup sits over B-roll, add a subtle shadow or a darkened backing panel so the
+            bubbles separate from the footage behind them. And export one frame longer than you
+            think you need: viewers read slower than editors expect, and a bubble that vanishes
+            after 1.5 seconds will be rewatched or missed entirely. The pacing column in the spec
+            table (about 2 seconds per bubble for vertical video) is a floor, not a target — add
+            time for longer bubbles.
+          </>,
         ],
       },
       {
@@ -2251,6 +2471,16 @@ export const guides: Guide[] = [
         answer:
           "No. Messages are rendered in browser local memory only; refreshing the page clears the session.",
       },
+      {
+        question: "Can I use a chat mockup in a commercial video or ad?",
+        answer:
+          "Yes, for fictional dialogue you wrote yourself. The restriction is about deception, not commerce: do not present a fabricated conversation as a real customer testimonial, a real chat with a real person, or evidence of anything. Label fictional conversations when the context could mislead viewers.",
+      },
+      {
+        question: "Why does my mockup look blurry in the exported video?",
+        answer:
+          "Usually the mockup was exported smaller than the timeline resolution and scaled up, or compressed twice (once on export, once by the platform). Export at or above your timeline size — 1080 pixels wide for vertical video — as PNG, and let the platform do the only lossy compression step.",
+      },
     ],
     related: ["fake-text-generator", "fancy-text-generator", "text-to-speech"],
     pillar: { label: "All Tools", href: "/tools/" },
@@ -2258,7 +2488,7 @@ export const guides: Guide[] = [
   {
     slug: "sip-vs-lumpsum",
     title: "SIP vs Lumpsum Investment: Which Generates Better Returns?",
-    seoTitle: "SIP vs Lumpsum: Which Is Better for Mutual Funds? (Calculations & Formula) | Tulyro",
+    seoTitle: "SIP vs Lumpsum — Which Is Better? Math Inside | Tulyro",
     seoDescription:
       "Compare SIP vs Lumpsum investing with exact math, rupee cost averaging breakdowns, market cycle risks, and tax implications. Includes worked examples.",
     href: "/guides/sip-vs-lumpsum/",
@@ -2278,6 +2508,34 @@ export const guides: Guide[] = [
           <>
             In a <strong>Systematic Investment Plan (SIP)</strong>, your capital is broken into fixed periodic intervals (usually monthly). By investing the same rupee amount every month regardless of index movements, you purchase fewer mutual fund units when Net Asset Values (NAVs) are high and more units when NAVs plummet. This mechanism—known as <em>rupee cost averaging</em>—neutralizes emotional panic and eliminates the impossible chore of market timing.
           </>,
+          <>
+            Rupee cost averaging in numbers: invest ₹10,000 at three NAVs — ₹100, ₹80, and ₹125.
+            You get 100 + 125 + 80 = 305 units for ₹30,000, an average cost of ₹98.36 per unit,
+            below the average NAV of ₹101.67. The averaging works because the same rupees buy more
+            units when prices fall. It lowers your average cost in volatile markets; it does not
+            guarantee a profit — if the NAV ends below your average cost, the investment still
+            loses money.
+          </>,
+          <div key="sip-lumpsum-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Feature</th>
+                <th className="border border-outline-variant/60 p-3">SIP</th>
+                <th className="border border-outline-variant/60 p-3">Lumpsum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Capital needed upfront</td><td className="border border-outline-variant/60 p-3">One instalment</td><td className="border border-outline-variant/60 p-3">Full amount on day one</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Time in the market</td><td className="border border-outline-variant/60 p-3">Staggered; later instalments compound less</td><td className="border border-outline-variant/60 p-3">Maximum; all money compounds from day one</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Timing risk</td><td className="border border-outline-variant/60 p-3">Spread across many entry points</td><td className="border border-outline-variant/60 p-3">Concentrated on one entry date</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Rupee cost averaging</td><td className="border border-outline-variant/60 p-3">Yes, automatic</td><td className="border border-outline-variant/60 p-3">No</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Best for</td><td className="border border-outline-variant/60 p-3">Monthly salary, volatile markets</td><td className="border border-outline-variant/60 p-3">Windfalls, long horizons, rising markets</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Return measure</td><td className="border border-outline-variant/60 p-3">XIRR (dated cash flows)</td><td className="border border-outline-variant/60 p-3">CAGR (two cash flows)</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Tax holding period</td><td className="border border-outline-variant/60 p-3">Per instalment; each needs 12 months for LTCG</td><td className="border border-outline-variant/60 p-3">One holding period for the whole amount</td></tr>
+            </tbody>
+            </table>
+          </div>,
         ],
       },
       {
@@ -2356,6 +2614,11 @@ export const guides: Guide[] = [
         answer:
           "Yes. Most asset management companies offer a 'Step-Up SIP' feature allowing you to automatically increase your monthly investment by a fixed percentage or rupee amount annually.",
       },
+      {
+        question: "Should I stop my SIP when markets fall?",
+        answer:
+          "A falling market is when rupee cost averaging does its work: the same instalment buys more units. Stopping an SIP during a fall locks in the higher average cost of earlier instalments and misses the cheaper units. The exception is a genuine cash emergency — never invest money you need within the next year or two.",
+      },
     ],
     related: ["sip-calculator", "ppf-calculator", "emi-calculator"],
     pillar: { label: "Calculators", href: "/calculators/" },
@@ -2363,9 +2626,9 @@ export const guides: Guide[] = [
   {
     slug: "college-75-percent-attendance-rule-explained",
     title: "The 75% College Attendance Rule: Criteria, Bunk Limits & Medical Condonation",
-    seoTitle: "75% Attendance Rule Explained: How Many Classes Can You Bunk? (UGC & AICTE) | Tulyro",
+    seoTitle: "75% Attendance Rule — How Many Classes to Bunk? | Tulyro",
     seoDescription:
-      "Understand the 75% attendance rule under UGC, AICTE, and university norms. Learn how to calculate bunkable classes, medical condonation, and exam detention rules.",
+      "75% means you can miss 1 class in 4 — with the exact bunk formula, worked examples, medical condonation rules and how to recover a shortage.",
     href: "/guides/college-75-percent-attendance-rule-explained/",
     intro: [
       <>
@@ -2375,7 +2638,7 @@ export const guides: Guide[] = [
     cta: { label: "Check Your Bunk Limit", href: "/calculators/attendance-calculator/" },
     sections: [
       {
-        heading: "Why Universities Mandate 75% Attendance",
+        heading: "Why do universities require 75% attendance?",
         body: [
           <>
             Regulatory bodies such as the University Grants Commission (UGC) and All India Council for Technical Education (AICTE) prescribe 75% minimum physical presence to ensure continuous academic engagement, lab practical competency, and standardized evaluation integrity.
@@ -2386,7 +2649,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The Math: How to Calculate Bunkable Classes",
+        heading: "How many classes can I bunk?",
         body: [
           <>
             Students often make the costly mistake of assuming that having an 85% attendance rate means they can skip 10 consecutive lectures. Attendance percentages do not subtract linearly because the total class count increases with each skipped lecture.
@@ -2400,10 +2663,34 @@ export const guides: Guide[] = [
           <>
             For instance, if 60 lectures have been conducted so far and you attended 54: Attended = 54, Target ratio = 54 / 0.75 = 72, Bunkable buffer = 72 - 60 = <strong>12 classes</strong>. If you skip the next 12 lectures, total classes reach 72 while attended remains 54, landing you at exactly 75.0%.
           </>,
+          <>
+            For a whole semester, the arithmetic is simpler: you must attend three quarters of all
+            classes, so you can miss one quarter. The table gives the exact split for common
+            semester lengths — but check whether your university counts attendance overall or per
+            subject, because a comfortable overall percentage can hide a shortage in one subject.
+          </>,
+          <div key="attendance-bunk-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Classes in the semester</th>
+                <th className="border border-outline-variant/60 p-3">Must attend (75%)</th>
+                <th className="border border-outline-variant/60 p-3">Can miss</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">40</td><td className="border border-outline-variant/60 p-3">30</td><td className="border border-outline-variant/60 p-3">10</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">60</td><td className="border border-outline-variant/60 p-3">45</td><td className="border border-outline-variant/60 p-3">15</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">80</td><td className="border border-outline-variant/60 p-3">60</td><td className="border border-outline-variant/60 p-3">20</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">100</td><td className="border border-outline-variant/60 p-3">75</td><td className="border border-outline-variant/60 p-3">25</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">120</td><td className="border border-outline-variant/60 p-3">90</td><td className="border border-outline-variant/60 p-3">30</td></tr>
+            </tbody>
+            </table>
+          </div>,
         ],
       },
       {
-        heading: "Recovering from an Attendance Shortage",
+        heading: "How do I recover from an attendance shortage?",
         body: [
           <>
             If your current attendance has fallen below 75%, how many consecutive classes must you attend without missing a single period to restore compliance?
@@ -2447,6 +2734,11 @@ export const guides: Guide[] = [
         answer:
           "If the university ERP logs attendance by lecture period, a 2-hour continuous class usually logs as 2 distinct absences.",
       },
+      {
+        question: "Is attendance calculated overall or per subject?",
+        answer:
+          "It varies by university. Some require 75% overall, others require 75% in each subject — and many professional programmes track theory and labs separately. Check your university's academic regulations or your ERP portal: a comfortable overall percentage can hide a shortage in a single subject.",
+      },
     ],
     related: ["attendance-calculator", "sgpa-to-cgpa"],
     pillar: { label: "Calculators", href: "/calculators/" },
@@ -2454,9 +2746,9 @@ export const guides: Guide[] = [
   {
     slug: "emi-vs-flat-rate-interest",
     title: "EMI vs Flat Rate Interest: How Lenders Hide Real Loan Costs",
-    seoTitle: "EMI vs Flat Rate Interest: Real Calculation & Difference | Tulyro",
+    seoTitle: "EMI vs Flat Rate — The Real Cost Compared | Tulyro",
     seoDescription:
-      "Understand reducing balance EMI vs flat rate interest. See worked examples showing why an 8% flat rate is actually a 14.5% reducing balance loan.",
+      "An 8% flat rate costs ₹11,667 a month on ₹5 lakh; a 12% reducing loan costs ₹11,122. The flat quote is really about 14% reducing. See the math.",
     href: "/guides/emi-vs-flat-rate-interest/",
     intro: [
       <>
@@ -2491,6 +2783,24 @@ export const guides: Guide[] = [
           <>
             Notice the catch: The &quot;8% flat rate&quot; costs you ₹11,667 per month (Total ₹7,00,000), while the &quot;12% reducing balance&quot; costs you only ₹11,122 per month (Total ₹6,67,333). You pay ₹32,667 more interest on the supposedly lower 8% quote!
           </>,
+          <div key="flat-vs-reducing-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">₹5,00,000 over 5 years</th>
+                <th className="border border-outline-variant/60 p-3">8% flat rate</th>
+                <th className="border border-outline-variant/60 p-3">12% reducing balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Monthly payment</td><td className="border border-outline-variant/60 p-3">₹11,667</td><td className="border border-outline-variant/60 p-3">₹11,122</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Total interest</td><td className="border border-outline-variant/60 p-3">₹2,00,000</td><td className="border border-outline-variant/60 p-3">₹1,67,333</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Total repaid</td><td className="border border-outline-variant/60 p-3">₹7,00,000</td><td className="border border-outline-variant/60 p-3">₹6,67,333</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Interest charged on</td><td className="border border-outline-variant/60 p-3">Full ₹5,00,000, all 5 years</td><td className="border border-outline-variant/60 p-3">Outstanding balance, falling monthly</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">True reducing rate</td><td className="border border-outline-variant/60 p-3">About 14.1%</td><td className="border border-outline-variant/60 p-3">12% as quoted</td></tr>
+            </tbody>
+            </table>
+          </div>,
         ],
       },
       {
@@ -2503,7 +2813,7 @@ export const guides: Guide[] = [
             Effective Reducing Rate ≈ Flat Rate × 1.85.
           </>,
           <>
-            Therefore, an advertised <strong>8% flat rate</strong> translates to an effective annual percentage rate (APR) of roughly <strong>14.5% to 15.0%</strong>. Always ask the lender for the Annual Percentage Rate (APR) or Reducing Balance Rate before signing loan documents.
+            Therefore, an advertised <strong>8% flat rate</strong> translates to roughly <strong>14% to 15%</strong> on the reducing-balance basis by the rule of thumb (8 × 1.85 = 14.8%). Solving the actual cash flows exactly — finding the reducing rate whose EMI equals the flat-rate instalment of ₹11,667 — gives about <strong>14.1%</strong> for this 5-year loan. The rule of thumb is a quick check, not the exact rate: it runs a little high here because it ignores the exact tenure. Always ask the lender for the Annual Percentage Rate (APR) or Reducing Balance Rate before signing loan documents.
           </>,
         ],
       },
@@ -2524,6 +2834,11 @@ export const guides: Guide[] = [
         answer:
           "RBI guidelines mandate that banks and NBFCs disclose the true Annual Percentage Rate (APR) and Key Fact Statement (KFS) to the borrower before loan disbursement.",
       },
+      {
+        question: "How do I find the true rate of a flat-rate quote?",
+        answer:
+          "Compute the flat instalment first: (principal + total flat interest) ÷ months. Then find the reducing-balance rate whose EMI equals that instalment — for the ₹5 lakh, 5-year, 8% flat example it is about 14.1%. An EMI calculator with the same principal and tenure gives you the comparison in seconds; the 1.85× rule of thumb is only a rough check.",
+      },
     ],
     related: ["emi-calculator", "mortgage-calculator", "sip-calculator"],
     pillar: { label: "Calculators", href: "/calculators/" },
@@ -2531,47 +2846,159 @@ export const guides: Guide[] = [
   {
     slug: "swp-vs-fd-for-retirement-income",
     title: "SWP vs Fixed Deposit: Which is Better for Regular Monthly Income?",
-    seoTitle: "SWP vs FD for Monthly Income — Tax & Returns Compared | Tulyro",
+    seoTitle: "SWP vs FD — Monthly Income Compared | Tulyro",
     seoDescription:
-      "Detailed comparison of Mutual Fund Systematic Withdrawal Plan (SWP) vs Bank Fixed Deposit (FD) for monthly retirement income, tax efficiency, and capital safety.",
+      "₹50 lakh at 7% pays ₹29,167 a month from an FD. See what an SWP pays, what tax each route faces, and when guaranteed income wins.",
     href: "/guides/swp-vs-fd-for-retirement-income/",
     intro: [
       <>
         For retirees and individuals seeking monthly cash flow, the two primary options are a Bank Fixed
-        Deposit (FD) paying monthly interest and a Mutual Fund Systematic Withdrawal Plan (SWP). While
-        FDs offer guaranteed capital protection, SWPs provide superior post-tax cash flows and long-term
-        inflation protection.
+        Deposit (FD) paying monthly interest and a Mutual Fund Systematic Withdrawal Plan (SWP). An FD
+        pays a fixed, known amount and returns your principal at maturity. An SWP sells fund units each
+        month, so the income can rise or fall with the market — and the tax treatment is different
+        because only the gains portion of each withdrawal is taxed. Neither option wins in every
+        situation: this guide works both options on the same ₹50 lakh corpus so you can see the
+        trade-off in rupees, not slogans.
       </>,
     ],
     cta: { label: "Calculate SWP Returns", href: "/calculators/swp-calculator/" },
     sections: [
       {
-        heading: "Taxation: Where SWP Beats Fixed Deposits",
+        heading: "How much income does each option pay?",
         body: [
           <>
-            Fixed Deposit interest is fully taxable according to your income tax slab rate (up to 30% plus
-            surcharge). Furthermore, banks deduct TDS on interest exceeding ₹40,000 (₹50,000 for senior
-            citizens).
+            Same starting point for both: a corpus of ₹50,00,000. The FD rate below is an assumed 7%
+            per year — use the rate your bank actually quotes, because the monthly figure moves
+            directly with it. The SWP figures are illustrations at steady assumed growth rates, not
+            promises: fund returns vary, and a bad year early on changes the outcome (see the
+            sequence-risk note below).
           </>,
           <>
-            In contrast, an SWP withdrawal is treated as a redemption of mutual fund units. Only the
-            capital gain component of each withdrawal is taxed, not the principal amount. For equity mutual
-            funds held over 12 months, long-term capital gains (LTCG) above ₹1.25 lakh per financial year
-            are taxed at 12.5%.
+            <strong>FD at 7% with monthly interest payout:</strong> ₹50,00,000 × 7% ÷ 12 =
+            ₹29,167 a month, or ₹3,50,000 a year. The principal stays intact and is returned at
+            maturity. That is the whole calculation — there is no market variable.
+          </>,
+          <>
+            <strong>SWP withdrawing ₹30,000 a month:</strong> that is ₹3,60,000 a year, a 7.2%
+            withdrawal rate on ₹50,00,000. If the fund grew at a steady illustrative 8% a year, the
+            balance after one year would be about ₹50,41,500 and after five years about ₹52,44,923,
+            after withdrawing ₹18,00,000 in total. At a steady illustrative 6%, the balance after
+            one year would be about ₹49,38,322. And with no growth at all, withdrawing ₹30,000 a
+            month for a year leaves ₹46,40,000. The SWP balance is whatever the market leaves
+            behind — it can end higher or lower than where it started.
+          </>,
+          <>
+            The honest comparison is not ₹29,167 versus ₹30,000. The FD figure is fixed for the
+            deposit tenure; the SWP figure is a chosen withdrawal amount that you can raise, lower,
+            or stop, and the corpus behind it moves with the market. A withdrawal rate above what
+            the fund earns will shrink the corpus year by year, which is why the rate you choose
+            matters more than the product you choose. Try different rates in our{" "}
+            <Link href="/calculators/swp-calculator/" className="text-primary underline">
+              SWP Calculator
+            </Link>{" "}
+            before committing to a monthly figure.
           </>,
         ],
       },
       {
-        heading: "Inflation Protection and Wealth Preservation",
+        heading: "How is each option taxed?",
         body: [
           <>
-            Bank FD rates typically hover around 6.5% to 7.5%, barely matching consumer price inflation
-            over a 10 to 15 year horizon. Over time, the purchasing power of your initial deposit erodes.
+            Fixed Deposit interest is fully taxable according to your income tax slab rate (up to 30% plus
+            surcharge and cess). Banks deduct TDS at 10% on interest exceeding ₹40,000 in a year
+            (₹50,000 for senior citizens) when your PAN is on record — TDS is advance tax, credited
+            against your final liability, not an extra tax. On the example above, ₹3,50,000 of annual
+            interest taxed at a 30% slab rate means ₹1,05,000 of tax before cess and surcharge, leaving
+            about ₹20,417 a month after tax. At a 20% slab rate the same interest leaves about
+            ₹23,333 a month; at 5%, about ₹27,708.
           </>,
           <>
-            Conservative hybrid or balanced advantage mutual funds historically generate 9% to 12%
-            annualized returns. By maintaining a withdrawal rate of 6% to 7%, your remaining corpus
-            continues to compound, preserving and growing your capital against inflation.
+            In contrast, an SWP withdrawal is treated as a redemption of mutual fund units. Only the
+            capital gain component of each withdrawal is taxed, not the principal amount. For
+            equity-oriented funds held over 12 months, long-term capital gains (LTCG) above ₹1.25 lakh
+            per financial year are taxed at 12.5% (before cess and surcharge). Illustrative example: if
+            40% of each ₹30,000 withdrawal were gains, the year&apos;s gains would be ₹1,44,000, of
+            which ₹19,000 sits above the ₹1.25 lakh exemption, giving tax of ₹2,375 for the year. If
+            the gains portion were smaller, the tax could be zero. That is where the SWP tax
+            advantage comes from — but it is conditional, not automatic.
+          </>,
+          <>
+            The condition is the fund type. The 12.5% LTCG treatment above applies to equity-oriented
+            funds. Gains from debt-oriented funds bought on or after 1 April 2023 are generally taxed
+            at your slab rate regardless of how long you hold them, so an SWP from such a fund gets no
+            special rate — only the part-gains, part-principal split still helps. Units redeemed
+            within 12 months of purchase face short-term rates instead. Tax rules change between
+            budgets, so check the current rules for your fund category before relying on any
+            illustration here.
+          </>,
+        ],
+      },
+      {
+        heading: "When does the FD win?",
+        body: [
+          <>
+            <strong>Guaranteed returns.</strong> The rate is fixed when you book the deposit, and the
+            payout does not depend on any market. For money that must cover rent, medicine, and
+            groceries, that certainty has real value — an SWP cannot promise next month&apos;s
+            withdrawal will leave the corpus intact.
+          </>,
+          <>
+            <strong>DICGC cover.</strong> Bank deposits are insured by the Deposit Insurance and Credit
+            Guarantee Corporation up to ₹5 lakh per depositor, per bank, counting principal and
+            interest together. Amounts above ₹5 lakh at one bank, and deposits with NBFCs, are not
+            covered — spreading large sums across banks is how depositors stay within the cover.
+            Mutual fund units have no equivalent insurance.
+          </>,
+          <>
+            <strong>Simplicity.</strong> There is no fund to choose, no NAV to watch, no withdrawal
+            rate to manage, and no decision to make when markets fall. You book the deposit, the
+            interest arrives monthly, and the principal returns at maturity. For someone who does not
+            want to monitor investments, that is a genuine advantage, not a consolation prize.
+          </>,
+          <>
+            The FD&apos;s weakness is the mirror image: the income is fixed in nominal rupees while
+            prices rise, so if inflation runs above your post-tax return, the same ₹29,167 buys less
+            each year. And at maturity you reinvest at whatever rate then prevails, which may be lower
+            than today&apos;s. An SWP&apos;s corpus <em>can</em> grow enough to raise withdrawals over
+            time — &ldquo;can&rdquo;, not &ldquo;will&rdquo;. Past fund returns do not guarantee future
+            returns, and no return figure in this guide should be read as one.
+          </>,
+        ],
+      },
+      {
+        heading: "SWP vs FD at a glance",
+        body: [
+          <>
+            The table summarises the worked example above: ₹50,00,000 corpus, FD at an assumed 7%,
+            SWP withdrawing ₹30,000 a month. Tax figures exclude cess and surcharge.
+          </>,
+          <div key="swp-fd-comparison-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Feature</th>
+                <th className="border border-outline-variant/60 p-3">Fixed Deposit</th>
+                <th className="border border-outline-variant/60 p-3">SWP (equity-oriented fund)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Monthly income (example)</td><td className="border border-outline-variant/60 p-3">₹29,167 fixed</td><td className="border border-outline-variant/60 p-3">₹30,000 chosen withdrawal</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Corpus after 1 year</td><td className="border border-outline-variant/60 p-3">₹50,00,000 intact</td><td className="border border-outline-variant/60 p-3">₹50,41,500 at steady 8% illustration; ₹46,40,000 at 0%</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Income certainty</td><td className="border border-outline-variant/60 p-3">Fixed for the tenure</td><td className="border border-outline-variant/60 p-3">Withdrawal fixed; corpus value varies</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">What is taxed</td><td className="border border-outline-variant/60 p-3">Full interest at slab rate</td><td className="border border-outline-variant/60 p-3">Gains portion only; 12.5% LTCG above ₹1.25 lakh/year</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Tax on the example</td><td className="border border-outline-variant/60 p-3">₹1,05,000/year at 30% slab</td><td className="border border-outline-variant/60 p-3">₹2,375/year in the 40%-gains illustration</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Capital protection</td><td className="border border-outline-variant/60 p-3">DICGC cover up to ₹5 lakh per bank</td><td className="border border-outline-variant/60 p-3">None; market risk throughout</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Inflation</td><td className="border border-outline-variant/60 p-3">Fixed income loses purchasing power if inflation exceeds the post-tax return</td><td className="border border-outline-variant/60 p-3">Corpus may grow, allowing higher withdrawals — not guaranteed</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Flexibility</td><td className="border border-outline-variant/60 p-3">Breaking early usually costs a penalty</td><td className="border border-outline-variant/60 p-3">Raise, lower, pause or stop withdrawals anytime</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Effort</td><td className="border border-outline-variant/60 p-3">Book once; nothing to monitor</td><td className="border border-outline-variant/60 p-3">Choose a fund, set a rate, review periodically</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Many retirees split the difference: FDs (or other guaranteed income) for essential monthly
+            expenses, and an SWP for the discretionary part, where a variable corpus is acceptable.
+            That split is a budgeting choice, not a recommendation — the right mix depends on your
+            expenses, other income, and how much variability you can live with.
           </>,
         ],
       },
@@ -2580,7 +3007,7 @@ export const guides: Guide[] = [
       {
         question: "Is SWP safe for senior citizens?",
         answer:
-          "SWP from conservative hybrid, debt, or multi-asset funds is widely used by senior citizens because it generates predictable cash flows while offering significantly higher tax efficiency than FDs.",
+          "An SWP is not guaranteed income: the corpus rises and falls with the market, and withdrawals continue whether the fund is up or down. Senior citizens often use SWPs from conservative or balanced funds for part of their income, while keeping essential expenses covered by guaranteed income such as FDs or pensions. Safety here means matching the withdrawal rate to what the fund can plausibly sustain — not assuming it.",
       },
       {
         question: "Can an SWP deplete my initial capital?",
@@ -2592,6 +3019,16 @@ export const guides: Guide[] = [
         answer:
           "For resident Indian individuals, mutual funds do not deduct TDS on capital gains from domestic mutual fund redemptions.",
       },
+      {
+        question: "What happens if markets fall in the first years of an SWP?",
+        answer:
+          "Withdrawing a fixed rupee amount while unit prices are low redeems more units for the same money, so the corpus shrinks faster and has fewer units left to recover when markets rebound. This is sequence risk: the same average return produces a worse outcome if the bad years come first. Lowering the withdrawal temporarily during a fall, or holding a cash buffer for essential expenses, reduces the damage.",
+      },
+      {
+        question: "Can I use both an FD and an SWP?",
+        answer:
+          "Yes, and many retirees do: FD interest covers fixed monthly bills, while an SWP covers flexible spending. The FD portion gives certainty for essentials, the SWP portion gives flexibility and the chance of growth. The split depends on your monthly essential expenses and how much income variability you can tolerate.",
+      },
     ],
     related: ["swp-calculator", "sip-calculator", "lumpsum-calculator"],
     pillar: { label: "Calculators", href: "/calculators/" },
@@ -2599,7 +3036,7 @@ export const guides: Guide[] = [
   {
     slug: "cagr-vs-xirr-in-mutual-funds",
     title: "CAGR vs XIRR: Differences, Formulas, and When to Use Which",
-    seoTitle: "CAGR vs XIRR in Mutual Funds — Key Differences & Formulas | Tulyro",
+    seoTitle: "CAGR vs XIRR — Which Return Measure to Use | Tulyro",
     seoDescription:
       "Understand the difference between CAGR and XIRR. Learn when to use CAGR for lumpsum investments and XIRR for SIPs, with formulas and mathematical examples.",
     href: "/guides/cagr-vs-xirr-in-mutual-funds/",
@@ -2626,6 +3063,15 @@ export const guides: Guide[] = [
             investment and a final redemption value (lumpsum investing). It completely ignores intermediate
             deposits or withdrawals.
           </>,
+          <>
+            <strong>Worked example.</strong> You invest ₹1,00,000 once and it is worth ₹1,61,051 after
+            5 years. CAGR = (1,61,051 ÷ 1,00,000)<sup>(1/5)</sup> − 1 = 1.10 − 1 = 10% per year.
+            That does not mean the fund earned 10% every year — it may have earned 20% one year and
+            lost money the next. CAGR is the steady yearly rate that would take ₹1,00,000 to
+            ₹1,61,051 in 5 years. It smooths the journey into one number, which is exactly why it is
+            useful for comparing two lumpsum investments over the same period, and exactly why it
+            misleads when money went in at different times.
+          </>,
         ],
       },
       {
@@ -2642,7 +3088,56 @@ export const guides: Guide[] = [
             polynomial root-finding algorithms.
           </>,
           <>
+            <strong>Worked example.</strong> You invest ₹1,00,000 on 1 January 2023, add ₹50,000 on
+            1 January 2024, and the portfolio is worth ₹1,80,000 on 1 January 2026. Total invested:
+            ₹1,50,000. Absolute return: (₹1,80,000 − ₹1,50,000) ÷ ₹1,50,000 = 20%. XIRR — the
+            annualised rate that discounts every dated cash flow to zero — is 7.05%. Now watch what
+            CAGR does with the same numbers: (₹1,80,000 ÷ ₹1,50,000)<sup>(1/3)</sup> − 1 = 6.27%.
+            CAGR understates the return because it pretends all ₹1,50,000 was invested for the full
+            three years, when ₹50,000 of it was only invested for two. The gap between 7.05% and
+            6.27% is the timing error CAGR makes on staggered investments.
+          </>,
+          <>
+            The same error is larger for SIPs, where every instalment has a different start date. That
+            is why fund statements and portfolio apps report XIRR for SIP portfolios: it is the only
+            one of the two that knows when each rupee went in.
+          </>,
+          <>
             If you are still deciding between SIP and lumpsum as the investment route itself, see <Link href="/guides/sip-vs-lumpsum/" className="text-primary underline">SIP vs Lumpsum: which generates better returns</Link> for a worked 10-year comparison.
+          </>,
+        ],
+      },
+      {
+        heading: "Which measure should you use?",
+        body: [
+          <>
+            The decision is about the shape of your cash flows, not about which number looks better.
+            Use the table to pick, then check the result with the matching calculator.
+          </>,
+          <div key="cagr-xirr-decision-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Situation</th>
+                <th className="border border-outline-variant/60 p-3">Use</th>
+                <th className="border border-outline-variant/60 p-3">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">One lumpsum, one final value</td><td className="border border-outline-variant/60 p-3">CAGR</td><td className="border border-outline-variant/60 p-3">Only two cash flows; CAGR is exact</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Monthly SIP</td><td className="border border-outline-variant/60 p-3">XIRR</td><td className="border border-outline-variant/60 p-3">Each instalment has a different duration</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Irregular deposits or withdrawals</td><td className="border border-outline-variant/60 p-3">XIRR</td><td className="border border-outline-variant/60 p-3">Only XIRR uses exact dates and amounts</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Comparing two funds over the same dates</td><td className="border border-outline-variant/60 p-3">CAGR</td><td className="border border-outline-variant/60 p-3">Same start and end points make CAGR comparable</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Your whole portfolio&apos;s personal return</td><td className="border border-outline-variant/60 p-3">XIRR</td><td className="border border-outline-variant/60 p-3">Your deposits and withdrawals are part of the return</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Holding period under 1 year</td><td className="border border-outline-variant/60 p-3">Absolute return</td><td className="border border-outline-variant/60 p-3">Annualising a short period exaggerates the rate</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            One warning applies to both measures: neither knows about risk. A fund with a 12% CAGR
+            that fell 30% in one year and a fund with a 12% CAGR that rose steadily look identical
+            on this metric alone. Return measures answer &ldquo;how much?&rdquo;, never &ldquo;how
+            bumpy was the ride?&rdquo;
           </>,
         ],
       },
@@ -2663,6 +3158,16 @@ export const guides: Guide[] = [
         answer:
           "Brokerages display CAGR for individual stock holdings or point-to-point index comparisons, and XIRR for your overall mutual fund portfolio or SIP performance.",
       },
+      {
+        question: "Why is my XIRR different from the fund's published CAGR?",
+        answer:
+          "The fund's CAGR measures the fund's NAV growth between two dates, as if one lumpsum was invested throughout. Your XIRR measures your own dated cash flows — when you actually bought and sold. If you invested more before a rise, your XIRR beats the fund's CAGR; if you invested more before a fall, it trails it. Both numbers can be correct at the same time.",
+      },
+      {
+        question: "Can XIRR be negative?",
+        answer:
+          "Yes. If the current value of your investments is less than what you put in, XIRR is negative — it is the annualised rate of loss on your dated cash flows. A negative XIRR on a young SIP is common during a market fall and says nothing by itself about the long-term outcome.",
+      },
     ],
     related: ["cagr-calculator", "sip-calculator", "lumpsum-calculator"],
     pillar: { label: "Calculators", href: "/calculators/" },
@@ -2670,7 +3175,7 @@ export const guides: Guide[] = [
   {
     slug: "photo-and-signature-size-guide-for-govt-exams",
     title: "Govt Exam Photo & Signature Size Guide: SSC, UPSC, IBPS, NTA",
-    seoTitle: "Govt Exam Photo & Signature Size (20KB, 50KB) — SSC, UPSC | Tulyro",
+    seoTitle: "Govt Exam Photo Size — SSC, UPSC, IBPS, NTA | Tulyro",
     seoDescription:
       "Complete dimensions, DPI, and file size specifications (20KB to 50KB) for passport photos and signatures required by SSC, UPSC, IBPS, and NEET/JEE portals.",
     href: "/guides/photo-and-signature-size-guide-for-govt-exams/",
@@ -2687,6 +3192,37 @@ export const guides: Guide[] = [
       {
         heading: "Standard Photo & Signature Specifications by Exam Board",
         body: [
+          <>
+            The table below collects the usual specifications. Treat it as a starting point, not a
+            guarantee: every exam&apos;s notice is the final word, and specifications change between
+            cycles. If the table and your notice disagree, follow the notice.
+          </>,
+          <div key="exam-photo-size-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Exam / Portal</th>
+                <th className="border border-outline-variant/60 p-3">Photo</th>
+                <th className="border border-outline-variant/60 p-3">Signature</th>
+                <th className="border border-outline-variant/60 p-3">Format</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">SSC (CGL, CHSL, MTS, GD)</td><td className="border border-outline-variant/60 p-3">20–50 KB, 3.5 × 4.5 cm</td><td className="border border-outline-variant/60 p-3">10–20 KB, 4.0 × 2.0 cm</td><td className="border border-outline-variant/60 p-3">JPEG / JPG</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">UPSC (Civil Services, NDA, CDS)</td><td className="border border-outline-variant/60 p-3">20–300 KB, 350 × 350 px min, 1000 × 1000 px max</td><td className="border border-outline-variant/60 p-3">20–300 KB, same resolution range</td><td className="border border-outline-variant/60 p-3">JPEG / JPG</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">IBPS &amp; SBI</td><td className="border border-outline-variant/60 p-3">20–50 KB, 200 × 230 px</td><td className="border border-outline-variant/60 p-3">10–20 KB, 140 × 60 px</td><td className="border border-outline-variant/60 p-3">JPEG / JPG</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">NTA (NEET, JEE, CUET)</td><td className="border border-outline-variant/60 p-3">10–200 KB, 3.5 × 4.5 cm</td><td className="border border-outline-variant/60 p-3">Check your bulletin — many notices state 4–30 KB; recent bulletins vary</td><td className="border border-outline-variant/60 p-3">JPEG / JPG</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Two things in the table need explaining. First, recent SSC cycles capture the photograph
+            live through a webcam or phone camera during registration instead of accepting an
+            uploaded file — if your notice works that way, the file you prepare is the signature.
+            Second, UPSC notices have not all used the same ceiling: some cap the photograph lower
+            than 300 KB, so read the resolution and size lines of your own notice rather than
+            trusting any summary table, including this one.
+          </>,
           <>
             <strong>1. SSC (Staff Selection Commission):</strong>
             <br />
@@ -2711,7 +3247,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Common Pitfalls Causing Application Rejection",
+        heading: "What causes an application to be rejected?",
         body: [
           <>
             • <strong>File size mismatch:</strong> An image of 20.4 KB is rejected if the upper ceiling is
@@ -2722,6 +3258,34 @@ export const guides: Guide[] = [
             <br />
             • <strong>Background clutter:</strong> Most portals explicitly mandate a plain white or
             off-white background without shadows, hats, or dark glasses.
+          </>,
+        ],
+      },
+      {
+        heading: "How do I get a photo into the required size?",
+        body: [
+          <>
+            Work in this order: crop first, resize second, compress last. Cropping sets the shape
+            (3.5 × 4.5 cm is a portrait ratio of 7:9). Resizing sets the pixel dimensions. Compressing
+            sets the file size. Reversing the last two steps costs quality twice, because compressing
+            and then resizing re-encodes an already-compressed image.
+          </>,
+          <>
+            Aim for the middle of the allowed KB range, not the edge. A file at 49 KB passes a
+            20–50 KB check, but re-saving it once — in a different editor, or after adding a name
+            strip — can push it over 50 KB. A file at 30–35 KB has room for one more save. The same
+            logic applies at the bottom: a signature that compresses to 7 KB fails a 10 KB minimum,
+            and the fix is a larger pixel size or higher quality, not a smaller file.
+          </>,
+          <>
+            Pixel numbers for the same centimetre size differ between sources because pixels depend
+            on resolution (DPI). The same 3.5 × 4.5 cm photograph is 132 × 170 pixels at 96 DPI,
+            about 350 × 450 pixels at 254 DPI, and 413 × 531 pixels at 300 DPI — the arithmetic is
+            centimetres ÷ 2.54 × DPI. That is why one guide quotes 132 × 170 and another quotes
+            350 × 450 for the same SSC photo: both describe the same physical size at different
+            resolutions. When a notice states pixels, match the pixels; when it states centimetres,
+            match the centimetres and the KB range, and do not worry that another site quotes
+            different pixels.
           </>,
         ],
       },
@@ -2742,6 +3306,16 @@ export const guides: Guide[] = [
         answer:
           "Most online compressors upload your sensitive photos to remote servers. Tulyro processes images 100% locally in your browser canvas with zero server uploads.",
       },
+      {
+        question: "Why do different websites quote different pixel sizes for the same photo?",
+        answer:
+          "Because pixels depend on resolution. A 3.5 × 4.5 cm photo is 132 × 170 pixels at 96 DPI but 413 × 531 pixels at 300 DPI — same physical size, different pixel counts. Follow whichever unit your exam notice states: pixels if it states pixels, centimetres and KB if it states those.",
+      },
+      {
+        question: "What if my signature file is too small in KB?",
+        answer:
+          "A signature under the minimum (for example 7 KB against a 10 KB floor) is rejected just like an oversized one. Increase the pixel dimensions — for example from 140 × 60 to 280 × 120, the same shape at double size — or raise the JPEG quality, then re-check the file size. Do not add padding bytes or blank borders to inflate the size; portals check the image, not just the byte count.",
+      },
     ],
     related: ["image-resizer", "remove-background"],
     pillar: { label: "Tools", href: "/tools/" },
@@ -2749,9 +3323,9 @@ export const guides: Guide[] = [
   {
     slug: "emi-prepayment-explained",
     title: "EMI Prepayment Explained: How Paying Extra Early Saves Lakhs in Interest",
-    seoTitle: "EMI Prepayment Explained — How Extra Payments Save Interest | Tulyro",
+    seoTitle: "EMI Prepayment — How Extra Payments Save Interest | Tulyro",
     seoDescription:
-      "Paying ₹5,00,000 extra in year 1 of a ₹50 lakh home loan saves ₹17,69,951 in interest and cuts 50 months off the loan. See the worked math, RBI's no-penalty rule, and when not to prepay.",
+      "Paying ₹5,00,000 extra in year 1 of a ₹50 lakh loan saves ₹17,69,951 interest and cuts 50 months. Worked math, the no-penalty rule, and when not to prepay.",
     href: "/guides/emi-prepayment-explained/",
     intro: [
       <>
@@ -2766,7 +3340,7 @@ export const guides: Guide[] = [
     cta: { label: "Try the EMI Calculator", href: "/calculators/emi-calculator/" },
     sections: [
       {
-        heading: "What a prepayment actually does",
+        heading: "What does a prepayment actually do?",
         body: [
           <>
             Your EMI has two parts: interest on what you still owe, and principal that shrinks the
@@ -3017,9 +3591,9 @@ export const guides: Guide[] = [
   {
     slug: "password-entropy-and-security-guide",
     title: "Password Entropy & Strength Guide: What Actually Makes a Password Secure",
-    seoTitle: "Password Entropy & Strength Guide — How to Measure True Password Security | Tulyro",
+    seoTitle: "Password Entropy — What Makes Passwords Strong | Tulyro",
     seoDescription:
-      "Learn how password entropy works, calculate bits of entropy mathematically, and understand why length outperforms complex character substitution every time.",
+      "Entropy is counted in bits: a 12-character password can hold 56 or 79 bits depending on the charset. How to measure strength, and why length wins.",
     href: "/guides/password-entropy-and-security-guide/",
     intro: [
       <>
@@ -3035,7 +3609,7 @@ export const guides: Guide[] = [
     cta: { label: "Generate Secure Password", href: "/tools/password-generator/" },
     sections: [
       {
-        heading: "The Mathematics of Password Entropy",
+        heading: "How is password entropy calculated?",
         body: [
           <>
             Entropy is measured in bits (H = L × log<sub>2</sub>(R)), where <strong>L</strong> is the password
@@ -3051,10 +3625,40 @@ export const guides: Guide[] = [
             16 characters, entropy explodes to 16 × log<sub>2</sub>(94) ≈ 104.8 bits. Overcoming 104 bits would require
             billions of years of compute even on global supercomputers.
           </>,
+          <>
+            The table shows what the formula gives for the combinations people actually use. Read
+            across a row to see length winning; read down a column to see charset helping less.
+          </>,
+          <div key="password-entropy-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Character set</th>
+                <th className="border border-outline-variant/60 p-3">8 characters</th>
+                <th className="border border-outline-variant/60 p-3">12 characters</th>
+                <th className="border border-outline-variant/60 p-3">16 characters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Lowercase only (26)</td><td className="border border-outline-variant/60 p-3">37.6 bits</td><td className="border border-outline-variant/60 p-3">56.4 bits</td><td className="border border-outline-variant/60 p-3">75.2 bits</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Letters + digits (62)</td><td className="border border-outline-variant/60 p-3">47.6 bits</td><td className="border border-outline-variant/60 p-3">71.5 bits</td><td className="border border-outline-variant/60 p-3">95.3 bits</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Letters + digits + symbols (94)</td><td className="border border-outline-variant/60 p-3">52.4 bits</td><td className="border border-outline-variant/60 p-3">78.7 bits</td><td className="border border-outline-variant/60 p-3">104.9 bits</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Diceware words (7,776-word list)</td><td className="border border-outline-variant/60 p-3">—</td><td className="border border-outline-variant/60 p-3">5 words: 64.6 bits</td><td className="border border-outline-variant/60 p-3">6 words: 77.5 bits</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            What do the bits buy in time? At a billion guesses per second, searching the whole
+            50-bit space takes about 13 days; searching a 70-bit space at a trillion guesses per
+            second still takes about 37 years. Real attackers do not search blindly — they try
+            leaked passwords, dictionary words, and patterns first — so these times are ceilings
+            for random passwords, not promises for human-chosen ones. A password from a breach list
+            has effectively zero entropy no matter how long it is.
+          </>,
         ],
       },
       {
-        heading: "Length vs Character Complexity: Why Length Always Wins",
+        heading: "Does length beat complexity?",
         body: [
           <>
             Adding symbols slightly increases the base (R), but increasing length directly multiplies the exponent.
@@ -3065,6 +3669,14 @@ export const guides: Guide[] = [
             Furthermore, humans who create short &quot;complex&quot; passwords follow predictable patterns: capitalized first letter,
             followed by letters, ending with digits and an exclamation mark. Dictionary-based cracking tools exploit this
             exact bias with targeted rule files.
+          </>,
+          <>
+            Passphrases exploit the same maths in a friendlier form. Five random words from a
+            7,776-word list give 64.6 bits — more than a 12-character lowercase password — and are
+            far easier to type and remember. The key word is random: five words from a favourite
+            quote or song lyric are guessable in a way five dice-rolled words are not. Use a
+            generator for the words, the same way you would for characters, and do not reuse the
+            passphrase anywhere else.
           </>,
         ],
       },
@@ -3100,6 +3712,11 @@ export const guides: Guide[] = [
         answer:
           "Yes, provided the tool operates 100% client-side with native Web Crypto APIs and sends zero payloads over the network. Tulyro generates everything locally inside your browser sandbox.",
       },
+      {
+        question: "Is a passphrase better than a random password?",
+        answer:
+          "For memorised passwords, yes: five random diceware words give about 65 bits of entropy and are much easier to type than 12 random characters. For passwords stored in a manager, random characters are fine — memorability does not matter. Either way, the words or characters must be randomly generated; human-chosen phrases are far weaker than the maths suggests.",
+      },
     ],
     related: ["password-generator", "json-formatter", "base64-encoder-decoder"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3107,9 +3724,9 @@ export const guides: Guide[] = [
   {
     slug: "unix-epoch-timestamp-guide",
     title: "Understanding Unix Epoch Timestamps: Seconds, Milliseconds & Year 2038",
-    seoTitle: "Unix Epoch Timestamps Explained — Conversions, Milliseconds & Year 2038 Problem | Tulyro",
+    seoTitle: "Unix Epoch Explained — Seconds, Milliseconds & 2038 | Tulyro",
     seoDescription:
-      "A complete guide to Unix epoch timestamps. Understand how epoch seconds and milliseconds work, detect them in code, and prepare for the Year 2038 Unix rollover.",
+      "Epoch time counts seconds since 1 Jan 1970. How to tell seconds from milliseconds, what breaks in 2038, and per-language conversion snippets.",
     href: "/guides/unix-epoch-timestamp-guide/",
     intro: [
       <>
@@ -3138,10 +3755,40 @@ export const guides: Guide[] = [
             <strong>Quick Rule:</strong> If your timestamp has 10 digits (under 10<sup>11</sup>), it is in seconds. If it has 13 digits,
             it is in milliseconds. In JavaScript, converting seconds requires multiplying by 1,000 before passing into <code>new Date(ts * 1000)</code>.
           </>,
+          <>
+            The same rule works by digit count in the 2020s. Count the digits first, convert second —
+            guessing the unit is how dates land in 1970 or in the year 5138.
+          </>,
+          <div key="epoch-unit-decision-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Digits</th>
+                <th className="border border-outline-variant/60 p-3">Unit</th>
+                <th className="border border-outline-variant/60 p-3">Example (same moment)</th>
+                <th className="border border-outline-variant/60 p-3">To get seconds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">10</td><td className="border border-outline-variant/60 p-3">Seconds</td><td className="border border-outline-variant/60 p-3"><code>1700000000</code></td><td className="border border-outline-variant/60 p-3">Use as-is</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">13</td><td className="border border-outline-variant/60 p-3">Milliseconds</td><td className="border border-outline-variant/60 p-3"><code>1700000000000</code></td><td className="border border-outline-variant/60 p-3">Divide by 1,000</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">16</td><td className="border border-outline-variant/60 p-3">Microseconds</td><td className="border border-outline-variant/60 p-3"><code>1700000000000000</code></td><td className="border border-outline-variant/60 p-3">Divide by 1,000,000</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">19</td><td className="border border-outline-variant/60 p-3">Nanoseconds</td><td className="border border-outline-variant/60 p-3"><code>1700000000000000000</code></td><td className="border border-outline-variant/60 p-3">Divide by 1,000,000,000</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            All four rows are the same instant: 14 November 2023, 22:13:20 UTC. A defensive check in
+            code is to compare magnitude instead of trusting the source: a value below 10<sup>11</sup>
+            is almost certainly seconds for any date in our lifetimes, and a value above 10<sup>12</sup>
+            is milliseconds or finer. If a value has 10 digits but your code treats it as
+            milliseconds, <code>new Date(1700000000)</code> lands on 20 January 1970 — the classic
+            symptom of this exact bug.
+          </>,
         ],
       },
       {
-        heading: "The Year 2038 Problem (Y2038)",
+        heading: "What is the Year 2038 problem?",
         body: [
           <>
             Many legacy systems store Unix time as a signed 32-bit integer. The maximum value of a signed 32-bit integer is
@@ -3152,8 +3799,37 @@ export const guides: Guide[] = [
             causing systems to interpret the date as 13 December 1901.
           </>,
           <>
+            Whether 2038 bites depends entirely on the storage width. The table shows when each
+            common representation runs out, counting seconds from the epoch unless stated otherwise.
+          </>,
+          <div key="year-2038-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Storage</th>
+                <th className="border border-outline-variant/60 p-3">Maximum value</th>
+                <th className="border border-outline-variant/60 p-3">Runs out</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Signed 32-bit seconds</td><td className="border border-outline-variant/60 p-3">2,147,483,647</td><td className="border border-outline-variant/60 p-3">19 Jan 2038, 03:14:07 UTC</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unsigned 32-bit seconds</td><td className="border border-outline-variant/60 p-3">4,294,967,295</td><td className="border border-outline-variant/60 p-3">7 Feb 2106, 06:28:15 UTC</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Signed 64-bit seconds</td><td className="border border-outline-variant/60 p-3">9,223,372,036,854,775,807</td><td className="border border-outline-variant/60 p-3">About 292 billion years from 1970</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Signed 64-bit milliseconds</td><td className="border border-outline-variant/60 p-3">9,223,372,036,854,775,807</td><td className="border border-outline-variant/60 p-3">About 292 million years from 1970</td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
             Modern operating systems, 64-bit kernels, databases, and modern programming languages use 64-bit integers for timestamps,
             pushing the overflow date approximately 292 billion years into the future.
+          </>,
+          <>
+            The remaining risk sits in places that still assume 32-bit time: old embedded firmware,
+            legacy file formats, and 32-bit applications that have never been rebuilt. The fix is
+            unglamorous — store timestamps in 64-bit integers, or as ISO 8601 strings where the
+            format allows it — and it has to happen before 2038, not during it, because systems
+            that schedule dates in advance (mortgages, certificates, long-term contracts) hit the
+            wall years early whenever they compute a date past January 2038.
           </>,
         ],
       },
@@ -3167,6 +3843,54 @@ export const guides: Guide[] = [
           <>
             Timezones only come into play during rendering. Translating epoch timestamps to ISO 8601 strings (e.g. <code>2023-11-14T22:13:20.000Z</code>)
             maintains precision and clarity across international web applications.
+          </>,
+          <>
+            Worked check: <code>1700000000</code> is 22:13:20 UTC on 14 November 2023. Rendered in
+            India (UTC+5:30) that is 03:43:20 IST on 15 November 2023 — same moment, different wall
+            clock. If your code and your API disagree by exactly 5 hours 30 minutes, one side is
+            rendering local time and the other is rendering UTC; the timestamp itself is not wrong.
+          </>,
+        ],
+      },
+      {
+        heading: "How do I convert epoch time in my language?",
+        body: [
+          <>
+            The snippets below cover the two operations every codebase needs: getting the current
+            time as an epoch value, and turning an epoch value back into a date. Watch the unit in
+            each row — JavaScript and Java default to milliseconds, Python and Go default to
+            seconds.
+          </>,
+          <div key="epoch-snippet-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Language</th>
+                <th className="border border-outline-variant/60 p-3">Now (epoch)</th>
+                <th className="border border-outline-variant/60 p-3">Epoch to date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">JavaScript</td><td className="border border-outline-variant/60 p-3"><code>Date.now()</code> (ms)</td><td className="border border-outline-variant/60 p-3"><code>new Date(ts * 1000)</code> from seconds</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Python</td><td className="border border-outline-variant/60 p-3"><code>int(time.time())</code> (s)</td><td className="border border-outline-variant/60 p-3"><code>datetime.fromtimestamp(ts, timezone.utc)</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Java</td><td className="border border-outline-variant/60 p-3"><code>Instant.now().getEpochSecond()</code> (s)</td><td className="border border-outline-variant/60 p-3"><code>Instant.ofEpochSecond(ts)</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Go</td><td className="border border-outline-variant/60 p-3"><code>time.Now().Unix()</code> (s)</td><td className="border border-outline-variant/60 p-3"><code>time.Unix(ts, 0).UTC()</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">SQL (PostgreSQL)</td><td className="border border-outline-variant/60 p-3"><code>EXTRACT(EPOCH FROM NOW())</code> (s)</td><td className="border border-outline-variant/60 p-3"><code>to_timestamp(1700000000)</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Shell (GNU date)</td><td className="border border-outline-variant/60 p-3"><code>date +%s</code> (s)</td><td className="border border-outline-variant/60 p-3"><code>date -d @1700000000 -u</code></td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Two traps hide in this table. First, Python&apos;s <code>time.time()</code> returns a
+            float — <code>int()</code> truncates toward zero, which is fine for dates after 1970 but
+            rounds the wrong way for negative (pre-1970) timestamps. Second, JavaScript&apos;s
+            <code>Date</code> constructor takes milliseconds, so passing seconds without multiplying
+            by 1,000 is the single most common epoch bug in frontend code. When in doubt, convert
+            once with our{" "}
+            <Link href="/tools/epoch-converter/" className="text-primary underline">
+              Epoch Converter
+            </Link>{" "}
+            and compare the rendered date against the snippet&apos;s output.
           </>,
         ],
       },
@@ -3187,6 +3911,16 @@ export const guides: Guide[] = [
         answer:
           "If you pass a 10-digit second timestamp to `new Date(ts)`, JavaScript treats it as milliseconds from 1970, landing in January 1970. Always multiply seconds by 1,000.",
       },
+      {
+        question: "How do I convert milliseconds to seconds?",
+        answer:
+          "Divide by 1,000: 1700000000000 milliseconds is 1700000000 seconds. Use integer division if you need whole seconds, and keep the remainder (the .000 part) if you need sub-second precision. The reverse — seconds to milliseconds — is multiply by 1,000.",
+      },
+      {
+        question: "Is an epoch timestamp the same in every timezone?",
+        answer:
+          "Yes. The number counts seconds since 1 January 1970 UTC and names one absolute moment. Timezones only change how that moment is displayed: 1700000000 is 22:13:20 UTC and 03:43:20 IST the next day, but both describe the same instant.",
+      },
     ],
     related: ["epoch-converter", "json-formatter", "base64-encoder-decoder"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3194,7 +3928,7 @@ export const guides: Guide[] = [
   {
     slug: "json-formatting-and-validation-guide",
     title: "Complete JSON Formatting & Validation Guide: RFC 8259, Errors & Minification",
-    seoTitle: "JSON Formatting & Validation Guide — Syntax Rules, Common Errors & Performance | Tulyro",
+    seoTitle: "JSON Formatting Guide — Syntax, Errors & Fixes | Tulyro",
     seoDescription:
       "Understand RFC 8259 JSON standards, master beautification and minification, identify line-by-line syntax errors, and optimize payload sizes for web APIs.",
     href: "/guides/json-formatting-and-validation-guide/",
@@ -3213,7 +3947,7 @@ export const guides: Guide[] = [
     cta: { label: "Format & Validate JSON", href: "/tools/json-formatter/" },
     sections: [
       {
-        heading: "Strict RFC 8259 JSON Syntax Rules",
+        heading: "What are the strict JSON syntax rules?",
         body: [
           <>
             Unlike standard JavaScript object literals, JSON has strict syntactic constraints designed for universal parser compatibility:
@@ -3238,11 +3972,51 @@ export const guides: Guide[] = [
           <>
             <strong>Minification:</strong> Strips all non-essential whitespace, line breaks, and indentation without altering the underlying data graph. In high-throughput APIs, minified JSON reduces bandwidth by 20% to 45%, reducing latency and egress costs.
           </>,
+          <>
+            Worked example: the object <code>&#123;&quot;name&quot;: &quot;Asha&quot;, &quot;age&quot;: 30, &quot;city&quot;: &quot;Pune&quot;&#125;</code> is
+            51 characters pretty-printed with 2-space indentation and 38 characters minified — a
+            25.5% saving on this small object. The saving grows with nesting depth, because every
+            nested level adds indentation to every line. Numbers are the one place minification
+            cannot help: <code>1.50</code> and <code>1.5</code> are the same number to a parser,
+            and most minifiers leave numeric text untouched.
+          </>,
+          <>
+            One precision trap: JSON numbers are usually parsed as IEEE 754 double-precision
+            floats, which represent integers exactly only up to 2<sup>53</sup> − 1
+            (9,007,199,254,740,991). Above that, neighbouring integers collapse — 2<sup>53</sup> + 1
+            parses to the same value as 2<sup>53</sup>. APIs that carry 64-bit IDs (database keys,
+            snowflake IDs) should send them as strings, not numbers, or consumers in JavaScript
+            will silently read the wrong ID.
+          </>,
         ],
       },
       {
-        heading: "Common JSON Errors & How to Fix Them",
+        heading: "How do I fix common JSON errors?",
         body: [
+          <>
+            Parser errors point at the character where parsing failed, which is often one token
+            <em>after</em> the actual mistake. Read the error, then look backwards from the
+            reported position. The table covers the errors you will see most often.
+          </>,
+          <div key="json-errors-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Error message</th>
+                <th className="border border-outline-variant/60 p-3">Likely cause</th>
+                <th className="border border-outline-variant/60 p-3">Fix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected token &apos; in JSON</td><td className="border border-outline-variant/60 p-3">Single-quoted string or key</td><td className="border border-outline-variant/60 p-3">Use double quotes everywhere</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected token &#125; in JSON</td><td className="border border-outline-variant/60 p-3">Trailing comma before &#125; or ]</td><td className="border border-outline-variant/60 p-3">Remove the comma after the last item</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected end of JSON input</td><td className="border border-outline-variant/60 p-3">Truncated text or unclosed bracket</td><td className="border border-outline-variant/60 p-3">Close all brackets; check the response was not cut off</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected token / in JSON</td><td className="border border-outline-variant/60 p-3">Comment in the JSON</td><td className="border border-outline-variant/60 p-3">Remove comments; JSON has no comment syntax</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected string in JSON</td><td className="border border-outline-variant/60 p-3">Missing comma or colon</td><td className="border border-outline-variant/60 p-3">Add the missing separator before the string</td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Unexpected token u in JSON</td><td className="border border-outline-variant/60 p-3">Literal <code>undefined</code> in the text</td><td className="border border-outline-variant/60 p-3">Use <code>null</code>, or omit the key</td></tr>
+            </tbody>
+            </table>
+          </div>,
           <>
             <strong>Unexpected Token / at Position:</strong> Usually indicates unquoted keys, single quotes, or invalid comments (JSON does not support double-slash or block comments).
           </>,
@@ -3271,6 +4045,11 @@ export const guides: Guide[] = [
         answer:
           "No. Minification removes only structural whitespace and line breaks outside of string literals. Keys, values, and structural hierarchies remain identical.",
       },
+      {
+        question: "Can JSON numbers be too large?",
+        answer:
+          "Yes. Most parsers read JSON numbers as 64-bit floats, which represent integers exactly only up to 2^53 − 1 (9,007,199,254,740,991). Above that, adjacent integers collapse into the same value. Send 64-bit IDs as strings to keep them exact.",
+      },
     ],
     related: ["json-formatter", "epoch-converter", "base64-encoder-decoder"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3278,9 +4057,9 @@ export const guides: Guide[] = [
   {
     slug: "uuid-v4-vs-v7-which-should-you-use",
     title: "UUID v4 vs UUID v7: Differences, Database Index Performance & Which to Choose",
-    seoTitle: "UUID v4 vs v7: Database Performance, Index Fragmentation & Which to Use | Tulyro",
+    seoTitle: "UUID v4 vs v7 — Which One Should You Use? | Tulyro",
     seoDescription:
-      "Compare UUID v4 and UUID v7: learn how random v4 causes B-Tree index fragmentation and why time-ordered v7 solves PostgreSQL, MySQL and distributed database bottlenecks.",
+      "Random v4 UUIDs scatter B-tree inserts; time-ordered v7 keeps them sequential. Bit layouts, the trade-offs, and which version fits your database.",
     href: "/guides/uuid-v4-vs-v7-which-should-you-use/",
     intro: [
       <>
@@ -3324,6 +4103,17 @@ export const guides: Guide[] = [
             leaf of B-Tree indexes — achieving the write speed of auto-incrementing integers while preserving
             the global uniqueness and decentralisation of UUIDs.
           </>,
+          <>
+            The exact layout is: 48 bits of Unix timestamp in milliseconds, a 4-bit version field
+            set to 0111 (the <code>7</code> you see at the start of the third group), 12 random
+            bits, a 2-bit variant field set to 10, and 62 more random bits — 74 random bits in
+            total. The 48-bit timestamp covers millisecond time until the year 10889, so the
+            ordering property has no practical expiry date. You can read the timestamp out of any
+            v7 UUID: take the first 12 hex characters, convert from hex to decimal, and you have
+            Unix milliseconds. For example, <code>018bcfe56991</code> is 1,700,000,000,401
+            milliseconds — 14 November 2023, 22:13:20.401 UTC. That readability is a feature for
+            debugging and a leak to consider for public IDs, as the comparison table notes.
+          </>,
         ],
       },
       {
@@ -3365,7 +4155,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "When to Use Each Version",
+        heading: "Which version should I use?",
         body: [
           <>
             <strong>Use UUID v7 when:</strong> generating primary keys in relational databases
@@ -3376,6 +4166,14 @@ export const guides: Guide[] = [
             <strong>Use UUID v4 when:</strong> generating opaque tokens, session identifiers, password
             reset keys, or public identifiers where exposing the generation timestamp poses a security
             or business intelligence risk (e.g. leaking registration velocity).
+          </>,
+          <>
+            Migrating an existing table is simpler than it sounds: keep the existing v4 rows as they
+            are and generate v7 for new rows. The two versions share the same 128-bit column type,
+            so no schema change is needed — but sorting will interleave the old random values among
+            the new ordered ones until the old rows age out. For a table where ordered scans matter
+            from day one, backfilling is rarely worth it; the index locality benefit accrues on new
+            inserts, which is where the write cost was being paid anyway.
           </>,
         ],
       },
@@ -3396,6 +4194,11 @@ export const guides: Guide[] = [
         answer:
           "No. Unlike UUID v1 (which exposed MAC addresses) and UUID v7 (which exposes timestamps), UUID v4 contains only pseudo-random numbers with zero device or time metadata.",
       },
+      {
+        question: "How do I read the timestamp inside a UUID v7?",
+        answer:
+          "Take the first 12 hex characters (the first group plus the first 4 of the second group), convert from hexadecimal to decimal, and you have Unix time in milliseconds. For example, 018bcfe56991 is 1,700,000,000,401 ms, which is 14 November 2023, 22:13:20.401 UTC.",
+      },
     ],
     related: ["uuid-generator", "epoch-converter", "json-formatter"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3403,7 +4206,7 @@ export const guides: Guide[] = [
   {
     slug: "code-naming-conventions-camelcase-snake-case",
     title: "Code Naming Conventions Explained: camelCase, PascalCase, snake_case & kebab-case",
-    seoTitle: "Code Naming Conventions: camelCase vs snake_case vs PascalCase | Tulyro",
+    seoTitle: "Code Naming Conventions — camelCase vs snake_case | Tulyro",
     seoDescription:
       "Master programming naming styles across JavaScript, Python, Rust, Go, CSS, and SQL. Understand why different languages enforce specific casing standards.",
     href: "/guides/code-naming-conventions-camelcase-snake-case/",
@@ -3495,6 +4298,56 @@ export const guides: Guide[] = [
           </>,
         ],
       },
+      {
+        heading: "What casing should each thing use?",
+        body: [
+          <>
+            The table gives the default for each kind of name in the two most common ecosystems.
+            A codebase that follows its language&apos;s convention reads as native; one that mixes
+            styles forces every reader to translate. When your language&apos;s style guide and
+            this table disagree, follow the style guide.
+          </>,
+          <div key="naming-decision-table-wrap" className="overflow-x-auto">
+            <table className="w-full border-collapse overflow-hidden rounded-xl text-left font-body-sm text-body-sm">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="border border-outline-variant/60 p-3">Name kind</th>
+                <th className="border border-outline-variant/60 p-3">JavaScript / TypeScript</th>
+                <th className="border border-outline-variant/60 p-3">Python</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border border-outline-variant/60 p-3">Variables</td><td className="border border-outline-variant/60 p-3"><code>totalAmount</code></td><td className="border border-outline-variant/60 p-3"><code>total_amount</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Functions</td><td className="border border-outline-variant/60 p-3"><code>calculateTotal()</code></td><td className="border border-outline-variant/60 p-3"><code>calculate_total()</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Classes / types</td><td className="border border-outline-variant/60 p-3"><code>OrderService</code></td><td className="border border-outline-variant/60 p-3"><code>OrderService</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Constants</td><td className="border border-outline-variant/60 p-3"><code>MAX_RETRIES</code></td><td className="border border-outline-variant/60 p-3"><code>MAX_RETRIES</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Files</td><td className="border border-outline-variant/60 p-3"><code>order-service.ts</code></td><td className="border border-outline-variant/60 p-3"><code>order_service.py</code></td></tr>
+              <tr><td className="border border-outline-variant/60 p-3">Environment variables</td><td className="border border-outline-variant/60 p-3"><code>DATABASE_URL</code></td><td className="border border-outline-variant/60 p-3"><code>DATABASE_URL</code></td></tr>
+            </tbody>
+            </table>
+          </div>,
+          <>
+            Acronyms are the one place conventions genuinely disagree: <code>userId</code> versus{" "}
+            <code>userID</code>, <code>httpRequest</code> versus <code>HTTPRequest</code>. Both
+            forms exist in real codebases, and neither is wrong in isolation — the mistake is using
+            both in one codebase, so that a search for one form misses the other. Pick one rule,
+            write it in your contributing notes, and let your linter enforce it. The same applies
+            to boolean prefixes (<code>isActive</code>, <code>hasAccess</code>,{" "}
+            <code>shouldRetry</code>): the prefix convention matters less than using it every time.
+          </>,
+          <>
+            File names follow the same split as the code inside them. A React component file usually
+            takes the component&apos;s PascalCase name (<code>OrderService.tsx</code>), a Python
+            module takes snake_case (<code>order_service.py</code>), and a route or static asset
+            takes kebab-case (<code>/user-profiles</code>, <code>hero-image.png</code>). Test files
+            sit next to what they test and share its name with a suffix —{" "}
+            <code>OrderService.test.ts</code>, <code>test_order_service.py</code> — so a search for
+            the module finds its tests immediately. Whatever the pattern, the rule is the same as
+            for identifiers: one convention per codebase, enforced by the linter or the reviewer,
+            not by memory.
+          </>,
+        ],
+      },
     ],
     faq: [
       {
@@ -3512,6 +4365,11 @@ export const guides: Guide[] = [
         answer:
           "Guido van Rossum and the Python core team chose snake_case for functions and variables because word spacing with underscores maximizes readability in indentation-delimited code.",
       },
+      {
+        question: "Does casing affect performance?",
+        answer:
+          "No. Casing is a readability and tooling convention: compilers and interpreters treat userAccountId and user_account_id identically once parsed. The cost of inconsistent casing is paid in human time — failed searches, misread code, and mapping bugs at API boundaries — not in runtime speed.",
+      },
     ],
     related: ["case-converter", "markdown-editor", "word-counter"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3519,9 +4377,9 @@ export const guides: Guide[] = [
   {
     slug: "markdown-cheatsheet-and-formatting-guide",
     title: "Complete Markdown Cheatsheet: Syntax, Formatting Rules & Safe Web Publishing",
-    seoTitle: "Markdown Cheatsheet & Formatting Guide: Syntax, Tables & Safe HTML | Tulyro",
+    seoTitle: "Markdown Cheatsheet — Syntax, Tables & HTML | Tulyro",
     seoDescription:
-      "A complete guide to Markdown formatting. Learn CommonMark and GFM syntax for headers, code blocks, lists, blockquotes, tables, and preventing XSS when compiling to HTML.",
+      "CommonMark and GFM syntax for headers, code, lists, tables and links — plus how to sanitise Markdown to HTML without opening an XSS hole.",
     href: "/guides/markdown-cheatsheet-and-formatting-guide/",
     intro: [
       <>
@@ -3604,6 +4462,46 @@ export const guides: Guide[] = [
             <code>```typescript</code> creates syntax-highlighted preformatted blocks, while pipe
             characters (<code>|</code>) construct responsive HTML data tables without manual markup.
           </>,
+          <>
+            A GFM table needs a header row, a separator row of dashes, and one row per line. Alignment
+            is set in the separator: <code>:---</code> aligns left, <code>---:</code> aligns right,
+            and <code>:---:</code> centres. The most common reason a table fails to render is a
+            missing separator row, or a different number of cells in one row than in the header.
+            Strikethrough (<code>~~removed~~</code>), task lists (<code>- [ ] todo</code>), and
+            autolinks (a bare URL becoming clickable) are the other GFM additions you will use
+            daily; none of them exists in strict CommonMark.
+          </>,
+        ],
+      },
+      {
+        heading: "How do lists, links and images work?",
+        body: [
+          <>
+            <strong>Lists.</strong> Unordered lists use <code>-</code>, <code>*</code>, or{" "}
+            <code>+</code> at the start of a line; ordered lists use <code>1.</code>,{" "}
+            <code>2.</code>, and so on. Most renderers number ordered lists sequentially no matter
+            what digits you type, so <code>1. 1. 1.</code> still renders as 1, 2, 3 — convenient
+            when you reorder items, confusing when you actually want the literal numbers. Nest a
+            list by indenting it (two or four spaces, depending on your renderer) under its parent
+            item. A blank line between a list item and its nested content is what most renderers
+            need to keep the nesting intact.
+          </>,
+          <>
+            <strong>Links and images.</strong> A link is <code>[text](url)</code>; an image is the
+            same with a leading <code>!</code>: <code>![alt text](image.png)</code>. The alt text
+            is what screen readers announce and what shows when the image fails to load, so write
+            what the image shows, not &ldquo;image&rdquo;. A link title goes in quotes after the
+            URL: <code>[text](url &quot;title&quot;)</code>. Reference-style links
+            (<code>[text][ref]</code> with <code>[ref]: url</code> defined elsewhere) keep long
+            URLs out of the paragraph text — useful in documents with many links.
+          </>,
+          <>
+            <strong>Escaping.</strong> To show a literal asterisk, backtick, or hash instead of
+            triggering formatting, put a backslash before it: <code>\*</code> renders as *. Inside
+            inline code spans, no escaping is needed — backticks protect their contents. Inside
+            fenced code blocks, nothing is parsed at all, which is why code samples belong in
+            fences rather than indented paragraphs.
+          </>,
         ],
       },
       {
@@ -3637,6 +4535,11 @@ export const guides: Guide[] = [
         answer:
           "End the line with two trailing spaces or use a backslash (\\) before hitting Enter.",
       },
+      {
+        question: "Why is my Markdown table not rendering?",
+        answer:
+          "The usual causes: no separator row of dashes under the header, rows with a different number of cells than the header, or a renderer that only supports CommonMark (tables are a GFM extension). Check the separator row first — it is missing in most broken tables.",
+      },
     ],
     related: ["markdown-editor", "case-converter", "word-counter"],
     pillar: { label: "All Developer Tools", href: "/dev/" },
@@ -3644,9 +4547,9 @@ export const guides: Guide[] = [
   {
     slug: "text-to-speech-voices-guide",
     title: "Text-to-Speech Voices Explained: How They're Made and How to Choose One",
-    seoTitle: "Text-to-Speech Voices Guide: Types, Quality & Choosing the Right Voice | Tulyro",
+    seoTitle: "Text-to-Speech Voices — Types & How to Choose | Tulyro",
     seoDescription:
-      "How TTS voices are made (formant, concatenative, neural), the five factors that decide voice quality, verified narration-time estimates, and a practical voice-selection checklist.",
+      "Formant, concatenative and neural voices explained, the five factors that decide quality, narration-time estimates, and a voice-selection checklist.",
     href: "/guides/text-to-speech-voices-guide/",
     intro: [
       <>
@@ -3701,7 +4604,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "What 'neural voice' on a product page actually means",
+        heading: "What does 'neural voice' on a product page actually mean?",
         body: [
           <>
             A neural voice is a model trained on recordings of one specific speaker. Its quality
@@ -3720,7 +4623,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The five things that decide whether a voice sounds good",
+        heading: "What decides whether a voice sounds good?",
         body: [
           <>
             <strong>1. Prosody.</strong> This is the big one. Getting every phoneme right is easy;
@@ -3764,7 +4667,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "How long your script will take to read",
+        heading: "How long will your script take to read?",
         body: [
           <>
             Most English narration lands between 130 and 180 words per minute; a comfortable
@@ -3804,7 +4707,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Choosing a voice for your project",
+        heading: "How do I choose a voice for my project?",
         body: [
           <>
             Start from the use case, not the voice. Different jobs punish different weaknesses:
@@ -3898,7 +4801,7 @@ export const guides: Guide[] = [
   {
     slug: "how-much-house-can-you-afford",
     title: "How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers",
-    seoTitle: "How Much House Can You Afford? The 28/36 Rule Explained | Tulyro",
+    seoTitle: "How Much House Can You Afford? 28/36 Rule | Tulyro",
     seoDescription:
       "Work out how much house you can afford with the 28/36 rule: real numbers for a $120,000 income, salary tables, and what lenders actually allow.",
     href: "/guides/how-much-house-can-you-afford/",
@@ -4015,7 +4918,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Why the Interest Rate Moves Your Budget More Than the Price",
+        heading: "Why does the interest rate move your budget more than the price?",
         body: [
           <>
             Hold the payment fixed at $2,300 of principal and interest and change
@@ -4084,7 +4987,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "The Costs the 28/36 Rule Misses",
+        heading: "What costs does the 28/36 rule miss?",
         body: [
           <>
             The rule counts PITI and debts. It does not count the rest of owning a
@@ -4138,9 +5041,9 @@ export const guides: Guide[] = [
   {
     slug: "how-to-calculate-percentage",
     title: "How to Calculate Percentage: The Three Formulas That Cover Every Case",
-    seoTitle: "How to Calculate Percentage — Formulas & Worked Examples | Tulyro",
+    seoTitle: "How to Calculate Percentage — 3 Formulas | Tulyro",
     seoDescription:
-      "Three percentage formulas cover every case: find the part, find the percent, find the whole. Worked examples: 25% of 200 is 50, 15% off ₹1,200, a 15% pay rise.",
+      "Three formulas cover every percentage problem: find the part, the percent, or the whole. Worked examples: 25% of 200, 15% off ₹1,200, a pay rise.",
     href: "/guides/how-to-calculate-percentage/",
     intro: [
       <>
@@ -4256,7 +5159,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "Percentage points vs percent — the trap",
+        heading: "What is the difference between percentage points and percent?",
         body: [
           <>
             This is where news headlines, bank notices and exam discussions go wrong. A rate moving
@@ -4328,7 +5231,7 @@ export const guides: Guide[] = [
         ],
       },
       {
-        heading: "When to use a calculator",
+        heading: "When should you use a calculator?",
         body: [
           <>
             Once the three formulas feel natural, the hand math is only worth doing when the numbers

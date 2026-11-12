@@ -13,7 +13,7 @@ import { createPageMetadata, createWebSiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata(
   "Tulyro | Free Online Tools & Calculators",
-  "Tulyro offers free browser-only calculators, text tools, and developer utilities. No signup, no watermark — everything runs on your device.",
+  "Tulyro offers free browser-only calculators, PDF & media tools, text and developer utilities. No signup, no watermark — everything runs on your device.",
   "/"
 );
 
@@ -31,6 +31,7 @@ const CATEGORIES = [
   { label: "Calculators", href: "/calculators/", icon: "calculate", theme: "calculator" },
   { label: "Text Tools", href: "/text/", icon: "font_download", theme: "text" },
   { label: "Developer Tools", href: "/dev/", icon: "terminal", theme: "developer" },
+  { label: "Media Tools", href: "/media/", icon: "image", theme: "media" },
   { label: "Fun Tools", href: "/fun/", icon: "auto_awesome", theme: "media" },
   { label: "All Tools", href: "/tools/", icon: "apps", theme: "calculator" },
 ];
@@ -103,13 +104,13 @@ export default function HomePage() {
                 <h1 className="hero-enter font-display font-display-hero leading-[1.08] tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                   Free Online Calculators,
                   <br className="hidden sm:inline" />{" "}
-                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">Text &amp; Developer Tools</span>
+                  <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">PDF &amp; Media, Text &amp; Developer Tools</span>
                 </h1>
                 <p className="hero-enter font-display text-xl font-semibold text-tertiary-fixed" style={{ ["--enter-delay" as string]: "135ms" }}>
                   Precision tools for everyday numbers.
                 </p>
                 <p className="hero-enter max-w-xl font-body-lg text-body-lg leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
-                  Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
+                  Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first PDF, image and audio converters, text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
                 </p>
                 <div className="hero-enter flex flex-wrap items-center gap-3" style={{ ["--enter-delay" as string]: "270ms" }}>
                   <Link href="#browse" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-container px-6 py-3 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
@@ -142,14 +143,14 @@ export default function HomePage() {
               <div className="hero-enter font-display font-display-hero-mobile tracking-tight text-white" style={{ ["--enter-delay" as string]: "90ms" }}>
                 Free Online Calculators,{" "}
                 <span className="bg-gradient-to-r from-primary-fixed to-secondary-fixed bg-clip-text text-transparent">
-                  Text &amp; Developer Tools
+                  PDF &amp; Media, Text &amp; Developer Tools
                 </span>
               </div>
               <p className="hero-enter font-display text-lg font-semibold text-tertiary-fixed" style={{ ["--enter-delay" as string]: "135ms" }}>
                 Precision tools for everyday numbers.
               </p>
               <p className="hero-enter font-body-md text-body-md leading-relaxed text-tertiary-fixed" style={{ ["--enter-delay" as string]: "180ms" }}>
-                Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
+                Instant Indian loan EMI, mortgage, BMI, age, and CBSE CGPA calculators alongside privacy-first PDF, image and audio converters, text, invoice, and Base64 utilities. Everything runs locally in your browser with zero watermarks or data tracking.
               </p>
               <div className="hero-enter flex flex-wrap items-center gap-2.5" style={{ ["--enter-delay" as string]: "270ms" }}>
                 <Link href="#browse-mobile" className="group btn-press btn-sheen btn-glow inline-flex items-center gap-1.5 rounded-xl bg-primary-container px-5 py-2.5 font-label-md text-label-md font-semibold text-white shadow-button-glow transition-all hover:bg-primary">
@@ -293,9 +294,16 @@ export default function HomePage() {
                     <Icon name="security" className="h-4 w-4" />
                     ENGINEERING BLUEPRINT
                   </p>
-                  <h2 className="font-display font-headline-lg text-headline-lg text-white">Why engineers and analysts rely on Tulyro</h2>
+                  <h2 className="font-display font-headline-lg text-headline-lg text-white">Built for engineers and analysts who check their numbers</h2>
                   <p className="font-body-md text-body-md text-tertiary-fixed">
-                    Unlike ordinary web portals that pipe sensitive calculations through remote servers, Tulyro runs 100% in your browser — nothing you type is sent to a server.
+                    Unlike ordinary web portals that pipe sensitive calculations through remote servers, Tulyro runs in your browser — calculations and tool inputs are not sent to a server by our code. The one exception is text-to-speech, which uses voices supplied by your browser, and some of those voices may send text to vendor servers.
+                  </p>
+                  <p className="font-body-md text-body-md text-tertiary-fixed">
+                    Every tool is checked before release: its calculation engine is verified with unit tests and edge-case checks, and the worked examples in our{" "}
+                    <Link href="/guides/" className="underline">
+                      guides
+                    </Link>{" "}
+                    are verified against the matching tool.
                   </p>
                   <div className="flex flex-wrap gap-4 pt-2">
                     <Link href="/privacy/" className="rounded-lg bg-primary-container px-5 py-2.5 font-label-md text-label-md text-white shadow-button-glow transition-colors hover:bg-primary">
@@ -325,7 +333,11 @@ export default function HomePage() {
               Privacy First Engine
             </p>
             <p className="mt-2 font-body-sm text-body-sm leading-relaxed text-tertiary-fixed">
-              100% of text and calculations run locally on your device browser. No logs. No servers watching your numbers.
+              Calculations and tool inputs run locally in your device browser, and our code keeps no logs. The exception is text-to-speech, which uses voices supplied by your browser — some may send text to vendor servers. See our{" "}
+              <Link href="/privacy/" className="underline">
+                privacy policy
+              </Link>
+              .
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <span className="rounded bg-white/10 px-2 py-1 font-code-data text-xs text-primary-fixed">Client-Side Only</span>

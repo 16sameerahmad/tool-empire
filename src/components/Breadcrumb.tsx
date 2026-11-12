@@ -1,10 +1,9 @@
 import Link from "next/link";
 import type { ToolDefinition } from "@/lib/tools";
 import { Icon } from "@/components/icons";
-import { createBreadcrumbJsonLd } from "@/lib/seo";
 
+/** Visible breadcrumb trail only. BreadcrumbList JSON-LD is emitted once, page-level, by ToolPage. */
 export function Breadcrumb({ tool }: { tool: ToolDefinition }) {
-  const jsonLd = createBreadcrumbJsonLd(tool);
   return (
     <>
       <nav aria-label="Breadcrumb" className="font-label-sm text-label-sm text-on-surface-variant">
@@ -34,7 +33,6 @@ export function Breadcrumb({ tool }: { tool: ToolDefinition }) {
           </li>
         </ol>
       </nav>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
 }

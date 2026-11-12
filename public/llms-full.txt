@@ -146,8 +146,9 @@ present them as real.
 - How to Create a GST-Compliant Invoice in India — https://tulyro.online/guides/how-to-create-gst-compliant-invoice-india/
   All 16 mandatory fields under CGST Rule 46, CGST/SGST vs IGST splits, and a worked ₹50,000 example.
 - How Mortgage Amortization Works — https://tulyro.online/guides/how-mortgage-amortization-works/
-- How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers — https://tulyro.online/guides/how-much-house-can-you-afford/
   Why most early payments go to interest, a worked $300,000 example, and a 15-year vs 30-year comparison.
+- How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers — https://tulyro.online/guides/how-much-house-can-you-afford/
+  The 28/36 rule worked with real numbers for a $120,000 income, salary tables, and rate sensitivity.
 - What Is Base64 Encoding, and When to Use It — https://tulyro.online/guides/what-is-base64-encoding-and-when-to-use-it/
   The 24-bit maths behind Base64, why it adds 33% size, padding, and why it is not encryption.
 - How Browser Text-to-Speech Works — https://tulyro.online/guides/how-browser-text-to-speech-web-speech-api-works/
@@ -164,10 +165,9 @@ present them as real.
 - IETF RFC 4648 — The Base16, Base32, and Base64 Data Encodings: https://datatracker.ietf.org/doc/rfc4648/
 - MDN — SpeechSynthesis (Web Speech API): https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
 - The Unicode Standard — Mathematical Alphanumeric Symbols (U+1D400–U+1D7FF): https://www.unicode.org/charts/PDF/Unicode-18.0/U180-1D400.pdf
-- US Consumer Financial Protection Bureau — How does paying down a mortgage work?: https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/
+- US Consumer Financial Protection Bureau — How does paying down a mortgage work?: https://consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/
 
-Tools without a Sources section have none because no genuine authoritative source applies to
-them; sources are never invented.
+Sources are never invented.
 
 ## Pages
 

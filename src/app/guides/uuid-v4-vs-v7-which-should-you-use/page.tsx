@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: `${siteUrl}${guide.href}`,
     siteName: "Tulyro",
     type: "article",
-    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "Tulyro — Free browser-only tools." }],
+    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "Tulyro — Free browser-only tools. No signup. No watermark." }],
   },
   twitter: {
     card: "summary_large_image",

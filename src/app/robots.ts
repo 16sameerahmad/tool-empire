@@ -9,7 +9,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/embed/"],
+        // Only /api/ is blocked: /_next/ holds the CSS/JS render resources
+        // Googlebot needs, and /embed/ must stay crawlable so its noindex +
+        // canonical are honoured (a disallowed URL's noindex is never seen).
+        disallow: ["/api/"],
       },
       {
         // Malicious scrapers, content thieves, and vulnerability scanners

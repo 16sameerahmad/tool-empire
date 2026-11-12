@@ -9,13 +9,13 @@ import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
 import { Parallax, Reveal } from "@/components/motion";
 import { GlassToolCard, GlassCategoryRow } from "@/components/GlassToolCard";
 import { getTool, tools } from "@/lib/tools";
-import { createWebSiteJsonLd, siteUrl } from "@/lib/seo";
+import { createPageMetadata, createWebSiteJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Tulyro | Free Online Tools & Calculators",
-  description: "Tulyro offers free browser-only calculators, text tools, and developer utilities. No signup, no watermark — everything runs on your device.",
-  alternates: { canonical: `${siteUrl}/` },
-};
+export const metadata: Metadata = createPageMetadata(
+  "Tulyro | Free Online Tools & Calculators",
+  "Tulyro offers free browser-only calculators, text tools, and developer utilities. No signup, no watermark — everything runs on your device.",
+  "/"
+);
 
 const TRENDING = [
   { id: "password-generator", label: "Password Generator" },

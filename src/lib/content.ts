@@ -546,7 +546,7 @@ export const content: Record<string, ToolContent> = {
       "Use the calculator for a first-pass comparison between a shorter and longer term, or between two interest-rate assumptions. The monthly principal-and-interest number is only one part of home affordability. Include the other costs supplied by your lender and consider whether the payment remains comfortable if circumstances change. A saved screenshot or printed result should be labelled as an estimate because it does not become an offer or a rate lock. The browser-only design lets you test scenarios privately before discussing them with a lender or housing professional.",
       "You can repeat a scenario with a different term to understand the trade-off between cash flow and total cost. Keep the currency and grouping in mind when comparing this page with a lender's statement, and do not mix a monthly rate with an annual rate. The input labels describe the assumptions used by the formula so a second calculation can be checked consistently.",
     ],
-    sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov:443/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
+    sources: [{ label: "US Consumer Financial Protection Bureau — How does paying down a mortgage work?", href: "https://consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/" }],
     guides: [
       { label: "How Mortgage Amortization Works: Principal vs. Interest Explained", href: "/guides/how-mortgage-amortization-works/" },
       { label: "How Much House Can You Afford? The 28/36 Rule, Worked With Real Numbers", href: "/guides/how-much-house-can-you-afford/" },

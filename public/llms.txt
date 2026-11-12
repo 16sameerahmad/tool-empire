@@ -43,6 +43,33 @@
 - [UUID / GUID Generator](https://tulyro.online/tools/uuid-generator/): Generate cryptographically secure RFC 4122 v4 UUIDs in single or batch modes.
 - [Case Converter](https://tulyro.online/tools/case-converter/): Convert text between camelCase, PascalCase, snake_case, kebab-case, and Title Case.
 - [Markdown Editor & Live Preview](https://tulyro.online/tools/markdown-editor/): Real-time dual-pane Markdown drafting with instant safe HTML preview and .md export.
+- [SGPA Calculator](https://tulyro.online/calculators/sgpa-calculator/): Calculate your semester SGPA from subject credits and letter grades on the 10-point scale, with percentage conversion.
+- [Fuel Cost Calculator](https://tulyro.online/calculators/fuel-cost-calculator/): Calculate trip fuel cost from distance, mileage, and fuel price. Supports km/L, L/100km, and mpg, with round-trip and per-person split.
+- [Gratuity Calculator](https://tulyro.online/calculators/gratuity-calculator/): Calculate your gratuity payout under the Payment of Gratuity Act, 1972, with the 15/26 formula, 6-month rounding, and ₹20 lakh cap.
+- [Sleep Calculator](https://tulyro.online/calculators/sleep-calculator/): Find the best bedtime for your wake-up time — or the best time to wake up — using 90-minute sleep cycles.
+- [Hash Generator](https://tulyro.online/dev/hash-generator/): Generate MD5, SHA-1, SHA-256, and SHA-512 hashes for text or files entirely in your browser.
+- [Image Compressor to 20KB, 50KB, 100KB](https://tulyro.online/tools/image-compressor/): Compress JPG, PNG, WEBP images to exact file sizes (20KB, 50KB, 100KB, 200KB) for UPSC, SSC, NEET, IBPS job forms and KYC portals.
+- [PDF to JPG & Image to PDF Converter](https://tulyro.online/tools/pdf-tools/): Convert PDF pages to JPG/PNG images or combine multiple images into a single PDF. 100% browser-based, no upload.
+- [JPG to PDF Converter — Convert Images to PDF Online Free](https://tulyro.online/tools/jpg-to-pdf/): Convert JPG and PNG images into a single PDF file online. 100% client-side, private, free, and zero file uploads.
+- [PDF to JPG Converter — Extract PDF Pages to High-Quality Images](https://tulyro.online/tools/pdf-to-jpg/): Convert PDF pages to high-resolution JPG or PNG images online. 100% private client-side rendering with zero file uploads.
+- [Merge PDF Online Free — Combine Multiple PDF Files](https://tulyro.online/tools/merge-pdf/): Combine multiple PDF files into one document in your browser. 100% private, free, and zero server upload.
+- [Compress PDF Online Free — Reduce PDF File Size](https://tulyro.online/tools/compress-pdf/): Compress and reduce PDF file size online to 100KB, 200KB, or 500KB. 100% client-side with zero file uploads.
+- [Split PDF Online Free — Extract Pages from PDF](https://tulyro.online/tools/split-pdf/): Extract specific pages or page ranges from PDF files online. 100% private, free, and runs entirely in your browser.
+- [JPG to PNG & Image Format Converter Online](https://tulyro.online/tools/image-converter/): Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side with zero quality loss.
+- [HEIC to JPG Converter — Convert Apple iPhone Photos Online Free](https://tulyro.online/tools/heic-to-jpg/): Convert Apple HEIC and HEIF photos to high-quality JPG or PNG images directly in your browser. 100% private, no file uploads.
+- [PDF to Word Converter — Free Online, No Upload, 100% Private](https://tulyro.online/tools/pdf-to-word/): Convert PDF files to editable Word DOCX documents directly in your browser. 100% client-side — zero server uploads, unlimited conversions, completely free.
+- [MP4 to MP3 Converter — Extract Audio from Video Online Free](https://tulyro.online/tools/mp4-to-mp3/): Extract high-quality MP3 audio from MP4, MKV, AVI, and MOV videos directly in your browser. Zero uploads, 100% private.
+- [JPG to PNG Converter — Free High Quality Online Converter](https://tulyro.online/tools/jpg-to-png/): Convert JPG and JPEG images to lossless PNG format in your browser. Preserves crisp details and transparency support with zero server uploads.
+- [PNG to JPG Converter — Convert PNG to JPEG Online Free](https://tulyro.online/tools/png-to-jpg/): Convert PNG images to compact JPG/JPEG format with white background fill. Optimize image size for web and govt applications with 100% privacy.
+- [Rotate PDF Online — Permanently Rotate PDF Pages Free](https://tulyro.online/tools/rotate-pdf/): Rotate PDF pages permanently 90 degrees clockwise, counter-clockwise, or 180 degrees flip. 100% client-side with zero file uploads.
+- [Image to PDF Converter — Convert Any Image to PDF Online Free](https://tulyro.online/tools/image-to-pdf/): Convert any image (JPG, PNG, WebP, GIF, SVG, BMP, AVIF) into a single PDF document. 100% client-side, no file uploads, private and free.
+- [PDF to Image Converter — Extract PDF Pages to JPG or PNG Online](https://tulyro.online/tools/pdf-to-image/): Convert PDF documents to high-resolution JPG or PNG images online. Completely private browser rendering with zero server uploads.
+- [QR Code Generator](https://tulyro.online/tools/qr-code-generator/): Generate customizable QR codes with logo overlay for URLs, text, WiFi, and vCards. Download as PNG or SVG.
+- [Barcode Generator](https://tulyro.online/tools/barcode-generator/): Generate Code 39, EAN-13, and UPC-A barcodes in your browser — with check digits, custom sizes, and PNG/SVG download.
+- [Income Tax Calculator (India)](https://tulyro.online/calculators/income-tax-calculator/): Compare Old vs New tax regime for FY 2025-26 (AY 2026-27). Calculate tax liability with deductions under 80C, 80D, HRA and standard deduction.
+- [Password Generator](https://tulyro.online/tools/password-generator/): Generate secure, cryptographically random passwords with custom length, numbers, symbols, and strength rating.
+- [Epoch & Unix Timestamp Converter](https://tulyro.online/tools/epoch-converter/): Convert a Unix timestamp to date — seconds or milliseconds to human-readable UTC and local date formats. Live clock included.
+- [JSON to CSV Converter](https://tulyro.online/dev/json-to-csv-converter/): Convert JSON arrays of objects to CSV instantly — RFC 4180 quoting, delimiter choice, and one-click download.
 
 ## Guides
 
@@ -65,13 +92,28 @@
 - [How Browser Text-to-Speech Works](https://tulyro.online/guides/how-browser-text-to-speech-web-speech-api-works/): The Web Speech API, optimal listening speeds, and proofreading by ear.
 - [How Unicode Fancy Text Works on Social Media](https://tulyro.online/guides/how-unicode-fancy-text-fonts-work-on-social-media/): Mathematical Alphanumeric Symbols, style ranges, and accessibility rules.
 - [How to Create Chat Mockups for Presentations and UI](https://tulyro.online/guides/how-to-create-chat-mockups-for-presentations-and-ui/): Design specs for crisp chat mockups in Reels, decks, and documentation, with ethical guidelines.
+- [SIP vs Lumpsum Investment: Which Generates Better Returns?](https://tulyro.online/guides/sip-vs-lumpsum/): Compare SIP vs Lumpsum investing with exact math, rupee cost averaging breakdowns, market cycle risks, and tax implications. Includes worked examples.
+- [The 75% College Attendance Rule: Criteria, Bunk Limits & Medical Condonation](https://tulyro.online/guides/college-75-percent-attendance-rule-explained/): Understand the 75% attendance rule under UGC, AICTE, and university norms. Learn how to calculate bunkable classes, medical condonation, and exam detention rules.
+- [EMI vs Flat Rate Interest: How Lenders Hide Real Loan Costs](https://tulyro.online/guides/emi-vs-flat-rate-interest/): Understand reducing balance EMI vs flat rate interest. See worked examples showing why an 8% flat rate is actually a 14.5% reducing balance loan.
+- [EMI Prepayment Explained: How Paying Extra Early Saves Lakhs in Interest](https://tulyro.online/guides/emi-prepayment-explained/): Paying ₹5,00,000 extra in year 1 of a ₹50 lakh home loan saves ₹17,69,951 in interest and cuts 50 months off the loan. See the worked math, RBI's no-penalty rule, and when not to prepay.
+- [Password Entropy & Strength Guide: What Actually Makes a Password Secure](https://tulyro.online/guides/password-entropy-and-security-guide/): Learn how password entropy works, calculate bits of entropy mathematically, and understand why length outperforms complex character substitution every time.
+- [Understanding Unix Epoch Timestamps: Seconds, Milliseconds & Year 2038](https://tulyro.online/guides/unix-epoch-timestamp-guide/): A complete guide to Unix epoch timestamps. Understand how epoch seconds and milliseconds work, detect them in code, and prepare for the Year 2038 Unix rollover.
+- [Complete JSON Formatting & Validation Guide: RFC 8259, Errors & Minification](https://tulyro.online/guides/json-formatting-and-validation-guide/): Understand RFC 8259 JSON standards, master beautification and minification, identify line-by-line syntax errors, and optimize payload sizes for web APIs.
+- [UUID v4 vs UUID v7: Differences, Database Index Performance & Which to Choose](https://tulyro.online/guides/uuid-v4-vs-v7-which-should-you-use/): Compare UUID v4 and UUID v7: learn how random v4 causes B-Tree index fragmentation and why time-ordered v7 solves PostgreSQL, MySQL and distributed database bottlenecks.
+- [Code Naming Conventions Explained: camelCase, PascalCase, snake_case & kebab-case](https://tulyro.online/guides/code-naming-conventions-camelcase-snake-case/): Master programming naming styles across JavaScript, Python, Rust, Go, CSS, and SQL. Understand why different languages enforce specific casing standards.
+- [Complete Markdown Cheatsheet: Syntax, Formatting Rules & Safe Web Publishing](https://tulyro.online/guides/markdown-cheatsheet-and-formatting-guide/): A complete guide to Markdown formatting. Learn CommonMark and GFM syntax for headers, code blocks, lists, blockquotes, tables, and preventing XSS when compiling to HTML.
+- [Text-to-Speech Voices Explained: How They're Made and How to Choose One](https://tulyro.online/guides/text-to-speech-voices-guide/): How TTS voices are made (formant, concatenative, neural), the five factors that decide voice quality, verified narration-time estimates, and a practical voice-selection checklist.
+- [How to Calculate Percentage: The Three Formulas That Cover Every Case](https://tulyro.online/guides/how-to-calculate-percentage/): Three percentage formulas cover every case: find the part, find the percent, find the whole. Worked examples: 25% of 200 is 50, 15% off ₹1,200, a 15% pay rise.
 - [All Guides](https://tulyro.online/guides/): Index of every guide.
 
 ## Pages
 
 - [All Tools](https://tulyro.online/tools/): Full directory of every live tool.
-- [Calculators](https://tulyro.online/calculators/): Age, EMI, mortgage, BMI and CGPA calculators.
-- [Text Tools](https://tulyro.online/text/): Word counter, text to speech and fancy text generator.
+- [Calculators](https://tulyro.online/calculators/): Free browser-only calculators for finance, health, academic and everyday math.
+- [Text Tools](https://tulyro.online/text/): Free browser-only text utilities for counting, speech, styling and formatting.
+- [Developer Tools](https://tulyro.online/dev/): Free browser-only developer utilities for encoding, hashing, formatting and generating.
+- [Fun Tools](https://tulyro.online/fun/): Free browser-only mockup and entertainment tools.
+- [Media Tools](https://tulyro.online/media/): Free browser-only PDF, image and audio tools.
 - [About](https://tulyro.online/about/): What Tulyro is and how it is built.
 - [Privacy Policy](https://tulyro.online/privacy/): How browser-only tools, analytics and text-to-speech are handled.
 - [Terms](https://tulyro.online/terms/): Terms for using the free browser-only tools.

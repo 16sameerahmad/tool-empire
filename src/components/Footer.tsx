@@ -84,7 +84,7 @@ export function Footer() {
                 ))}
                 <li>
                   <Link className={linkClass} href="/guides/">
-                    View All 15 Guides →
+                    View All Guides →
                   </Link>
                 </li>
               </ul>

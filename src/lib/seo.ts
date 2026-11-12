@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ToolDefinition } from "./tools";
-import { getTool } from "./tools";
+import { tools } from "./tools";
 
 export const siteUrl = "https://tulyro.online";
 
@@ -10,7 +10,7 @@ export const siteUrl = "https://tulyro.online";
  * Never auto-generate per build — a dateModified that moves on every
  * deploy without a content change is dishonest.
  */
-export const contentUpdated = "2026-10-27";
+export const contentUpdated = "2026-11-12";
 
 const ogImage = {
   url: `${siteUrl}/og-image.png`,
@@ -44,26 +44,30 @@ export function createToolMetadata(tool: ToolDefinition): Metadata {
     },
   };
 
-  if (tool.id === "emi-calculator") {
-    metadata.alternates = {
-      canonical: `${siteUrl}${tool.href}`,
-      languages: {
-        "en-IN": `${siteUrl}${tool.href}`,
-        "en-US": `${siteUrl}/calculators/mortgage-calculator/`,
-      },
-    };
-  }
-  if (tool.id === "mortgage-calculator") {
-    metadata.alternates = {
-      canonical: `${siteUrl}${tool.href}`,
-      languages: {
-        "en-IN": `${siteUrl}/calculators/emi-calculator/`,
-        "en-US": `${siteUrl}${tool.href}`,
-      },
-    };
-  }
-
   return metadata;
+}
+
+/** Shared OG/Twitter metadata for hub, directory, and homepage pages: own title/description/URL, never the layout defaults. */
+export function createPageMetadata(title: string, description: string, path: string): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: `${siteUrl}${path}` },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}${path}`,
+      siteName: "Tulyro",
+      type: "website",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`${siteUrl}/og-image.png`],
+    },
+  };
 }
 
 export function createBreadcrumbJsonLd(tool: ToolDefinition) {
@@ -71,7 +75,7 @@ export function createBreadcrumbJsonLd(tool: ToolDefinition) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
       { "@type": "ListItem", position: 2, name: tool.cluster, item: `${siteUrl}/${tool.cluster.toLowerCase()}/` },
       { "@type": "ListItem", position: 3, name: tool.title, item: `${siteUrl}${tool.href}` },
     ],
@@ -114,37 +118,51 @@ export function createHowToJsonLd(tool: ToolDefinition, steps: string[]) {
   };
 }
 
-/** SoftwareApplication JSON-LD. Free tool, no price, no invented ratings or counts. */
-export function createSoftwareApplicationJsonLd(tool: ToolDefinition) {
+/** WebApplication JSON-LD. Browser-only tool, no download, no price, no invented ratings or counts. */
+export function createWebApplicationJsonLd(tool: ToolDefinition) {
+  const url = `${siteUrl}${tool.href}`;
   return {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": "WebApplication",
+    "@id": url,
     name: tool.title,
     applicationCategory: "UtilitiesApplication",
-    operatingSystem: "Any",
-    url: `${siteUrl}${tool.href}`,
+    browserRequirements: "Requires JavaScript. Requires HTML5.",
+    url,
     description: tool.seoDescription ?? tool.description,
     dateModified: contentUpdated,
+    author: { "@id": `${siteUrl}/#sameer-ahmad` },
+    publisher: { "@id": `${siteUrl}/#organization` },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 }
 
-/** Article JSON-LD for guide pages. Author is the Tulyro organization — no invented person. */
+/** Article JSON-LD for guide pages. Author is Sameer Ahmad, founder — a real person, no invented credentials. */
 export function createArticleJsonLd(article: { headline: string; description: string; path: string }) {
+  const url = `${siteUrl}${article.path}`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": url,
     headline: article.headline,
     description: article.description,
-    url: `${siteUrl}${article.path}`,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
     dateModified: contentUpdated,
     author: {
       "@type": "Person",
+      "@id": `${siteUrl}/#sameer-ahmad`,
       name: "Sameer Ahmad",
       url: `${siteUrl}/about/`,
       jobTitle: "Founder & Lead Developer",
     },
-    publisher: { "@type": "Organization", name: "Tulyro", url: siteUrl, logo: `${siteUrl}/logo.svg` },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "Tulyro",
+      url: siteUrl,
+      logo: { "@type": "ImageObject", url: `${siteUrl}/logo.svg` },
+    },
   };
 }
 
@@ -177,6 +195,7 @@ export function createWebSiteJsonLd() {
         description: "Open-source, free browser-only utility tools and calculators. Zero server uploads, zero tracking.",
         founder: {
           "@type": "Person",
+          "@id": `${siteUrl}/#sameer-ahmad`,
           name: "Sameer Ahmad",
           jobTitle: "Founder & Lead Developer",
           sameAs: ["https://github.com/16sameerahmad"],
@@ -184,34 +203,20 @@ export function createWebSiteJsonLd() {
       },
       {
         "@type": "ItemList",
+        "@id": `${siteUrl}/#tools`,
         name: "Tulyro Free Tools",
-        itemListElement: [
-          "gst-calculator",
-          "emi-calculator",
-          "mortgage-calculator",
-          "bmi-calculator",
-          "age-calculator",
-          "attendance-calculator",
-          "ppf-calculator",
-          "sgpa-to-cgpa",
-          "sip-calculator",
-          "swp-calculator",
-          "lumpsum-calculator",
-          "cagr-calculator",
-          "percentage-calculator",
-          "cgpa-to-percentage",
-          "word-counter",
-          "text-to-speech",
-          "fancy-text-generator",
-          "base64-encoder-decoder",
-          "invoice-generator",
-          "fake-text-generator",
-          "remove-background",
-          "image-resizer",
-        ].map((id, index) => {
-          const tool = getTool(id);
-          return { "@type": "ListItem", position: index + 1, name: tool.title, url: `${siteUrl}${tool.href}` };
-        }),
+        itemListElement: tools
+          .filter((tool) => tool.live)
+          .map((tool, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "WebApplication",
+              "@id": `${siteUrl}${tool.href}`,
+              name: tool.title,
+              url: `${siteUrl}${tool.href}`,
+            },
+          })),
       },
     ],
   };

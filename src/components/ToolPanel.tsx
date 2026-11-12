@@ -1242,7 +1242,7 @@ function HashGeneratorPanel() {
           ) : (
             <div className="space-y-3 rounded-xl bg-surface-container-lowest p-6 shadow-card">
               <div className="flex items-center justify-between">
-                <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Hashes</h3>
+                <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Hashes</h2>
                 {computing && <span className="font-body-sm text-xs text-on-surface-variant">Computing…</span>}
               </div>
               {HASH_ALGORITHMS.map((algorithm) => (
@@ -1579,7 +1579,7 @@ function SipPanel() {
             </div>
           ) : (
             <div className="space-y-4 rounded-xl bg-surface-container-lowest p-6 shadow-card">
-              <h3 className="font-display font-headline-sm text-headline-sm text-on-surface">Expected Wealth Summary</h3>
+              <h2 className="font-display font-headline-sm text-headline-sm text-on-surface">Expected Wealth Summary</h2>
               <div className="space-y-3">
                 <div className="rounded-xl bg-surface-container-low p-4">
                   <span className="block font-label-md text-label-md text-on-surface-variant">Invested Amount</span>
@@ -1630,7 +1630,7 @@ function SipPanel() {
               <Icon name="lightbulb" className="h-5 w-5" />
             </span>
             <div className="space-y-1">
-              <h4 className="font-display font-headline-sm text-sm font-semibold text-on-surface">Power of Compounding</h4>
+              <h3 className="font-display font-headline-sm text-sm font-semibold text-on-surface">Power of Compounding</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 SIP gains compound over time. The longer you stay invested, the larger the wealth gain component relative to your actual invested principal.
               </p>
@@ -3831,7 +3831,7 @@ function RemoveBackgroundPanel() {
                 >
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="Original uploaded image"
                     className="h-full w-full object-contain"
                   />
                 </div>
@@ -4922,7 +4922,7 @@ function ImageCompressorPanel() {
               <div className="mt-4 flex items-center justify-center bg-surface-container rounded-lg p-2 h-48 overflow-hidden">
                 <img
                   src={imageSrc}
-                  alt="Original"
+                  alt="Original uploaded image"
                   className="max-h-full max-w-full object-contain rounded"
                 />
               </div>
@@ -5709,7 +5709,7 @@ function PdfToolsPanel({ initialMode = "pdf-to-img" }: { initialMode?: "pdf-to-i
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {pages.map((p) => (
                   <div key={p.pageNumber} className="border rounded p-2 text-center bg-card">
-                    <img src={p.dataUrl} alt={`Page ${p.pageNumber}`} className="max-h-48 mx-auto object-contain rounded" />
+                    <img src={p.dataUrl} alt={`Preview of PDF page ${p.pageNumber}`} className="max-h-48 mx-auto object-contain rounded" />
                     <a href={p.dataUrl} download={`page-${p.pageNumber}.${format === "jpeg" ? "jpg" : "png"}`}
                       className={`${secondaryButtonClass} mt-2 inline-block text-xs`}>
                       Download Page {p.pageNumber}
@@ -6339,7 +6339,7 @@ function BarcodePanel() {
       ) : (
         <div className="space-y-3 rounded-xl bg-surface-container-lowest p-6 shadow-card">
           <div className="flex justify-center overflow-x-auto bg-white rounded-lg p-4">
-            <canvas ref={canvasRef} className="max-w-full" style={{ imageRendering: "pixelated" }} />
+            <canvas ref={canvasRef} role="img" aria-label={`Barcode for ${text}`} className="max-w-full" style={{ imageRendering: "pixelated" }} />
           </div>
           {result?.humanText && (
             <p className="text-center font-mono text-sm tracking-[0.3em] text-on-surface">{result.humanText}</p>
@@ -6476,7 +6476,7 @@ function QrCodePanel() {
       {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
 
       <div className="flex flex-col items-center gap-4">
-        <div id="qr-render-target" className="border rounded p-4 bg-white" />
+        <div id="qr-render-target" role="img" aria-label={`QR code for ${text}`} className="border rounded p-4 bg-white" />
         <canvas ref={canvasRef} className="hidden" />
         <div className="flex gap-2">
           <button onClick={() => downloadQr("png")} className={buttonClass}>Download PNG</button>

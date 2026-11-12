@@ -1,9 +1,8 @@
 import { Icon } from "@/components/icons";
-import { createFaqJsonLd } from "@/lib/seo";
 import type { FAQItem } from "@/lib/content";
 
+/** Visible FAQ accordion only. FAQPage JSON-LD is emitted once, page-level, by ToolPage / GuideLayout. */
 export function FAQ({ items }: { items: FAQItem[] }) {
-  const jsonLd = createFaqJsonLd(items);
   return (
     <section aria-labelledby="faq-heading" className="space-y-4">
       <div className="flex items-center gap-2">
@@ -25,7 +24,6 @@ export function FAQ({ items }: { items: FAQItem[] }) {
           </details>
         ))}
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </section>
   );
 }

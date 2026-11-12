@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 import { Icon } from "@/components/icons";
 import { ToolCard } from "@/components/ToolCard";
 import { getTool } from "@/lib/tools";
-import { createArticleJsonLd, createFaqJsonLd, createSimpleBreadcrumbJsonLd } from "@/lib/seo";
+import { contentUpdated, createArticleJsonLd, createFaqJsonLd, createSimpleBreadcrumbJsonLd } from "@/lib/seo";
 import type { Guide } from "@/lib/guides";
 
 /** Shared layout for /guides/* pages. Mirrors ToolLayout styling; content comes from guides.tsx. */
@@ -21,6 +21,12 @@ export function GuideLayout({ guide }: { guide: Guide }) {
     { name: guide.title, path: guide.href },
   ]);
   const faqJsonLd = createFaqJsonLd(guide.faq);
+  // Month label derived from the shared content date so it cannot drift stale.
+  const updatedLabel = new Date(`${contentUpdated}T00:00:00Z`).toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
   const relatedTools = guide.related.map((id) => getTool(id)).filter((tool) => tool.live);
   return (
     <>
@@ -93,7 +99,7 @@ export function GuideLayout({ guide }: { guide: Guide }) {
             <div className="mt-4 flex flex-wrap items-center gap-3 font-label-sm text-xs text-tertiary-fixed-dim">
               <span>By <Link href="/about/" className="text-white underline hover:text-primary-fixed">Sameer Ahmad</Link></span>
               <span aria-hidden="true">•</span>
-              <span>Updated October 2026</span>
+              <span>Updated {updatedLabel}</span>
               <span aria-hidden="true">•</span>
               <span>Verified mathematical accuracy</span>
             </div>

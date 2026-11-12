@@ -6,13 +6,13 @@ import {
   createBreadcrumbJsonLd,
   createFaqJsonLd,
   createHowToJsonLd,
-  createSoftwareApplicationJsonLd,
+  createWebApplicationJsonLd,
 } from "./seo";
 
 export function ToolPage({ toolId }: { toolId: string }) {
   const tool = getTool(toolId);
   const page = getContent(toolId);
-  const appJsonLd = createSoftwareApplicationJsonLd(tool);
+  const appJsonLd = createWebApplicationJsonLd(tool);
   const breadcrumbJsonLd = createBreadcrumbJsonLd(tool);
   const howToJsonLd = page.howTo && page.howTo.length > 0 ? createHowToJsonLd(tool, page.howTo) : null;
   const faqJsonLd = page.faq && page.faq.length > 0 ? createFaqJsonLd(page.faq) : null;

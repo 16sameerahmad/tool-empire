@@ -725,6 +725,7 @@ export const content: Record<string, ToolContent> = {
       { question: "Can a hash be reversed to get the original text?", answer: "No. Hash functions are one-way: there is no operation that turns a hash back into its input. But short or common inputs can be guessed — an attacker hashes likely passwords until one matches. That is why passwords must be salted and run through a slow function like bcrypt or Argon2, not stored as a plain MD5 or SHA-256 hash." },
       { question: "Which hash algorithm should I use?", answer: "Use SHA-256 for almost everything: verifying downloads, file integrity, and general-purpose fingerprinting — it is fast, standard, and secure. Use SHA-512 when you want extra margin or your system requires it. Use MD5 or SHA-1 only when a legacy system or a published checksum demands that specific algorithm, and never for security decisions." },
     ]),
+    guides: [{ label: "Password Entropy & Strength Guide: What Actually Makes a Password Secure", href: "/guides/password-entropy-and-security-guide/" }],
   },
   "base64-encoder-decoder": {
     definition: "Base64 is a reversible encoding that represents binary data using letters, digits, plus, slash, and padding. It is not encryption.",

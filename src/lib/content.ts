@@ -314,6 +314,10 @@ export const content: Record<string, ToolContent> = {
       { question: "How many years of service are needed for gratuity?", answer: "Five years of continuous service with the same employer. The rule is waived if service ends because of death or disablement — then gratuity is payable regardless of tenure, and the amount uses the same 15/26 formula. The 6-month rounding rule can push 4 years 11 months over the line to 5 completed years." },
       { question: "Is gratuity taxable in India?", answer: "Gratuity up to ₹20 lakh is tax-free for private-sector employees under the Income Tax Act, and fully exempt for government employees. Any amount above ₹20 lakh is taxed as salary income in the year it is received. Since the statutory payout itself is capped at ₹20 lakh, most employees pay no tax on gratuity at all." },
     ]),
+    sources: [
+      { label: "Code on Social Security, 2020 — Section 53, Payment of gratuity (statutory text: 15 days' wages, 6-month rule, 15/26 for monthly-rated employees)", href: "https://indiankanoon.org/doc/37077486/" },
+      { label: "SCC Online — Ministry FAQs on Four Labour Codes Explained (16 Mar 2026 FAQs: gratuity prospective from 21 Nov 2025, fixed-term eligibility)", href: "https://www.scconline.com/blog/post/2026/04/26/ministry-faqs-four-labour-codes-india-2026/" },
+    ],
   },
   "sleep-calculator": {
     definition: "A sleep calculator finds the best time to go to bed or wake up using 90-minute sleep cycles. It subtracts whole cycles plus a 15-minute fall-asleep allowance from your alarm time (or adds them to your bedtime), so you wake up between cycles instead of in deep sleep.",
@@ -538,6 +542,9 @@ export const content: Record<string, ToolContent> = {
       { question: "Can CAGR be negative?", answer: "Yes. When the ending value is lower than the starting value, CAGR is negative. ₹100 falling to ₹80 over 2 years is a CAGR of −10.56% a year. A negative CAGR means the investment shrank at that constant yearly rate; it does not mean the fall happened evenly — the actual path may have been much rougher." },
       { question: "Can I use CAGR to measure my SIP returns?", answer: "No — not accurately. CAGR assumes the whole amount was invested from day one, but SIP money enters gradually, so later instalments compound for less time. For SIPs, use XIRR, which accounts for each instalment's date. CAGR on an SIP's totals will misstate the true annual return." },
     ]),
+    sources: [
+      { label: "Investopedia — Understanding the Compound Annual Growth Rate (CAGR) for Investors (definition, formula, smoothing limits)", href: "https://www.investopedia.com/investing/compound-annual-growth-rate-what-you-should-know/" },
+    ],
   },
   "percentage-calculator": {
     definition: "A Percentage Calculator solves everyday percentage problems including finding X% of a number, percentage increase or decrease, and calculating what percent one number is of another.",

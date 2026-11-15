@@ -24,7 +24,9 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
   const [highlight, setHighlight] = useState(-1);
   const [open, setOpen] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [typed, setTyped] = useState("");
+  const [typed, setTyped] = useState(TYPEWRITER_EXAMPLES[0]);
+  const typedRef = useRef(typed);
+  typedRef.current = typed;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const matches = useMemo(() => {
@@ -55,9 +57,13 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
   useEffect(() => {
     if (focused || query) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let example = 0;
-    let chars = 0;
-    let deleting = false;
+    // Placeholder is pre-filled with the first example (SSR + first paint),
+    // so the cycle starts by deleting it after the normal hold — never by
+    // retyping from empty, which left the LCP placeholder blank until ~4s.
+    const startIndex = TYPEWRITER_EXAMPLES.indexOf(typedRef.current);
+    let example = startIndex >= 0 ? startIndex : 0;
+    let chars = startIndex >= 0 ? typedRef.current.length : 0;
+    let deleting = chars > 0;
     let timer = 0;
     const tick = () => {
       const word = TYPEWRITER_EXAMPLES[example % TYPEWRITER_EXAMPLES.length];
@@ -82,7 +88,8 @@ export function HomeSearch({ variantId = "desktop" }: { variantId?: string }) {
         timer = window.setTimeout(tick, 22);
       }
     };
-    timer = window.setTimeout(tick, 900);
+    // Pre-filled placeholder: hold the full word first, then delete.
+    timer = window.setTimeout(tick, deleting ? 1400 : 900);
     return () => window.clearTimeout(timer);
   }, [focused, query]);
 

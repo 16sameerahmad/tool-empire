@@ -114,3 +114,26 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
   Competitor re-sweep: affordability SERP top 5 noted (guide shipped in
   response); epoch-converter SERP top 6 noted (Tulyro below page 1; µs/ns
   support a future candidate).
+
+## 2026-11-16 — Weekly run (post-campaign, full audit + H6 closure)
+
+- **Change:** docs-only — H6 (CSP smoke test) closed; audit + weekly logs
+  updated. No site-code change, no deploy. See implementation-log.md for
+  the smoke-test method and results.
+- **Verification:** `tsc --noEmit` ✓ · `eslint .` ✓ (0 errors, 9
+  pre-existing warnings) · vitest 170/170 ✓ · `next build` ✓ (all green,
+  no revert needed). Smoke test on fresh HEAD build: 8/8 page-viewport
+  combos PASS (0 console errors, 0 failed requests, 0 overflow).
+- **Live:** nothing to deploy. Live re-verified 2026-11-16 ~10:49 IST —
+  homepage + 10 sampled routes HTTP 200; enforcing CSP + HSTS +
+  X-Frame-Options: DENY live; sitemap 96 URLs.
+- **Audit findings this run (read-only):** calc spot-checks ✓ (EMI 8,884.88 /
+  BMI 22.9 / Age 26y; gratuity + fuel-cost formulas verified in source);
+  11/11 sampled routes → 200; sitemap 96 (was 88); secrets clean; headers
+  S1–S3 live; `npm audit` still 403-blocked (S6 open); ACAO:* Info
+  re-verified as Vercel-side (control test vs example.com/google.com),
+  harmless. H3/H5 remain open. Competitor re-sweep: BMI SERP top 5 noted
+  (Tulyro BMI already at parity on healthy-range pattern; BMI Prime a
+  future candidate). GSC data pending — no week-over-week comparison
+  possible; last reported 14 Nov (779 imp / 5 clicks / pos 55.6 / CTR 0.6%,
+  28d) cited as last-known only.

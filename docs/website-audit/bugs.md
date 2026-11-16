@@ -110,12 +110,13 @@ enforcing CSP + full HSTS + security.txt all live (see monthly-performance.md).
 - H2: responsive code review still only code-level; real-device screenshot check
   still pending → remains OPEN on that point.
 - H3: OPEN (Sam-side manual check). H5: OPEN (needs verified repro first).
-- **H6 NEW (Medium, hypothesis):** enforcing CSP (live since commit `756d375`) has no
-  documented full-page smoke test — the audit's own rule said "test every tool page
-  after" applying CSP (report-only was applied with that caveat; enforcing was not).
-  No breakage reported (tests 64/64 green 27 Oct, 0 user complaints), but page-level
-  evidence is missing. Next weekly run: Playwright screenshot pass desktop + mobile
-  across all tool pages, including the bg-remover (wasm-unsafe-eval path).
+- **H6 CLOSED 2026-11-16:** smoke test run on a fresh build of HEAD
+  (`0b584d1`): local serve of `out/` with the live enforcing CSP header
+  injected; Playwright Chromium at 360px + 1280px × 4 pages (home, EMI, BMI,
+  affordability guide) — 0 console errors, 0 failed requests, 0 horizontal
+  overflow. (First pass used a stale 03:30 build; re-ran on the fresh build.
+  Scope note: 4 pages, not all tool pages — the bg-remover wasm path was
+  not exercised; no CSP breakage observed on the sampled pages.)
 
 **Recurring pattern:** doc-accuracy drift (docs describe 23–36 URLs; live is 71).
 No verified functional bugs in 18 days — the tests discipline is holding.
@@ -162,3 +163,35 @@ remains open on that point only).
 
 **Fix landed this run:** mortgage affordability guide (R8) — see
 implementation-log.md + change-log.md.
+
+## 2026-11-16 — Weekly run (post-campaign: Day 30 ended Fri 2026-11-13)
+
+- **No verified functional bugs found this run.** Calc spot-checks ✓
+  (EMI ₹100,000@12%/12mo = 8,884.88 / BMI 70kg/175cm = 22.9 / Age
+  2000-01-01 = 26y on 2026-11-16; gratuity (15/26) formula + 6-month rule
+  + ₹20L cap and fuel-cost formulas verified in source). 11/11 sampled
+  routes → 200; live sitemap 96 URLs (was 88 on 9 Nov — the 9 new pages
+  since then are all present in it).
+- **H6 CLOSED:** CSP-enforcement smoke test — fresh `next build` from HEAD
+  (`0b584d1`), served locally with the live enforcing CSP header injected,
+  Playwright Chromium at 360px + 1280px × 4 pages (home, EMI, BMI,
+  affordability guide): 0 console errors, 0 failed requests, 0 horizontal
+  overflow. First pass used a stale 03:30 build (pre-HEAD); re-ran on the
+  fresh build — PASS both times. Scope note: 4 sampled pages, not every
+  tool page; bg-remover wasm path not exercised.
+- **H2 narrowed:** code review found no `w-screen`/100vw fixed widths
+  (max-width caps only; `overflow-hidden` in 10 files). The 360px smoke
+  measurement (scrollWidth == innerWidth on all 4 pages) is now direct
+  evidence; only a real-device screenshot remains pending.
+- **ACAO:* Info (9 Nov) → re-verified, still present on all pages** though
+  vercel.json scopes it to `/tulyro-logo-200.png` only. Control test:
+  example.com + google.com through the same egress proxy do NOT return the
+  header, so it is Vercel-side, not proxy-added. Still harmless (no
+  credentials/cookies); no action.
+- **Doc drift (Low) → this run records live sitemap 96.** Prior docs citing
+  88 are now stale; this entry is the current count.
+- H3 (TTS voice quality, Sam-side manual) and H5 (ToolPanel state resets,
+  needs a verified repro) remain OPEN.
+- **Fix landed this run:** none — no verified bug found; the run's safe
+  action was closing H6 with the smoke test (verification, not a code
+  change). No site-code commit; docs-only commit for this run's logs.

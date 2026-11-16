@@ -169,3 +169,32 @@ Incident response: no formal plan exists; for a static site the recovery path is
 - **S5 → still INFO.** The egress proxy performs TLS interception, so the origin
   certificate's real expiry is not observable from this VM. Vercel auto-renews;
   confirmation stays Sam-side in the Vercel dashboard.
+
+## 2026-11-16 — Weekly re-check (post-campaign)
+
+- **S1/S2/S3 → still FIXED, verified live.** Enforcing CSP (same policy as
+  2026-10-19), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy:
+  camera=(), microphone=(), geolocation=(), payment=(), usb=()`. HSTS
+  `max-age=63072000; includeSubDomains; preload`. Homepage HTTP 200.
+- **H6 → CLOSED.** CSP-enforcement smoke test run 2026-11-16 on a fresh
+  build of HEAD (`0b584d1`): local serve of `out/` with the live enforcing
+  CSP header injected; Playwright Chromium, 360px + 1280px × 4 pages (home,
+  EMI, BMI, affordability guide) — 0 console errors, 0 failed requests,
+  0 blocked resources, 0 horizontal overflow. No CSP violation observed.
+- **Secrets re-check → clean.** Working-tree grep for key/secret/token/
+  private-key patterns across `src/` + `public/`: no hits. The GSC
+  verification tokens in `src/app/layout.tsx` remain required-by-Google,
+  not a leak; values never reproduced in reports.
+- **S6 → still UNVERIFIED.** `npm audit` still fails with egress-proxy 403
+  `policy_denied` (same as 2026-10-14/19/26 and 9 Nov) — the audit-endpoint
+  POST is blocked by policy `zz_managed_internal_spaces_package_registries`.
+  Production dependency surface is still 3 packages (next, react,
+  react-dom). Do NOT claim "no vulnerabilities" until a scan actually runs.
+- **ACAO:* Info → re-verified.** Present on all pages though vercel.json
+  scopes it to `/tulyro-logo-200.png` only; control test against
+  example.com/google.com through the same proxy shows the proxy does not
+  add it — Vercel-side. No credentials/cookies on the site; no action.
+- **S5 → still INFO.** Egress proxy performs TLS interception, so the origin
+  certificate's real expiry is not observable from this VM. Vercel
+  auto-renews; confirmation stays Sam-side in the Vercel dashboard.

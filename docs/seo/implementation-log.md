@@ -133,3 +133,24 @@
   `https://tulyro.online/guides/how-much-house-can-you-afford/` returns HTTP
   200 with the title and figures present; live sitemap 88 URLs including the
   new guide.
+
+## 2026-11-16 — H6 CSP smoke test closed (weekly run, post-campaign)
+
+- **Change:** no site-code change. The run's safe action was closing H6
+  (open since 26 Oct): a CSP-enforcement smoke test against a fresh build
+  of HEAD. Method: `next build` from clean tree (`0b584d1`); served `out/`
+  on localhost with the live enforcing CSP header (copied verbatim from
+  `vercel.json`) injected; drove Playwright Chromium (cached build 1243)
+  at 360px + 1280px across 4 pages — home, EMI calculator, BMI calculator,
+  affordability guide — capturing console errors, page errors, failed /
+  4xx+ requests, and `scrollWidth` vs `innerWidth`.
+- **Verification:** 8/8 page-viewport combos PASS — 0 console errors,
+  0 failed requests, 0 horizontal overflow. A first pass on the stale
+  03:30 `out/` (pre-HEAD) also passed but was discarded as evidence and
+  re-run on the fresh build. Gates all green: `tsc --noEmit` ✓,
+  `eslint .` ✓ (0 errors, 9 pre-existing warnings), vitest 170/170 ✓,
+  `next build` ✓. No revert needed (no code touched).
+- **Live:** no deploy needed — nothing changed on the site. Live headers
+  re-verified by curl the same run (enforcing CSP, HSTS, X-Frame-Options:
+  DENY, nosniff, Referrer-Policy, Permissions-Policy all present;
+  homepage + 10 sampled routes HTTP 200; live sitemap 96 URLs).

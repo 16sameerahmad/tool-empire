@@ -276,3 +276,54 @@ insufficient data — no fresh GSC paste.
 2. Next weekly run: H6 CSP smoke test via local-serve + screenshot pass
    (scripted Chromium cannot reach the internet on this VM — serve the built
    `out/` locally instead).
+
+## Week of 2026-11-16 (post-campaign — Day 30 ended Fri 2026-11-13) — GSC DATA PENDING
+
+**No fresh GSC data was pasted for this week, so no week-over-week comparison is possible. Last reported GSC (14 Nov read): 779 impressions / 5 clicks / position 55.6 / CTR 0.6% over 28 days — cited as last-known only, not this week's data. Any ranking or traffic claim for this week would be invented.**
+
+| Metric | This week | Previous week | Delta | Note |
+|---|---|---|---|---|
+| GSC clicks | insufficient data | insufficient data (no fresh paste) | — | GSC data pending |
+| GSC impressions | insufficient data | insufficient data | — | GSC data pending |
+| Average CTR | insufficient data | insufficient data | — | GSC data pending |
+| Average position | insufficient data | insufficient data | — | GSC data pending |
+| Indexed pages (GSC) | insufficient data | insufficient data | — | GSC data pending |
+| Sitemap URLs live | 96 (curl, 2026-11-16) | 88 (9 Nov) | +8 | 9 new pages since 9 Nov (6 tools + 2 guides + 1 tool route); all present in live sitemap + llms.txt |
+
+### Top queries (this week)
+
+insufficient data — no fresh GSC paste.
+
+### Competitor-change notes (week of 2026-11-16)
+
+- Public SERP check 2026-11-16 ("BMI calculator healthy weight range",
+  verified-public): top results are zencalcy.com, calkulator.in, calqit.com,
+  calcpocket.com, helpcalculate.com. Pattern: healthy weight range for your
+  height + weight-to-gain/lose delta + BMI Prime + WHO category table.
+  Tulyro is not in the top 5 for the generic query. Our BMI tool already
+  shows the healthy range (WHO + Indian/Asian ICMR scales) — parity on the
+  core pattern; BMI Prime is a possible future addition, not committed.
+  Whether any of this moves rankings is unproven until GSC shows
+  impressions (correlation-only).
+
+### Wins / losses diagnosis (week of 2026-11-16)
+
+- Win: H6 closed — CSP smoke test passed on a fresh HEAD build (360px +
+  1280px × 4 pages, 0 errors/0 failed requests/0 overflow). First
+  evidence-based responsive check, not code-only.
+- Win: 9 new pages since 9 Nov all live, sitemap + llms.txt current, hub
+  links verified (each new tool has 4 inbound files; hub pages link them).
+- Win: all gates green this run — `tsc --noEmit` ✓, `eslint .` ✓ (0 errors,
+  9 pre-existing warnings), vitest 170/170 ✓ (up from 117/117 on 9 Nov),
+  `next build` ✓.
+- Loss: none measured — no GSC data to show a loss.
+- Open: `npm audit` still proxy-blocked (S6); H3/H5 open; ACAO:* Info
+  re-verified as Vercel-side, harmless.
+
+### Next action (week of 2026-11-16)
+
+1. Sam-side: paste fresh GSC data when available so the next weekly entry can
+   compare real numbers (especially whether the 9 new tools/guides and the
+   affordability guide earned impressions).
+2. Next weekly run: attempt a verified repro for H5 (ToolPanel state resets)
+   — the last open hypothesis with a code-side path.

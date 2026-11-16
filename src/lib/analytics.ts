@@ -4,7 +4,8 @@
  * the site's promise is zero tracking. This function is kept so existing
  * call sites need no changes; it sends nothing anywhere.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars — signature kept for call-site compatibility.
+// Signature kept for call-site compatibility.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
   // Intentionally empty — no analytics, no network calls.
 }

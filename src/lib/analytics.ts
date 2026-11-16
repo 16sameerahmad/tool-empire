@@ -1,15 +1,10 @@
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
 /**
- * Dispatches custom events to Google Analytics (GA4) with zero PII.
- * Only tracks technical interaction metrics (e.g., tool_use, copy_success).
+ * No-op event tracker. Analytics (GA4) was removed on 16 Nov 2026: the tag
+ * was blocked by the site's Content Security Policy and never loaded, and
+ * the site's promise is zero tracking. This function is kept so existing
+ * call sites need no changes; it sends nothing anywhere.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars — signature kept for call-site compatibility.
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
-  if (typeof window === "undefined" || !window.gtag) return;
-  window.gtag("event", eventName, params);
+  // Intentionally empty — no analytics, no network calls.
 }

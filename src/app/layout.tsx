@@ -12,7 +12,6 @@ import "./globals.css";
 // the served production HTML still needs a post-deploy check for
 // `index, follow`.
 const isProductionDeployment = process.env.VERCEL_ENV === "production";
-const GA_MEASUREMENT_ID = "G-V4TWQ2FWSX";
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter", weight: ["400", "500", "600", "700"] });
 const display = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap", variable: "--font-display", weight: ["600", "700", "800"] });
 const mono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--font-mono", weight: ["400", "500", "600"] });
@@ -64,16 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${inter.className} ${inter.variable} ${display.variable} ${mono.variable}`}>
-        {isProductionDeployment && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
-              }}
-            />
-          </>
-        )}
+        {/* No analytics: the site sets no trackers and sends no usage data. */}
         {children}
       </body>
     </html>

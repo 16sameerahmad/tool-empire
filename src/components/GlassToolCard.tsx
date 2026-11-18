@@ -53,7 +53,7 @@ export function GlassToolCard({ tool, badge: badgeOverride }: { tool: ToolDefini
       onTouchStart={onTouchStart}
       onTouchEnd={clearTap}
       onTouchCancel={clearTap}
-      className={`glass-card glass-theme-${theme}${tapped ? " is-tapped" : ""} group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-3xl p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container`}
+      className={`glass-card glass-theme-${theme}${tapped ? " is-tapped" : ""} group relative flex h-full min-h-[232px] cursor-pointer flex-col justify-between overflow-hidden rounded-3xl p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container`}
       aria-label={`${tool.title} — launch tool`}
     >
       <span className="relative z-[1] block space-y-4">

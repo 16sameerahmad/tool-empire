@@ -129,8 +129,8 @@ export function Footer() {
               ))}
             </ul>
           </nav>
-          <nav aria-label="Workspaces">
-            <h3 className="font-headline-sm text-headline-sm text-white">Workspaces</h3>
+          <nav aria-label="Tool Categories">
+            <h3 className="font-headline-sm text-headline-sm text-white">Tool Categories</h3>
             <ul className="mt-3 space-y-2">
               <li>
                 <Link className={linkClass} href="/text/">

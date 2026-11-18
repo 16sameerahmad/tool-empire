@@ -7,7 +7,8 @@ import { HomeSearch } from "@/components/HomeSearch";
 import { Icon } from "@/components/icons";
 import { MobileAgeSnapshot } from "@/components/MobileAgeSnapshot";
 import { Parallax, Reveal } from "@/components/motion";
-import { GlassToolCard, GlassCategoryRow } from "@/components/GlassToolCard";
+import { GlassCategoryRow } from "@/components/GlassToolCard";
+import { FeaturedToolsGrid } from "@/components/FeaturedToolsGrid";
 import { getTool, tools } from "@/lib/tools";
 import { createPageMetadata, createWebSiteJsonLd } from "@/lib/seo";
 
@@ -63,10 +64,10 @@ const MOBILE_CATEGORIES = [
 
 function TrendingRow() {
   return (
-    <div className="flex flex-wrap items-center gap-2 pt-1">
-      <span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary-fixed-dim">Quick links:</span>
+    <div className="flex flex-wrap items-center gap-3 pt-1">
+      <span className="font-label-md text-label-md uppercase tracking-wider text-tertiary-fixed-dim">Quick links:</span>
       {TRENDING.map((entry) => (
-        <Link key={entry.id} href={getTool(entry.id).href} className="btn-chip rounded-md bg-white/10 px-2.5 py-1 font-label-sm text-label-sm text-tertiary-fixed transition-colors hover:bg-white/20">
+        <Link key={entry.id} href={getTool(entry.id).href} className="btn-chip rounded-md bg-white/10 px-3 py-1.5 font-label-md text-label-md text-tertiary-fixed transition-colors hover:bg-white/20">
           {entry.label}
         </Link>
       ))}
@@ -210,14 +211,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Featured Utilities — glassmorphism tool cards (all viewports) */}
-        <section id="browse" className="w-full scroll-mt-32 bg-[linear-gradient(180deg,#f1efff_0%,#faf9ff_55%,#ffffff_100%)] px-4 py-10 sm:px-6 lg:py-16" aria-label="Featured utilities">
+        {/* Featured Tools — glassmorphism tool cards (all viewports) */}
+        <section id="browse" className="w-full scroll-mt-32 bg-[linear-gradient(180deg,#f1efff_0%,#faf9ff_55%,#ffffff_100%)] px-4 py-10 sm:px-6 lg:py-16" aria-label="Featured tools">
           <div className="mx-auto max-w-shell">
             <Reveal>
               <div className="mb-6 flex items-center justify-between lg:mb-10">
                 <h2 className="flex items-center gap-1.5 font-display text-xl font-bold text-on-surface lg:text-headline-lg">
                   <Icon name="flame" className="h-5 w-5 text-primary-container" />
-                  Featured Utilities
+                  Featured Tools
                 </h2>
                 <Link href="/tools/" className="group flex items-center gap-0.5 font-label-md text-label-md font-semibold text-primary">
                   View all
@@ -225,13 +226,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </Reveal>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-              {tools.map((tool, i) => (
-                <Reveal key={tool.id} delay={(i % 4) * 70}>
-                  <GlassToolCard tool={tool} />
-                </Reveal>
-              ))}
-            </div>
+            <FeaturedToolsGrid tools={tools} />
           </div>
         </section>
 
@@ -248,7 +243,7 @@ export default function HomePage() {
                 <Icon name="arrow_forward" className="h-[18px] w-[18px]" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3">
               {CATEGORIES.map((category) => (
                 <Link
                   key={category.label}
@@ -292,7 +287,7 @@ export default function HomePage() {
                 <div className="space-y-4 lg:col-span-6">
                   <p className="inline-flex items-center gap-2 rounded bg-white/10 px-3 py-1 font-code-data text-code-data text-xs text-primary-fixed">
                     <Icon name="security" className="h-4 w-4" />
-                    ENGINEERING BLUEPRINT
+                    OUR SECURITY MODEL
                   </p>
                   <h2 className="font-display font-headline-lg text-headline-lg text-white">Built for engineers and analysts who check their numbers</h2>
                   <p className="font-body-md text-body-md text-tertiary-fixed">

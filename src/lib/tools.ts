@@ -878,7 +878,7 @@ export const tools: ToolDefinition[] = [
     locale: "en",
     description: "Format, beautify, minify, and validate JSON data instantly with syntax error detection and byte size counter.",
     keywords: ["json formatter", "json validator", "json beautifier", "format json online", "minify json", "json parser"],
-    related: ["base64-encoder-decoder", "epoch-converter", "password-generator"],
+    related: ["json-to-csv-converter", "base64-encoder-decoder", "epoch-converter", "password-generator"],
     live: true,
     h1: "JSON Formatter, Validator & Beautifier — Free Online",
     seoTitle: "JSON Formatter — Beautify, Validate & Minify | Tulyro",

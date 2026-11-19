@@ -2711,7 +2711,7 @@ function SpeechPanel() {
   );
 }
 
-const styles: Style[] = ["Bold", "Italic", "Bold Italic", "Script", "Bold Script", "Fraktur", "Double-struck", "Monospace", "Circled", "Small Caps"];
+const styles: Style[] = ["Bold", "Italic", "Bold Italic", "Script", "Bold Script", "Fraktur", "Bold Fraktur", "Double-struck", "Monospace", "Circled", "Small Caps", "Sans-Serif Bold", "Sans-Serif Italic", "Sans-Serif Bold Italic", "Fullwidth", "Squared", "Parenthesized", "Negative Squared", "Upside-Down", "Strikethrough", "Underline", "Spaced Out", "Superscript", "Subscript"];
 
 function FancyPanel() {
   const [text, setText] = useState("");

@@ -325,14 +325,14 @@ export const tools: ToolDefinition[] = [
     cluster: "Text",
     href: "/text/fancy-text-generator/",
     locale: "en",
-    description: "Turn ordinary text into copyable Unicode styles.",
-    keywords: ["fancy text", "unicode text", "stylish text", "font"],
+    description: "24 copyable Unicode styles — bold, script, fullwidth, upside-down and more.",
+    keywords: ["fancy text", "unicode text", "stylish text", "bubble text", "upside down text", "fullwidth text"],
     related: ["word-counter", "base64-encoder-decoder"],
     live: true,
     h1: "Fancy Text Generator — Stylish Unicode Text Styles",
-    seoTitle: "Fancy Text Generator — Stylish Unicode Text | Tulyro",
+    seoTitle: "Fancy Text Generator — 24 Unicode Styles to Copy | Tulyro",
     seoDescription:
-      "Turn plain text into copyable Unicode styles — bold, italic, script, monospace and more. Paste into bios, posts and messages. Free, browser-only.",
+      "24 copyable Unicode text styles — bold, script, fullwidth, bubble, upside-down and strikethrough. Paste into bios, posts and messages. Free, browser-only.",
   },
   {
     id: "base64-encoder-decoder",

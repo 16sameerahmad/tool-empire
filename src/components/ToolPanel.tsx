@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { bmi, poundsToKg, validateMetric } from "@/tools/bmi/logic";
 import { emi } from "@/tools/emi/logic";
 import { sip } from "@/tools/sip/logic";
-import { attendance } from "@/tools/attendance/logic";
+import { attendance, attendanceProjection } from "@/tools/attendance/logic";
 import { ppf } from "@/tools/ppf/logic";
 import { sgpaToCgpa } from "@/tools/sgpa/logic";
 import { calculateSgpa, GRADE_ORDER, GRADE_POINTS } from "@/tools/sgpa-calculator/logic";
@@ -112,11 +112,27 @@ function AttendancePanel() {
   const [totalClasses, setTotalClasses] = useState("50");
   const [attendedClasses, setAttendedClasses] = useState("42");
   const [targetPct, setTargetPct] = useState("75");
+  const [remainingClasses, setRemainingClasses] = useState("");
   const [copied, setCopied] = useState(false);
 
   const res = attendance(Number(attendedClasses), Number(totalClasses), Number(targetPct));
   const error = res && "error" in res ? res.error : null;
   const valid = res && !("error" in res) ? res : null;
+
+  const remainingNum =
+    remainingClasses.trim() === "" ? null : Number(remainingClasses);
+  const projection =
+    remainingNum !== null && valid
+      ? attendanceProjection(
+          Number(attendedClasses),
+          Number(totalClasses),
+          remainingNum,
+          Number(targetPct)
+        )
+      : null;
+  const projectionError =
+    projection && "error" in projection ? projection.error : null;
+  const proj = projection && !("error" in projection) ? projection : null;
 
   const copySummary = async () => {
     if (!valid) return;
@@ -200,6 +216,28 @@ function AttendancePanel() {
               ))}
             </div>
           </div>
+
+          <div className="space-y-2 rounded-xl bg-surface-container-low/50 p-4">
+            <div className="flex items-center justify-between">
+              <label htmlFor="att-remaining" className="font-display font-headline-sm text-headline-sm text-on-surface">
+                Classes Left This Term
+              </label>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Optional</span>
+            </div>
+            <input
+              id="att-remaining"
+              type="number"
+              min="0"
+              step="1"
+              value={remainingClasses}
+              onChange={(e) => setRemainingClasses(e.target.value)}
+              placeholder="e.g. 20"
+              className={inputClass}
+            />
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              Add this to plan the rest of the term — how many of the remaining classes you can still miss, and the best percentage you can finish on.
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4 lg:col-span-5">
@@ -242,6 +280,32 @@ function AttendancePanel() {
                     <span className="mt-1 block font-body-md text-body-md text-on-surface">
                       You are exactly at {valid.targetPercentage}%. Attending every scheduled lecture is recommended.
                     </span>
+                  </div>
+                )}
+
+                {proj && (
+                  <div className="rounded-xl bg-surface-container-low p-4">
+                    <span className="block font-label-md text-label-md text-on-surface-variant">
+                      Term-End Plan ({proj.remaining} classes left)
+                    </span>
+                    {proj.reachable ? (
+                      <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                        Best finish: <strong className="text-xl">{proj.bestPossiblePercentage}%</strong> if you attend all {proj.remaining} remaining classes. Attend{" "}
+                        <strong className="text-xl">{proj.classesMustAttend}</strong> and you can miss{" "}
+                        <strong className="text-xl">{proj.classesCanMiss}</strong> of them and still finish at or above {proj.targetPercentage}%.
+                      </span>
+                    ) : (
+                      <span className="mt-1 block font-body-md text-body-md text-on-surface">
+                        Even attending all {proj.remaining} remaining classes leaves you at{" "}
+                        <strong className="text-xl">{proj.bestPossiblePercentage}%</strong> — below your {proj.targetPercentage}% target. The target is out of reach this term; speak to your department about condonation or duty leave.
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {projectionError && (
+                  <div role="alert" className="rounded-xl border border-error/20 bg-error-container/20 p-4 font-body-md text-error">
+                    {projectionError}
                   </div>
                 )}
 

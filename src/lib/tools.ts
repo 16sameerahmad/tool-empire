@@ -86,7 +86,7 @@ export const tools: ToolDefinition[] = [
     href: "/calculators/attendance-calculator/",
     locale: "en-IN",
     description: "Check if your college attendance meets 75% rule. Calculate bunkable classes or required classes to attend.",
-    keywords: ["attendance", "75 attendance calculator", "college attendance", "bunk calculator", "attendance shortage"],
+    keywords: ["attendance", "75 attendance calculator", "college attendance", "bunk calculator", "attendance shortage", "how many classes can I miss"],
     related: ["cgpa-to-percentage", "sgpa-to-cgpa"],
     live: true,
     h1: "75% Attendance Calculator — Safe Bunk & Shortage Planner",

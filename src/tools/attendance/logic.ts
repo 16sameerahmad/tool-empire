@@ -13,6 +13,78 @@ export interface AttendanceResult {
   totalClassesAtTarget: number;
 }
 
+export interface AttendanceProjection {
+  remaining: number;
+  termTotal: number;
+  targetPercentage: number;
+  bestPossiblePercentage: number; // (attended + remaining) / (total + remaining) * 100
+  classesMustAttend: number; // of the remaining classes, how many must be attended to finish at/above target
+  classesCanMiss: number; // remaining - classesMustAttend when reachable, else 0
+  reachable: boolean; // bestPossiblePercentage >= target
+}
+
+/**
+ * Term-end projection: given the classes still left this term, how many of
+ * them must be attended (and how many can be missed) to finish at or above
+ * the target? The requirement is measured against the whole term:
+ * required attended by term end = ceil(target * (total + remaining)).
+ * The two counts always sum to `remaining`, which makes them easy to
+ * sanity-check. If even attending every remaining class falls short, the
+ * target is mathematically out of reach this term.
+ */
+export function attendanceProjection(
+  attended: number,
+  total: number,
+  remaining: number,
+  targetPercentage = 75
+): AttendanceProjection | { error: string } {
+  if (
+    !Number.isFinite(attended) ||
+    !Number.isFinite(total) ||
+    !Number.isFinite(remaining) ||
+    !Number.isFinite(targetPercentage)
+  ) {
+    return { error: "Please enter valid numbers." };
+  }
+
+  if (total <= 0) {
+    return { error: "Total classes held must be greater than zero." };
+  }
+
+  if (attended < 0 || attended > total) {
+    return { error: "Attended classes must be between 0 and total classes held." };
+  }
+
+  if (!Number.isInteger(remaining) || remaining < 0) {
+    return { error: "Classes left this term must be a whole number of 0 or more." };
+  }
+
+  if (targetPercentage <= 0 || targetPercentage >= 100) {
+    return { error: "Target attendance must be between 1% and 99%." };
+  }
+
+  const termTotal = total + remaining;
+  const targetFraction = targetPercentage / 100;
+  const bestPossiblePercentage =
+    Math.round(((attended + remaining) / termTotal) * 100 * 100) / 100;
+  const requiredByTermEnd = Math.ceil(targetFraction * termTotal);
+  // True count needed; when it exceeds `remaining` the target is out of
+  // reach this term, and the panel says so instead of showing this number
+  // as an achievable plan.
+  const classesMustAttend = Math.max(0, requiredByTermEnd - attended);
+  const reachable = classesMustAttend <= remaining;
+
+  return {
+    remaining,
+    termTotal,
+    targetPercentage,
+    bestPossiblePercentage,
+    classesMustAttend,
+    classesCanMiss: reachable ? remaining - classesMustAttend : 0,
+    reachable,
+  };
+}
+
 export function attendance(
   attended: number,
   total: number,

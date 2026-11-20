@@ -973,6 +973,9 @@ export const content: Record<string, ToolContent> = {
       { question: "What is the difference between JPG and PNG output?", answer: "JPG provides smaller file sizes ideal for web submissions and email. PNG provides lossless compression with sharper text and transparent margins." },
       { question: "Will my confidential PDF ever be stored on a server?", answer: "Never. The entire parsing and rendering process happens strictly within your browser's local sandbox." },
       { question: "Does this tool work on mobile browsers?", answer: "Yes. It is fully compatible with Chrome, Safari, Firefox, and Samsung Internet on Android and iOS devices." },
+      { question: "Can I download all pages at once as a single ZIP file?", answer: "No. There is no ZIP or download-all button. Every page is rendered with its own Download Page link, saved as page-1.jpg, page-2.jpg, and so on, so download only the pages you need, one by one." },
+      { question: "What resolution are the converted JPG images?", answer: "Every page is rendered at 2x scale, twice the PDF's native point size, and JPGs are encoded at 0.92 quality. A standard A4 page (595 by 842 points) comes out as a 1190 by 1684 pixel image; larger source pages produce proportionally larger images." },
+      { question: "Will scanned PDFs convert, or only text-based PDFs?", answer: "Scanned PDFs convert the same way. The tool rasterizes each page to an image, so it does not matter whether a page holds selectable text or a scanned picture — both render as images. No text is extracted, so the output image is a picture of the page, not searchable text." },
     ]),
   },
   "merge-pdf": {

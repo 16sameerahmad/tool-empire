@@ -10,7 +10,7 @@ export const siteUrl = "https://tulyro.online";
  * Never auto-generate per build — a dateModified that moves on every
  * deploy without a content change is dishonest.
  */
-export const contentUpdated = "2026-11-20";
+export const contentUpdated = "2026-11-21";
 
 const ogImage = {
   url: `${siteUrl}/og-image.png`,

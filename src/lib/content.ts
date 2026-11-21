@@ -1099,9 +1099,12 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "Will my PDF layout be preserved exactly in the Word document?", answer: "Text content, font sizes, bold formatting, and heading hierarchy are preserved. Complex layouts with columns, tables, and overlapping elements may need minor adjustment in Word." },
-      { question: "Can this convert scanned image PDFs to Word?", answer: "Currently this tool extracts the text layer from digital PDFs. Scanned image-only PDFs without a text layer will show 'No extractable text' per page. OCR support is planned." },
+      { question: "Can this convert scanned image PDFs to Word?", answer: "Currently this tool extracts the text layer from digital PDFs. Scanned image-only PDFs without a text layer get '(No extractable text on this page)' on each page instead of converted text. OCR support is planned." },
       { question: "Are my documents uploaded to any server?", answer: "No. PDF parsing and DOCX generation happen 100% in your browser memory. Your files never leave your device." },
       { question: "Is there a file size or page limit?", answer: "No artificial limits. Processing speed depends on your device — most PDFs under 50 pages convert in under 5 seconds." },
+      { question: "Can I edit the converted Word document?", answer: "Yes. The download is a standard .docx file you can edit in Microsoft Word, Google Docs, or LibreOffice Writer. Large text becomes real Word headings — 20 pt or larger becomes Heading 1, 16 pt or larger Heading 2, and 13 pt or larger Heading 3 — so you can restyle the whole document from Word's Styles pane. Bold text and font sizes carry over; complex layouts may still need a quick tidy-up." },
+      { question: "Are images and tables kept in the Word file?", answer: "No. This converter extracts text only: images in the PDF are not carried over, and tables are flattened into lines of text in reading order. Re-insert images and rebuild tables in Word after converting." },
+      { question: "Does the converter work offline?", answer: "Not on the first conversion. The PDF.js extraction engine loads from a CDN the first time you convert, so you need internet once. The conversion itself then runs entirely in your browser memory, and your file is never uploaded." },
     ]),
   },
   "mp4-to-mp3": {

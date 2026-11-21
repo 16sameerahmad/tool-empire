@@ -503,7 +503,7 @@ export const tools: ToolDefinition[] = [
       "pdf to png",
       "pdf to jpeg online free"
     ],
-    related: ["jpg-to-pdf", "split-pdf", "compress-pdf", "image-converter"],
+    related: ["jpg-to-pdf", "split-pdf", "compress-pdf", "image-converter", "pdf-to-word"],
     live: true,
     h1: "PDF to JPG Converter — Convert PDF Pages to Images Online Free",
     seoTitle: "PDF to JPG Converter — PDF Pages to JPG Images | Tulyro",
@@ -645,7 +645,7 @@ export const tools: ToolDefinition[] = [
       "pdf to editable word",
       "pdf to word no upload"
     ],
-    related: ["compress-pdf", "merge-pdf", "split-pdf", "jpg-to-pdf"],
+    related: ["compress-pdf", "merge-pdf", "split-pdf", "jpg-to-pdf", "pdf-to-jpg"],
     live: true,
     h1: "PDF to Word Converter — Free Online, No Upload",
     seoTitle: "PDF to Word Converter — Free Online, No Upload | Tulyro",

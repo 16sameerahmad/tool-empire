@@ -1225,13 +1225,13 @@ export const content: Record<string, ToolContent> = {
     definition: "A PDF to Image converter renders and extracts vector and raster pages from a PDF document into independent high-resolution image files (JPG or PNG).",
     intro: "Convert PDF pages into crystal-clear JPG or PNG images directly in your browser. 100% private, client-side rendering with zero server uploads.",
     howTo: [
-      "Upload or drop your PDF document.",
+      "Upload your PDF document.",
       "Select your preferred output format: JPG (smaller file size) or PNG (crisp lossless detail).",
       "Each page is rendered client-side onto high-definition canvas elements.",
       "Click Download on any page to save it as an image.",
     ],
     content: [
-      "Extracting pages from PDF documents into images is searched over 800,000 times monthly across India. Users routinely need to convert invoice pages, receipts, scanned ID cards, and academic certificates into image files for online submission or social sharing.",
+      "People routinely need to convert invoice pages, receipts, scanned ID cards, and academic certificates into image files for online submission or social sharing.",
       "Tulyro renders each PDF page using client-side PDF.js worker execution directly inside your browser. No server roundtrips or queue waiting times required.",
       "Supports choosing between compact JPEG compression for file-size-restricted portals and lossless PNG for documents requiring razor-sharp typography and clean graphics.",
     ],
@@ -1240,6 +1240,11 @@ export const content: Record<string, ToolContent> = {
       { question: "Can I download individual pages?", answer: "Yes. Every page is extracted with its own download button so you only save the exact pages you need." },
       { question: "Is there a limit on how many pages I can convert?", answer: "No. Because conversion runs in your browser, there are no artificial paywalls or page quotas." },
       { question: "Are my confidential PDF documents safe?", answer: "Completely safe. Your PDF file never leaves your device — zero bytes are uploaded to our servers." },
+      { question: "Should I choose JPG or PNG?", answer: "Pick JPG when file size matters — pages are saved at JPEG quality 0.92, so a photo-heavy page stays compact for uploads and sharing. Pick PNG when sharpness matters — PNG is lossless, so text, line art, and fine typography stay crisp with no compression artefacts, at the cost of a larger file. The format selector applies to every page of the PDF." },
+      { question: "What resolution will the images be?", answer: "Every page is rendered at 2x scale. An A4 page (595 × 842 pt) becomes a 1190 × 1684 px image, in either format. That is sharp enough for on-screen use and most uploads; zooming far past it will soften, because the output is a raster image, not a vector." },
+      { question: "Can I convert only some pages of a PDF?", answer: "There is no page-range picker — every page of the PDF is rendered, and each one gets its own \"Download Page N\" link, saved as page-N.jpg or page-N.png depending on the format you picked. Just download the pages you need and ignore the rest." },
+      { question: "Will the text in the images stay selectable or searchable?", answer: "No. Each page is rendered onto a canvas and saved as a flat image, so the text becomes pixels with no text layer behind it — you cannot select or search it afterwards. The same applies to scanned PDFs, which convert fine precisely because no text extraction is involved." },
+      { question: "Does it work offline?", answer: "Not on first use. The PDF.js 3.11.174 engine loads from cdnjs the first time you convert; after that, rendering runs entirely in your browser's memory and your file is never uploaded to a server." },
     ]),
   },
   "qr-code-generator": {

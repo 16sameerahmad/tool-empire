@@ -937,9 +937,9 @@ export const content: Record<string, ToolContent> = {
     definition: "A JPG to PDF converter converts digital photographs, scans, and graphic files (JPEG, PNG, WebP) into a standardized multi-page PDF document.",
     intro: "Convert JPG and PNG photos into a single PDF file online. 100% private and client-side with instant download and zero file uploads.",
     howTo: [
-      "Select or drag & drop multiple JPG, PNG, or WebP images.",
-      "Review the loaded images and their dimensions.",
-      "Click 'Generate PDF' to assemble your photos into a single document directly in your browser.",
+      "Select multiple JPG, PNG, or WebP images.",
+      "Check the message confirming how many images are ready.",
+      "Click the 'Convert … Image(s) to PDF' button to assemble your photos into a single document directly in your browser.",
       "Download your finished PDF file instantly.",
     ],
     content: [
@@ -952,6 +952,11 @@ export const content: Record<string, ToolContent> = {
       { question: "Are my private documents and ID scans safe?", answer: "Yes, completely. Processing occurs 100% locally in your browser memory. Files are never transmitted to any external server." },
       { question: "Does it support PNG and WebP along with JPG?", answer: "Yes. Our tool automatically detects and normalizes JPEG, PNG, and WebP images into standard PDF streams." },
       { question: "Is there any watermark on the output PDF?", answer: "None. The generated PDF is completely clean and unwatermarked." },
+      { question: "What page size will the PDF use?", answer: "There is no fixed A4 or Letter page. Each image gets its own page sized to the image itself — one point is roughly 0.75 times the pixel size — so the picture fills the whole page with no margins, no cropping, and no stretching. The aspect ratio is kept exactly as the original image." },
+      { question: "Can I reorder the images before converting?", answer: "No. There is no reorder control: pages follow the order in which you selected the files. To change the order, select the files again in the order you want them to appear in the PDF." },
+      { question: "Will text in my photos be searchable in the PDF?", answer: "No. Every image is rasterized to a JPEG at 0.92 quality and embedded as a picture on its page, so the PDF has no text layer and no OCR. Text in a photo or scan is visible but not selectable or searchable." },
+      { question: "What will the downloaded file be called?", answer: "The download is always named converted.pdf. Rename it after downloading if you need a more descriptive filename." },
+      { question: "Does it work offline?", answer: "Not on first use. The pdf-lib engine (version 1.17.1) loads from cdnjs the first time you convert, so you need internet for that first load. The conversion itself then runs entirely in your browser memory, and your images are never uploaded." },
     ]),
   },
   "pdf-to-jpg": {

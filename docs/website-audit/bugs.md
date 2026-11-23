@@ -195,3 +195,36 @@ implementation-log.md + change-log.md.
 - **Fix landed this run:** none — no verified bug found; the run's safe
   action was closing H6 with the smoke test (verification, not a code
   change). No site-code commit; docs-only commit for this run's logs.
+
+## 2026-11-23 — Weekly run (post-campaign)
+
+- **No verified functional bugs found this run.** Calc spot-checks ✓
+  (EMI ₹100,000@12%/12mo = 8,884.88 / BMI 70kg/175cm = 22.9 / Age
+  2000-01-01 = 26y on 2026-11-23; EMI formula verified in
+  `src/tools/emi/logic.ts` and pinned by its unit test; BMI = kg/m²
+  and Age month-advance logic verified in source). 9/9 sampled real
+  routes → 200 on tulyro.online; live sitemap 96 URLs (unchanged).
+  Note: bare paths like /emi-calculator and /pdf-to-jpg return 404 —
+  not real routes (canonical is /calculators/* and /tools/*); no
+  redirect needed unless old links exist, none found in sitemap.
+- **Security headers (live curl):** enforcing CSP + full HSTS
+  (`max-age=63072000; includeSubDomains; preload`) + X-Frame-Options
+  DENY + nosniff + Referrer-Policy + Permissions-Policy all live.
+  ACAO:* Info re-verified, still Vercel-side, harmless. Secrets
+  re-check clean (no key/secret/token hits in `src/`).
+- **`npm audit` still blocked (S6):** egress-proxy 403 `policy_denied`
+  on the audit endpoint — same as 2026-10-14/19/26, 9 Nov, 16 Nov.
+  Do NOT claim "no vulnerabilities" until a scan actually runs.
+- **Responsive code review:** no `w-screen`/100vw fixed widths found
+  in sampled code; tables use `overflow-x-auto` wrappers
+  (ToolPanel.tsx). Real-device screenshot check still pending (H2
+  open on that point only).
+- **New finding (Low, content accuracy — FIXED this run):** merge-pdf
+  content claimed "bit-level fidelity" for page copying; pdf-lib
+  `copyPages` re-serialises the document, so the output is not
+  bit-identical. Wording corrected in the same commit as the FAQ
+  expansion (5e4426d).
+- H3 (TTS voice quality, Sam-side manual) and H5 (ToolPanel state
+  resets, needs a verified repro) remain OPEN.
+- **Fix landed this run:** merge-pdf FAQs 4 → 9 + claim fix — see
+  implementation-log.md + change-log.md.

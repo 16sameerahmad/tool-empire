@@ -198,3 +198,26 @@ Incident response: no formal plan exists; for a static site the recovery path is
 - **S5 → still INFO.** Egress proxy performs TLS interception, so the origin
   certificate's real expiry is not observable from this VM. Vercel
   auto-renews; confirmation stays Sam-side in the Vercel dashboard.
+
+## 2026-11-23 — Weekly re-check
+
+- **S1/S2/S3 → still FIXED, verified live.** Enforcing CSP (same policy as
+  2026-10-19), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy:
+  camera=(), microphone=(), geolocation=(), payment=(), usb=()`. HSTS
+  `max-age=63072000; includeSubDomains; preload`. Homepage HTTP 200.
+- **Secrets re-check → clean.** Working-tree grep for key/secret/token/
+  private-key patterns across `src/`: no hits. GSC verification tokens
+  in `src/app/layout.tsx` remain required-by-Google, not a leak; values
+  never reproduced in reports.
+- **S6 → still UNVERIFIED.** `npm audit` still fails with egress-proxy 403
+  `policy_denied` (same as 2026-10-14/19/26, 9 Nov, 16 Nov) — the
+  audit-endpoint POST is blocked by policy
+  `zz_managed_internal_spaces_package_registries`. Do NOT claim "no
+  vulnerabilities" until a scan actually runs.
+- **ACAO:* Info → re-verified.** Present on homepage though vercel.json
+  scopes it to `/tulyro-logo-200.png` only. Vercel-side, harmless (no
+  credentials/cookies); no action.
+- **S5 → still INFO.** Egress proxy performs TLS interception, so the origin
+  certificate's real expiry is not observable from this VM. Vercel
+  auto-renews; confirmation stays Sam-side in the Vercel dashboard.

@@ -154,3 +154,21 @@
   re-verified by curl the same run (enforcing CSP, HSTS, X-Frame-Options:
   DENY, nosniff, Referrer-Policy, Permissions-Policy all present;
   homepage + 10 sampled routes HTTP 200; live sitemap 96 URLs).
+
+## 2026-11-23 — merge-pdf: add 5 FAQs, fix 1 overclaim (weekly run, AP-M15)
+
+- **Change:** `src/lib/content.ts` merge-pdf block only. FAQs 4 → 9:
+  file order (no reorder UI — re-select in desired order; verified in
+  `ToolPanel.tsx` `handleMergePdfUpload` replaces the list),
+  download filename (`merged-document.pdf`, verified `download=` attr),
+  selectable text preserved (pdf-lib `copyPages`, no rasterisation —
+  verified in `src/tools/pdf-tools/logic.ts`), digital signatures do
+  not carry over (freshly built output, same mechanism as split-pdf),
+  offline nuance (pdf-lib 1.17.1 loads from cdnjs on first merge —
+  verified `loadScript` call). Claim fix: "bit-level fidelity" →
+  pages copied in order, vector content carried over without
+  re-rendering (pdf-lib re-serialises; not bit-identical).
+- **Verification:** `tsc --noEmit` ✓, `eslint .` ✓ (0 errors, 9
+  pre-existing warnings), vitest 183/183 ✓, `next build` ✓.
+  Commit 5e4426d, pushed to main; Vercel auto-deploy.
+- **Live:** merge-pdf page re-checked after deploy (see weekly entry).

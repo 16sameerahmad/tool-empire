@@ -327,3 +327,48 @@ insufficient data — no fresh GSC paste.
    affordability guide earned impressions).
 2. Next weekly run: attempt a verified repro for H5 (ToolPanel state resets)
    — the last open hypothesis with a code-side path.
+
+## Week of 2026-11-23 — Weekly run (post-campaign)
+
+### Measured facts (this run)
+
+- Calc spot-checks ✓ (EMI ₹100,000@12%/12mo = 8,884.88 / BMI
+  70kg/175cm = 22.9 / Age 2000-01-01 = 26y on 2026-11-23; formulas
+  verified in `src/tools/emi|bmi|age/logic.ts`).
+- 9/9 sampled real routes → 200 on tulyro.online (EMI, BMI, Age,
+  attendance, pdf-to-jpg, split-pdf, merge-pdf, compress-pdf,
+  affordability guide). Live sitemap 96 URLs (unchanged).
+- Live security headers ✓ (enforcing CSP, HSTS, XFO DENY, nosniff,
+  Referrer-Policy, Permissions-Policy). Secrets clean. `npm audit`
+  still 403-blocked by egress proxy (S6, open since 14 Oct).
+- Fix landed: merge-pdf FAQs 4 → 9 + "bit-level fidelity" overclaim
+  corrected (commit 5e4426d). Gates all green: `tsc --noEmit` ✓,
+  `eslint .` ✓ (0 errors, 9 pre-existing warnings), vitest 183/183 ✓
+  (up from 170/170 on 16 Nov), `next build` ✓. Live verified after
+  deploy: merge-pdf HTTP 200, all 5 new FAQs present in page JSON-LD.
+- Competitor re-sweep: attendance-calculator SERP top 4 are
+  calcshala.in, proems.in, gyanpark.com, tools.openeducat.org — all
+  show formula + worked examples + FAQ + classes-needed tables.
+  Tulyro is not in the top 4 for the generic query (verified-public);
+  our page is at parity on the core pattern (formula, worked examples,
+  "Classes Left This Term"). Whether any of this moves rankings is
+  unproven until GSC shows impressions (correlation-only).
+
+### Wins / losses diagnosis (week of 2026-11-23)
+
+- Win: FAQ-expansion thread (AP-M15) now covers merge-pdf — the PDF
+  tool family is nearly complete at 8–9 FAQs (only pdf-tools hub and
+  rotate-pdf remain at 4).
+- Win: all gates green this run; live deploy verified, not assumed.
+- Loss: none measured — no GSC data to show a loss.
+- Open: `npm audit` still proxy-blocked (S6); H3/H5 open; ACAO:*
+  Info re-verified as Vercel-side, harmless.
+
+### Next action (week of 2026-11-23)
+
+1. Sam-side: paste fresh GSC data when available so the next weekly
+   entry can compare real numbers (especially whether the PDF-tool FAQ
+   expansions earned impressions).
+2. Next weekly run: continue the AP-M15 FAQ thread — rotate-pdf (4
+   FAQs) is the next thinnest PDF-family page; attempt a verified
+   repro for H5 (ToolPanel state resets) if time allows.

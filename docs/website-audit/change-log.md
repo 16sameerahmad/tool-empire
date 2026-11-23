@@ -137,3 +137,28 @@ evidence; hypotheses stay open until reproduced or closed with evidence.
   future candidate). GSC data pending — no week-over-week comparison
   possible; last reported 14 Nov (779 imp / 5 clicks / pos 55.6 / CTR 0.6%,
   28d) cited as last-known only.
+
+## 2026-11-23 — merge-pdf FAQ expansion + claim fix (weekly run)
+
+- **Change:** merge-pdf FAQs 4 → 9 + 1 overclaim fixed ("bit-level
+  fidelity" → accurate copyPages wording). All 5 new answers verified
+  against `src/tools/pdf-tools/logic.ts` and `ToolPanel.tsx` (order,
+  filename, selectable text, signatures, CDN-first-load). Commit
+  5e4426d, pushed to main; Vercel auto-deploy.
+- **Gates:** `tsc --noEmit` ✓, `eslint .` ✓ (0 errors, 9 pre-existing
+  warnings), vitest 183/183 ✓, `next build` ✓. No revert needed.
+- **Live:** merge-pdf page re-verified after deploy (see weekly entry).
+- **Audit findings this run (read-only):** calc spot-checks ✓ (EMI
+  8,884.88 / BMI 22.9 / Age 26y; EMI formula + BMI + Age logic verified
+  in source); 9/9 sampled real routes → 200 on tulyro.online
+  (bare /emi-calculator-style paths 404 — not real routes; canonical
+  is /calculators/*); live sitemap 96 URLs; secrets clean; headers
+  S1–S3 live (enforcing CSP, HSTS, XFO DENY, nosniff, Referrer-Policy,
+  Permissions-Policy); `npm audit` still 403-blocked (S6 open);
+  ACAO:* Info re-verified, harmless. H3/H5 remain open. Competitor
+  re-sweep: attendance-calculator SERP top 4 (calcshala, proems,
+  gyanpark, openeducat) all show formula + worked examples + FAQ +
+  classes-needed tables — Tulyro at parity on core pattern, not in
+  top 4 for the generic query. GSC data pending — no week-over-week
+  comparison possible; last reported 14 Nov (779 imp / 5 clicks /
+  pos 55.6 / CTR 0.6%, 28d) cited as last-known only.

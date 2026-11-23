@@ -995,13 +995,18 @@ export const content: Record<string, ToolContent> = {
     content: [
       "Our Merge PDF tool runs completely inside your web browser via client-side WebAssembly binary parsers. When combining documents like marksheets, certificates, bank statements, or Aadhaar cards, no document bytes ever leave your device. This guarantees complete confidentiality and immunity against data breaches.",
       "Unlike ad-heavy online PDF converters that impose arbitrary 2-file caps, daily quotas, or watermarks to force paid subscriptions, Tulyro provides completely unlimited PDF merging for free.",
-      "Page ordering and vector structures are maintained with bit-level fidelity. The output PDF remains searchable, crisp for printing, and compatible with all standard PDF readers including Adobe Acrobat, Apple Preview, and Google Chrome.",
+      "Page ordering is preserved and vector content is carried over without re-rendering: pages are copied in the order you selected the files, so the output PDF remains searchable, crisp for printing, and compatible with all standard PDF readers including Adobe Acrobat, Apple Preview, and Google Chrome.",
     ],
     faq: faq([
       { question: "Is it safe to merge confidential documents like Aadhaar or bank statements?", answer: "Yes, 100% safe. The merging process runs locally in your browser sandbox using pdf-lib. Your files are never uploaded to any remote server or third-party storage." },
       { question: "How many PDF files can I combine at once?", answer: "There is no artificial limit. You can merge 2, 5, 10, or more PDF files simultaneously depending on your device's memory." },
       { question: "Does this tool add any watermarks to the merged PDF?", answer: "No. The merged PDF is completely clean with zero watermarks, brand logos, or alterations." },
       { question: "Can I use this on mobile phones (Android / iPhone)?", answer: "Yes, our client-side merge works on all modern mobile and desktop browsers including Chrome, Safari, Firefox, and Edge." },
+      { question: "Can I change the order of the PDFs before merging?", answer: "There is no drag-to-reorder control — files merge in the order shown in the numbered list, which is the order you selected them. To change the order, select the files again in the order you want them; a new selection replaces the previous list." },
+      { question: "What will the downloaded file be called?", answer: "The download is always named merged-document.pdf. Rename it after downloading if you need a different filename." },
+      { question: "Does the merged PDF keep selectable text?", answer: "Yes. Pages are copied as vector objects rather than rendered to images, so text stays selectable and searchable and print quality is preserved." },
+      { question: "Do digital signatures survive merging?", answer: "No. The output is a freshly built PDF made from copied pages, and a digital signature covers the original file, so it does not carry over to the merged file. Keep your signed originals safe and merge copies instead." },
+      { question: "Does the merger work offline?", answer: "Not on the first merge. The pdf-lib 1.17.1 engine loads from a CDN the first time you merge, so you need internet once. The merge itself then runs entirely in your browser memory, and your files are never uploaded to any server." },
     ]),
   },
   "compress-pdf": {

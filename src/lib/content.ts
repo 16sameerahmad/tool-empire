@@ -1033,7 +1033,7 @@ export const content: Record<string, ToolContent> = {
     definition: "A PDF splitter extracts chosen pages or customized page ranges from an existing PDF and generates a new, focused PDF document.",
     intro: "Split and extract specific pages from any PDF document online for free. Fast, private, and 100% browser-based with zero file uploads.",
     howTo: [
-      "Select or drag and drop your PDF document into the splitter.",
+      "Select your PDF document using the file picker.",
       "Enter the page numbers or ranges to extract (for example: 1, 3, 5-8).",
       "Click 'Extract Selected Pages' to process the document locally on your device.",
       "Download your newly split PDF immediately.",
@@ -1041,13 +1041,18 @@ export const content: Record<string, ToolContent> = {
     content: [
       "Whether you need to extract the first page of an agreement, save specific certificate pages from a multi-page college transcript, or remove unnecessary appendix pages, our Split PDF utility makes it instantaneous.",
       "Execution happens 100% inside your browser using pdf-lib WebAssembly binaries. Your confidential marksheets, tax documents, and contracts are never transmitted over the internet or retained on remote servers.",
-      "The tool retains vector fonts, digital signatures, hyperlinks, and layout geometry exactly as designed in the original document.",
+      "The tool retains vector fonts, hyperlinks, and layout geometry exactly as designed in the original document.",
     ],
     faq: faq([
       { question: "How do I specify which pages to extract?", answer: "You can enter individual pages separated by commas (e.g., '1, 4, 7') or continuous page ranges with hyphens (e.g., '1-5, 8-10')." },
       { question: "Are my documents kept private?", answer: "Yes. All extraction happens in your browser's local memory sandbox. No files or personal data are ever uploaded to any server." },
       { question: "Is there any limit on PDF file size?", answer: "There is no artificial server limit. You can split documents as large as your device's browser memory supports." },
       { question: "Does splitting reduce PDF visual quality?", answer: "No. The original page objects and vector elements are copied byte-for-byte without re-compression or quality degradation." },
+      { question: "Can I extract pages in a different order, or repeat a page?", answer: "No. Pages are always extracted in document order and duplicates are removed, so typing '5, 2' gives you pages 2 then 5, and typing '3, 3' extracts page 3 only once. Use the quick buttons for 'First Page Only' or a first-five-pages extract instead." },
+      { question: "What happens if I type a page number that does not exist?", answer: "Out-of-range numbers are ignored and ranges are clamped to the document — '1-10' on a 4-page PDF extracts pages 1 to 4. If none of your numbers are valid, the tool reports an error asking for valid page numbers within the PDF's range. Leaving the pages box empty extracts every page." },
+      { question: "What will the downloaded file be called?", answer: "The download is named split- followed by your original filename, so splitting report.pdf downloads as split-report.pdf." },
+      { question: "Do digital signatures survive splitting?", answer: "No. The output is a freshly built PDF made from copied pages, and a digital signature covers the original file, so it does not carry over to the split file. Never split the only signed copy of a document — keep the original safe." },
+      { question: "Does the splitter work offline?", answer: "Not on the first split. The pdf-lib 1.17.1 engine loads from a CDN the first time you split, so you need internet once. The split itself then runs entirely in your browser memory, and your file is never uploaded." },
     ]),
   },
   "image-converter": {

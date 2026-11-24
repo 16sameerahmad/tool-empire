@@ -1185,9 +1185,9 @@ export const content: Record<string, ToolContent> = {
     definition: "A PNG to JPG converter converts lossless PNG images into universally compatible JPEG format, applying an automatic white matte background to replace transparent regions and significantly reducing file size.",
     intro: "Convert PNG images to lightweight JPG/JPEG format directly in your browser. Features automatic white background fill for transparency, zero uploads, and 100% privacy.",
     howTo: [
-      "Select or drop your PNG file into the converter box.",
+      "Select your PNG file with the file picker.",
       "Adjust output quality if needed (default 92% provides optimal balance between clarity and file size).",
-      "Click Convert — browser canvas replaces transparent pixels with a clean white matte.",
+      "Click Convert to JPEG — the browser canvas fills transparent pixels with a clean white matte first.",
       "Download your lightweight JPG image immediately.",
     ],
     content: [
@@ -1197,8 +1197,13 @@ export const content: Record<string, ToolContent> = {
     ],
     faq: faq([
       { question: "Why do transparent PNGs turn black in other converters?", answer: "JPEG does not support transparency. If a converter doesn't render an opaque background first, transparent alpha channels default to black pixels. Tulyro automatically fills transparent areas with clean white." },
-      { question: "How much smaller will the JPG file be compared to PNG?", answer: "Typically 60% to 85% smaller, depending on the visual complexity and photographic content of the original image." },
-      { question: "Is this tool suitable for Sarkari / Govt exam forms?", answer: "Yes. The generated JPG is 100% compliant with standard requirements for SSC, UPSC, IBPS, NEET, and JEE application portals." },
+      { question: "How much smaller will the JPG file be compared to PNG?", answer: "It depends on the image. A photo-like PNG usually shrinks a lot, because JPEG compression discards fine detail the eye barely notices, while a flat graphic with few colours may shrink less. The panel shows the new size before you download, so you can compare before saving." },
+      { question: "Is this tool suitable for Sarkari / Govt exam forms?", answer: "The output is a standard JPEG, which is the format these portals ask for. Check the portal's own file-size and dimension limits before uploading — the converter keeps your image's original dimensions and does not resize it to fit a portal's limits." },
+      { question: "What quality setting should I choose?", answer: "The quality slider runs from 20% to 100% and defaults to 92%, a good balance between clarity and file size. Raise it toward 100% for photos where detail matters, or lower it when you need the smallest file for an upload limit. The slider only appears for JPG and WebP output — PNG is lossless, so it has no quality setting." },
+      { question: "Will the JPG keep the same dimensions as my PNG?", answer: "Yes. The converter draws your image onto a canvas at its original pixel size, so a 1200×800 PNG becomes a 1200×800 JPG — nothing is resized or cropped. The panel shows the original dimensions before you convert." },
+      { question: "What will the downloaded file be called?", answer: "The same base name with a .jpg extension — photo.png downloads as photo.jpg. The panel shows the new size next to the download button before you save." },
+      { question: "Is EXIF data kept in the JPG?", answer: "No. The image is re-encoded on a fresh canvas, so camera settings and location data are not carried over. Orientation is applied when the image is decoded, so the JPG still displays the right way up." },
+      { question: "Does it work offline?", answer: "Yes, for PNG, JPG and WebP files — conversion uses the browser's built-in canvas, with no engine to download. HEIC photos are the exception: the first HEIC conversion loads the heic2any 0.0.4 converter from cdnjs, then runs in your browser too." },
       { question: "Are my documents safe from server leaks?", answer: "Absolutely. Processing is 100% on-device. No files are ever transmitted across the internet." },
     ]),
   },

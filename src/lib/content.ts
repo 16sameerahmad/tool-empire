@@ -1062,11 +1062,11 @@ export const content: Record<string, ToolContent> = {
   },
   "image-converter": {
     definition: "An image format converter transforms digital graphics between file encodings (such as PNG, JPEG, and WebP) to optimize transparency, compatibility, or file size.",
-    intro: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side with zero quality loss and full privacy.",
+    intro: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side and fully private — PNG output is lossless, while JPG and WebP use a quality slider (default 92%).",
     howTo: [
       "Select your source image file (JPG, PNG, or WebP).",
       "Choose your desired output format (PNG for transparency, JPG for compatibility, WebP for web performance).",
-      "Adjust quality if needed and click Convert.",
+      "Adjust quality if needed (20–100%, hidden for PNG) and click \"Convert to PNG\", \"Convert to JPEG\" or \"Convert to WEBP\".",
       "Download your converted image immediately.",
     ],
     content: [
@@ -1074,11 +1074,19 @@ export const content: Record<string, ToolContent> = {
       "Our converter solves the notorious 'black background' issue when converting transparent PNGs to JPG by automatically applying a crisp white background layer before JPEG quantization.",
       "Everything runs locally via HTML5 Canvas 2D graphics rendering. No images are sent over the wire, giving you lightning-fast speed and total confidentiality for sensitive identity proofs.",
     ],
+    sources: [
+      { label: "Google for Developers — WebP: An image format for the Web (lossless WebP 26% smaller than PNG; lossy WebP 25–34% smaller than comparable JPEGs)", href: "https://developers.google.com/speed/webp" },
+    ],
     faq: faq([
       { question: "Why does my transparent PNG turn black when converted to JPG on other sites?", answer: "JPG does not support transparency (alpha channels). Other converters replace transparency with black pixels. Our tool automatically blends transparency over a clean white background." },
-      { question: "Can I convert images to modern WebP format?", answer: "Yes! WebP provides 25-35% smaller file sizes than standard JPEG at identical visual quality." },
+      { question: "Can I convert images to modern WebP format?", answer: "Yes! In Google's WebP study, lossy WebP images are 25–34% smaller than comparable JPEGs at the same visual quality, and lossless WebP is 26% smaller than PNG. Your own saving depends on the image — the panel shows the new size before you download, so you can compare directly." },
       { question: "Are my photos uploaded to any server?", answer: "No. Conversion executes entirely in your browser using client-side Canvas APIs. Your photos never leave your device." },
-      { question: "Is there a limit on how many images I can convert?", answer: "No, there are no limits, daily caps, or forced registrations." },
+      { question: "Is there a limit on how many images I can convert?", answer: "No, there are no limits, daily caps, or forced registrations. Very large images are limited only by your device's memory, since the whole image is decoded onto a canvas." },
+      { question: "Which format should I choose — PNG, JPG or WebP?", answer: "PNG for transparency and lossless quality (logos, screenshots with text); JPG for photos and maximum compatibility (exam portals, older software); WebP for websites, where the smallest file wins and transparency works in both lossy and lossless modes. The converter accepts JPG, PNG, WebP and HEIC/HEIF input." },
+      { question: "Will converting to JPG lose quality?", answer: "Some, yes — JPG and WebP are lossy formats. The quality slider runs from 20% to 100% (default 92%), and PNG output is lossless relative to the decoded pixels. Converting a JPG to PNG does not restore quality the JPG already lost, and dimensions never change — the canvas keeps the original width and height." },
+      { question: "What will the downloaded file be called?", answer: "The same base name with the new extension — photo.jpg becomes photo.png, photo.png becomes photo.webp, and so on. The panel shows the new size before download, so you can check the trade-off first." },
+      { question: "Is EXIF data or the colour profile kept?", answer: "No. The image is re-encoded on a fresh canvas, which drops EXIF metadata and the embedded colour profile. The picture still displays the right way up, because the browser applies the orientation when it decodes the file." },
+      { question: "Does the converter work offline?", answer: "Yes for JPG, PNG and WebP — conversion is plain canvas work with nothing to download. HEIC is the exception: the heic2any 0.0.4 engine loads from cdnjs the first time you convert an iPhone photo, so that first HEIC conversion needs internet." },
     ]),
   },
   "heic-to-jpg": {

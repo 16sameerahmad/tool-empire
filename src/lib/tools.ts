@@ -586,7 +586,7 @@ export const tools: ToolDefinition[] = [
     cluster: "Media",
     href: "/tools/image-converter/",
     locale: "en",
-    description: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side with zero quality loss.",
+    description: "Convert JPG to PNG, PNG to JPG, or images to WebP online for free. 100% client-side — PNG lossless, JPG/WebP quality slider.",
     keywords: [
       "jpg to png",
       "png to jpg",
@@ -722,7 +722,7 @@ export const tools: ToolDefinition[] = [
     h1: "PNG to JPG Converter — Convert PNG to JPEG Free",
     seoTitle: "PNG to JPG Converter — Convert PNG to JPEG Free | Tulyro",
     seoDescription:
-      "Convert PNG graphics to high quality JPG format online for free. Clean white background fill, zero quality loss, and 100% client-side privacy.",
+      "Convert PNG graphics to high quality JPG format online for free. Clean white background fill, quality slider, 100% client-side privacy.",
   },
   {
     id: "rotate-pdf",

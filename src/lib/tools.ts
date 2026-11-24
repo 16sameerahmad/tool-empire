@@ -693,7 +693,7 @@ export const tools: ToolDefinition[] = [
       "convert jpeg to png free",
       "image converter jpg to png"
     ],
-    related: ["png-to-jpg", "image-converter", "image-compressor", "image-resizer"],
+    related: ["png-to-jpg", "image-converter", "image-compressor", "image-resizer", "remove-background"],
     live: true,
     h1: "JPG to PNG Converter — Free High Quality Online",
     seoTitle: "JPG to PNG Converter — Free Lossless Converter | Tulyro",

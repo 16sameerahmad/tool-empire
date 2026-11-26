@@ -1138,14 +1138,14 @@ export const content: Record<string, ToolContent> = {
     definition: "An MP4 to MP3 converter extracts the audio track from video container files and re-encodes it as a standalone high-quality MP3 audio file.",
     intro: "Extract high-quality MP3 audio from MP4, MKV, AVI, and MOV videos directly in your browser. 100% private, zero uploads, unlimited conversions.",
     howTo: [
-      "Drop or select your video file (MP4, MKV, AVI, MOV, or WebM).",
+      "Select your video file (MP4, MKV, AVI, MOV, or WebM).",
       "Choose your preferred audio quality bitrate (128k, 192k, or 320k).",
-      "Click Convert — FFmpeg WebAssembly processes the video entirely in your browser.",
+      "Click 'Extract MP3 Audio' — FFmpeg WebAssembly processes the video entirely in your browser.",
       "Download the extracted MP3 audio file to your device.",
     ],
     content: [
       "Students extract lecture audio for offline listening, content creators isolate background music, and professionals convert meeting recordings to shareable audio files.",
-      "Existing converters like CloudConvert, FreeConvert, and Online-Convert upload your private video files to cloud processing queues, enforce strict daily limits (2-5 files free), and inject watermarks into premium-tier outputs.",
+      "Existing converters like CloudConvert, FreeConvert, and Online-Convert upload your private video files to cloud processing queues and limit free conversions per day.",
       "Tulyro MP4 to MP3 runs FFmpeg compiled to WebAssembly directly in your browser sandbox. The ~25MB WASM engine downloads once and is cached permanently — subsequent conversions are instant with zero network traffic. Your videos never leave your device.",
     ],
     faq: faq([
@@ -1153,6 +1153,11 @@ export const content: Record<string, ToolContent> = {
       { question: "What video formats are supported?", answer: "MP4, MKV, AVI, MOV, WebM, and most standard video container formats. Any file FFmpeg can read is supported." },
       { question: "Are my videos uploaded to any server?", answer: "No. FFmpeg runs entirely inside your browser's WebAssembly sandbox. Your video data never leaves your device." },
       { question: "What audio quality options are available?", answer: "128 kbps (compact, good for speech), 192 kbps (balanced, recommended), and 320 kbps (maximum quality, near-CD audio)." },
+      { question: "What will the downloaded MP3 file be called?", answer: "It keeps your video's name with an .mp3 extension — lecture.mp4 becomes lecture.mp3. If no file is selected yet, the fallback name is audio.mp3. The download button shows the exact filename before you click it." },
+      { question: "What happens if my video has no audio track?", answer: "The conversion fails with a clear message: 'Extraction failed: No audio track found in this file — nothing to extract.' A file FFmpeg cannot read fails with its own error message instead, so check that the file plays with sound before retrying." },
+      { question: "Does it work offline after the first conversion?", answer: "Yes, after the first run. The ~25MB FFmpeg engine loads from a CDN the first time you convert; your browser caches it, and later conversions run with no network traffic. Your video never leaves your device at any point." },
+      { question: "Will 320 kbps sound better than the audio in my video?", answer: "No — 320 kbps preserves the most of what is already there, but it cannot add quality the source never had. The tool re-encodes the audio with libmp3lame, so the output is at best as good as the original track. Use 320 kbps for music you want to keep, 192 kbps for a good balance, and 128 kbps for compact speech recordings." },
+      { question: "Can I extract the audio as WAV or AAC instead of MP3?", answer: "No — MP3 is the only output format. The converter always encodes with libmp3lame at the bitrate you pick (128k, 192k, or 320k), and the download is always an .mp3 file." },
     ]),
   },
   "jpg-to-png": {

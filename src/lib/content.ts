@@ -363,19 +363,19 @@ export const content: Record<string, ToolContent> = {
   },
   "remove-background": {
     definition: "An online background remover isolates the foreground subject and makes the background transparent or replaces it with solid colors for e-commerce, IDs, or design work.",
-    intro: "Remove image background 100% automatically and free in your browser. Features 1-click sample images, real-time before/after comparison slider, customizable backdrops (transparent, white, black, or custom colors), and instant HD download with zero server uploads.",
+    intro: "Remove image background automatically and free in your browser. Features 1-click sample images, real-time before/after comparison slider, customizable backdrops (transparent, white, black, or custom colors), and instant PNG download with zero server uploads.",
     howTo: [
-      "Upload or drop an image (or click any of our 1-click sample images).",
-      "The tool auto-detects background color and generates a transparent cutout instantly.",
+      "Upload an image with the file picker (or click any of our 1-click sample images).",
+      "Click 'Run AI Background Removal' — the on-device BiRefNet model cuts out the subject. Prefer manual control? Switch the Engine to 'Instant Edge Keying', which auto-detects the corner background colour instead.",
       "Drag the interactive Before / After slider to inspect cutout accuracy.",
-      "Select your backdrop (Transparent, Clean White, Jet Black, or Custom Color) and fine-tune edge tolerance if needed.",
-      "Click 'Download HD Cutout' to save your high-resolution image instantly.",
+      "Select your backdrop (Transparent, Clean White, Jet Black, or Custom Color) and, in Edge Keying mode, fine-tune Tolerance and Edge Feathering if needed.",
+      "Click 'Download Cutout' to save the PNG — named <your-file>-transparent.png.",
     ],
     content: [
-      "100% Automatic & Free: Upload an image or select one of the built-in sample images (sneaker, portrait, camera) to test edge detection in real time.",
+      "100% Automatic & Free: Upload an image or select one of the built-in sample images (Red Sneaker, Person Portrait, Camera Gadget) to test the removal in real time.",
       "Interactive Before/After Slider: Like professional photo editing tools, drag across the image to inspect precision cutouts around hair, edges, and product contours.",
       "Custom Backdrops: Need a white background for Amazon, eBay, or passport photos? Switch seamlessly between Transparent, Pure White, Solid Black, and custom colors.",
-      "100% Client-Side Privacy: Tulyro processes everything locally via HTML5 Canvas API in your browser. Your images are never uploaded to any remote server or third-party cloud.",
+      "100% Client-Side Privacy: Tulyro processes everything on your device. The BiRefNet AI model runs in your browser via WebGPU/WASM (downloaded once from Hugging Face), and the Instant Edge Keying fallback uses the HTML5 Canvas API. Your images are never uploaded to any remote server or third-party cloud.",
     ],
     guides: [
       { label: "Photo and Signature Size Guide for Govt Exams", href: "/guides/photo-and-signature-size-guide-for-govt-exams/" },
@@ -395,7 +395,27 @@ export const content: Record<string, ToolContent> = {
       },
       {
         question: "What image formats are supported?",
-        answer: "You can upload PNG, JPG, JPEG, and WEBP images. The output is downloaded as a high-definition PNG.",
+        answer: "You can upload PNG, JPG, JPEG, and WEBP images. The output is downloaded as a PNG.",
+      },
+      {
+        question: "Does the background remover work automatically, or do I have to click something?",
+        answer: "You click once. After uploading, press 'Run AI Background Removal' and the on-device BiRefNet model cuts out the subject — nothing runs until you press it. If the AI engine fails on your device, the tool switches to Instant Edge Keying automatically and tells you.",
+      },
+      {
+        question: "What is the maximum image size, and will my download be full resolution?",
+        answer: "Uploads are limited to 25 MB (JPG, PNG or WEBP). Photos are downscaled before processing — longest edge capped at 1600 px on desktop and 1024 px on phones — so the downloaded PNG is at most that size, even if the original was a 12-megapixel photo.",
+      },
+      {
+        question: "What will the downloaded file be called?",
+        answer: "Your file name plus '-transparent.png' — for example, photo.png becomes photo-transparent.png. The name stays the same whatever backdrop you pick, and the output is always a PNG.",
+      },
+      {
+        question: "Does the background remover work offline?",
+        answer: "Not on the very first AI run: the BiRefNet model downloads from Hugging Face the first time you press 'Run AI Background Removal', then it is cached in your browser and later runs fully on-device. Instant Edge Keying needs no download at all — it is pure canvas work in your browser.",
+      },
+      {
+        question: "Can I fine-tune the cutout edges?",
+        answer: "In Instant Edge Keying mode, yes: the Tolerance slider (1–85%, default 20%) sets how close a colour must be to the detected background colour to turn transparent, and Edge Feathering (0–50%, default 10%) softens the cutout edge. The AI mode has no manual edge controls — switch to Edge Keying to adjust the target colour, tolerance and feathering by hand.",
       },
     ]),
   },

@@ -4592,6 +4592,8 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
     if (isTargetHeic) {
       setPreviewUrl(null);
       setDimensions({ width: 0, height: 0 });
+      // heic2any only outputs JPEG/PNG — a WebP choice would produce a JPEG blob named .webp
+      if (outputFormat === "webp") setOutputFormat("jpeg");
       return;
     }
 
@@ -4668,13 +4670,13 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
         />
       </div>
 
-      {previewUrl && (
+      {file && (
         <div className="space-y-4 rounded-xl border border-border p-4 bg-surface-container-lowest">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold">{file?.name}</p>
               <p className="text-xs text-muted-foreground">
-                Original: {dimensions.width}x{dimensions.height}px • {(originalSize / 1024).toFixed(1)} KB
+                Original: {previewUrl ? `${dimensions.width}x${dimensions.height}px • ` : ""}{(originalSize / 1024).toFixed(1)} KB
               </p>
             </div>
 
@@ -4698,6 +4700,8 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
               >
                 JPG
               </button>
+              {/* WebP hidden for HEIC input: heic2any outputs JPEG/PNG only, so a WebP pick would download a JPEG blob named .webp */}
+              {!(file && /\.hei[cf]$/i.test(file.name)) && (
               <button
                 type="button"
                 onClick={() => setOutputFormat("webp")}
@@ -4707,6 +4711,7 @@ function ImageConverterPanel({ initialMode }: { initialMode?: "heic" | "jpg-to-p
               >
                 WebP
               </button>
+              )}
             </div>
           </div>
 

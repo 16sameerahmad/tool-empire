@@ -1324,15 +1324,20 @@ export const content: Record<string, ToolContent> = {
       "Select the desired output resolution and click Download PNG or Download SVG.",
     ],
     content: [
-      "This QR code generator produces standard ISO/IEC 18004 compliant two-dimensional matrix barcodes. It supports high error correction level (Level H), allowing up to 30% of the code to be obscured, scratched, or overlaid with a central logo while still scanning reliably on all modern iOS and Android cameras.",
-      "Unlike third-party QR services that route scans through tracking redirect links that expire after a 14-day trial, our generator produces permanent, direct QR codes. The URL or payload is encoded directly into the pixel matrix itself, meaning your QR codes will work indefinitely without subscription fees or dead links.",
-      "Export formats include high-density PNG for digital displays and social media banners, as well as crisp, infinitely scalable SVG vectors for billboards, packaging, stickers, and business cards.",
+      "This QR code generator produces standard ISO/IEC 18004 compliant two-dimensional matrix barcodes. It supports high error correction level (Level H), allowing up to 30% of the code to be obscured or scratched while still scanning reliably on all modern iOS and Android cameras.",
+      "Unlike third-party QR services that route scans through tracking redirect links, our generator produces permanent, direct QR codes. The URL or payload is encoded directly into the pixel matrix itself, meaning your QR codes will work indefinitely without subscription fees or dead links.",
+      "Export formats include high-density PNG for digital displays and social media banners, as well as SVG for billboards, packaging, stickers, and business cards — the SVG is traced from the rendered code, so it stays sharp at any size.",
     ],
     faq: faq([
       { question: "Do these QR codes expire?", answer: "Never. These are direct, static QR codes where your data is encoded directly into the pattern. They do not depend on redirects and will work forever." },
       { question: "Can I download vector SVG format?", answer: "Yes. You can export as raster PNG or resolution-independent SVG vector for professional commercial printing." },
       { question: "Are my QR contents saved or tracked?", answer: "No. The QR matrix is calculated entirely in your browser. No URLs, text, or scan statistics are sent to any server." },
       { question: "What error correction level is used?", answer: "It uses Level H (High), which tolerates up to 30% data recovery, ensuring fast and reliable camera recognition even on damaged surfaces." },
+      { question: "Can I make a WiFi QR code or a vCard QR code?", answer: "Yes, but there is no built-in WiFi or contact form — this generator has a single text field, so paste the formatted payload yourself. For WiFi use WIFI:T:WPA;S:NetworkName;P:password;; (replace WPA with WEP or nopass as needed). For a contact card, paste a vCard block starting with BEGIN:VCARD and ending with END:VCARD. Payment links work the same way: paste the UPI or payment URL as the content." },
+      { question: "Can I add a logo in the middle of the QR code?", answer: "No — this generator has no logo upload. Level H error correction tolerates up to 30% damage, so you can overlay a small logo yourself in an image editor, but keep it small, centred, and on a light background, and test-scan the result — a logo that covers a finder pattern or too many modules will break the code." },
+      { question: "What file name do the downloads get?", answer: "Every download is named qrcode.png or qrcode.svg — the name is fixed and does not come from your content. If you generate several codes, rename each file after downloading so they do not overwrite each other." },
+      { question: "What size should I download for print?", answer: "The size field runs from 64 to 1024 pixels in steps of 32, starting at 256. For print, set it to 1024 and download the PNG, or use the SVG, which stays sharp at any size. Keep the foreground dark on a light background — inverted or low-contrast codes often fail to scan — and note the SVG is traced from the rendered pixels, so a very light or bright foreground colour can export as a blank SVG; use the PNG for coloured codes." },
+      { question: "Does the QR generator work offline?", answer: "Not on first use. The QR engine (qrcodejs 1.0.0) loads from cdnjs the first time you open the tool, so you need internet for that first load. After that the code is generated entirely in your browser, and nothing you type is uploaded or stored anywhere." },
     ]),
   },
   "barcode-generator": {

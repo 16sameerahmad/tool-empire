@@ -22,7 +22,7 @@ const DIRECTORY: { heading: string; links: { label: string; href: string }[] }[]
       { label: "Merge PDF Online Free", href: "/tools/merge-pdf/" },
       { label: "PDF to JPG Converter", href: "/tools/pdf-to-jpg/" },
       { label: "Image Compressor to Exact KB", href: "/tools/image-compressor/" },
-      { label: "QR Code Generator with Logo", href: "/tools/qr-code-generator/" },
+      { label: "QR Code Generator", href: "/tools/qr-code-generator/" },
     ],
   },
   {
